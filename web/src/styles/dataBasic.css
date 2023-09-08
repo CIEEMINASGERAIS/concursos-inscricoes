@@ -1,0 +1,337 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500&display=swap');
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  outline: 0;
+  font-family: 'Inter', sans-serif;
+}
+
+/* body{
+  background: linear-gradient(90deg,rgb(0, 132, 255) 35%, rgb(0, 255, 242) 100%);
+  width: 100%;
+} */
+
+.screen-basic-data1 {
+  margin: 4rem 1.5rem 0.5rem 1rem;
+}
+
+.form-data {
+  margin: 5rem 2rem 5rem 14rem;
+  margin: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: rgba(0, 0, 0, 0.199);
+  max-width: 100%;
+  padding: 1.5rem 2rem 3rem 2rem;
+  border-radius: 0.8rem;
+  box-shadow: 0.413rem 0.413rem 0.6rem rgba(0, 0, 0, 0.336);
+  gap: 1rem;
+  color: white;
+}
+
+.form-data input,
+.form-data select {
+  font-size: 1.1rem;
+  border-radius: 0.5rem;
+  border: 1.5px solid rgb(122, 123, 131);
+  padding: 0.6rem 0.5rem 0.4rem 0.5rem;
+}
+
+
+.form-data label {
+  font-size: 1.3rem;
+  margin: 1rem 0rem 0.1rem 0.5rem;
+}
+
+.form-data span p {
+  color: rgb(255, 0, 0);
+  cursor: pointer;
+  font-weight: bold;
+  margin: 0rem;
+  margin-top: 0rem;
+  padding: 0rem 0rem 0rem 0.5rem;
+  border-radius: 0.5rem;
+}
+
+.name,
+.cpf,
+.rg,
+.orgao-expedidor,
+.nome-mae,
+.nome-pai,
+.carteira-trabalho,
+.naturalidade,
+.nacionalidade,
+.estado-civil,
+.data-nascimento,
+.sexo,
+.uf-naturalidade,
+.deficiencias {
+  width: 100%;
+}
+
+.div-number-1,
+.div-number-1-5,
+.div-number-2,
+.div-number-3,
+.div-number-4,
+.div-number-5 {
+  display: flex;
+  flex-direction: center;
+  justify-content: space-between;
+}
+
+.div-name {
+  width: 46rem;
+  margin-right: 2rem;
+  order: 1;
+}
+
+.div-cpf {
+  width: 46rem;
+  order: 2;
+}
+
+.div-rg {
+  width: 46rem;
+  margin-right: 2rem;
+
+}
+
+.div-orgao-expedidor {
+  width: 46rem;
+}
+
+.div-nome-mae {
+  width: 46rem;
+  margin-right: 2rem;
+}
+
+.div-nome-pai {
+  width: 46rem;
+}
+
+.div-carteira-trabalho {
+  width: 29rem;
+  margin-right: 2rem;
+}
+
+.div-naturalidade {
+  width: 29rem;
+  margin-right: 2rem;
+}
+
+.div-nacionalidade {
+  width: 29rem;
+}
+
+.div-estado-civil {
+  width: 29rem;
+  margin-right: 2rem;
+}
+
+.div-data-nascimento {
+  width: 29rem;
+  margin-right: 2rem;
+}
+
+.div-sexo {
+  width: 29rem;
+}
+
+.div-naturalidade {
+  width: 25rem;
+}
+
+.div-deficiencias {
+  width: 25rem;
+}
+
+#descricao {
+  width: 100%;
+}
+
+.div-buttons-data {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+}
+
+.form-data button {
+  background-color: #007bff;
+  margin: 0rem 0rem 0rem 0rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  box-shadow: 0.413rem 0.413rem 0.6rem rgba(0, 0, 0, 0.336);
+  border: solid #0075f3;
+  font-size: 1rem;
+  padding: 0.5rem 1rem 0.5rem 1rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  width: 10rem;
+}
+
+#msg-fracasso p {
+  font-size: 1em;
+  /* margin: 0rem 0rem 0rem 27.5rem; */
+  padding: 1rem 0.5rem 0rem 0.5rem;
+  /* background-color: rgba(255, 255, 255, 0.336); */
+  color: rgb(255, 0, 0);
+  border-radius: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* outline: 0.1rem solid rgb(255, 0, 0); */
+  border-radius: 0.5rem;
+  width: 100%;
+}
+
+@media screen and (max-width:1060px) {
+
+  .screen-basic-data1 {
+    margin: 6rem 20rem 0.5rem 0rem;
+  }
+
+  .form-data {
+    margin: 5rem 0rem 2rem 16rem;
+    width: 100%;
+  }
+
+  .form-data label {
+    font-size: 1.3rem;
+    margin: 0;
+    padding: 0;
+  }
+
+
+  .div-number-1,
+  .div-number-1-5,
+  .div-number-2,
+  .div-number-3,
+  .div-number-4,
+  .div-number-5 {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 0rem;
+    margin-top: -1rem;
+
+  }
+
+  .name,
+  .cpf,
+  .rg,
+  .orgao-expedidor,
+  .nome-mae,
+  .nome-pai,
+  .carteira-trabalho,
+  .naturalidade,
+  .nacionalidade,
+  .estado-civil,
+  .data-nascimento,
+  .sexo,
+  .uf-naturalidade,
+  .deficiencias {
+    width: 100%;
+  }
+
+  .div-name,
+  .div-cpf,
+  .div-rg,
+  .div-orgao-expedidor,
+  .div-nome-mae,
+  .div-nome-pai,
+  .div-carteira-trabalho,
+  .div-naturalidade,
+  .div-nacionalidade,
+  .div-estado-civil,
+  .div-data-nascimento,
+  .div-sexo,
+  .div-naturalidade,
+  .div-naturalidade,
+  .div-deficiencias,
+  #descricao {
+    width: 100%;
+    margin-top: 1.5rem;
+  }
+}
+@media screen and (max-width:920px) {
+  .screen-basic-data1 {
+    margin: 8rem 10rem 0.5rem 0rem;
+  }
+
+  .form-data {
+    margin: 5rem 0rem 1rem 7rem;
+    width: 100%;
+  }
+
+  .form-data label {
+    font-size: 1.3rem;
+    margin: 0;
+    padding: 0;
+  }
+
+  #msg-fracasso p {
+    margin: 0rem 0rem 0rem 0rem;
+}}
+
+@media screen and (max-width:540px) {
+  .screen-basic-data1 {
+    margin: 7rem 8rem 0.5rem 0rem;
+  }
+
+  .form-data {
+    margin: 5rem 0rem 1rem 6rem;
+    width: 100%;
+  }
+
+  .form-data label {
+    font-size: 1.3rem;
+    margin: 0;
+    padding: 0;
+  }
+}
+
+@media screen and (max-width: 430px) {
+  .screen-basic-data1 {
+    margin: 6rem 6rem 0.5rem 0rem;
+  }
+
+  .form-data {
+    margin: 5rem 0rem 1rem 5rem;
+    width: 100%;
+    padding: 1rem 1rem 1rem 1rem;
+  }
+
+  .form-data label {
+    font-size: 1.3rem;
+    margin: 0;
+    padding: 0;
+  }
+}
+
+@media screen and (max-width: 300px) {
+  .screen-basic-data1 {
+    margin: 5.5rem 5rem 0.5rem 0rem;
+  }
+
+  .form-data {
+    margin: 5rem 0rem 1rem 4.5rem;
+    width: 100%;
+    padding: 1.5rem 0.5rem 4rem 0.5rem;
+  }
+
+  .form-data label {
+    font-size: 1.3rem;
+    margin: 0;
+    padding: 0;
+  }
+ 
+}

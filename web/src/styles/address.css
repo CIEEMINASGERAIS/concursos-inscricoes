@@ -1,0 +1,271 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500&display=swap');
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  outline: 0;
+  font-family: 'Inter', sans-serif;
+}
+
+.screen-address {
+  margin: 5rem 16rem 3rem 0rem;
+}
+
+.form-address {
+  margin: 4rem 0rem 2rem 14rem;
+  /* margin: auto; */
+  padding: 0rem 2rem 3rem 2rem;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.199);
+  border-radius: 0.5rem;
+  font-size: 1.2rem;
+}
+
+.form-address input {
+  width: 100%;
+  font-size: 1.1rem;
+  border-radius: 0.5rem;
+  border: 1.5px solid rgb(122, 123, 131);
+  padding: 0.5rem 0.5rem 0.4rem 0.5rem;
+}
+
+.form-address label {
+  margin: 1rem 0rem 0rem 0rem;
+  color: white;
+}
+
+.cep-logradouro,
+.numero-complemento,
+.uf-bairro,
+.cidade-telefone1,
+.telefone2-email {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+}
+
+.telefone2-email {
+  margin-bottom: 4REM;
+}
+
+.div-cep,
+.div-logradouro,
+.div-numero,
+.div-complemento,
+.div-uf,
+.div-bairro,
+.div-cidade,
+.div-telefone1,
+.div-telefone2,
+.div-email {
+  width: 100%;
+  margin: 0rem;
+}
+
+.div-logradouro,
+.div-complemento,
+.div-bairro,
+.div-telefone1,
+.div-email {
+  margin-left: 2rem;
+}
+
+.form-address span p {
+  color: rgb(255, 0, 0);
+  cursor: pointer;
+  font-weight: bold;
+  margin: 0.2rem 0rem 0rem 0rem;
+  margin-top: 0.2rem;
+  padding: 0rem 0rem 0rem 0.5rem;
+  border-radius: 0.5rem;
+  max-width: 100%;
+  font-size: 1rem;
+}
+
+.button-back-address,
+.button-advanced-adress {
+  background-color: #007bff;
+  margin: 0rem 0rem 0rem 0rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  box-shadow: 0.413rem 0.413rem 0.6rem rgba(0, 0, 0, 0.336);
+  border: solid #0075f3;
+  font-size: 1rem;
+  padding: 0.5rem 4rem 0.5rem 4rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  width: 10rem;
+}
+
+.div-buttons-address {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-left: 0rem;
+  margin-top: 0rem;
+}
+
+.linha-ou {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+#msg-fracasso-address {
+  margin: 1rem 0rem 0rem 0rem;
+}
+
+#msg-fracasso-address p {
+  font-size: 0.8em;
+  margin: 0rem 0rem 0.5rem 0rem;
+  padding: 0rem 0rem 0rem 0rem;
+  background-color: transparent;
+  color: rgb(255, 0, 0);
+  border-radius: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.5rem;
+}
+
+.cep-found {
+  position: fixed;
+  top: 0;
+  z-index: 2;
+  height: 100%;
+  width: 100%;
+  display: none;
+  backdrop-filter: blur(10px);
+  
+}
+
+.alert-cep h1 {
+  font-size: 1.3em;
+  font-weight: 700;
+  margin: 1rem auto 0rem auto;
+}
+
+.alert-cep p {
+  margin: 1rem auto;
+  font-size: 1em; 
+  line-height: 2rem;
+}
+
+.alert-cep button {
+  cursor: pointer;
+  font-size: 0.9em;
+  font-weight: 700;
+  padding: 0.5rem 1rem;
+}
+
+.alert-cep {
+  /* margin: 14rem 0.8rem 0rem 3rem ; */
+  margin: 3rem auto;
+  margin-top: 10rem;
+  background-color: white;
+  outline: 2px solid gray;  
+  width:90%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+  border-radius: 0.8rem;
+}
+
+.button-confirm-cep{
+  background-color: #007bff;
+  margin: 0rem 0rem 0rem 0rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  box-shadow: 0.413rem 0.413rem 0.6rem rgba(0, 0, 0, 0.336);
+  border: solid #0075f3;
+  font-size: 1rem;
+  padding: 0.5rem 4rem 0.5rem 4rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  width: 10rem;
+}
+
+
+@media screen and (max-width:920px) {
+  .screen-address {
+    margin: 7rem 8rem 0rem 0rem;
+  }
+
+  .form-address {
+    margin: 4rem 0rem 2rem 6rem;
+    padding: 0rem 2rem 3rem 2rem;
+  }
+}
+
+@media screen and (max-width:800px) {
+  .screen-address {
+    margin: 7rem 8rem 0rem 0rem;
+  }
+
+  .form-address {
+    margin: 4rem 0rem 2rem 6rem;
+    padding: 0rem 2rem 3rem 2rem;
+  }
+
+  .cep-logradouro,
+  .numero-complemento,
+  .uf-bairro,
+  .cidade-telefone1,
+  .telefone2-email {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    padding: 0;
+  }
+
+  .div-logradouro,
+  .div-complemento,
+  .div-bairro,
+  .div-telefone1,
+  .div-email {
+    margin-left: 0rem;
+  }
+
+  .div-email {
+    margin-bottom: 2.5rem;
+  }
+
+  .div-buttons-address {
+    margin-top: 0rem;
+  }
+}
+
+@media screen and (max-width: 450px) {
+
+  .screen-address {
+    margin: 6rem 5rem 0rem 0rem;
+  }
+
+  .form-address {
+    margin: 4rem 0rem 2rem 4.5rem;
+    padding: 0rem 2rem 3rem 2rem;
+  }
+}
+
+@media screen and (max-width: 390px) {
+
+  .screen-address {
+    margin: 6rem 5rem 0rem 0rem;
+  }
+
+  .form-address {
+    margin: 4rem 0rem 2rem 4.5rem;
+    padding: 0rem 1rem 3rem 1rem;
+  }
+}

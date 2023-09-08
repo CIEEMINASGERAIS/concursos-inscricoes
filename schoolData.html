@@ -1,0 +1,92 @@
+<form class="form-school-data" id="form-school-data">
+  <div class="escolas-cursos">
+    <div id="escolasInput" class="escola-search">
+      <label for="escolas">Escola onde estuda ou estudou?</label>
+      <select name="escolas" data-live-search="true" class="w-100" data-max-options="11" id="escolas"
+        title="Selecione a escola.">
+        <option disabled selected>Selecione</option>
+      </select>
+    </div>
+    <div><span id="msg-escola"></span></div>
+    <div id="div-cursos" class="curso-search">
+      <label for="cursos">Cursos</label>
+      <select name="escolas" data-live-search="true" class="w-100" id="cursos" title="Selecione o curso.">
+        <option disabled selected>Selecione</option>
+      </select>
+      <span id="msg-curso"></span>
+    </div>
+  </div>
+  <div class="ano-semestre-formatura">
+    <div id="div-ano-formatura" class="ano-formatura-search">
+      <label for="ano-formatura">Ano de Formatura</label>
+      <select name="anoFormatura" id="ano-formatura" data-live-search="true" class="w-100"
+        title="Selecione o ano de formatura.">
+        <option disabled selected>Selecione</option>
+      </select>
+      <span id="msg-ano"></span>
+    </div>
+    <div id="div-semestre-formatura" class="semestre-formatura-search">
+      <label for="semestre-formatura">Semestre de Formatura</label>
+      <select name="semestreFormatura" id="semestre-formatura" data-live-search="true" class="w-100"
+        title="Selecione o semestre de formatura.">
+        <option disabled selected>Selecione</option>
+      </select>
+      <span id="msg-semestre-formatura"></span>
+    </div>
+  </div>
+  <div class="mes-formatura-periodo">
+    <div id="div-mes-formatura" class="mes-formatura-search">
+      <label for="mes-formatura">Mês de Formatura</label>
+      <select name="mesFormatura" id="mes-formatura" data-live-search="true" class="w-100"
+        title="Selecione o mês de formatura.">
+        <option disabled selected>Selecione</option>
+      </select>
+      <span id="msg-mes-formatura"></span>
+    </div>
+    <div id="div-periodo" class="periodo-search">
+      <label class="label-periodo" for="periodo">Período/Ano/Ciclo/Módulo</label>
+      <select name="periodo" id="periodo" data-live-search="true" class="w-100"
+        title="Selecione o período de formatura.">
+        <option disabled selected>Selecione</option>
+      </select>
+      <span id="msg-periodo"></span>
+    </div>
+  </div>
+  <div id="div-horario-estudo" class="horario-estudo-search">
+    <label for="horario">Horário de Estudo</label>
+    <select name="horarioEstudo" id="horario" data-live-search="true" class="w-100"
+      title="Selecione o horário de estudo.">
+      <option disabled selected>Selecione</option>
+    </select>
+  </div>
+  <span id="msg-fracasso-school"></span>
+  <div class="div-buttons">
+    <button class="button-back-school" type="button">Voltar</button>
+    <div class="linha-ou-school">
+      <div class="line-div"></div>
+      <div class="ou">OU</div>
+      <div class="line-div"></div>
+    </div>
+    <button class="button-finish-school" type="submit">Finalizar</button>
+  </div>
+</form>
+<div class="end">
+  <div class="alert">
+    <h1>Cadastro concluído!</h1>
+    <!-- Fazer o nome do estudante aparecer nesta mensagem. -->
+    <p>Olá estudante, parabéns por finalizar a primeira etapa do seu cadastro, fique atento ao seu e-mail, enviaremos em
+      até 24 horas os dados para realizar seu primeiro login no nosso portal, para conclusão do seu cadastro.</p>
+    <div class="button-school-end">
+      <button class="button-end-school">Confirmar</button>
+    </div>
+  </div>
+</div>
+<div class="school-found">
+  <div class="alert-school">
+    <h1>Escola não encontrada</h1>
+    <p>Favor enviar um e-mail para escola@cieemg.org.br informando a sua escola.</p>
+    <div class="button-school">
+      <button class="button-confirm-school">Confirmar</button>
+    </div>
+  </div>
+</div>

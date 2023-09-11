@@ -49,46 +49,7 @@ async function initAddress() {
             const opcoes = await response.json()
             endereco = opcoes
             dadosCep = endereco.map(cep => cep.cep)
-            logradouro.value = endereco.map(logradouro => logradouro.logradouro)
-            validate = isNaturalidadeNacionalidade(logradouro.value)
-            if (validate) {
-              document.getElementById("msg-logradouro").innerHTML = ""
-              formDataAddress.logradouro = logradouro.value
-            } else {
-              document.getElementById("msg-logradouro").innerHTML =
-                "<p>Logradouro inválido!</p>"
-              formDataAddress.logradouro = false
-            }
-            uf.value = endereco.map(uf => uf.uf)
-            validate = (isUfNaturalidade(uf.value))
-            if (validate) {
-              document.getElementById("msg-uf").innerHTML = ""
-              formDataAddress.uf = uf.value
-            } else {
-              document.getElementById("msg-uf").innerHTML =
-                "<p>UF inválido!</p>"
-              formDataAddress.uf = false
-            }
-            bairro.value = endereco.map(bairro => bairro.bairro)
-            validate = (isNaturalidadeNacionalidade(bairro.value))
-            if (validate) {
-              document.getElementById("msg-bairro").innerHTML = ""
-              formDataAddress.bairro = bairro.value
-            } else {
-              document.getElementById("msg-bairro").innerHTML =
-                "<p>Bairro inválido!</p>"
-              formDataAddress.bairro = false
-            }
-            cidade.value = endereco.map(cidade => cidade.cidade)
-            validate = (isNaturalidadeNacionalidade(cidade.value))
-            if (validate) {
-              document.getElementById("msg-cidade").innerHTML = ""
-              formDataAddress.cidade = cidade.value
-            } else {
-              document.getElementById("msg-cidade").innerHTML =
-                "<p>Cidade inválido!</p>"
-              formDataAddress.cidade = false
-            }
+
           } else {
             console.log('Erro na solicitação:', response.statusText)
           }
@@ -99,8 +60,6 @@ async function initAddress() {
         validate = isCep(e.target.value)
 
         const cepFound = document.querySelector('.cep-found')
-
-        console.log(dadosCep[0])
 
         if (validate) {
           formDataAddress.cep = e.target.value
@@ -118,13 +77,10 @@ async function initAddress() {
                 if (element.classList.contains('button-confirm-cep')) {
                   cepFound.style.display = 'none'
                 }
-
               })
             }
           }
-
           document.getElementById("msg-cep").innerHTML = ""
-
         } else {
           e.preventDefault()
           document.getElementById("msg-cep").innerHTML = "<p>CEP inválido!</p>"
@@ -132,6 +88,47 @@ async function initAddress() {
         }
       })
     }
+
+    // logradouro.value = endereco.map(logradouro => logradouro.logradouro)
+    // validate = isNaturalidadeNacionalidade(logradouro.value)
+    // if (validate) {
+    //   document.getElementById("msg-logradouro").innerHTML = ""
+    //   formDataAddress.logradouro = logradouro.value
+    // } else {
+    //   document.getElementById("msg-logradouro").innerHTML =
+    //     "<p>Logradouro inválido!</p>"
+    //   formDataAddress.logradouro = false
+    // }
+    // uf.value = endereco.map(uf => uf.uf)
+    // validate = (isUfNaturalidade(uf.value))
+    // if (validate) {
+    //   document.getElementById("msg-uf").innerHTML = ""
+    //   formDataAddress.uf = uf.value
+    // } else {
+    //   document.getElementById("msg-uf").innerHTML =
+    //     "<p>UF inválido!</p>"
+    //   formDataAddress.uf = false
+    // }
+    // bairro.value = endereco.map(bairro => bairro.bairro)
+    // validate = (isNaturalidadeNacionalidade(bairro.value))
+    // if (validate) {
+    //   document.getElementById("msg-bairro").innerHTML = ""
+    //   formDataAddress.bairro = bairro.value
+    // } else {
+    //   document.getElementById("msg-bairro").innerHTML =
+    //     "<p>Bairro inválido!</p>"
+    //   formDataAddress.bairro = false
+    // }
+    // cidade.value = endereco.map(cidade => cidade.cidade)
+    // validate = (isNaturalidadeNacionalidade(cidade.value))
+    // if (validate) {
+    //   document.getElementById("msg-cidade").innerHTML = ""
+    //   formDataAddress.cidade = cidade.value
+    // } else {
+    //   document.getElementById("msg-cidade").innerHTML =
+    //     "<p>Cidade inválido!</p>"
+    //   formDataAddress.cidade = false
+    // }
 
     if (uf) {
 

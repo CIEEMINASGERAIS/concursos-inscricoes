@@ -490,12 +490,14 @@ const initDataBasic = async () => {
       formData.addEventListener('submit', e => {
         e.preventDefault()
         if (
-          formDataBasic.nome && formDataBasic.cpf && formDataBasic.nomemae && formDataBasic.naturalidade && formDataBasic.nacionalidade && formDataBasic.estadocivil
-          && formDataBasic.dt_nascimento && formDataBasic.sexo && formDataBasic.uf_naturalidade && formDataBasic.deficiencia 
+          // formDataBasic.nome && formDataBasic.cpf && formDataBasic.nomemae && formDataBasic.naturalidade && formDataBasic.nacionalidade && formDataBasic.estadocivil
+          // && formDataBasic.dt_nascimento && formDataBasic.sexo && formDataBasic.uf_naturalidade && formDataBasic.deficiencia && formDataBasic.rg
+
+          formDataBasic.nome
         
           // formDataBasic.orgaoexpedidor && formDataBasic.rg
           //  && formDataBasic.nomepai && formDataBasic.ctps
-          // No caso do nomepai, carteira de trabalho, rg e orgao expedidor não são obrigatorios
+          // No caso do nomepai, carteira de trabalho e orgao expedidor não são obrigatorios
         ) {
           console.log('Sucesso!')
           console.log(formDataBasic)

@@ -241,7 +241,7 @@ async function createFormSchoolData() {
           SchoolFound.style.display = 'block'
 
           if (SchoolFound.style.display === 'block') {
-            
+
             document.addEventListener('click', e => {
               const element = e.target
 
@@ -312,9 +312,11 @@ async function createFormSchoolData() {
             horarioIncompleto = ['Estágio Curricular',
               'Formado']
             mostrarOpcoesAutocompleteHorario(horarioIncompleto)
-            document.getElementById('periodo').disabled = true
+            document.getElementById('div-periodo').style.display = 'none'
+            document.getElementById('periodo').style.display = true
           } else {
-            document.getElementById('periodo').disabled = false
+            document.getElementById('div-periodo').style.display = 'block'
+            document.getElementById('periodo').style.display = false
             horarioIncompleto = []
             mostrarOpcoesAutocompleteHorario(horariosEstudos)
           }
@@ -403,14 +405,17 @@ async function createFormSchoolData() {
 
     const alertEnd = document.querySelector('.end')
 
+    const today = new Date()
+
     if (formSchoolData) {
       formSchoolData.addEventListener('submit', async e => {
-        e.preventDefault()        
+        e.preventDefault()
         if (
           dataFormSchool.escola_id && dataFormSchool.curso_id && dataFormSchool.previsao_semestre && dataFormSchool.previsao_ano && dataFormSchool.previsao_mes && dataFormSchool.horario
-          
+
           // && dataFormSchool.periodo
         ) {
+          dataFormSchool.ano = today.getFullYear()
           console.log(dataFormSchool)
           alertEnd.style.display = 'block'
           resolve(dataFormSchool)

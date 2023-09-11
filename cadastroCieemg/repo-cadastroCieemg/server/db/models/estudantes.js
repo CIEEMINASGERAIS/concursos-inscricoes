@@ -139,12 +139,11 @@ const estudantes = db.define(
     },
     telefone: {
       type: Sequelize.STRING(45),
-      allowNull: false,
+      allowNull: true,
       validate: {
         notEmpty: {
           msg: "Esse campo não pode ser vazio."
         },
-        notNull: { msg: "O campo cep precisa ser preenchido" },
         is: /^\([1-9]{2}\) (?:[2-8]|9[1-9])[0-9]{3}\-[0-9]{4}$/
       }
     },
@@ -236,13 +235,13 @@ const estudantes = db.define(
       }
     },
     dt_nascimento: {
-      type: Sequelize.DATEONLY,
+      type: Sequelize.DATEONLY(),
       allowNull: false,
       validate: {
         notEmpty: {
           msg: "Esse campo não pode ser vazio."
         },
-        notNull: { msg: "O campo nome precisa ser preenchido" }
+        notNull: { msg: "O campo data da nascimento precisa ser preenchido" }
       }
     },
     horario: {
@@ -282,7 +281,14 @@ const estudantes = db.define(
     // *************************** VERIFICAR ***************************
     rg: {
       type: Sequelize.STRING(45),
-      allowNull: false
+      allowNull: false,
+      validate: {
+        notEmpty: {
+          msg: "Esse campo não pode ser vazio."
+        },
+        notNull: { msg: "O campo rg precisa ser preenchido" },
+        is: /^\d+$/
+      }
       // Obrigatório e só permitir números
     },
     orgaoexpedidor: {
@@ -324,14 +330,21 @@ const estudantes = db.define(
         notEmpty: {
           msg: "Esse campo não pode ser vazio."
         },
-        notNull: { msg: "O campo nome precisa ser preenchido" },
+        notNull: { msg: "O id da escola precisa ser preenchido" },
         is: /^\d+$/
       }
     },
     // *************************** VERIFICAR ***************************
     dt_cadastro: {
-      type: Sequelize.DATEONLY,
-      allowNull: false
+      type: Sequelize.DATEONLY(),
+      allowNull: false,
+      // validate: {
+      //   notEmpty: {
+      //     msg: "Esse campo não pode ser vazio."
+      //   },
+      //   notNull: { msg: "O campo data de cadastro precisa ser preenchido" },
+      //   // is: /^\d+$/
+      // }
       // Data do dia de cadastro
     },
     // *************************** VERIFICAR ***************************
@@ -413,7 +426,7 @@ const estudantes = db.define(
       allowNull: true
     },
     dt_atualizacao: {
-      type: Sequelize.DATEONLY,
+      type: Sequelize.DATEONLY(),
       allowNull: true
       // Data do dia de cadastro
     },
@@ -421,6 +434,7 @@ const estudantes = db.define(
     periodo: {
       type: Sequelize.INTEGER(4),
       allowNull: true
+      // Esse é o período que vamos utilizar
     },
     ano: {
       type: Sequelize.INTEGER(11),
@@ -430,6 +444,7 @@ const estudantes = db.define(
           msg: "Esse campo não pode ser vazio."
         },
         notNull: { msg: "O campo nome precisa ser preenchido" }
+        // Ano atual
       }
     },
     previsao_semestre: {
@@ -440,7 +455,7 @@ const estudantes = db.define(
           msg: "Esse campo não pode ser vazio."
         },
         notNull: { msg: "O campo semestre de formatura precisa ser preenchido" },
-        is: /^(1|2|0)$/, // Verificar se o 0 é estágio curricular
+        is: /^(1|2|0)$/, // Validar no front para estágio curricular passar o valor 0
         len: {
           args: [1],
           msg: "Esse campo deve ser um dos itens da lista semestre de formatura."
@@ -460,6 +475,7 @@ const estudantes = db.define(
           args: [4],
           msg: "Esse campo deve ter 4 caracteres."
         }
+        // Previsão de formatura que vamos utilizar
       }
     },
     previsao_mes: {
@@ -475,6 +491,7 @@ const estudantes = db.define(
           args: [1, 2],
           msg: "Esse campo deve ter 1 e 2 caracteres."
         }
+        // Previsão do mês de formatura que vamos utilizar
       }
     },
     deficiencia: {
@@ -535,11 +552,15 @@ const estudantes = db.define(
     },
     anoingresso: {
       type: Sequelize.INTEGER(11),
-      allowNull: true
+      allowNull: false,
+      defaultValue: 2021
+      // Fazer uma lógica para buscar o ano de ingresso e fazer o calculo 
     },
     semestreingresso: {
       type: Sequelize.INTEGER(11),
-      allowNull: true
+      allowNull: false,
+      defaultValue: 1
+      // Fazer uma lógica para encontra o semestre ingresso
     },
     cpf_pai: {
       type: Sequelize.STRING(14),
@@ -548,7 +569,7 @@ const estudantes = db.define(
     },
     cpf_mae: {
       type: Sequelize.STRING(14),
-      allowNull: false
+      allowNull: true
       // Obrigatório
     },
     notificacao: {
@@ -561,7 +582,9 @@ const estudantes = db.define(
     },
     codigo: {
       type: Sequelize.STRING(20),
-      allowNull: true
+      allowNull: true,
+      defaultValue: "08sEt2023"
+      // Temos que descobrir qual é este código
     },
     dt_expiracao_codigo: {
       type: Sequelize.DATE,
@@ -588,7 +611,7 @@ const estudantes = db.define(
           msg: "Esse campo não pode ser vazio."
         },
         notNull: { msg: "O campo nome precisa ser preenchido" },
-        is: /^[01]$/,
+        is: /^[1]$/,
         len: {
           args: [1],
           msg: "Esse campo deve ter 1 caracter."
@@ -597,9 +620,9 @@ const estudantes = db.define(
     },
     // **************** VERIFICAR ****************
     dt_aceite_termos: {
-      type: Sequelize.DATE,
-      allowNull: true
-      // Dia do cadastro
+      type: Sequelize.DATE(),
+      allowNull: false
+      // Está pronto, agora é só verificar com o Lídio
     },
     // **************** VERIFICAR ****************
     naturalidade: {
@@ -645,6 +668,11 @@ const estudantes = db.define(
           msg: "Esse campo deve ter 1 e 100 caracteres."
         }
       }
+    },
+    enviar_email: {
+      type: Sequelize.STRING(1),
+      allowNull: false,
+      defaultValue: 1
     }
   },
   {

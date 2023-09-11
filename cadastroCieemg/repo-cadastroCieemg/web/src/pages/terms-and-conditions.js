@@ -1,4 +1,4 @@
-const { changeMains, changeSubMainTitle } = require('../utils/util')
+const { changeMains, changeSubMainTitle, dateTime } = require('../utils/util')
 
 async function termsAndConditions() {
     return new Promise(async (resolve, reject) => {
@@ -46,20 +46,19 @@ async function termsAndConditions() {
 
             if (element.classList.contains("button-accept")) {
                 schoolData.termos_condicoes = 1
+                schoolData.dt_aceite_termos = dateTime().replace('/', '-')
             }
 
             if (element.classList.contains('button-termo-1') || element.classList.contains('basic-data')) {
-                if (schoolData.termos_condicoes) {
+                // if (schoolData.termos_condicoes) {
                 changeMains('.screen-basic-data1')
                 changeSubMainTitle('Formulário de Dados Básicos')
-                resolve(schoolData)
-                } else {
-                    e.preventDefault()
-                }
+                console.log(dateTime())
+                // resolve(schoolData)
+                // } else {
+                //     e.preventDefault()
+                // }
             }
-
-
-
 
             let checkbox = document.getElementById('li-concordo');
 
@@ -69,9 +68,10 @@ async function termsAndConditions() {
             } else {
                 document.getElementById("button-accept").disabled = true
             }
-
-
         })
+
+
+
 
         $(document).ready(async function () {
             document.getElementById("li-concordo").disabled = true

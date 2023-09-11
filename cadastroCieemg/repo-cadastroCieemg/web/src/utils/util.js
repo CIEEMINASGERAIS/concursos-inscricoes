@@ -798,6 +798,21 @@ const isCep = cep => {
   return true
 }
 
+const dateTime = () => {
+  const today = new Date()
+
+  return `${today.toLocaleDateString({
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  })} ${today.toLocaleTimeString('pt-BR', {
+    hour12: false,
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit'
+  })}`
+}
+
 // value="s"
 // value="c"
 // value="a"
@@ -936,5 +951,6 @@ module.exports = {
   isMesFormatura,
   isPeriodo,
   isHorario,
-  isRg
+  isRg,
+  dateTime
 }

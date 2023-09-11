@@ -13,7 +13,7 @@
 }
 
 #form-school-data {
-  padding: 2rem 2rem 0rem 2rem;
+  padding: 2rem 2rem 4rem 2rem;
   margin: 4rem 0rem 2rem 14rem;
   width: 100%;
   background-color: rgba(0, 0, 0, 0.199);
@@ -49,6 +49,7 @@
   align-items: center;
   text-align: center;
   flex-direction: column;
+  margin-top: 1rem;
 }
 
 .div-buttons button {
@@ -62,7 +63,7 @@
   box-shadow: 0.413rem 0.413rem 0.6rem rgba(0, 0, 0, 0.336);
   border: solid #0075f3;
   font-size: 1rem;
-  
+
   padding: 0.5rem 4rem 0.5rem 4rem;
   border-radius: 0.5rem;
   cursor: pointer;
@@ -70,7 +71,7 @@
 }
 
 .button-back-school {
-  margin: 2rem 0rem 2rem 0rem;
+  margin: 0rem 0rem 2rem 0rem;
 }
 
 .line-div {
@@ -128,8 +129,9 @@
   width: 100%;
   margin: 1rem;
 }
+
 .horario-estudo-search {
-  margin: 1rem 0rem 0rem 1rem;
+  margin: 1rem 0rem 1rem 1rem;
   width: 48%;
 }
 
@@ -143,6 +145,10 @@
   width: 2rem;
 }
 
+#div-horario-estudo {
+  margin-bottom: 3rem;
+}
+
 .escola-search button,
 .curso-search button,
 .ano-formatura-search button,
@@ -151,7 +157,7 @@
 .periodo-search button,
 .horario-estudo-search button {
   background-color: white !important;
-  padding: 0.9375rem 1,5625rem;
+  padding: 0.9375rem 1, 5625rem;
   color: rgb(0, 0, 0) !important;
   font-size: 0.9em;
   width: 2rem;
@@ -178,17 +184,13 @@
 }
 
 #msg-fracasso-school p {
-  font-size: 0.8em;
-  padding: 1rem 0.5rem 1rem 0.5rem;
-  margin: 2rem 4rem 0rem 0rem;
-  background-color: rgba(255, 255, 255, 0.336);
-  color: #DC3543;
+  color: rgb(255, 0, 0);
+  cursor: pointer;
+  font-weight: bold;
+  margin: 0rem;
+  margin-top: 0rem;
+  padding: 0rem 0rem 0rem 0.5rem;
   border-radius: 0.5rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  outline: 0.1rem solid #DC3543;
-  width: 10rem;
 }
 
 .end {
@@ -264,7 +266,8 @@
   align-items: center;
   height: 100%;
 }
-.button-end-school{
+
+.button-end-school {
   background-color: #007bff;
   margin: 0rem 0rem 1rem 0rem;
   display: flex;
@@ -282,36 +285,39 @@
 }
 
 @media screen and (max-width: 1200px) {
+
   .escolas-cursos,
-.ano-semestre-formatura,
-.div-ano-formatura,
-.mes-formatura-periodo {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  margin-left: -1rem;
-}
-.escola-search,
-.curso-search,
-.ano-formatura-search,
-.semestre-formatura-search,
-.mes-formatura-search,
-.periodo-search,
-.horario-estudo-search {
-  width: 100%;
-  
-}
-.horario-estudo-search {
-  margin: 1rem 0rem 0rem 0rem;
-  width: 100%;
-}
+  .ano-semestre-formatura,
+  .div-ano-formatura,
+  .mes-formatura-periodo {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-left: -1rem;
+  }
+
+  .escola-search,
+  .curso-search,
+  .ano-formatura-search,
+  .semestre-formatura-search,
+  .mes-formatura-search,
+  .periodo-search,
+  .horario-estudo-search {
+    width: 100%;
+
+  }
+
+  .horario-estudo-search {
+    margin: 1rem 0rem 0rem 0rem;
+    width: 100%;
+  }
 }
 
 @media screen and (max-width:920px) {
   .screen-school-data {
     margin: 7rem 16rem 3rem 0rem;
   }
-  
+
   #form-school-data {
     padding: 2rem 2rem 0rem 2rem;
     margin: 4rem 0rem 2rem 10rem;
@@ -325,7 +331,7 @@
   .screen-school-data {
     margin: 6rem 6rem 3rem 0rem;
   }
-  
+
   #form-school-data {
     padding: 2rem 2rem 0rem 2rem;
     margin: 3rem 0rem 2rem 5rem;
@@ -333,11 +339,12 @@
     background-color: rgba(0, 0, 0, 0.199);
     border-radius: 0.5rem;
   }
+
   @media screen and (max-width: 340px) {
     .screen-school-data {
       margin: 6rem 5rem 3rem 0rem;
     }
-    
+
     #form-school-data {
       padding: 2rem 0.5rem 0rem 0.5rem;
       margin: 3rem 0rem 2rem 4.5rem;
@@ -345,8 +352,9 @@
       background-color: rgba(0, 0, 0, 0.199);
       border-radius: 0.5rem;
     }
-    /* .label-periodo{
 
-    } */
+    .label-periodo {
+      font-size: 0.9rem;
+    }
   }
 }

@@ -7,7 +7,10 @@ const sequelize = new Sequelize(
   config.database,
   config.username,
   config.password,
-  config
+  {
+    host: config.host,
+    dialect: config.dialect,
+  }
 )
 
 sequelize
@@ -15,8 +18,9 @@ sequelize
   .then(function () {
     console.log('Conexão com o banco de dados realizada com sucesso!')
   })
-  .catch(function () {
-    console.log('Erro: Conexão com banco de dados não realizada com sucesso!')
+  .catch(function (error) {
+    console.log('Erro: Conexão com banco de dados não realizada com sucesso!', error)
+    throw error
   })
 
 module.exports = sequelize

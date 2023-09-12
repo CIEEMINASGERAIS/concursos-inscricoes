@@ -2,7 +2,7 @@ const { isNumero, isComplemento, isTelefone, isEmail, changeMains, changeSubMain
 
 async function initAddress() {
   return new Promise(async (resolve, reject) => {
-    const response = await fetch('address')
+    const response = await fetch('/address')
     const htmlContent = await response.text()
 
     const address = document.querySelector('.screen-address')

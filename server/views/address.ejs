@@ -2,7 +2,13 @@
   <div class="cep-logradouro">
     <div class="div-cep" id="div-cep">
       <label for="cep">CEP</label>
-      <input type="text" name="cep" id="cep" placeholder="CEP" class="cep" id="cep" maxlength="9" />
+      <div class="input-group">
+        <input type="text" id="cep" class="form-control cep" placeholder="CEP" aria-label="CEP"
+          aria-describedby="button-addon2" maxlength="9">
+        <div class="input-group-append">
+          <button class="btn-cep" type="button" id="button-addon2">Botão</button>
+        </div>
+      </div>
       <span id="msg-cep"></span>
     </div>
     <div class="div-logradouro">
@@ -70,7 +76,7 @@
       <div class="ou">OU</div>
       <div class="line-div"></div>
     </div>
-    <button type="submit" class="button-advanced-adress">Avançar</button>
+    <button type="submit" class="button-advanced-adress btn btn-primary">Avançar</button>
   </div>
 </form>
 <div class="cep-found">

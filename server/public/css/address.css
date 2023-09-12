@@ -28,6 +28,7 @@
   border-radius: 0.5rem;
   border: 1.5px solid rgb(122, 123, 131);
   padding: 0.5rem 0.5rem 0.4rem 0.5rem;
+  height: 2.5rem;
 }
 
 .form-address label {
@@ -81,6 +82,17 @@
   border-radius: 0.5rem;
   max-width: 100%;
   font-size: 1rem;
+}
+
+.btn-cep {
+  background-color: #007bff;
+  border: solid #0075f3;
+  color: #ffffff;
+  box-shadow: 0.413rem 0.413rem 0.6rem rgba(0, 0, 0, 0.336);
+  border: solid #0075f3;
+  font-size: 1rem;
+  border-radius: 0rem 0.5rem 0.5rem 0rem;
+  cursor: pointer;
 }
 
 .button-back-address,
@@ -142,7 +154,7 @@
   width: 100%;
   display: none;
   backdrop-filter: blur(10px);
-  
+
 }
 
 .alert-cep h1 {
@@ -153,7 +165,7 @@
 
 .alert-cep p {
   margin: 1rem auto;
-  font-size: 1em; 
+  font-size: 1em;
   line-height: 2rem;
 }
 
@@ -165,12 +177,11 @@
 }
 
 .alert-cep {
-  /* margin: 14rem 0.8rem 0rem 3rem ; */
   margin: 3rem auto;
   margin-top: 10rem;
   background-color: white;
-  outline: 2px solid gray;  
-  width:90%;
+  outline: 2px solid gray;
+  width: 90%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -178,7 +189,7 @@
   border-radius: 0.8rem;
 }
 
-.button-confirm-cep{
+.button-confirm-cep {
   background-color: #007bff;
   margin: 0rem 0rem 0rem 0rem;
   display: flex;

@@ -805,7 +805,7 @@ const dateTime = () => {
     year: "numeric",
     month: "2-digit",
     day: "2-digit",
-  })} ${today.toLocaleTimeString('pt-BR', {
+  }).replace(/[/]/g, '-')} ${today.toLocaleTimeString('pt-BR', {
     hour12: false,
     hour: '2-digit',
     minute: '2-digit',

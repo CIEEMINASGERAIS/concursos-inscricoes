@@ -46,7 +46,7 @@ async function termsAndConditions() {
 
             if (element.classList.contains("button-accept")) {
                 schoolData.termos_condicoes = 1
-                schoolData.dt_aceite_termos = dateTime().replace('/', '-')
+                schoolData.dt_aceite_termos = dateTime()
             }
 
             if (element.classList.contains('button-termo-1') || element.classList.contains('basic-data')) {

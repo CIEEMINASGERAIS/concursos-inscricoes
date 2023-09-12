@@ -1483,7 +1483,7 @@ function _termsAndConditions() {
                               }
                               if (element.classList.contains("button-accept")) {
                                 schoolData.termos_condicoes = 1;
-                                schoolData.dt_aceite_termos = dateTime().replace('/', '-');
+                                schoolData.dt_aceite_termos = dateTime();
                               }
                               if (element.classList.contains('button-termo-1') || element.classList.contains('basic-data')) {
                                 // if (schoolData.termos_condicoes) {
@@ -2243,7 +2243,7 @@ var dateTime = function dateTime() {
     year: "numeric",
     month: "2-digit",
     day: "2-digit"
-  }), " ").concat(today.toLocaleTimeString('pt-BR', {
+  }).replace(/[/]/g, '-'), " ").concat(today.toLocaleTimeString('pt-BR', {
     hour12: false,
     hour: '2-digit',
     minute: '2-digit',

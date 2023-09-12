@@ -37,7 +37,7 @@ function _initAddress() {
                 while (1) switch (_context3.prev = _context3.next) {
                   case 0:
                     _context3.next = 2;
-                    return fetch('address.html');
+                    return fetch('address');
                   case 2:
                     response = _context3.sent;
                     _context3.next = 5;
@@ -313,10 +313,12 @@ function _initAddress() {
                             while (1) switch (_context2.prev = _context2.next) {
                               case 0:
                                 e.preventDefault();
-                                if (formDataAddress.cep && formDataAddress.logradouro && formDataAddress.numero && formDataAddress.uf && formDataAddress.bairro && formDataAddress.cidade && formDataAddress.telefone1 && formDataAddress.telefone2 && formDataAddress.email
+                                if (
+                                // formDataAddress.cep && formDataAddress.logradouro && formDataAddress.numero && formDataAddress.uf
+                                // && formDataAddress.bairro && formDataAddress.cidade && formDataAddress.telefone1 && formDataAddress.telefone2
+                                // && formDataAddress.email
 
-                                // formDataAddress.cep
-                                ) {
+                                formDataAddress.cep) {
                                   changeMains('.screen-school-data');
                                   changeSubMainTitle('Formulário de Dados Acadêmicos');
                                   console.log(formDataAddress);
@@ -408,7 +410,7 @@ var initDataBasic = /*#__PURE__*/function () {
                 while (1) switch (_context.prev = _context.next) {
                   case 0:
                     _context.next = 2;
-                    return fetch('formDataBasic.html');
+                    return fetch('formDataBasic');
                   case 2:
                     response = _context.sent;
                     _context.next = 5;
@@ -1045,7 +1047,7 @@ function _createFormSchoolData() {
                       $(horario).selectpicker('refresh');
                     };
                     _context11.next = 11;
-                    return fetch('schoolData.html');
+                    return fetch('schoolData');
                   case 11:
                     response = _context11.sent;
                     _context11.next = 14;
@@ -1444,7 +1446,7 @@ function _termsAndConditions() {
                 while (1) switch (_context3.prev = _context3.next) {
                   case 0:
                     _context3.next = 2;
-                    return fetch('terms-and-conditions.html');
+                    return fetch('terms-and-conditions');
                   case 2:
                     response = _context3.sent;
                     _context3.next = 5;
@@ -2444,28 +2446,7 @@ var initDataBasic = __webpack_require__(/*! ./web/src/pages/dataBasic.js */ "./w
 var createFormSchoolData = __webpack_require__(/*! ./web/src/pages/schoolData.js */ "./web/src/pages/schoolData.js");
 function takeData() {
   return _takeData.apply(this, arguments);
-} // async function sendData() {
-// const data = await takeData()
-// try {
-//   const response = await fetch('http://localhost:8080/cadastrar', {
-//     method: 'POST',
-//     headers: {
-//       'Content-Type': 'application/json'
-//     },
-//     error: false,
-//     mensagem: 'Usuário cadastrado com sucesso',
-//     body: JSON.stringify(data)
-//   })
-//   if (response.ok) {
-//     console.log('Dados enviados com sucesso!')
-//   } else {
-//     console.log(response.status)
-//   }
-// } catch (error) {
-//   console.log('Erro: ', error)
-// }
-// }
-// sendData()
+}
 function _takeData() {
   _takeData = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
     var callMain, termsConditions, formData, formAddress, formSchoolData, allData;
@@ -2500,6 +2481,52 @@ function _takeData() {
   }));
   return _takeData.apply(this, arguments);
 }
+function sendData() {
+  return _sendData.apply(this, arguments);
+}
+function _sendData() {
+  _sendData = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
+    var data, response;
+    return _regeneratorRuntime().wrap(function _callee2$(_context2) {
+      while (1) switch (_context2.prev = _context2.next) {
+        case 0:
+          _context2.next = 2;
+          return takeData();
+        case 2:
+          data = _context2.sent;
+          _context2.prev = 3;
+          _context2.next = 6;
+          return fetch('http://localhost:8080/cadastrar', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            error: false,
+            mensagem: 'Usuário cadastrado com sucesso',
+            body: JSON.stringify(data)
+          });
+        case 6:
+          response = _context2.sent;
+          if (response.ok) {
+            console.log('Dados enviados com sucesso!');
+          } else {
+            console.log(response.status);
+          }
+          _context2.next = 13;
+          break;
+        case 10:
+          _context2.prev = 10;
+          _context2.t0 = _context2["catch"](3);
+          console.log('Erro: ', _context2.t0);
+        case 13:
+        case "end":
+          return _context2.stop();
+      }
+    }, _callee2, null, [[3, 10]]);
+  }));
+  return _sendData.apply(this, arguments);
+}
+sendData();
 takeData();
 })();
 

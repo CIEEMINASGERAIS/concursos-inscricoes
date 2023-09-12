@@ -2,7 +2,7 @@ const { isDateFormatura, isSchool, isCourse, removerMensagem, isvalid, isSemestr
 
 async function createFormSchoolData() {
   return new Promise(async (resolve, reject) => {
-    const response = await fetch('schoolData.html')
+    const response = await fetch('schoolData')
 
     const htmlContent = await response.text()
 

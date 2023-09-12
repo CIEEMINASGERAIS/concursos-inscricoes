@@ -16,28 +16,28 @@ async function takeData() {
   // return allData
 }
 
-// async function sendData() {
-// const data = await takeData()
-// try {
-//   const response = await fetch('http://localhost:8080/cadastrar', {
-//     method: 'POST',
-//     headers: {
-//       'Content-Type': 'application/json'
-//     },
-//     error: false,
-//     mensagem: 'Usuário cadastrado com sucesso',
-//     body: JSON.stringify(data)
-//   })
-//   if (response.ok) {
-//     console.log('Dados enviados com sucesso!')
-//   } else {
-//     console.log(response.status)
-//   }
-// } catch (error) {
-//   console.log('Erro: ', error)
-// }
-// }
+async function sendData() {
+const data = await takeData()
+try {
+  const response = await fetch('http://localhost:8080/cadastrar', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    error: false,
+    mensagem: 'Usuário cadastrado com sucesso',
+    body: JSON.stringify(data)
+  })
+  if (response.ok) {
+    console.log('Dados enviados com sucesso!')
+  } else {
+    console.log(response.status)
+  }
+} catch (error) {
+  console.log('Erro: ', error)
+}
+}
 
-// sendData()
+sendData()
 
 takeData()

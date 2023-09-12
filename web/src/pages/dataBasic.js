@@ -20,7 +20,8 @@ const {
 const initDataBasic = async () => {
   return new Promise(async (resolve, reject) => {
     // adicionarPaginaHtml()
-    const response = await fetch('formDataBasic.html')
+    const response = await fetch('formDataBasic')
+
     const htmlContent = await response.text()
 
     const dataBasic = document.querySelector('.screen-basic-data1')

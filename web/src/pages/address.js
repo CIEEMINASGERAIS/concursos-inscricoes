@@ -2,7 +2,7 @@ const { isNumero, isComplemento, isTelefone, isEmail, changeMains, changeSubMain
 
 async function initAddress() {
   return new Promise(async (resolve, reject) => {
-    const response = await fetch('address.html')
+    const response = await fetch('address')
     const htmlContent = await response.text()
 
     const address = document.querySelector('.screen-address')
@@ -335,11 +335,11 @@ async function initAddress() {
         e.preventDefault()
 
         if (
-          formDataAddress.cep && formDataAddress.logradouro && formDataAddress.numero && formDataAddress.uf
-          && formDataAddress.bairro && formDataAddress.cidade && formDataAddress.telefone1 && formDataAddress.telefone2
-          && formDataAddress.email
+          // formDataAddress.cep && formDataAddress.logradouro && formDataAddress.numero && formDataAddress.uf
+          // && formDataAddress.bairro && formDataAddress.cidade && formDataAddress.telefone1 && formDataAddress.telefone2
+          // && formDataAddress.email
 
-          // formDataAddress.cep
+          formDataAddress.cep
         ) {
           changeMains('.screen-school-data')
           changeSubMainTitle('Formulário de Dados Acadêmicos')

@@ -6,6 +6,19 @@ const cors = require('cors')
 // Chamar a função express
 const app = express()
 
+const ejs = require('ejs')
+
+const path = require('path')
+
+app.use(express.urlencoded({ extended: true }))
+
+app.use(express.static('public'));
+
+// Configurar o EJS como a engine de visualização
+app.set('view engine', 'ejs');
+
+app.set('views', path.join(__dirname, 'views'));
+
 // Criar o middleware para receber os dados no corpo da requisição
 app.use(express.json())
 
@@ -42,6 +55,50 @@ const Cep = require('./db/models/cep')(sequelize, DataTypes)
 
 // Incluir as CONTROLLERS
 // const estudantes = require('./controllers/estudantes')
+
+// Rota para renderizar o EJS em HTML
+app.get('/terms-and-conditions', (req, res) => {
+  ejs.renderFile('./views/terms-and-conditions.ejs', (err, html) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).send('Erro ao renderizar o arquivo EJS.');
+    }
+    res.send(html);
+  });
+});
+
+// Rota para renderizar o EJS em HTML
+app.get('/formDataBasic', (req, res) => {
+  ejs.renderFile('./views/formDataBasic.ejs', (err, html) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).send('Erro ao renderizar o arquivo EJS.');
+    }
+    res.send(html);
+  });
+});
+
+// Rota para renderizar o EJS em HTML
+app.get('/address', (req, res) => {
+  ejs.renderFile('./views/address.ejs', (err, html) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).send('Erro ao renderizar o arquivo EJS.');
+    }
+    res.send(html);
+  });
+});
+
+// Rota para renderizar o EJS em HTML
+app.get('/schoolData', (req, res) => {
+  ejs.renderFile('./views/schoolData.ejs', (err, html) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).send('Erro ao renderizar o arquivo EJS.');
+    }
+    res.send(html);
+  });
+});
 
 // Rotar para obter dados do banco (GET)
 app.get('/cadastrarEscola', async (req, res) => {
@@ -130,6 +187,10 @@ app.get('/cadastrarEndereco', async (req, res) => {
   }
 })
 
+app.get('/', async (req, res) => {
+  res.render('index')
+})
+
 app.post('/cadastrar', async (req, res) => {
   await estudantes
     .create(req.body)
@@ -141,7 +202,7 @@ app.post('/cadastrar', async (req, res) => {
     })
     .catch(err => {
       return res.status(400).json({
-        erro: err,        
+        erro: err,
       })
     })
 })

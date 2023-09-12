@@ -3,7 +3,7 @@ const { changeMains, changeSubMainTitle, dateTime } = require('../utils/util')
 async function termsAndConditions() {
     return new Promise(async (resolve, reject) => {
 
-        const response = await fetch('terms-and-conditions.html')
+        const response = await fetch('terms-and-conditions')
 
         const contetHtml = await response.text()
 

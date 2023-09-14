@@ -37,7 +37,7 @@ function _initAddress() {
                 while (1) switch (_context3.prev = _context3.next) {
                   case 0:
                     _context3.next = 2;
-                    return fetch('/address');
+                    return fetch('address');
                   case 2:
                     response = _context3.sent;
                     _context3.next = 5;

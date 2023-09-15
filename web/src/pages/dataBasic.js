@@ -28,11 +28,6 @@ const initDataBasic = async () => {
 
     dataBasic.innerHTML = htmlContent
 
-    // constante com o caminho do css
-
-    // Constantes que estão recebendo os elementos e atributos que são criados através da funções
-    // const form = createForm('form-data')
-
     const formData = document.querySelector('.form-data')
 
     const ufNaturalidade = document.getElementById('uf-naturalidade')
@@ -494,8 +489,8 @@ const initDataBasic = async () => {
           // formDataBasic.nome && formDataBasic.cpf && formDataBasic.nomemae && formDataBasic.naturalidade && formDataBasic.nacionalidade && formDataBasic.estadocivil
           // && formDataBasic.dt_nascimento && formDataBasic.sexo && formDataBasic.uf_naturalidade && formDataBasic.deficiencia && formDataBasic.rg
 
-          formDataBasic.nome
-        
+          formDataBasic.nome && formDataBasic.cpf
+
           // formDataBasic.orgaoexpedidor && formDataBasic.rg
           //  && formDataBasic.nomepai && formDataBasic.ctps
           // No caso do nomepai, carteira de trabalho e orgao expedidor não são obrigatorios
@@ -506,22 +501,22 @@ const initDataBasic = async () => {
           changeSubMainTitle('Formulário de Endereço')
           resolve(formDataBasic)
 
-        document.addEventListener('click', function (event) {
-          const element = event.target
-          if (element.classList.contains('address')) {
-            changeMains('.screen-address')
-            changeSubMainTitle('Formulário de Endereço')
-          }
-        })
+          document.addEventListener('click', function (event) {
+            const element = event.target
+            if (element.classList.contains('address')) {
+              changeMains('.screen-address')
+              changeSubMainTitle('Formulário de Endereço')
+            }
+          })
 
-      } else {
-        document.getElementById('msg-fracasso').innerHTML =
-          "<p>Formulário incompleto!</p>"
-        removerMensagem('msg-fracasso')
-      }
-    })
-} else {
-  reject(new Error('O formulário não foi encontrado'))
+        } else {
+          document.getElementById('msg-fracasso').innerHTML =
+            "<p>Formulário incompleto!</p>"
+          removerMensagem('msg-fracasso')
+        }
+      })
+    } else {
+      reject(new Error('O formulário não foi encontrado'))
     }
   })
 }

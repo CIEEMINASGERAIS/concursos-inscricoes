@@ -419,11 +419,6 @@ var initDataBasic = /*#__PURE__*/function () {
                     htmlContent = _context.sent;
                     dataBasic = document.querySelector('.screen-basic-data1');
                     dataBasic.innerHTML = htmlContent;
-
-                    // constante com o caminho do css
-
-                    // Constantes que estão recebendo os elementos e atributos que são criados através da funções
-                    // const form = createForm('form-data')
                     formData = document.querySelector('.form-data');
                     ufNaturalidade = document.getElementById('uf-naturalidade');
                     ufs = ['RO', 'AC', 'AM', 'RR', 'PA', 'AP', 'TO', 'MA', 'PI', 'CE', 'RN', 'PB', 'PE', 'AL', 'SE', 'BA', 'MG', 'ES', 'RJ', 'SP', 'PR', 'SC', 'RS', 'MS', 'MT', 'GO', 'DF'];
@@ -710,7 +705,7 @@ var initDataBasic = /*#__PURE__*/function () {
                         // formDataBasic.nome && formDataBasic.cpf && formDataBasic.nomemae && formDataBasic.naturalidade && formDataBasic.nacionalidade && formDataBasic.estadocivil
                         // && formDataBasic.dt_nascimento && formDataBasic.sexo && formDataBasic.uf_naturalidade && formDataBasic.deficiencia && formDataBasic.rg
 
-                        formDataBasic.nome
+                        formDataBasic.nome && formDataBasic.cpf
 
                         // formDataBasic.orgaoexpedidor && formDataBasic.rg
                         //  && formDataBasic.nomepai && formDataBasic.ctps

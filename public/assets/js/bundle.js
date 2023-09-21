@@ -1605,9 +1605,37 @@ function _termsAndConditions() {
                     //     })
                     // })
 
+                    // $(document).ready(function () {
+                    //     const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+                    //     const $liConcordo = $('#li-concordo');
+
+                    //     // Função para verificar a rolagem
+                    //     function checkScroll() {
+                    //         const $scrollContainer = $('.text-terms-conditions');
+                    //         if ($scrollContainer.scrollTop() + $scrollContainer.innerHeight() >= $scrollContainer[0].scrollHeight) {
+                    //             $liConcordo.prop('disabled', false);
+                    //         } else {
+                    //             $liConcordo.prop('disabled', true);
+                    //         }
+                    //     }
+
+                    //     // Vincular o evento de rolagem
+                    //     $('.text-terms-conditions').on('scroll', function () {
+                    //         if (isMobile) {
+                    //             // Para dispositivos móveis, use um atraso para melhorar o desempenho
+                    //             clearTimeout($.data(this, 'scrollTimer'));
+                    //             $.data(this, 'scrollTimer', setTimeout(checkScroll, 250));
+                    //         } else {
+                    //             // Para não dispositivos móveis, verifique imediatamente
+                    //             checkScroll();
+                    //         }
+                    //     });
+                    // });
+
                     $(document).ready(function () {
                       var isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
                       var $liConcordo = $('#li-concordo');
+                      var timer; // Variável para armazenar o temporizador
 
                       // Função para verificar a rolagem
                       function checkScroll() {
@@ -1623,8 +1651,8 @@ function _termsAndConditions() {
                       $('.text-terms-conditions').on('scroll', function () {
                         if (isMobile) {
                           // Para dispositivos móveis, use um atraso para melhorar o desempenho
-                          clearTimeout($.data(this, 'scrollTimer'));
-                          $.data(this, 'scrollTimer', setTimeout(checkScroll, 250));
+                          clearTimeout(timer);
+                          timer = setTimeout(checkScroll, 250); // Inicie a verificação após 250 ms de inatividade de rolagem
                         } else {
                           // Para não dispositivos móveis, verifique imediatamente
                           checkScroll();

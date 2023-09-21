@@ -71,13 +71,9 @@ async function termsAndConditions() {
         $(document).ready(function () {
             document.getElementById("li-concordo").disabled = true
 
-
-
-            const scrollEvent = isMobile ? 'touchmove' : 'scroll';
-
             const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 
-            // const scrollEvent = 'scroll'; // Usando o evento "scroll" para ambas as plataformas
+            const scrollEvent = isMobile ? 'touchmove' : 'scroll';
 
             $('.text-terms-conditions').bind(scrollEvent, function () {
                 /*

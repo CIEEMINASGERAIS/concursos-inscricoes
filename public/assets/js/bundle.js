@@ -1585,11 +1585,8 @@ function _termsAndConditions() {
                     }());
                     $(document).ready(function () {
                       document.getElementById("li-concordo").disabled = true;
-                      var scrollEvent = isMobile ? 'touchmove' : 'scroll';
                       var isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-
-                      // const scrollEvent = 'scroll'; // Usando o evento "scroll" para ambas as plataformas
-
+                      var scrollEvent = isMobile ? 'touchmove' : 'scroll';
                       $('.text-terms-conditions').bind(scrollEvent, function () {
                         /*
                         * scrollTop -> Quanto rolou

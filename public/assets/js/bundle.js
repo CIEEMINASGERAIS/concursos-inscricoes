@@ -1509,24 +1509,24 @@ function termsAndConditions() {
   return _termsAndConditions.apply(this, arguments);
 }
 function _termsAndConditions() {
-  _termsAndConditions = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4() {
-    return _regeneratorRuntime().wrap(function _callee4$(_context4) {
-      while (1) switch (_context4.prev = _context4.next) {
+  _termsAndConditions = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
+    return _regeneratorRuntime().wrap(function _callee3$(_context3) {
+      while (1) switch (_context3.prev = _context3.next) {
         case 0:
-          return _context4.abrupt("return", new Promise( /*#__PURE__*/function () {
-            var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3(resolve, reject) {
+          return _context3.abrupt("return", new Promise( /*#__PURE__*/function () {
+            var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2(resolve, reject) {
               var response, contetHtml, termsCondtions, menuSide, termoBox, title, schoolData;
-              return _regeneratorRuntime().wrap(function _callee3$(_context3) {
-                while (1) switch (_context3.prev = _context3.next) {
+              return _regeneratorRuntime().wrap(function _callee2$(_context2) {
+                while (1) switch (_context2.prev = _context2.next) {
                   case 0:
-                    _context3.next = 2;
+                    _context2.next = 2;
                     return fetch('terms-and-conditions');
                   case 2:
-                    response = _context3.sent;
-                    _context3.next = 5;
+                    response = _context2.sent;
+                    _context2.next = 5;
                     return response.text();
                   case 5:
-                    contetHtml = _context3.sent;
+                    contetHtml = _context2.sent;
                     termsCondtions = document.querySelector('.terms-and-conditions');
                     menuSide = document.querySelector('.nav-bar');
                     termoBox = document.querySelector('.termos-box');
@@ -1583,37 +1583,31 @@ function _termsAndConditions() {
                         return _ref2.apply(this, arguments);
                       };
                     }());
-                    $(document).ready( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
-                      var isMobile, scrollEvent;
-                      return _regeneratorRuntime().wrap(function _callee2$(_context2) {
-                        while (1) switch (_context2.prev = _context2.next) {
-                          case 0:
-                            document.getElementById("li-concordo").disabled = true;
-                            isMobile = window.innerWidth <= 920; // Defina a largura máxima para considerar como dispositivo móvel
-                            scrollEvent = isMobile ? 'touchmove' : 'scroll';
-                            $('.text-terms-conditions').bind(scrollEvent, function () {
-                              /*
-                              * scrollTop -> Quanto rolou
-                              * innerHeight -> Altura do interior da div
-                              * scrollHeight -> Altura do conteúdo da div
-                              */
-                              if ($(this).scrollTop() + $(this).innerHeight() >= this.scrollHeight) {
-                                document.getElementById("li-concordo").disabled = false;
-                              } else {
-                                document.getElementById("li-concordo").disabled = true;
-                              }
-                            });
-                          case 4:
-                          case "end":
-                            return _context2.stop();
+                    $(document).ready(function () {
+                      document.getElementById("li-concordo").disabled = true;
+                      var scrollEvent = isMobile ? 'touchmove' : 'scroll';
+                      var isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+
+                      // const scrollEvent = 'scroll'; // Usando o evento "scroll" para ambas as plataformas
+
+                      $('.text-terms-conditions').bind(scrollEvent, function () {
+                        /*
+                        * scrollTop -> Quanto rolou
+                        * innerHeight -> Altura do interior da div
+                        * scrollHeight -> Altura do conteúdo da div
+                        */
+                        if ($(this).scrollTop() + $(this).innerHeight() >= this.scrollHeight) {
+                          document.getElementById("li-concordo").disabled = false;
+                        } else {
+                          document.getElementById("li-concordo").disabled = true;
                         }
-                      }, _callee2);
-                    })));
+                      });
+                    });
                   case 14:
                   case "end":
-                    return _context3.stop();
+                    return _context2.stop();
                 }
-              }, _callee3);
+              }, _callee2);
             }));
             return function (_x, _x2) {
               return _ref.apply(this, arguments);
@@ -1621,9 +1615,9 @@ function _termsAndConditions() {
           }()));
         case 1:
         case "end":
-          return _context4.stop();
+          return _context3.stop();
       }
-    }, _callee4);
+    }, _callee3);
   }));
   return _termsAndConditions.apply(this, arguments);
 }

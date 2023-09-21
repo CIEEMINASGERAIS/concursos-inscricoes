@@ -112,15 +112,14 @@ const initDataBasic = async () => {
     if (inputCpf) {
       let validate
 
-      inputCpf.addEventListener('input', e => {
+      inputCpf.addEventListener('input', async e => {
 
         e.target.value = e.target.value.replace(/\D/g, '')
         e.target.value = e.target.value.replace(/(\d{3})(\d)/, '$1.$2')
         e.target.value = e.target.value.replace(/(\d{3})(\d)/, '$1.$2')
         e.target.value = e.target.value.replace(/(\d{3})(\d{1,2})$/, '$1-$2')
 
-        validate = isCpf(e.target.value)
-        console.log(validate)
+        validate = await isCpf(e.target.value)
 
         if (validate) {
           document.getElementById('msg-cpf').innerHTML = ''
@@ -301,8 +300,6 @@ const initDataBasic = async () => {
 
         validate = isNaturalidadeNacionalidade(e.target.value)
 
-        console.log(validate)
-
         if (validate) {
           document.getElementById('msg-nacionalidade').innerHTML = ''
           return (formDataBasic.nacionalidade = e.target.value)
@@ -324,11 +321,7 @@ const initDataBasic = async () => {
 
       estadoCivil.addEventListener('input', e => {
 
-        console.log(e.target.value)
-
         validate = isEstadoCivil(e.target.value)
-
-        console.log(validate)
 
         if (validate) {
           document.getElementById('msg-estado-civil').innerHTML = ''
@@ -486,17 +479,11 @@ const initDataBasic = async () => {
       formData.addEventListener('submit', e => {
         e.preventDefault()
         if (
-          // formDataBasic.nome && formDataBasic.cpf && formDataBasic.nomemae && formDataBasic.naturalidade && formDataBasic.nacionalidade && formDataBasic.estadocivil
-          // && formDataBasic.dt_nascimento && formDataBasic.sexo && formDataBasic.uf_naturalidade && formDataBasic.deficiencia && formDataBasic.rg
+          formDataBasic.nome && formDataBasic.cpf && formDataBasic.nomemae && formDataBasic.naturalidade && formDataBasic.nacionalidade && formDataBasic.estadocivil
+          && formDataBasic.dt_nascimento && formDataBasic.sexo && formDataBasic.uf_naturalidade && formDataBasic.deficiencia && formDataBasic.rg && formDataBasic.orgaoexpedidor
 
-          formDataBasic.nome && formDataBasic.cpf
-
-          // formDataBasic.orgaoexpedidor && formDataBasic.rg
-          //  && formDataBasic.nomepai && formDataBasic.ctps
-          // No caso do nomepai, carteira de trabalho e orgao expedidor não são obrigatorios
+          // No caso do nomepai e carteira de trabalho não são obrigatorios
         ) {
-          console.log('Sucesso!')
-          console.log(formDataBasic)
           changeMains('.screen-address')
           changeSubMainTitle('Formulário de Endereço')
           resolve(formDataBasic)

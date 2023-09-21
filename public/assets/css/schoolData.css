@@ -35,6 +35,14 @@
   border-radius: 0.5rem;
 }
 
+.form-school-data .dropdown-toggle {
+  z-index: 0;
+}
+
+.show {
+  z-index: 1;
+}
+
 .escolas-cursos,
 .ano-semestre-formatura,
 .div-ano-formatura,
@@ -196,7 +204,7 @@
 .end {
   position: fixed;
   top: 0;
-  z-index: 2;
+  z-index: 4;
   height: 100%;
   width: 100%;
   display: none;
@@ -231,7 +239,7 @@
 .school-found {
   position: fixed;
   top: 0;
-  z-index: 2;
+  z-index: 4;
   height: 100%;
   width: 100%;
   display: none;

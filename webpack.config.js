@@ -3,9 +3,9 @@ const webpack = require('webpack')
 
 module.exports = {
   mode: 'development', //production
-  entry: './app.js',
+  entry: './frontend/pages/app.js',
   output: {
-    path: path.resolve(__dirname, 'server', 'public', 'js'),
+    path: path.resolve(__dirname, 'public', 'assets', 'js'),
     filename: 'bundle.js'
   },
   resolve: {
@@ -23,8 +23,9 @@ module.exports = {
       process: 'process/browser',
       "buffer": "buffer"
     }
+  }, stats: {
+    errorDetails: true
   },
-
   module: {
     rules: [
       {

@@ -36,6 +36,16 @@
   color: white;
 }
 
+input#cep {
+  z-index: 0;
+}
+
+.form-address .cep:focus {
+  border: none;
+  outline: none;
+}
+
+
 .cep-logradouro,
 .numero-complemento,
 .uf-bairro,
@@ -149,7 +159,7 @@
 .cep-found {
   position: fixed;
   top: 0;
-  z-index: 2;
+  z-index: 5;
   height: 100%;
   width: 100%;
   display: none;

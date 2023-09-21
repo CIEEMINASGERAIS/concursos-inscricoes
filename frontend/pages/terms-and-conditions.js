@@ -11,8 +11,6 @@ async function termsAndConditions() {
 
         const menuSide = document.querySelector('.nav-bar')
 
-        const menuTop = document.querySelector('.top-menu')
-
         const termoBox = document.querySelector('.termos-box')
 
         const title = document.querySelector('.sub-main-title')
@@ -28,13 +26,11 @@ async function termsAndConditions() {
             if (element.classList.contains('button-termo') || element.classList.contains('terms-and-conditions') || element.classList.contains('p-t-c') || element.classList.contains("h1-t-c") || element.classList.contains("h2-t-c") || element.classList.contains("s-t-c") || element.classList.contains("a-t-c") || element.classList.contains("check-term") || element.classList.contains("label-li") || element.classList.contains("input-li") || element.classList.contains("checkbox") || element.classList.contains("text-terms-conditions") || element.classList.contains("title-terms") || element.classList.contains("button-terms-a-d") || element.classList.contains("terms-input-label")) {
                 termsCondtions.style.display = 'block'
                 menuSide.style.visibility = 'hidden'
-                menuTop.style.visibility = 'hidden'
                 termoBox.style.display = 'none'
                 title.style.visibility = 'hidden'
             } else {
                 termsCondtions.style.display = 'none'
                 menuSide.style.visibility = 'visible'
-                menuTop.style.visibility = 'visible'
                 termoBox.style.display = 'flex'
                 title.style.visibility = 'visible'
             }
@@ -50,14 +46,13 @@ async function termsAndConditions() {
             }
 
             if (element.classList.contains('button-termo-1') || element.classList.contains('basic-data')) {
-                // if (schoolData.termos_condicoes) {
-                changeMains('.screen-basic-data1')
-                changeSubMainTitle('Formulário de Dados Básicos')
-                console.log(dateTime())
-                // resolve(schoolData)
-                // } else {
-                //     e.preventDefault()
-                // }
+                if (schoolData.termos_condicoes) {
+                    changeMains('.screen-basic-data1')
+                    changeSubMainTitle('Formulário de Dados Básicos')
+                    resolve(schoolData)
+                } else {
+                    e.preventDefault()
+                }
             }
 
             let checkbox = document.getElementById('li-concordo');
@@ -76,7 +71,11 @@ async function termsAndConditions() {
         $(document).ready(async function () {
             document.getElementById("li-concordo").disabled = true
 
-            $('.text-terms-conditions').bind('scroll', function () {
+            const isMobile = window.innerWidth <= 920; // Defina a largura máxima para considerar como dispositivo móvel
+
+            const scrollEvent = isMobile ? 'touchmove' : 'scroll';
+
+            $('.text-terms-conditions').bind(scrollEvent, function () {
                 /*
                 * scrollTop -> Quanto rolou
                 * innerHeight -> Altura do interior da div

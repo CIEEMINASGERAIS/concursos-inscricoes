@@ -258,7 +258,6 @@ async function createFormSchoolData() {
         let data = e.currentTarget.value
         filtrarCursos(data)
         validate = await isSchool(data, codeFinal)
-        console.log(validate)
         if (validate) {
           document.getElementById("msg-escola").innerHTML = ""
           callCourse()
@@ -302,7 +301,6 @@ async function createFormSchoolData() {
         let valid
 
         validate = isDateFormatura(data, inicio, fim)
-        console.log(validate)
         valid = isvalid(data)
         let horarioIncompleto
         if (validate) {
@@ -353,8 +351,6 @@ async function createFormSchoolData() {
 
         let validate = isMesFormatura(data)
 
-        console.log(validate)
-
         if (validate) {
           document.getElementById("msg-mes-formatura").innerHTML = ""
           dataFormSchool.previsao_mes = data
@@ -389,8 +385,6 @@ async function createFormSchoolData() {
 
         let validate = isHorario(data)
 
-        console.log(validate)
-
         if (validate) {
           document.getElementById("msg-periodo").innerHTML = ""
           dataFormSchool.horario = data
@@ -413,10 +407,9 @@ async function createFormSchoolData() {
         if (
           dataFormSchool.escola_id && dataFormSchool.curso_id && dataFormSchool.previsao_semestre && dataFormSchool.previsao_ano && dataFormSchool.previsao_mes && dataFormSchool.horario
 
-          // && dataFormSchool.periodo
+          // O dataFormSchool.periodo não é obrigatório
         ) {
           dataFormSchool.ano = today.getFullYear()
-          console.log(dataFormSchool)
           alertEnd.style.display = 'block'
           resolve(dataFormSchool)
         } else {

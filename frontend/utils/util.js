@@ -161,8 +161,6 @@ const isNome = nome => {
     return false
   }
 
-  // console.log(regex.test(nome))
-
 
   return true
 }
@@ -195,8 +193,6 @@ const isSchool = async (school, idSchool) => {
       break
     }
   }
-
-  console.log(schoolVerification, idSchoolVerification)
 
   if (schoolVerification !== school) {
     return false
@@ -338,7 +334,27 @@ const isRg = valor => {
 }
 
 
-const isCpf = (cpf = 0) => {
+const isCpf = async (cpf = 0) => {
+
+  let cpfBd
+
+  try {
+    const response = await fetch(
+      `http://localhost:8080/verificarEstudante?termo=${cpf}`
+    )
+    if (response.ok) {
+      const opcoes = await response.json()
+      cpfBd = opcoes.map(cpf => cpf.cpf)
+    } else {
+      console.log('Erro na solicitação:', response.statusText)
+    }
+  } catch (error) {
+    console.error('Erro:', error)
+  }
+
+  if (cpfBd[0] === cpf) {
+    return false
+  }
 
   const regex = new RegExp(/^[0-9]{3}\.[0-9]{3}\.[0-9]{3}\-[0-9]{2}$/)
 
@@ -431,7 +447,7 @@ const isDate = date => {
   let idade = year - yearFilter
 
   if (month < monthFilter || month == monthFilter && dayInMonth < dayFilter) {
-    console.log(idade--)
+    idade--
   }
 
   if (idade < 14) {
@@ -580,8 +596,6 @@ const isHorario = (data) => {
       break
     }
   }
-
-  console.log(horario)
 
   if (!horario) {
     return false
@@ -764,11 +778,31 @@ const isTelefone = telefone => {
 }
 
 
-const isEmail = email => {
+const isEmail = async email => {
 
   const regex = new RegExp(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/)
 
   if (!regex.test(email)) {
+    return false
+  }
+
+  let emailBd
+
+  try {
+    const response = await fetch(
+      `http://localhost:8080/verificarEmail?termo=${email}`
+    )
+    if (response.ok) {
+      const opcoes = await response.json()
+      emailBd = opcoes.map(email => email.email)
+    } else {
+      console.log('Erro na solicitação:', response.statusText)
+    }
+  } catch (error) {
+    console.error('Erro:', error)
+  }
+
+  if (emailBd[0] === email) {
     return false
   }
 

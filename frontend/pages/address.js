@@ -1,4 +1,4 @@
-const { isNumero, isComplemento, isTelefone, isEmail, changeMains, changeSubMainTitle, removerMensagem, isCep } = require('../utils/util.js')
+const { isNumero, isComplemento, isTelefone, isEmail, changeMains, changeSubMainTitle, removerMensagem, isCep, isNaturalidadeNacionalidade, isUfNaturalidade } = require('../utils/util.js')
 
 async function initAddress() {
   return new Promise(async (resolve, reject) => {
@@ -23,13 +23,15 @@ async function initAddress() {
 
     const cidade = document.getElementById('cidade')
 
-
+    const btnCep = document.querySelector('.btn-cep')
 
     if (cep) {
 
-      cep.addEventListener('input', async e => {
+      const cepFound = document.querySelector('.cep-found')
 
-        let endereco
+      let endereco
+
+      cep.addEventListener('input', async e => {
 
         let dadosCep
 
@@ -59,12 +61,93 @@ async function initAddress() {
 
         validate = isCep(e.target.value)
 
-        const cepFound = document.querySelector('.cep-found')
 
-        if (validate) {
+
+        if (validate && dadosCep[0]) {
+
           formDataAddress.cep = e.target.value
 
-          if (e.target.value.length === 9 && !dadosCep[0]) {
+          document.getElementById("msg-cep").innerHTML = ""
+        } else {
+          e.preventDefault()
+          document.getElementById("msg-cep").innerHTML = "<p>CEP inválido!</p>"
+
+          return (formDataAddress.cep = false)
+        }
+      })
+
+      if (btnCep) {
+
+        btnCep.addEventListener('click', e => {
+
+          let validateCep = false
+
+          validateCep = isCep(formDataAddress.cep)
+
+          if (validateCep) {
+
+            let validate = false
+
+            logradouro.value = endereco.map(logradouro => logradouro.logradouro)
+            validate = isNaturalidadeNacionalidade(logradouro.value)
+            if (validate) {
+              document.getElementById("msg-logradouro").innerHTML = ""
+              formDataAddress.logradouro = logradouro.value
+            } else {
+              document.getElementById("msg-logradouro").innerHTML =
+                "<p>Logradouro inválido!</p>"
+              formDataAddress.logradouro = false
+            }
+            uf.value = endereco.map(uf => uf.uf)
+            validate = (isUfNaturalidade(uf.value))
+            if (validate) {
+              document.getElementById("msg-uf").innerHTML = ""
+              formDataAddress.uf = uf.value
+            } else {
+              document.getElementById("msg-uf").innerHTML =
+                "<p>UF inválido!</p>"
+              formDataAddress.uf = false
+            }
+            bairro.value = endereco.map(bairro => bairro.bairro)
+            validate = (isNaturalidadeNacionalidade(bairro.value))
+            if (validate) {
+              document.getElementById("msg-bairro").innerHTML = ""
+              formDataAddress.bairro = bairro.value
+            } else {
+              document.getElementById("msg-bairro").innerHTML =
+                "<p>Bairro inválido!</p>"
+              formDataAddress.bairro = false
+            }
+            cidade.value = endereco.map(cidade => cidade.cidade)
+            validate = (isNaturalidadeNacionalidade(cidade.value))
+            if (validate) {
+              document.getElementById("msg-cidade").innerHTML = ""
+              formDataAddress.cidade = cidade.value
+            } else {
+              document.getElementById("msg-cidade").innerHTML =
+                "<p>Cidade inválido!</p>"
+              formDataAddress.cidade = false
+            }
+
+            // Validação do CEP bem-sucedida, permitir que o usuário digite nos campos
+            logradouro.removeAttribute('disabled');
+            uf.removeAttribute('disabled');
+            bairro.removeAttribute('disabled');
+            cidade.removeAttribute('disabled');
+
+
+          } else {
+
+            // Validação do CEP falhou, desabilitar os campos
+            logradouro.setAttribute('disabled', 'true');
+            uf.setAttribute('disabled', 'true');
+            bairro.setAttribute('disabled', 'true');
+            cidade.setAttribute('disabled', 'true');
+
+            logradouro.value = ''
+            uf.value = ''
+            bairro.value = ''
+            cidade.value = ''
 
             cepFound.style.display = 'block'
 
@@ -80,55 +163,11 @@ async function initAddress() {
               })
             }
           }
-          document.getElementById("msg-cep").innerHTML = ""
-        } else {
-          e.preventDefault()
-          document.getElementById("msg-cep").innerHTML = "<p>CEP inválido!</p>"
-          return (formDataAddress.cep = false)
-        }
-      })
-    }
 
-    // logradouro.value = endereco.map(logradouro => logradouro.logradouro)
-    // validate = isNaturalidadeNacionalidade(logradouro.value)
-    // if (validate) {
-    //   document.getElementById("msg-logradouro").innerHTML = ""
-    //   formDataAddress.logradouro = logradouro.value
-    // } else {
-    //   document.getElementById("msg-logradouro").innerHTML =
-    //     "<p>Logradouro inválido!</p>"
-    //   formDataAddress.logradouro = false
-    // }
-    // uf.value = endereco.map(uf => uf.uf)
-    // validate = (isUfNaturalidade(uf.value))
-    // if (validate) {
-    //   document.getElementById("msg-uf").innerHTML = ""
-    //   formDataAddress.uf = uf.value
-    // } else {
-    //   document.getElementById("msg-uf").innerHTML =
-    //     "<p>UF inválido!</p>"
-    //   formDataAddress.uf = false
-    // }
-    // bairro.value = endereco.map(bairro => bairro.bairro)
-    // validate = (isNaturalidadeNacionalidade(bairro.value))
-    // if (validate) {
-    //   document.getElementById("msg-bairro").innerHTML = ""
-    //   formDataAddress.bairro = bairro.value
-    // } else {
-    //   document.getElementById("msg-bairro").innerHTML =
-    //     "<p>Bairro inválido!</p>"
-    //   formDataAddress.bairro = false
-    // }
-    // cidade.value = endereco.map(cidade => cidade.cidade)
-    // validate = (isNaturalidadeNacionalidade(cidade.value))
-    // if (validate) {
-    //   document.getElementById("msg-cidade").innerHTML = ""
-    //   formDataAddress.cidade = cidade.value
-    // } else {
-    //   document.getElementById("msg-cidade").innerHTML =
-    //     "<p>Cidade inválido!</p>"
-    //   formDataAddress.cidade = false
-    // }
+        })
+      }
+
+    }
 
     if (uf) {
 
@@ -312,20 +351,20 @@ async function initAddress() {
 
       let validate
 
-      email.addEventListener('input', e => {
+      email.addEventListener('input', async e => {
 
-        validate = isEmail(e.target.value)
+        validate = await isEmail(e.target.value)
 
         if (validate) {
           // Enviar para o HTML a mensagem de erro
           document.getElementById('msg-email').innerHTML = ""
-          return (formDataAddress.email = e.target.value)
+          return formDataAddress.email = e.target.value
         } else {
           e.preventDefault()
           // Enviar para o HTML a mensagem de erro
           document.getElementById('msg-email').innerHTML =
             "<p>Email inválido!</p>"
-          return (formDataAddress.email = false)
+          return formDataAddress.email = false
         }
       })
     }
@@ -335,15 +374,12 @@ async function initAddress() {
         e.preventDefault()
 
         if (
-          // formDataAddress.cep && formDataAddress.logradouro && formDataAddress.numero && formDataAddress.uf
-          // && formDataAddress.bairro && formDataAddress.cidade && formDataAddress.telefone1 && formDataAddress.telefone2
-          // && formDataAddress.email
-
-          formDataAddress.cep
+          formDataAddress.cep && formDataAddress.logradouro && formDataAddress.numero && formDataAddress.uf
+          && formDataAddress.bairro && formDataAddress.cidade && formDataAddress.telefone1 && formDataAddress.telefone2
+          && formDataAddress.email
         ) {
           changeMains('.screen-school-data')
           changeSubMainTitle('Formulário de Dados Acadêmicos')
-          console.log(formDataAddress)
           resolve(formDataAddress)
 
           document.addEventListener('click', function (event) {

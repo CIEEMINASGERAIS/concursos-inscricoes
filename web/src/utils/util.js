@@ -175,7 +175,7 @@ const isSchool = async (school, idSchool) => {
 
   try {
     const response = await fetch(
-      `http://localhost:8081/cadastrarEscola?termo=${school}`
+      `http://localhost:8080/cadastrarEscola?termo=${school}`
     )
     if (response.ok) {
       likeSchool = await response.json()
@@ -222,7 +222,7 @@ const isCourse = async (course, codeCourse, idCourse) => {
 
   try {
     const response = await fetch(
-      `http://localhost:8081/cadastrarCurso?termo=${codeCourse}`
+      `http://localhost:8080/cadastrarCurso?termo=${codeCourse}`
     )
     if (response.ok) {
       likeCourse = await response.json()

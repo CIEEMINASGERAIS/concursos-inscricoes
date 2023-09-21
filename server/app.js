@@ -208,6 +208,6 @@ app.post('/cadastrar', async (req, res) => {
 })
 
 // Iniciar o servidor na porta 8080, criar a função utilizando modelo Arrow function para retornar a mensagem de sucesso
-app.listen(8081, () => {
-  console.log('Servidor iniciado na porta 8081: http://localhost:8081')
+app.listen(8080, () => {
+  console.log('Servidor iniciado na porta 8080: http://localhost:8080')
 })

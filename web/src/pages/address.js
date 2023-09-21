@@ -1,4 +1,4 @@
-const { isNumero, isComplemento, isTelefone, isEmail, changeMains, changeSubMainTitle, removerMensagem, isCep, isNaturalidadeNacionalidade, isUfNaturalidade } = require('../utils/util.js')
+const { isNumero, isComplemento, isTelefone, isEmail, changeMains, changeSubMainTitle, removerMensagem, isCep } = require('../utils/util.js')
 
 async function initAddress() {
   return new Promise(async (resolve, reject) => {
@@ -43,7 +43,7 @@ async function initAddress() {
 
         try {
           const response = await fetch(
-            `http://localhost:8081/cadastrarEndereco?termo=${cepSemPonto}`
+            `http://localhost:8080/cadastrarEndereco?termo=${cepSemPonto}`
           )
           if (response.ok) {
             const opcoes = await response.json()

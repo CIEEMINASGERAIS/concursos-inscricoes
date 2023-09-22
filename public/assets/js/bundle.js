@@ -1583,81 +1583,28 @@ function _termsAndConditions() {
                         return _ref2.apply(this, arguments);
                       };
                     }());
-
-                    // $(document).ready(function () {
-                    //     document.getElementById("li-concordo").disabled = true
-
-                    //     const a = navigator.userAgent || navigator.vendor || window.opera;
-
-                    //     const scrollEvent = isMobile ? 'touchmove' : 'scroll';
-
-                    //     $('.text-terms-conditions').bind(scrollEvent, function () {
-                    //         /*
-                    //         * scrollTop -> Quanto rolou
-                    //         * innerHeight -> Altura do interior da div
-                    //         * scrollHeight -> Altura do conteúdo da div
-                    //         */
-                    //         if ($(this).scrollTop() + $(this).innerHeight() >= this.scrollHeight) {
-                    //             document.getElementById("li-concordo").disabled = false
-                    //         } else {
-                    //             document.getElementById("li-concordo").disabled = true
-                    //         }
-                    //     })
-                    // })
-
-                    // $(document).ready(function () {
-                    //     const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-                    //     const $liConcordo = $('#li-concordo');
-
-                    //     // Função para verificar a rolagem
-                    //     function checkScroll() {
-                    //         const $scrollContainer = $('.text-terms-conditions');
-                    //         if ($scrollContainer.scrollTop() + $scrollContainer.innerHeight() >= $scrollContainer[0].scrollHeight) {
-                    //             $liConcordo.prop('disabled', false);
-                    //         } else {
-                    //             $liConcordo.prop('disabled', true);
-                    //         }
-                    //     }
-
-                    //     // Vincular o evento de rolagem
-                    //     $('.text-terms-conditions').on('scroll', function () {
-                    //         if (isMobile) {
-                    //             // Para dispositivos móveis, use um atraso para melhorar o desempenho
-                    //             clearTimeout($.data(this, 'scrollTimer'));
-                    //             $.data(this, 'scrollTimer', setTimeout(checkScroll, 250));
-                    //         } else {
-                    //             // Para não dispositivos móveis, verifique imediatamente
-                    //             checkScroll();
-                    //         }
-                    //     });
-                    // });
-
                     $(document).ready(function () {
-                      var isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-                      var $liConcordo = $('#li-concordo');
-                      var timer; // Variável para armazenar o temporizador
+                      document.getElementById("li-concordo").disabled = true;
+                      var isMobile = window.innerWidth <= 920; // Defina a largura máxima para considerar como dispositivo móvel
 
-                      // Função para verificar a rolagem
-                      function checkScroll() {
-                        var $scrollContainer = $('.text-terms-conditions');
-                        if ($scrollContainer.scrollTop() + $scrollContainer.innerHeight() >= $scrollContainer[0].scrollHeight) {
-                          $liConcordo.prop('disabled', false);
-                        } else {
-                          $liConcordo.prop('disabled', true);
-                        }
+                      if (isMobile) {
+                        setTimeout(function () {
+                          document.getElementById("li-concordo").disabled = false;
+                        }, 15000);
+                      } else {
+                        $('.text-terms-conditions').bind("scroll", function () {
+                          /*
+                          * scrollTop -> Quanto rolou
+                          * innerHeight -> Altura do interior da div
+                          * scrollHeight -> Altura do conteúdo da div
+                          */
+                          if ($(this).scrollTop() + $(this).innerHeight() >= this.scrollHeight) {
+                            document.getElementById("li-concordo").disabled = false;
+                          } else {
+                            document.getElementById("li-concordo").disabled = true;
+                          }
+                        });
                       }
-
-                      // Vincular o evento de rolagem
-                      $('.text-terms-conditions').on('scroll', function () {
-                        if (isMobile) {
-                          // Para dispositivos móveis, use um atraso para melhorar o desempenho
-                          clearTimeout(timer);
-                          timer = setTimeout(checkScroll, 250); // Inicie a verificação após 250 ms de inatividade de rolagem
-                        } else {
-                          // Para não dispositivos móveis, verifique imediatamente
-                          checkScroll();
-                        }
-                      });
                     });
                   case 14:
                   case "end":

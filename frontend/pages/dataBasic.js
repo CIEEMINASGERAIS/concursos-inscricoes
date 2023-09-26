@@ -13,7 +13,8 @@ const {
   isDescricao,
   removerMensagem,
   isRg,
-  isComplemento
+  isComplemento,
+  age
 } = require('../utils/util.js')
 
 // Função responsável por iniciar as funções e gerar o conteúdo da página
@@ -123,13 +124,13 @@ const initDataBasic = async () => {
 
         if (validate) {
           document.getElementById('msg-cpf').innerHTML = ''
-          return (formDataBasic.cpf = e.target.value)
+          formDataBasic.cpf = e.target.value
         } else {
           e.preventDefault()
           // Enviar para o HTML a mensagem de erro
           document.getElementById('msg-cpf').innerHTML =
             "<p>CPF inválido!</p>"
-          return (formDataBasic.cpf = false)
+          formDataBasic.cpf = false
         }
       })
     }
@@ -199,13 +200,13 @@ const initDataBasic = async () => {
 
         if (validate) {
           document.getElementById('msg-nome-mae').innerHTML = ''
-          return (formDataBasic.nomemae = e.target.value)
+          formDataBasic.nomemae = e.target.value
         } else {
           e.preventDefault()
           // Enviar para o HTML a mensagem de erro
           document.getElementById('msg-nome-mae').innerHTML =
             "<p>Favor preencher o Nome completo!</p>"
-          return (formDataBasic.nomemae = false)
+          formDataBasic.nomemae = false
         }
       })
 
@@ -348,15 +349,19 @@ const initDataBasic = async () => {
 
         validate = isDate(e.target.value)
 
+        console.log(age(e.target.value))
+
         if (validate) {
           document.getElementById('msg-data-nascimento').innerHTML = ''
-          return (formDataBasic.dt_nascimento = e.target.value)
+          formDataBasic.dt_nascimento = e.target.value
+          formDataBasic.idade = age(e.target.value)
         } else {
           e.preventDefault()
           // Enviar para o HTML a mensagem de erro
           document.getElementById('msg-data-nascimento').innerHTML =
             "<p>Cadastro permitido a partir dos 14 anos de idade!</p>"
-          return (formDataBasic.dt_nascimento = false)
+          formDataBasic.dt_nascimento = false
+          formDataBasic.idade = false
         }
       })
     }
@@ -480,7 +485,7 @@ const initDataBasic = async () => {
         e.preventDefault()
         if (
           formDataBasic.nome && formDataBasic.cpf && formDataBasic.nomemae && formDataBasic.naturalidade && formDataBasic.nacionalidade && formDataBasic.estadocivil
-          && formDataBasic.dt_nascimento && formDataBasic.sexo && formDataBasic.uf_naturalidade && formDataBasic.deficiencia && formDataBasic.rg && formDataBasic.orgaoexpedidor
+          && formDataBasic.dt_nascimento && formDataBasic.sexo && formDataBasic.uf_naturalidade && formDataBasic.deficiencia && formDataBasic.rg && formDataBasic.orgaoexpedidor && formDataBasic.idade
 
           // No caso do nomepai e carteira de trabalho não são obrigatorios
         ) {

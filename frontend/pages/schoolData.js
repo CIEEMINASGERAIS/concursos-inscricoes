@@ -191,6 +191,7 @@ async function createFormSchoolData() {
     }
 
     const callCourse = async () => {
+      console.log(codeFinal)
       try {
         const response = await fetch(
           `http://localhost:8082/cadastrarCurso?termo=${codeFinal}`

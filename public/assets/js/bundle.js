@@ -21,7 +21,8 @@ var _require = __webpack_require__(/*! ../utils/util.js */ "./frontend/utils/uti
   removerMensagem = _require.removerMensagem,
   isCep = _require.isCep,
   isNaturalidadeNacionalidade = _require.isNaturalidadeNacionalidade,
-  isUfNaturalidade = _require.isUfNaturalidade;
+  isUfNaturalidade = _require.isUfNaturalidade,
+  emailBd = _require.emailBd;
 function initAddress() {
   return _initAddress.apply(this, arguments);
 }
@@ -323,23 +324,23 @@ function _initAddress() {
                           return _regeneratorRuntime().wrap(function _callee2$(_context2) {
                             while (1) switch (_context2.prev = _context2.next) {
                               case 0:
-                                _context2.next = 2;
-                                return isEmail(e.target.value);
-                              case 2:
-                                _validate4 = _context2.sent;
+                                _validate4 = isEmail(e.target.value);
+                                if (_validate4) {
+                                  emailBd(e.target.value);
+                                }
                                 if (!_validate4) {
-                                  _context2.next = 8;
+                                  _context2.next = 7;
                                   break;
                                 }
                                 // Enviar para o HTML a mensagem de erro
                                 document.getElementById('msg-email').innerHTML = "";
                                 return _context2.abrupt("return", formDataAddress.email = e.target.value);
-                              case 8:
+                              case 7:
                                 e.preventDefault();
                                 // Enviar para o HTML a mensagem de erro
                                 document.getElementById('msg-email').innerHTML = "<p>Email inválido!</p>";
                                 return _context2.abrupt("return", formDataAddress.email = false);
-                              case 11:
+                              case 10:
                               case "end":
                                 return _context2.stop();
                             }
@@ -433,7 +434,8 @@ var _require = __webpack_require__(/*! ../utils/util.js */ "./frontend/utils/uti
   isDescricao = _require.isDescricao,
   removerMensagem = _require.removerMensagem,
   isRg = _require.isRg,
-  isComplemento = _require.isComplemento;
+  isComplemento = _require.isComplemento,
+  age = _require.age;
 
 // Função responsável por iniciar as funções e gerar o conteúdo da página
 var initDataBasic = /*#__PURE__*/function () {
@@ -500,18 +502,16 @@ var initDataBasic = /*#__PURE__*/function () {
                                 return isCpf(e.target.value);
                               case 6:
                                 _validate = _context.sent;
-                                if (!_validate) {
-                                  _context.next = 12;
-                                  break;
+                                if (_validate) {
+                                  document.getElementById('msg-cpf').innerHTML = '';
+                                  formDataBasic.cpf = e.target.value;
+                                } else {
+                                  e.preventDefault();
+                                  // Enviar para o HTML a mensagem de erro
+                                  document.getElementById('msg-cpf').innerHTML = "<p>CPF inválido!</p>";
+                                  formDataBasic.cpf = false;
                                 }
-                                document.getElementById('msg-cpf').innerHTML = '';
-                                return _context.abrupt("return", formDataBasic.cpf = e.target.value);
-                              case 12:
-                                e.preventDefault();
-                                // Enviar para o HTML a mensagem de erro
-                                document.getElementById('msg-cpf').innerHTML = "<p>CPF inválido!</p>";
-                                return _context.abrupt("return", formDataBasic.cpf = false);
-                              case 15:
+                              case 8:
                               case "end":
                                 return _context.stop();
                             }
@@ -564,12 +564,12 @@ var initDataBasic = /*#__PURE__*/function () {
                         _validate4 = isNome(e.target.value);
                         if (_validate4) {
                           document.getElementById('msg-nome-mae').innerHTML = '';
-                          return formDataBasic.nomemae = e.target.value;
+                          formDataBasic.nomemae = e.target.value;
                         } else {
                           e.preventDefault();
                           // Enviar para o HTML a mensagem de erro
                           document.getElementById('msg-nome-mae').innerHTML = "<p>Favor preencher o Nome completo!</p>";
-                          return formDataBasic.nomemae = false;
+                          formDataBasic.nomemae = false;
                         }
                       });
                     }
@@ -657,14 +657,17 @@ var initDataBasic = /*#__PURE__*/function () {
                       dataNascimento.addEventListener('input', function (e) {
                         e.target.value = e.target.value.replace(/[^0-9-]/g, '');
                         _validate10 = isDate(e.target.value);
+                        console.log(age(e.target.value));
                         if (_validate10) {
                           document.getElementById('msg-data-nascimento').innerHTML = '';
-                          return formDataBasic.dt_nascimento = e.target.value;
+                          formDataBasic.dt_nascimento = e.target.value;
+                          formDataBasic.idade = age(e.target.value);
                         } else {
                           e.preventDefault();
                           // Enviar para o HTML a mensagem de erro
                           document.getElementById('msg-data-nascimento').innerHTML = "<p>Cadastro permitido a partir dos 14 anos de idade!</p>";
-                          return formDataBasic.dt_nascimento = false;
+                          formDataBasic.dt_nascimento = false;
+                          formDataBasic.idade = false;
                         }
                       });
                     }
@@ -753,7 +756,7 @@ var initDataBasic = /*#__PURE__*/function () {
                     if (formData) {
                       formData.addEventListener('submit', function (e) {
                         e.preventDefault();
-                        if (formDataBasic.nome && formDataBasic.cpf && formDataBasic.nomemae && formDataBasic.naturalidade && formDataBasic.nacionalidade && formDataBasic.estadocivil && formDataBasic.dt_nascimento && formDataBasic.sexo && formDataBasic.uf_naturalidade && formDataBasic.deficiencia && formDataBasic.rg && formDataBasic.orgaoexpedidor
+                        if (formDataBasic.nome && formDataBasic.cpf && formDataBasic.nomemae && formDataBasic.naturalidade && formDataBasic.nacionalidade && formDataBasic.estadocivil && formDataBasic.dt_nascimento && formDataBasic.sexo && formDataBasic.uf_naturalidade && formDataBasic.deficiencia && formDataBasic.rg && formDataBasic.orgaoexpedidor && formDataBasic.idade
 
                         // No caso do nomepai e carteira de trabalho não são obrigatorios
                         ) {
@@ -1192,37 +1195,38 @@ function _createFormSchoolData() {
                         return _regeneratorRuntime().wrap(function _callee$(_context) {
                           while (1) switch (_context.prev = _context.next) {
                             case 0:
-                              _context.prev = 0;
-                              _context.next = 3;
+                              console.log(codeFinal);
+                              _context.prev = 1;
+                              _context.next = 4;
                               return fetch("http://localhost:8082/cadastrarCurso?termo=".concat(codeFinal));
-                            case 3:
+                            case 4:
                               _response = _context.sent;
                               if (!_response.ok) {
-                                _context.next = 12;
+                                _context.next = 13;
                                 break;
                               }
-                              _context.next = 7;
+                              _context.next = 8;
                               return _response.json();
-                            case 7:
+                            case 8:
                               opcoes = _context.sent;
                               idCurso = opcoes;
                               mostrarOpcoesAutocompleteCursos(opcoes);
-                              _context.next = 13;
+                              _context.next = 14;
                               break;
-                            case 12:
-                              console.log('Erro na solicitação:', _response.statusText);
                             case 13:
-                              _context.next = 18;
+                              console.log('Erro na solicitação:', _response.statusText);
+                            case 14:
+                              _context.next = 19;
                               break;
-                            case 15:
-                              _context.prev = 15;
-                              _context.t0 = _context["catch"](0);
+                            case 16:
+                              _context.prev = 16;
+                              _context.t0 = _context["catch"](1);
                               console.error('Erro:', _context.t0);
-                            case 18:
+                            case 19:
                             case "end":
                               return _context.stop();
                           }
-                        }, _callee, null, [[0, 15]]);
+                        }, _callee, null, [[1, 16]]);
                       }));
                       return function callCourse() {
                         return _ref2.apply(this, arguments);
@@ -1504,7 +1508,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 var _require = __webpack_require__(/*! ../utils/util */ "./frontend/utils/util.js"),
   changeMains = _require.changeMains,
   changeSubMainTitle = _require.changeSubMainTitle,
-  dateTime = _require.dateTime;
+  dateTime = _require.dateTime,
+  dateRegister = _require.dateRegister;
 function termsAndConditions() {
   return _termsAndConditions.apply(this, arguments);
 }
@@ -1557,6 +1562,8 @@ function _termsAndConditions() {
                               if (element.classList.contains("button-accept")) {
                                 schoolData.termos_condicoes = 1;
                                 schoolData.dt_aceite_termos = dateTime();
+                                console.log(dateTime());
+                                schoolData.dt_cadastro = dateRegister();
                               }
                               if (element.classList.contains('button-termo-1') || element.classList.contains('basic-data')) {
                                 if (schoolData.termos_condicoes) {
@@ -2163,6 +2170,24 @@ var isDate = function isDate(date) {
   }
   return true;
 };
+var age = function age(date) {
+  date = date.replace(/\-/g, '');
+  var yearFilter = date.substring(0, 4);
+  var monthFilter = date.substring(4, 6);
+  var dayFilter = date.substring(6, 8);
+  var today = new Date();
+  var year = today.getFullYear();
+  var month = today.getMonth() + 1;
+  var dayInMonth = today.getDate();
+  var idade = year - yearFilter;
+  if (month < monthFilter || month == monthFilter && dayInMonth < dayFilter) {
+    idade--;
+  }
+  if (idade < 14) {
+    return false;
+  }
+  return idade;
+};
 var isDateFormatura = function isDateFormatura(date, inicio, fim) {
   var regex = new RegExp(/^(19[9][0-9]|20[0-2][0-9]|2030)$/);
   if (!regex.test(date)) {
@@ -2344,61 +2369,62 @@ var isTelefone = function isTelefone(telefone) {
   }
   return true;
 };
-var isEmail = /*#__PURE__*/function () {
-  var _ref6 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee6(email) {
-    var regex, emailBd, response, opcoes;
+var isEmail = function isEmail(email) {
+  var regex = new RegExp(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/);
+  if (!regex.test(email)) {
+    return false;
+  }
+  var emailBd;
+  console.log(emailBd);
+  if (regex.test(email)) {}
+  console.log(emailBd, email);
+
+  // if (emailBd[0]) {
+
+  // }
+
+  return true;
+};
+var emailBd = /*#__PURE__*/function () {
+  var _ref6 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee6(_emailBd) {
+    var email, response, opcoes;
     return _regeneratorRuntime().wrap(function _callee6$(_context6) {
       while (1) switch (_context6.prev = _context6.next) {
         case 0:
-          regex = new RegExp(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/);
-          if (regex.test(email)) {
-            _context6.next = 3;
-            break;
-          }
-          return _context6.abrupt("return", false);
-        case 3:
-          _context6.prev = 3;
-          _context6.next = 6;
+          _context6.prev = 0;
+          _context6.next = 3;
           return fetch("http://localhost:8082/verificarEmail?termo=".concat(email));
-        case 6:
+        case 3:
           response = _context6.sent;
           if (!response.ok) {
-            _context6.next = 14;
+            _context6.next = 11;
             break;
           }
-          _context6.next = 10;
+          _context6.next = 7;
           return response.json();
-        case 10:
+        case 7:
           opcoes = _context6.sent;
-          emailBd = opcoes.map(function (email) {
+          email = opcoes.map(function (email) {
             return email.email;
           });
-          _context6.next = 15;
+          _context6.next = 12;
+          break;
+        case 11:
+          console.log('Erro na solicitação:', response.statusText);
+        case 12:
+          _context6.next = 17;
           break;
         case 14:
-          console.log('Erro na solicitação:', response.statusText);
-        case 15:
-          _context6.next = 20;
-          break;
-        case 17:
-          _context6.prev = 17;
-          _context6.t0 = _context6["catch"](3);
+          _context6.prev = 14;
+          _context6.t0 = _context6["catch"](0);
           console.error('Erro:', _context6.t0);
-        case 20:
-          if (!(emailBd[0] === email)) {
-            _context6.next = 22;
-            break;
-          }
-          return _context6.abrupt("return", false);
-        case 22:
-          return _context6.abrupt("return", true);
-        case 23:
+        case 17:
         case "end":
           return _context6.stop();
       }
-    }, _callee6, null, [[3, 17]]);
+    }, _callee6, null, [[0, 14]]);
   }));
-  return function isEmail(_x9) {
+  return function emailBd(_x9) {
     return _ref6.apply(this, arguments);
   };
 }();
@@ -2421,14 +2447,27 @@ var dateTime = function dateTime() {
   var today = new Date();
   return "".concat(today.toLocaleDateString({
     year: "numeric",
-    month: "2-digit",
-    day: "2-digit"
+    day: "2-digit",
+    month: "2-digit"
   }).replace(/[/]/g, '-'), " ").concat(today.toLocaleTimeString('pt-BR', {
     hour12: false,
     hour: '2-digit',
     minute: '2-digit',
     second: '2-digit'
   }));
+};
+var dateRegister = function dateRegister() {
+  var today = new Date();
+  var year = today.getFullYear();
+  var month = today.getMonth() + 1;
+  if (month < 10) {
+    month = "0" + month;
+  }
+  var dayInMonth = today.getDate();
+  if (dayInMonth < 10) {
+    dayInMonth = "0" + dayInMonth;
+  }
+  return year + "-" + month + "-" + dayInMonth;
 };
 
 // value="s"
@@ -2467,9 +2506,9 @@ var dateTime = function dateTime() {
 
 //     // Verificar se existe o campo lista de erros
 //     if (listInputValidate.hasOwnProperty(nameInput)) {
-//       console.log(`msg-${nameInput}`)
+//       console.log(`msg - ${ nameInput } `)
 //       // Enviar para o HTML a mensagem de erro
-//       document.getElementById(`msg-${nameInput}`).innerHTML = "<p style='color: #f00;'>"+listInputValidate[nameInput]+ "</p>"
+//       document.getElementById(`msg - ${ nameInput } `).innerHTML = "<p style='color: #f00;'>"+listInputValidate[nameInput]+ "</p>"
 //     } else {
 //       // Enviar para o HTML a mensagem de erro
 //       document.getElementById('msg').innerHTML = "<p style='color: #f00;'>Erro: Necessário preencher todos os campos obrigatórios!</p>"
@@ -2477,7 +2516,7 @@ var dateTime = function dateTime() {
 
 //     return
 //   } else {
-//     document.getElementById(`msg-${nameInput}`).innerHTML = "<p style='color: #f00;'></p>"
+//     document.getElementById(`msg - ${ nameInput } `).innerHTML = "<p style='color: #f00;'></p>"
 //       if (nameInput === 'deficiencias') {
 //         e.preventDefault()
 
@@ -2570,7 +2609,10 @@ module.exports = {
   isPeriodo: isPeriodo,
   isHorario: isHorario,
   isRg: isRg,
-  dateTime: dateTime
+  dateTime: dateTime,
+  dateRegister: dateRegister,
+  age: age,
+  emailBd: emailBd
 };
 
 /***/ })

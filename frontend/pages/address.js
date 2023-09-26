@@ -1,4 +1,4 @@
-const { isNumero, isComplemento, isTelefone, isEmail, changeMains, changeSubMainTitle, removerMensagem, isCep, isNaturalidadeNacionalidade, isUfNaturalidade } = require('../utils/util.js')
+const { isNumero, isComplemento, isTelefone, isEmail, changeMains, changeSubMainTitle, removerMensagem, isCep, isNaturalidadeNacionalidade, isUfNaturalidade, emailBd } = require('../utils/util.js')
 
 async function initAddress() {
   return new Promise(async (resolve, reject) => {
@@ -353,7 +353,11 @@ async function initAddress() {
 
       email.addEventListener('input', async e => {
 
-        validate = await isEmail(e.target.value)
+        validate = isEmail(e.target.value)
+
+        if (validate) {
+          emailBd(e.target.value)
+        }
 
         if (validate) {
           // Enviar para o HTML a mensagem de erro

@@ -43,6 +43,10 @@ module.exports = (sequelize, DataTypes) => {
     regiao: {
       type: DataTypes.STRING(2),
       allowNull: true
+    },
+    regional: {
+      type: DataTypes.STRING(2),
+      allowNull: true
     }
   }, {
     sequelize,

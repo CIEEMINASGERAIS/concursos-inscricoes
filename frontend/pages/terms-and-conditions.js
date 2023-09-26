@@ -1,4 +1,4 @@
-const { changeMains, changeSubMainTitle, dateTime } = require('../utils/util')
+const { changeMains, changeSubMainTitle, dateTime, dateRegister } = require('../utils/util')
 
 async function termsAndConditions() {
     return new Promise(async (resolve, reject) => {
@@ -43,6 +43,8 @@ async function termsAndConditions() {
             if (element.classList.contains("button-accept")) {
                 schoolData.termos_condicoes = 1
                 schoolData.dt_aceite_termos = dateTime()
+                console.log(dateTime())
+                schoolData.dt_cadastro = dateRegister()
             }
 
             if (element.classList.contains('button-termo-1') || element.classList.contains('basic-data')) {

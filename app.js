@@ -35,13 +35,13 @@ app.use((req, res, next) => {
   next()
 })
 
-// Acessar o models estudantes
-const estudantes = require('./src/db/models/estudantes')
-
 const sequelize = require('./src/db/models')
 
 const DataTypes = require('sequelize/lib/data-types')
 const { Op } = require('sequelize')
+
+// Acessar o models estudante
+const Estudante = require('./src/db/models/estudante')(sequelize, DataTypes)
 
 const Escola = require('./src/db/models/escola')(sequelize, DataTypes)
 
@@ -53,7 +53,7 @@ const Cep = require('./src/db/models/cep')(sequelize, DataTypes)
 // const db = require("./db/models")
 
 // Incluir as CONTROLLERS
-// const estudantes = require('./controllers/estudantes')
+// const estudante = require('./controllers/estudante')
 
 // Rota para renderizar o EJS em HTML
 app.get('/terms-and-conditions', (req, res) => {
@@ -131,7 +131,7 @@ app.get('/verificarEstudante', async (req, res) => {
   const termoPesquisa = req.query.termo
 
   try {
-    const data = await estudantes.findAll({
+    const data = await Estudante.findAll({
       attributes: ['cpf'],
       where: {
         cpf: {
@@ -156,7 +156,7 @@ app.get('/verificarEmail', async (req, res) => {
   const termoPesquisa = req.query.termo
 
   try {
-    const data = await estudantes.findAll({
+    const data = await Estudante.findAll({
       attributes: ['email'],
       where: {
         email: {
@@ -239,7 +239,7 @@ app.get('/', async (req, res) => {
 })
 
 app.post('/cadastrar', async (req, res) => {
-  await estudantes
+  await Estudante
     .create(req.body)
     .then(() => {
       return res.json({

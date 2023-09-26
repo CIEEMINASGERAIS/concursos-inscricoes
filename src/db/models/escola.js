@@ -90,7 +90,6 @@ module.exports = (sequelize, DataTypes) => {
       modelName: 'escola',
       tableName: 'escola',
       timestamps: false
-    }
-  )
+    })
   return Escola
 }

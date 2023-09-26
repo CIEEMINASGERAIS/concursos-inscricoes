@@ -454,9 +454,37 @@ const isDate = date => {
     return false
   }
 
-
-
   return true
+}
+
+const age = date => {
+  date = date.replace(/\-/g, '')
+
+  const yearFilter = date.substring(0, 4)
+
+  const monthFilter = date.substring(4, 6)
+
+  const dayFilter = date.substring(6, 8)
+
+  const today = new Date()
+
+  const year = today.getFullYear()
+
+  const month = today.getMonth() + 1
+
+  const dayInMonth = today.getDate()
+
+  let idade = year - yearFilter
+
+  if (month < monthFilter || month == monthFilter && dayInMonth < dayFilter) {
+    idade--
+  }
+
+  if (idade < 14) {
+    return false
+  }
+
+  return idade
 }
 
 
@@ -778,7 +806,7 @@ const isTelefone = telefone => {
 }
 
 
-const isEmail = async email => {
+const isEmail = email => {
 
   const regex = new RegExp(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/)
 
@@ -788,27 +816,40 @@ const isEmail = async email => {
 
   let emailBd
 
+  console.log(emailBd)
+
+  if (regex.test(email)) {
+
+  }
+
+  console.log(emailBd, email)
+
+  // if (emailBd[0]) {
+
+  // }
+
+  return true
+}
+
+
+const emailBd = async (emailBd) => {
+
+  let email
+
   try {
     const response = await fetch(
       `http://localhost:8082/verificarEmail?termo=${email}`
     )
     if (response.ok) {
       const opcoes = await response.json()
-      emailBd = opcoes.map(email => email.email)
+      email = opcoes.map(email => email.email)
     } else {
       console.log('Erro na solicitação:', response.statusText)
     }
   } catch (error) {
     console.error('Erro:', error)
   }
-
-  if (emailBd[0] === email) {
-    return false
-  }
-
-  return true
 }
-
 
 const isCep = cep => {
 
@@ -837,14 +878,32 @@ const dateTime = () => {
 
   return `${today.toLocaleDateString({
     year: "numeric",
-    month: "2-digit",
     day: "2-digit",
+    month: "2-digit",
   }).replace(/[/]/g, '-')} ${today.toLocaleTimeString('pt-BR', {
     hour12: false,
     hour: '2-digit',
     minute: '2-digit',
     second: '2-digit'
   })}`
+}
+
+const dateRegister = () => {
+  const today = new Date()
+
+  const year = today.getFullYear()
+
+  let month = today.getMonth() + 1
+  if (month < 10) {
+    month = "0" + month
+  }
+
+  let dayInMonth = today.getDate()
+  if (dayInMonth < 10) {
+    dayInMonth = "0" + dayInMonth
+  }
+
+  return year + "-" + month + "-" + dayInMonth
 }
 
 // value="s"
@@ -883,9 +942,9 @@ const dateTime = () => {
 
 //     // Verificar se existe o campo lista de erros
 //     if (listInputValidate.hasOwnProperty(nameInput)) {
-//       console.log(`msg-${nameInput}`)
+//       console.log(`msg - ${ nameInput } `)
 //       // Enviar para o HTML a mensagem de erro
-//       document.getElementById(`msg-${nameInput}`).innerHTML = "<p style='color: #f00;'>"+listInputValidate[nameInput]+ "</p>"
+//       document.getElementById(`msg - ${ nameInput } `).innerHTML = "<p style='color: #f00;'>"+listInputValidate[nameInput]+ "</p>"
 //     } else {
 //       // Enviar para o HTML a mensagem de erro
 //       document.getElementById('msg').innerHTML = "<p style='color: #f00;'>Erro: Necessário preencher todos os campos obrigatórios!</p>"
@@ -893,7 +952,7 @@ const dateTime = () => {
 
 //     return
 //   } else {
-//     document.getElementById(`msg-${nameInput}`).innerHTML = "<p style='color: #f00;'></p>"
+//     document.getElementById(`msg - ${ nameInput } `).innerHTML = "<p style='color: #f00;'></p>"
 //       if (nameInput === 'deficiencias') {
 //         e.preventDefault()
 
@@ -986,5 +1045,8 @@ module.exports = {
   isPeriodo,
   isHorario,
   isRg,
-  dateTime
+  dateTime,
+  dateRegister,
+  age,
+  emailBd
 }

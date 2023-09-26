@@ -18,7 +18,7 @@ async function takeData() {
 async function sendData() {
   const data = await takeData()
   try {
-    const response = await fetch('http://localhost:8082/cadastrar', {
+    const response = await fetch('http://localhost:8081/cadastrar', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

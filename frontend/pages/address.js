@@ -45,9 +45,8 @@ async function initAddress() {
 
         try {
           const response = await fetch(
-            `http://localhost:8080/cadastrarEndereco?termo=${cepSemPonto}`, {
-            mode: 'no-cors'
-          })
+            `http://appcadastro.cieemg.org.br:8080/cadastrarEndereco?termo=${cepSemPonto}`
+          )
           if (response.ok) {
             const opcoes = await response.json()
             endereco = opcoes

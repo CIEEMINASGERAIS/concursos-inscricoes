@@ -260,5 +260,5 @@ app.post('/cadastrar', async (req, res) => {
 // })
 
 app.listen(8080, '0.0.0.0', () => {
-  console.log('Servidor iniciado na porta 8080: http://0.0.0.0:8080')
+  console.log('Servidor iniciado na porta 8080: http://appcadastro.cieemg.org.br:8080')
 })

@@ -173,7 +173,7 @@ const isSchool = async (school, idSchool) => {
 
   try {
     const response = await fetch(
-      `http://localhost:8081/cadastrarEscola?termo=${school}`
+      `http://localhost:8080/cadastrarEscola?termo=${school}`
     )
     if (response.ok) {
       likeSchool = await response.json()
@@ -218,7 +218,7 @@ const isCourse = async (course, codeCourse, idCourse) => {
 
   try {
     const response = await fetch(
-      `http://localhost:8081/cadastrarCurso?termo=${codeCourse}`
+      `http://localhost:8080/cadastrarCurso?termo=${codeCourse}`
     )
     if (response.ok) {
       likeCourse = await response.json()
@@ -339,7 +339,7 @@ const isCpf = async (cpf = 0) => {
   let cpfBd
 
   try {
-    const response = await fetch(`http://localhost:8081/verificarEstudante?termo=${cpf}`)
+    const response = await fetch(`http://localhost:8080/verificarEstudante?termo=${cpf}`)
     if (response.ok) {
       const opcoes = await response.json()
       cpfBd = opcoes.map(cpf => cpf.cpf)
@@ -836,7 +836,7 @@ const emailBd = async (emailBd) => {
 
   try {
     const response = await fetch(
-      `http://localhost:8081/verificarEmail?termo=${email}`
+      `http://localhost:8080/verificarEmail?termo=${email}`
     )
     if (response.ok) {
       const opcoes = await response.json()

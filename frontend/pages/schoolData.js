@@ -194,7 +194,7 @@ async function createFormSchoolData() {
       console.log(codeFinal)
       try {
         const response = await fetch(
-          `http://localhost:8081/cadastrarCurso?termo=${codeFinal}`
+          `http://localhost:8080/cadastrarCurso?termo=${codeFinal}`
         )
         if (response.ok) {
           const opcoes = await response.json()
@@ -222,7 +222,7 @@ async function createFormSchoolData() {
 
         try {
           const response = await fetch(
-            `http://localhost:8081/cadastrarEscola?termo=${element.value}`
+            `http://localhost:8080/cadastrarEscola?termo=${element.value}`
           )
           if (response.ok) {
             opcoes = await response.json()

@@ -26,7 +26,7 @@ app.use((req, res, next) => {
   // Qualquer endereço pode fazer requisição
   res.header('Access-Control-Allow-Origin', '*')
   // Tipos de método que a API aceita
-  res.header('Access-Control-Allow-Methods', 'POST', 'GET')
+  res.header('Access-Control-Allow-Methods', 'POST', 'GET', 'OPTIONS')
   // Permitir o envio de dados para API
   res.header('Access-Control-Allow-Headers', 'Content-Type')
   // Executar o cors

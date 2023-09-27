@@ -18,11 +18,12 @@ async function takeData() {
 async function sendData() {
   const data = await takeData()
   try {
-    const response = await fetch('http://localhost:8080/cadastrar', {
+    const response = await fetch('https://localhost:8080/cadastrar', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
+      // mode: 'no-cors',
       error: false,
       mensagem: 'Usuário cadastrado com sucesso',
       body: JSON.stringify(data)

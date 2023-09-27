@@ -339,7 +339,9 @@ const isCpf = async (cpf = 0) => {
   let cpfBd
 
   try {
-    const response = await fetch(`http://localhost:8080/verificarEstudante?termo=${cpf}`)
+    const response = await fetch(`http://localhost:8080/verificarEstudante?termo=${cpf}`, {
+      mode: 'no-cors'
+    })
     if (response.ok) {
       const opcoes = await response.json()
       cpfBd = opcoes.map(cpf => cpf.cpf)

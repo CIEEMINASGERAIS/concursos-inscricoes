@@ -69,7 +69,9 @@ function _initAddress() {
                                 e.target.value = e.target.value.replace(/(-\d{3})\d+?$/, '$1');
                                 _context.prev = 4;
                                 _context.next = 7;
-                                return fetch("http://localhost:8080/cadastrarEndereco?termo=".concat(cepSemPonto));
+                                return fetch("http://localhost:8080/cadastrarEndereco?termo=".concat(cepSemPonto), {
+                                  mode: 'no-cors'
+                                });
                               case 7:
                                 _response = _context.sent;
                                 if (!_response.ok) {
@@ -1199,7 +1201,9 @@ function _createFormSchoolData() {
                               console.log(codeFinal);
                               _context.prev = 1;
                               _context.next = 4;
-                              return fetch("http://localhost:8080/cadastrarCurso?termo=".concat(codeFinal));
+                              return fetch("http://localhost:8080/cadastrarCurso?termo=".concat(codeFinal), {
+                                mode: 'no-cors'
+                              });
                             case 4:
                               _response = _context.sent;
                               if (!_response.ok) {
@@ -1249,7 +1253,9 @@ function _createFormSchoolData() {
                                       element = e.target;
                                       _context2.prev = 1;
                                       _context2.next = 4;
-                                      return fetch("http://localhost:8080/cadastrarEscola?termo=".concat(element.value));
+                                      return fetch("http://localhost:8080/cadastrarEscola?termo=".concat(element.value), {
+                                        mode: 'no-cors'
+                                      });
                                     case 4:
                                       _response2 = _context2.sent;
                                       if (!_response2.ok) {
@@ -2051,7 +2057,9 @@ var isCpf = /*#__PURE__*/function () {
           cpf = _args5.length > 0 && _args5[0] !== undefined ? _args5[0] : 0;
           _context5.prev = 1;
           _context5.next = 4;
-          return fetch("http://localhost:8080/verificarEstudante?termo=".concat(cpf));
+          return fetch("http://localhost:8080/verificarEstudante?termo=".concat(cpf), {
+            mode: 'no-cors'
+          });
         case 4:
           response = _context5.sent;
           if (!response.ok) {
@@ -2720,11 +2728,12 @@ function _sendData() {
           data = _context2.sent;
           _context2.prev = 3;
           _context2.next = 6;
-          return fetch('http://localhost:8080/cadastrar', {
+          return fetch('https://localhost:8080/cadastrar', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'
             },
+            // mode: 'no-cors',
             error: false,
             mensagem: 'Usuário cadastrado com sucesso',
             body: JSON.stringify(data)

@@ -60,8 +60,6 @@ async function termsAndConditions() {
 
       if (element.classList.contains("button-accept")) {
         schoolData.termos_condicoes = 1;
-        // schoolData.dt_aceite_termos =  'YYYY-MM-DD HH:mm:ss';
-        console.log(dateTime());
         schoolData.dt_cadastro = dateRegister();
       }
 

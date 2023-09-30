@@ -258,6 +258,12 @@ app.post("/cadastrar", async (req, res) => {
 //   console.log('Servidor iniciado na porta 8080: http://localhost:8080')
 // })
 
+app.use((req, res, next) => {
+  const clientIP = req.ip;
+  console.log(`IP do Cliente: ${clientIP}`);
+  next();
+});
+
 app.listen(8080, "0.0.0.0", () => {
   console.log(
     "Servidor iniciado na porta 8080: http://appcadastro.cieemg.org.br"

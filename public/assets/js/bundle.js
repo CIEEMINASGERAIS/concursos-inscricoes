@@ -69,7 +69,7 @@ function _initAddress() {
                                 e.target.value = e.target.value.replace(/(-\d{3})\d+?$/, '$1');
                                 _context.prev = 4;
                                 _context.next = 7;
-                                return fetch("http://appcadastro.cieemg.org.br/cadastrarEndereco?termo=".concat(cepSemPonto));
+                                return fetch("http://localhost:8080/cadastrarEndereco?termo=".concat(cepSemPonto));
                               case 7:
                                 _response = _context.sent;
                                 if (!_response.ok) {
@@ -1060,19 +1060,19 @@ function _createFormSchoolData() {
                         return _regeneratorRuntime().wrap(function _callee8$(_context8) {
                           while (1) switch (_context8.prev = _context8.next) {
                             case 0:
-                              cursos.innerHTML = '';
-                              option1 = document.createElement('option');
-                              option1.disabled = 'disabled';
-                              option1.selected = 'selected';
-                              option1.text = 'Selecione';
+                              cursos.innerHTML = "";
+                              option1 = document.createElement("option");
+                              option1.disabled = "disabled";
+                              option1.selected = "selected";
+                              option1.text = "Selecione";
                               cursos.appendChild(option1);
                               for (_i8 = 0; _i8 < opcoes.length; _i8++) {
-                                _option7 = document.createElement('option');
+                                _option7 = document.createElement("option");
                                 _option7.text = opcoes[_i8].descricao;
                                 _option7.value = opcoes[_i8].descricao;
                                 cursos.appendChild(_option7);
                               }
-                              $(cursos).selectpicker('refresh');
+                              $(cursos).selectpicker("refresh");
                             case 8:
                             case "end":
                               return _context8.stop();
@@ -1090,19 +1090,19 @@ function _createFormSchoolData() {
                         return _regeneratorRuntime().wrap(function _callee7$(_context7) {
                           while (1) switch (_context7.prev = _context7.next) {
                             case 0:
-                              escolas.innerHTML = '';
-                              option1 = document.createElement('option');
-                              option1.disabled = 'disabled';
-                              option1.selected = 'selected';
-                              option1.text = 'Selecione';
+                              escolas.innerHTML = "";
+                              option1 = document.createElement("option");
+                              option1.disabled = "disabled";
+                              option1.selected = "selected";
+                              option1.text = "Selecione";
                               escolas.appendChild(option1);
                               for (_i7 = 0; _i7 < opcoes.length; _i7++) {
-                                _option6 = document.createElement('option');
+                                _option6 = document.createElement("option");
                                 _option6.text = opcoes[_i7].razaosocial;
                                 _option6.value = opcoes[_i7].razaosocial;
                                 escolas.appendChild(_option6);
                               }
-                              $(escolas).selectpicker('refresh');
+                              $(escolas).selectpicker("refresh");
                             case 8:
                             case "end":
                               return _context7.stop();
@@ -1115,32 +1115,32 @@ function _createFormSchoolData() {
                       return _mostrarOpcoesAutocompleteEscolas.apply(this, arguments);
                     };
                     mostrarOpcoesAutocompleteHorario = function _mostrarOpcoesAutocom(horariosEstudos) {
-                      horario.innerHTML = '';
-                      var option1 = document.createElement('option');
-                      option1.disabled = 'disabled';
-                      option1.selected = 'selected';
-                      option1.text = 'Selecione';
+                      horario.innerHTML = "";
+                      var option1 = document.createElement("option");
+                      option1.disabled = "disabled";
+                      option1.selected = "selected";
+                      option1.text = "Selecione";
                       horario.appendChild(option1);
                       for (var _i6 = 0; _i6 < horariosEstudos.length; _i6++) {
-                        var _option5 = document.createElement('option');
+                        var _option5 = document.createElement("option");
                         _option5.text = horariosEstudos[_i6];
                         _option5.value = horariosEstudos[_i6];
                         horario.appendChild(_option5);
                       }
-                      $(horario).selectpicker('refresh');
+                      $(horario).selectpicker("refresh");
                     };
                     _context11.next = 11;
-                    return fetch('schoolData');
+                    return fetch("schoolData");
                   case 11:
                     response = _context11.sent;
                     _context11.next = 14;
                     return response.text();
                   case 14:
                     htmlContent = _context11.sent;
-                    schoolData = document.querySelector('.screen-school-data');
+                    schoolData = document.querySelector(".screen-school-data");
                     schoolData.innerHTML = htmlContent;
-                    formSchoolData = document.querySelector('.form-school-data');
-                    anoFormatura = document.getElementById('ano-formatura');
+                    formSchoolData = document.querySelector(".form-school-data");
+                    anoFormatura = document.getElementById("ano-formatura");
                     inicio = 1990;
                     fim = 2030;
                     anosFormaturas = [];
@@ -1148,46 +1148,51 @@ function _createFormSchoolData() {
                       anosFormaturas.push(i);
                     }
                     for (_i = 0; _i < anosFormaturas.length; _i++) {
-                      option = document.createElement('option');
+                      option = document.createElement("option");
                       option.text = anosFormaturas[_i];
                       option.value = anosFormaturas[_i];
                       anoFormatura.appendChild(option);
                     }
-                    semestreFormatura = document.getElementById('semestre-formatura');
-                    semestresFormaturas = [1, 2, 'Estágio Curricular'];
+                    semestreFormatura = document.getElementById("semestre-formatura");
+                    semestresFormaturas = [1, 2, "Estágio Curricular"];
                     for (_i2 = 0; _i2 < semestresFormaturas.length; _i2++) {
-                      _option = document.createElement('option');
+                      _option = document.createElement("option");
                       _option.text = semestresFormaturas[_i2];
-                      _option.value = semestresFormaturas[_i2];
+                      if (semestresFormaturas[_i2] === "Estágio Curricular") {
+                        console.log(semestresFormaturas[_i2]);
+                        _option.value = 0;
+                      } else {
+                        _option.value = semestresFormaturas[_i2];
+                      }
                       semestreFormatura.appendChild(_option);
                     }
-                    mesFormatura = document.getElementById('mes-formatura');
+                    mesFormatura = document.getElementById("mes-formatura");
                     mesesFormaturas = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
                     for (_i3 = 0; _i3 < mesesFormaturas.length; _i3++) {
-                      _option2 = document.createElement('option');
+                      _option2 = document.createElement("option");
                       _option2.text = mesesFormaturas[_i3];
                       _option2.value = mesesFormaturas[_i3];
                       mesFormatura.appendChild(_option2);
                     }
-                    periodo = document.getElementById('periodo');
-                    periodos = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 'Estágio Curricular'];
+                    periodo = document.getElementById("periodo");
+                    periodos = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, "Estágio Curricular"];
                     for (_i4 = 0; _i4 < periodos.length; _i4++) {
-                      _option3 = document.createElement('option');
+                      _option3 = document.createElement("option");
                       _option3.text = periodos[_i4];
                       _option3.value = periodos[_i4];
                       periodo.appendChild(_option3);
                     }
-                    horario = document.querySelector('.horario-estudo-search select');
-                    horariosEstudos = ['Manhã', 'Tarde', 'Noite', 'EAD', 'Estágio Curricular', 'Formado'];
+                    horario = document.querySelector(".horario-estudo-search select");
+                    horariosEstudos = ["Manhã", "Tarde", "Noite", "EAD", "Estágio Curricular", "Formado"];
                     for (_i5 = 0; _i5 < horariosEstudos.length; _i5++) {
-                      _option4 = document.createElement('option');
+                      _option4 = document.createElement("option");
                       _option4.text = horariosEstudos[_i5];
                       _option4.value = horariosEstudos[_i5];
                       horario.appendChild(_option4);
                     }
                     dataFormSchool = {};
-                    escolas = document.querySelector('.escola-search select');
-                    cursos = document.querySelector('.curso-search select');
+                    escolas = document.querySelector(".escola-search select");
+                    cursos = document.querySelector(".curso-search select");
                     codigoEscola = {};
                     idCurso = {};
                     callCourse = /*#__PURE__*/function () {
@@ -1196,38 +1201,37 @@ function _createFormSchoolData() {
                         return _regeneratorRuntime().wrap(function _callee$(_context) {
                           while (1) switch (_context.prev = _context.next) {
                             case 0:
-                              console.log(codeFinal);
-                              _context.prev = 1;
-                              _context.next = 4;
-                              return fetch("http://appcadastro.cieemg.org.br/cadastrarCurso?termo=".concat(codeFinal));
-                            case 4:
+                              _context.prev = 0;
+                              _context.next = 3;
+                              return fetch("http://localhost:8080/cadastrarCurso?termo=".concat(codeFinal));
+                            case 3:
                               _response = _context.sent;
                               if (!_response.ok) {
-                                _context.next = 13;
+                                _context.next = 12;
                                 break;
                               }
-                              _context.next = 8;
+                              _context.next = 7;
                               return _response.json();
-                            case 8:
+                            case 7:
                               opcoes = _context.sent;
                               idCurso = opcoes;
                               mostrarOpcoesAutocompleteCursos(opcoes);
-                              _context.next = 14;
+                              _context.next = 13;
                               break;
+                            case 12:
+                              console.log("Erro na solicitação:", _response.statusText);
                             case 13:
-                              console.log('Erro na solicitação:', _response.statusText);
-                            case 14:
-                              _context.next = 19;
+                              _context.next = 18;
                               break;
-                            case 16:
-                              _context.prev = 16;
-                              _context.t0 = _context["catch"](1);
-                              console.error('Erro:', _context.t0);
-                            case 19:
+                            case 15:
+                              _context.prev = 15;
+                              _context.t0 = _context["catch"](0);
+                              console.error("Erro:", _context.t0);
+                            case 18:
                             case "end":
                               return _context.stop();
                           }
-                        }, _callee, null, [[1, 16]]);
+                        }, _callee, null, [[0, 15]]);
                       }));
                       return function callCourse() {
                         return _ref2.apply(this, arguments);
@@ -1238,9 +1242,9 @@ function _createFormSchoolData() {
                       return _regeneratorRuntime().wrap(function _callee4$(_context4) {
                         while (1) switch (_context4.prev = _context4.next) {
                           case 0:
-                            $('.escola-search select').selectpicker();
-                            input = document.querySelector('.escola-search input');
-                            input.addEventListener('input', /*#__PURE__*/function () {
+                            $(".escola-search select").selectpicker();
+                            input = document.querySelector(".escola-search input");
+                            input.addEventListener("input", /*#__PURE__*/function () {
                               var _ref4 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2(e) {
                                 var element, _response2, SchoolFound;
                                 return _regeneratorRuntime().wrap(function _callee2$(_context2) {
@@ -1249,7 +1253,7 @@ function _createFormSchoolData() {
                                       element = e.target;
                                       _context2.prev = 1;
                                       _context2.next = 4;
-                                      return fetch("http://appcadastro.cieemg.org.br/cadastrarEscola?termo=".concat(element.value));
+                                      return fetch("http://localhost:8080/cadastrarEscola?termo=".concat(element.value));
                                     case 4:
                                       _response2 = _context2.sent;
                                       if (!_response2.ok) {
@@ -1265,23 +1269,23 @@ function _createFormSchoolData() {
                                       _context2.next = 14;
                                       break;
                                     case 13:
-                                      console.log('Erro na solicitação:', _response2.statusText);
+                                      console.log("Erro na solicitação:", _response2.statusText);
                                     case 14:
                                       _context2.next = 19;
                                       break;
                                     case 16:
                                       _context2.prev = 16;
                                       _context2.t0 = _context2["catch"](1);
-                                      console.error('Erro:', _context2.t0);
+                                      console.error("Erro:", _context2.t0);
                                     case 19:
-                                      SchoolFound = document.querySelector('.school-found');
+                                      SchoolFound = document.querySelector(".school-found");
                                       if (opcoes.length === 0) {
-                                        SchoolFound.style.display = 'block';
-                                        if (SchoolFound.style.display === 'block') {
-                                          document.addEventListener('click', function (e) {
+                                        SchoolFound.style.display = "block";
+                                        if (SchoolFound.style.display === "block") {
+                                          document.addEventListener("click", function (e) {
                                             var element = e.target;
-                                            if (element.classList.contains('button-confirm-school')) {
-                                              SchoolFound.style.display = 'none';
+                                            if (element.classList.contains("button-confirm-school")) {
+                                              SchoolFound.style.display = "none";
                                             }
                                           });
                                         }
@@ -1296,7 +1300,7 @@ function _createFormSchoolData() {
                                 return _ref4.apply(this, arguments);
                               };
                             }());
-                            $('.escola-search select').change( /*#__PURE__*/function () {
+                            $(".escola-search select").change( /*#__PURE__*/function () {
                               var _ref5 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3(e) {
                                 var data;
                                 return _regeneratorRuntime().wrap(function _callee3$(_context3) {
@@ -1333,8 +1337,8 @@ function _createFormSchoolData() {
                       }, _callee4);
                     })));
                     $(document).ready(function () {
-                      $('.curso-search select').selectpicker();
-                      $('.curso-search select').change( /*#__PURE__*/function () {
+                      $(".curso-search select").selectpicker();
+                      $(".curso-search select").change( /*#__PURE__*/function () {
                         var _ref6 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee5(e) {
                           var data, validate;
                           return _regeneratorRuntime().wrap(function _callee5$(_context5) {
@@ -1363,8 +1367,8 @@ function _createFormSchoolData() {
                           return _ref6.apply(this, arguments);
                         };
                       }());
-                      $('.ano-formatura-search select').selectpicker();
-                      $('.ano-formatura-search select').change(function (e) {
+                      $(".ano-formatura-search select").selectpicker();
+                      $(".ano-formatura-search select").change(function (e) {
                         var data = e.currentTarget.value;
                         var validate;
                         var valid;
@@ -1375,13 +1379,13 @@ function _createFormSchoolData() {
                           document.getElementById("msg-ano").innerHTML = "";
                           dataFormSchool.previsao_ano = data;
                           if (!valid) {
-                            horarioIncompleto = ['Estágio Curricular', 'Formado'];
+                            horarioIncompleto = ["Estágio Curricular", "Formado"];
                             mostrarOpcoesAutocompleteHorario(horarioIncompleto);
-                            document.getElementById('div-periodo').style.display = 'none';
-                            document.getElementById('periodo').style.display = true;
+                            document.getElementById("div-periodo").style.display = "none";
+                            document.getElementById("periodo").style.display = true;
                           } else {
-                            document.getElementById('div-periodo').style.display = 'block';
-                            document.getElementById('periodo').style.display = false;
+                            document.getElementById("div-periodo").style.display = "block";
+                            document.getElementById("periodo").style.display = false;
                             horarioIncompleto = [];
                             mostrarOpcoesAutocompleteHorario(horariosEstudos);
                           }
@@ -1390,11 +1394,12 @@ function _createFormSchoolData() {
                           dataFormSchool.previsao_ano = false;
                         }
                       });
-                      $('.semestre-formatura-search select').selectpicker();
-                      $('.semestre-formatura-search select').change(function (e) {
+                      $(".semestre-formatura-search select").selectpicker();
+                      $(".semestre-formatura-search select").change(function (e) {
                         var data = e.currentTarget.value;
                         var validate;
                         validate = isSemestre(data);
+                        console.log(validate);
                         if (validate) {
                           document.getElementById("msg-semestre-formatura").innerHTML = "";
                           dataFormSchool.previsao_semestre = data;
@@ -1403,8 +1408,8 @@ function _createFormSchoolData() {
                           dataFormSchool.previsao_semestre = false;
                         }
                       });
-                      $('.mes-formatura-search select').selectpicker();
-                      $('.mes-formatura-search select').change(function (e) {
+                      $(".mes-formatura-search select").selectpicker();
+                      $(".mes-formatura-search select").change(function (e) {
                         var data = e.currentTarget.value;
                         var validate = isMesFormatura(data);
                         if (validate) {
@@ -1415,8 +1420,8 @@ function _createFormSchoolData() {
                           dataFormSchool.previsao_mes = false;
                         }
                       });
-                      $('.periodo-search select').selectpicker();
-                      $('.periodo-search select').change(function (e) {
+                      $(".periodo-search select").selectpicker();
+                      $(".periodo-search select").change(function (e) {
                         var data = e.currentTarget.value;
                         var validate = isPeriodo(data);
                         if (validate) {
@@ -1427,8 +1432,8 @@ function _createFormSchoolData() {
                           dataFormSchool.periodo = false;
                         }
                       });
-                      $('.horario-estudo-search select').selectpicker();
-                      $('.horario-estudo-search select').change(function (e) {
+                      $(".horario-estudo-search select").selectpicker();
+                      $(".horario-estudo-search select").change(function (e) {
                         var data = e.currentTarget.value;
                         var validate = isHorario(data);
                         if (validate) {
@@ -1440,10 +1445,10 @@ function _createFormSchoolData() {
                         }
                       });
                     });
-                    alertEnd = document.querySelector('.end');
+                    alertEnd = document.querySelector(".end");
                     today = new Date();
                     if (formSchoolData) {
-                      formSchoolData.addEventListener('submit', /*#__PURE__*/function () {
+                      formSchoolData.addEventListener("submit", /*#__PURE__*/function () {
                         var _ref7 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee6(e) {
                           return _regeneratorRuntime().wrap(function _callee6$(_context6) {
                             while (1) switch (_context6.prev = _context6.next) {
@@ -1454,11 +1459,11 @@ function _createFormSchoolData() {
                                 // O dataFormSchool.periodo não é obrigatório
                                 ) {
                                   dataFormSchool.ano = today.getFullYear();
-                                  alertEnd.style.display = 'block';
+                                  alertEnd.style.display = "block";
                                   resolve(dataFormSchool);
                                 } else {
                                   document.getElementById("msg-fracasso-school").innerHTML = "<p>Formulário incompleto!</p>";
-                                  removerMensagem('msg-fracasso-school');
+                                  removerMensagem("msg-fracasso-school");
                                 }
                               case 2:
                               case "end":
@@ -1471,7 +1476,7 @@ function _createFormSchoolData() {
                         };
                       }());
                     } else {
-                      console.log('Erro ao enviar os dados para o banco!');
+                      console.log("Erro ao enviar os dados para o banco!");
                       reject(error);
                     }
                   case 47:
@@ -1526,56 +1531,57 @@ function _termsAndConditions() {
                 while (1) switch (_context2.prev = _context2.next) {
                   case 0:
                     _context2.next = 2;
-                    return fetch('terms-and-conditions');
+                    return fetch("terms-and-conditions");
                   case 2:
                     response = _context2.sent;
                     _context2.next = 5;
                     return response.text();
                   case 5:
                     contetHtml = _context2.sent;
-                    termsCondtions = document.querySelector('.terms-and-conditions');
-                    menuSide = document.querySelector('.nav-bar');
-                    termoBox = document.querySelector('.termos-box');
-                    title = document.querySelector('.sub-main-title');
+                    termsCondtions = document.querySelector(".terms-and-conditions");
+                    menuSide = document.querySelector(".nav-bar");
+                    termoBox = document.querySelector(".termos-box");
+                    title = document.querySelector(".sub-main-title");
                     schoolData = {};
                     termsCondtions.innerHTML = contetHtml;
-                    document.addEventListener('click', /*#__PURE__*/function () {
+                    document.addEventListener("click", /*#__PURE__*/function () {
                       var _ref2 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(e) {
                         var checkbox;
                         return _regeneratorRuntime().wrap(function _callee$(_context) {
                           while (1) switch (_context.prev = _context.next) {
                             case 0:
                               element = e.target;
-                              if (element.classList.contains('button-termo') || element.classList.contains('terms-and-conditions') || element.classList.contains('p-t-c') || element.classList.contains("h1-t-c") || element.classList.contains("h2-t-c") || element.classList.contains("s-t-c") || element.classList.contains("a-t-c") || element.classList.contains("check-term") || element.classList.contains("label-li") || element.classList.contains("input-li") || element.classList.contains("checkbox") || element.classList.contains("text-terms-conditions") || element.classList.contains("title-terms") || element.classList.contains("button-terms-a-d") || element.classList.contains("terms-input-label")) {
-                                termsCondtions.style.display = 'block';
-                                menuSide.style.visibility = 'hidden';
-                                termoBox.style.display = 'none';
-                                title.style.visibility = 'hidden';
+                              if (element.classList.contains("button-termo") || element.classList.contains("terms-and-conditions") || element.classList.contains("p-t-c") || element.classList.contains("h1-t-c") || element.classList.contains("h2-t-c") || element.classList.contains("s-t-c") || element.classList.contains("a-t-c") || element.classList.contains("check-term") || element.classList.contains("label-li") || element.classList.contains("input-li") || element.classList.contains("checkbox") || element.classList.contains("text-terms-conditions") || element.classList.contains("title-terms") || element.classList.contains("button-terms-a-d") || element.classList.contains("terms-input-label")) {
+                                termsCondtions.style.display = "block";
+                                menuSide.style.visibility = "hidden";
+                                termoBox.style.display = "none";
+                                title.style.visibility = "hidden";
                               } else {
-                                termsCondtions.style.display = 'none';
-                                menuSide.style.visibility = 'visible';
-                                termoBox.style.display = 'flex';
-                                title.style.visibility = 'visible';
+                                termsCondtions.style.display = "none";
+                                menuSide.style.visibility = "visible";
+                                termoBox.style.display = "flex";
+                                title.style.visibility = "visible";
                               }
-                              if (element.classList.contains('button-decline')) {
+                              if (element.classList.contains("button-decline")) {
                                 schoolData.termos_condicoes = 0;
                               }
                               if (element.classList.contains("button-accept")) {
                                 schoolData.termos_condicoes = 1;
-                                schoolData.dt_aceite_termos = dateTime();
+                                // schoolData.dt_aceite_termos =  'YYYY-MM-DD HH:mm:ss';
                                 console.log(dateTime());
                                 schoolData.dt_cadastro = dateRegister();
                               }
-                              if (element.classList.contains('button-termo-1') || element.classList.contains('basic-data')) {
+                              if (element.classList.contains("button-termo-1") || element.classList.contains("basic-data")) {
                                 if (schoolData.termos_condicoes) {
-                                  changeMains('.screen-basic-data1');
-                                  changeSubMainTitle('Formulário de Dados Básicos');
+                                  changeMains(".screen-basic-data1");
+                                  changeSubMainTitle("Formulário de Dados Básicos");
+                                  console.log(schoolData);
                                   resolve(schoolData);
                                 } else {
                                   e.preventDefault();
                                 }
                               }
-                              checkbox = document.getElementById('li-concordo');
+                              checkbox = document.getElementById("li-concordo");
                               if (checkbox.checked === true) {
                                 document.getElementById("button-accept").disabled = false;
                               } else {
@@ -1600,12 +1606,12 @@ function _termsAndConditions() {
                           document.getElementById("li-concordo").disabled = false;
                         }, 15000);
                       } else {
-                        $('.text-terms-conditions').bind("scroll", function () {
+                        $(".text-terms-conditions").bind("scroll", function () {
                           /*
-                          * scrollTop -> Quanto rolou
-                          * innerHeight -> Altura do interior da div
-                          * scrollHeight -> Altura do conteúdo da div
-                          */
+                           * scrollTop -> Quanto rolou
+                           * innerHeight -> Altura do interior da div
+                           * scrollHeight -> Altura do conteúdo da div
+                           */
                           if ($(this).scrollTop() + $(this).innerHeight() >= this.scrollHeight) {
                             document.getElementById("li-concordo").disabled = false;
                           } else {
@@ -1648,60 +1654,60 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 // Cria o elemento label para o nome, seta os atributos e preenche a label
 var createLabel = function createLabel(forAttribute, text) {
-  var label = document.createElement('label');
-  label.setAttribute('for', forAttribute);
+  var label = document.createElement("label");
+  label.setAttribute("for", forAttribute);
   label.innerText = text;
   return label;
 };
 
 // Cria um campo de entrada de texto para o nome e seta os atributos para colocar o parametro conforme necessário ao input
 var createInput = function createInput(type, name, id, placeholder, classe) {
-  var input = document.createElement('input');
-  input.setAttribute('type', type);
-  input.setAttribute('name', name);
-  input.setAttribute('id', id);
-  input.setAttribute('placeholder', placeholder);
-  input.setAttribute('class', classe);
+  var input = document.createElement("input");
+  input.setAttribute("type", type);
+  input.setAttribute("name", name);
+  input.setAttribute("id", id);
+  input.setAttribute("placeholder", placeholder);
+  input.setAttribute("class", classe);
   return input;
 };
 
 // Cria o elemento <form>
 var createForm = function createForm(classe) {
-  var form = document.createElement('form');
-  form.setAttribute('class', classe);
+  var form = document.createElement("form");
+  form.setAttribute("class", classe);
   return form;
 };
 
 // Cria o elemento link
 var createLink = function createLink(rel, href) {
-  var cssLink = document.createElement('link');
-  cssLink.setAttribute('rel', rel);
-  cssLink.setAttribute('href', href);
+  var cssLink = document.createElement("link");
+  cssLink.setAttribute("rel", rel);
+  cssLink.setAttribute("href", href);
   return cssLink;
 };
 var createButton = function createButton(text, classe, type) {
-  var button = document.createElement('button');
-  button.setAttribute('class', classe);
-  button.setAttribute('type', type);
+  var button = document.createElement("button");
+  button.setAttribute("class", classe);
+  button.setAttribute("type", type);
   button.innerText = text;
   return button;
 };
 var createDiv = function createDiv(classe, text) {
-  var div = document.createElement('div');
-  div.setAttribute('class', classe);
+  var div = document.createElement("div");
+  div.setAttribute("class", classe);
   div.innerText = text;
   return div;
 };
 var createSelect = function createSelect(id, name) {
-  var select = document.createElement('select');
-  select.setAttribute('id', id);
-  select.setAttribute('name', name);
+  var select = document.createElement("select");
+  select.setAttribute("id", id);
+  select.setAttribute("name", name);
   return select;
 };
 var createOption = function createOption(value, text, name) {
-  var options = document.createElement('option');
-  if (options.text === 'Estágio Curricular') {
-    options.value = 'esc';
+  var options = document.createElement("option");
+  if (options.text === "Estágio Curricular") {
+    options.value = "esc";
   } else {
     options.value = value;
   }
@@ -1710,10 +1716,10 @@ var createOption = function createOption(value, text, name) {
   return options;
 };
 var putOption = function putOption(list) {
-  var placeholderOption = document.createElement('option');
+  var placeholderOption = document.createElement("option");
   placeholderOption.disabled = true;
   placeholderOption.selected = true;
-  placeholderOption.text = 'Selecione';
+  placeholderOption.text = "Selecione";
   var options = [placeholderOption];
   for (var i = 0; i < list.length; i++) {
     var option = createOption(list[i], list[i], list[i]);
@@ -1740,7 +1746,7 @@ var carregarPaginaHtml = /*#__PURE__*/function () {
         case 10:
           _context.prev = 10;
           _context.t0 = _context["catch"](0);
-          console.error('Erro ao carregar a página:', _context.t0);
+          console.error("Erro ao carregar a página:", _context.t0);
         case 13:
         case "end":
           return _context.stop();
@@ -1773,41 +1779,41 @@ var adicionarPaginaHtml = /*#__PURE__*/function () {
   };
 }();
 var changeSubMainTitle = function changeSubMainTitle(text) {
-  var subTitle = document.querySelector('.sub-main-title h1');
+  var subTitle = document.querySelector(".sub-main-title h1");
   return subTitle.innerText = text;
 };
 var changeMains = function changeMains(nameClass) {
-  var screens = document.querySelectorAll('.screen');
+  var screens = document.querySelectorAll(".screen");
   for (var i = 0; i < screens.length; i++) {
-    screens[i].style.display = 'none';
+    screens[i].style.display = "none";
   }
   var screen = document.querySelector(nameClass);
   if (screen) {
-    screen.style.display = 'block';
+    screen.style.display = "block";
   }
 };
 
 // Função com a lista de erros
 var listInputValidate = function listInputValidate() {
   var listInputValidate = {
-    name: 'Necessário preencher o campo nome!',
-    cpf: 'Necessário preencher o campo CPF!',
-    'nome-mae': 'Necessário preencher o campo nome da mãe!',
-    'nome-pai': 'Necessário preencher o campo nome da pai!',
-    'carteira-trabalho': 'Necessário preencher o campo carteira de trabalho!',
-    naturalidade: 'Necessário preencher o campo naturalidade!',
-    nacionalidade: 'Necessário preencher o campo nacionalidade!',
-    'estado-civil': 'Necessário preencher o campo estado civil!',
-    'data-nascimento': 'Necessário preencher o campo da data de nascimento!',
-    sexo: 'Necessário preencher o campo sexo!',
-    'uf-naturalidade': 'Necessário preencher o campo uf naturalidade!',
+    name: "Necessário preencher o campo nome!",
+    cpf: "Necessário preencher o campo CPF!",
+    "nome-mae": "Necessário preencher o campo nome da mãe!",
+    "nome-pai": "Necessário preencher o campo nome da pai!",
+    "carteira-trabalho": "Necessário preencher o campo carteira de trabalho!",
+    naturalidade: "Necessário preencher o campo naturalidade!",
+    nacionalidade: "Necessário preencher o campo nacionalidade!",
+    "estado-civil": "Necessário preencher o campo estado civil!",
+    "data-nascimento": "Necessário preencher o campo da data de nascimento!",
+    sexo: "Necessário preencher o campo sexo!",
+    "uf-naturalidade": "Necessário preencher o campo uf naturalidade!",
     deficiencias: 'Necessário preencher o campo "Se possui alguma deficiência?'
   };
   return listInputValidate;
 };
 var isNome = function isNome(nome) {
   nome = nome.trim();
-  var nomeSemEspaco = nome.replace(' ', '');
+  var nomeSemEspaco = nome.replace(" ", "");
   if (nome.length === 0 || nomeSemEspaco === nome || nomeSemEspaco.length === 0 || nomeSemEspaco.length < 3
   // Depois tem que fazer uma regra para o numero de letras em cada nome
   ) {
@@ -1832,7 +1838,7 @@ var isSchool = /*#__PURE__*/function () {
           likeSchool = {};
           _context3.prev = 1;
           _context3.next = 4;
-          return fetch("http://appcadastro.cieemg.org.br:8080/cadastrarEscola?termo=".concat(school));
+          return fetch("http://localhost:8080/cadastrarEscola?termo=".concat(school));
         case 4:
           response = _context3.sent;
           if (!response.ok) {
@@ -1852,14 +1858,14 @@ var isSchool = /*#__PURE__*/function () {
           _context3.next = 13;
           break;
         case 12:
-          console.log('Erro na solicitação:', response.statusText);
+          console.log("Erro na solicitação:", response.statusText);
         case 13:
           _context3.next = 18;
           break;
         case 15:
           _context3.prev = 15;
           _context3.t0 = _context3["catch"](1);
-          console.error('Erro:', _context3.t0);
+          console.error("Erro:", _context3.t0);
         case 18:
           _context3.t1 = _regeneratorRuntime().keys(likeSchool);
         case 19:
@@ -1868,12 +1874,12 @@ var isSchool = /*#__PURE__*/function () {
             break;
           }
           chave = _context3.t2.value;
-          if (!(likeSchool[chave]['razaoSocial'] === school && likeSchool[chave]['id'] === idSchool)) {
+          if (!(likeSchool[chave]["razaoSocial"] === school && likeSchool[chave]["id"] === idSchool)) {
             _context3.next = 25;
             break;
           }
-          idSchoolVerification = likeSchool[chave]['id'];
-          schoolVerification = likeSchool[chave]['razaoSocial'];
+          idSchoolVerification = likeSchool[chave]["id"];
+          schoolVerification = likeSchool[chave]["razaoSocial"];
           return _context3.abrupt("break", 27);
         case 25:
           _context3.next = 19;
@@ -1917,7 +1923,7 @@ var isCourse = /*#__PURE__*/function () {
           likeCourse = {};
           _context4.prev = 1;
           _context4.next = 4;
-          return fetch("http://appcadastro.cieemg.org.br:8080/cadastrarCurso?termo=".concat(codeCourse));
+          return fetch("http://localhost:8080/cadastrarCurso?termo=".concat(codeCourse));
         case 4:
           response = _context4.sent;
           if (!response.ok) {
@@ -1937,14 +1943,14 @@ var isCourse = /*#__PURE__*/function () {
           _context4.next = 13;
           break;
         case 12:
-          console.log('Erro na solicitação:', response.statusText);
+          console.log("Erro na solicitação:", response.statusText);
         case 13:
           _context4.next = 18;
           break;
         case 15:
           _context4.prev = 15;
           _context4.t0 = _context4["catch"](1);
-          console.error('Erro:', _context4.t0);
+          console.error("Erro:", _context4.t0);
         case 18:
           _context4.t1 = _regeneratorRuntime().keys(likeCourse);
         case 19:
@@ -1953,12 +1959,12 @@ var isCourse = /*#__PURE__*/function () {
             break;
           }
           chave = _context4.t2.value;
-          if (!(likeCourse[chave]['descricao'] === course && likeCourse[chave]['idcurso'] === idCourse)) {
+          if (!(likeCourse[chave]["descricao"] === course && likeCourse[chave]["idcurso"] === idCourse)) {
             _context4.next = 25;
             break;
           }
-          courseVerification = likeCourse[chave]['descricao'];
-          courseIdVerification = likeCourse[chave]['idcurso'];
+          courseVerification = likeCourse[chave]["descricao"];
+          courseIdVerification = likeCourse[chave]["idcurso"];
           return _context4.abrupt("break", 27);
         case 25:
           _context4.next = 19;
@@ -2014,7 +2020,7 @@ var isCtps = function isCtps(valor) {
   if (!regex.test(valor)) {
     return false;
   }
-  var valorSemEspaco = valor.replace(' ', '');
+  var valorSemEspaco = valor.replace(" ", "");
   if (valor.length === 0 || valor != valorSemEspaco || valorSemEspaco.length === 0 || valorSemEspaco.length < 7) {
     return false;
   }
@@ -2026,8 +2032,8 @@ var isCtps = function isCtps(valor) {
 };
 var isRg = function isRg(valor) {
   valor = valor.trim();
-  valor = valor.replace(/[^0-9]/g, '');
-  var valorSemEspaco = valor.replace(' ', '');
+  valor = valor.replace(/[^0-9]/g, "");
+  var valorSemEspaco = valor.replace(" ", "");
   if (valor.length === 0 || valor != valorSemEspaco || valorSemEspaco.length === 0) {
     return false;
   }
@@ -2051,7 +2057,7 @@ var isCpf = /*#__PURE__*/function () {
           cpf = _args5.length > 0 && _args5[0] !== undefined ? _args5[0] : 0;
           _context5.prev = 1;
           _context5.next = 4;
-          return fetch("http://appcadastro.cieemg.org.br:8080/verificarEstudante?termo=".concat(cpf));
+          return fetch("http://localhost:8080/verificarEstudante?termo=".concat(cpf));
         case 4:
           response = _context5.sent;
           if (!response.ok) {
@@ -2068,14 +2074,14 @@ var isCpf = /*#__PURE__*/function () {
           _context5.next = 13;
           break;
         case 12:
-          console.log('Erro na solicitação:', response.statusText);
+          console.log("Erro na solicitação:", response.statusText);
         case 13:
           _context5.next = 18;
           break;
         case 15:
           _context5.prev = 15;
           _context5.t0 = _context5["catch"](1);
-          console.error('Erro:', _context5.t0);
+          console.error("Erro:", _context5.t0);
         case 18:
           if (!(cpfBd[0] === cpf)) {
             _context5.next = 20;
@@ -2090,7 +2096,7 @@ var isCpf = /*#__PURE__*/function () {
           }
           return _context5.abrupt("return", false);
         case 23:
-          cpf = cpf.replace(/\.|-/g, '');
+          cpf = cpf.replace(/\.|-/g, "");
           if (validaPrimeiroDigito(cpf)) {
             _context5.next = 26;
             break;
@@ -2154,7 +2160,7 @@ var isEstadoCivil = function isEstadoCivil(estadoCivil) {
   return true;
 };
 var isDate = function isDate(date) {
-  date = date.replace(/\-/g, '');
+  date = date.replace(/\-/g, "");
   var yearFilter = date.substring(0, 4);
   var monthFilter = date.substring(4, 6);
   var dayFilter = date.substring(6, 8);
@@ -2172,7 +2178,7 @@ var isDate = function isDate(date) {
   return true;
 };
 var age = function age(date) {
-  date = date.replace(/\-/g, '');
+  date = date.replace(/\-/g, "");
   var yearFilter = date.substring(0, 4);
   var monthFilter = date.substring(4, 6);
   var dayFilter = date.substring(6, 8);
@@ -2217,18 +2223,22 @@ var isvalid = function isvalid(date) {
   return true;
 };
 var isSemestre = function isSemestre(data) {
-  var semestresFormaturas = [1, 2, 'Estágio Curricular'];
+  data = parseInt(data);
+  var semestreForm = [1, 2, 0];
   var semestre;
-  for (chave in semestresFormaturas) {
-    if (semestresFormaturas[chave] == data) {
-      semestre = semestresFormaturas[chave];
+  for (var _chave in semestreForm) {
+    console.log(semestreForm[_chave]);
+    console.log(data);
+    if (semestreForm[_chave] === data) {
+      semestre = semestreForm[_chave];
       break;
     }
   }
-  if (!semestre) {
-    return false;
+  if (semestre === 0 || semestre === 1 || semestre === 2) {
+    console.log(semestre);
+    return true;
   }
-  return true;
+  return false;
 };
 var isMesFormatura = function isMesFormatura(data) {
   data = parseInt(data);
@@ -2245,7 +2255,7 @@ var isMesFormatura = function isMesFormatura(data) {
   return true;
 };
 var isPeriodo = function isPeriodo(data) {
-  var periodos = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 'Estágio Curricular'];
+  var periodos = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, "Estágio Curricular"];
   var periodo;
   for (chave in periodos) {
     if (periodos[chave] == data) {
@@ -2259,11 +2269,11 @@ var isPeriodo = function isPeriodo(data) {
   return true;
 };
 var isHorario = function isHorario(data) {
-  var horariosEstudos = ['Manhã', 'Tarde', 'Noite', 'EAD', 'Estágio Curricular', 'Formado'];
+  var horariosEstudos = ["Manhã", "Tarde", "Noite", "EAD", "Estágio Curricular", "Formado"];
   var horario;
-  for (var _chave in horariosEstudos) {
-    if (horariosEstudos[_chave] === data) {
-      horario = horariosEstudos[_chave];
+  for (var _chave2 in horariosEstudos) {
+    if (horariosEstudos[_chave2] === data) {
+      horario = horariosEstudos[_chave2];
       break;
     }
   }
@@ -2284,7 +2294,7 @@ var isSexo = function isSexo(sexo) {
   return true;
 };
 var isUfNaturalidade = function isUfNaturalidade(ufNaturalidade) {
-  var listUfNaturalidade = ['RO', 'AC', 'AM', 'RR', 'PA', 'AP', 'TO', 'MA', 'PI', 'CE', 'RN', 'PB', 'PE', 'AL', 'SE', 'BA', 'MG', 'ES', 'RJ', 'SP', 'PR', 'SC', 'RS', 'MS', 'MT', 'GO', 'DF'];
+  var listUfNaturalidade = ["RO", "AC", "AM", "RR", "PA", "AP", "TO", "MA", "PI", "CE", "RN", "PB", "PE", "AL", "SE", "BA", "MG", "ES", "RJ", "SP", "PR", "SC", "RS", "MS", "MT", "GO", "DF"];
   var state;
   for (var i = 0; i < listUfNaturalidade.length; i++) {
     if (listUfNaturalidade[i] === ufNaturalidade) {
@@ -2332,7 +2342,7 @@ var isDescricao = function isDescricao(descricao) {
 };
 var removerMensagem = function removerMensagem(id) {
   setTimeout(function () {
-    var msg = document.getElementById(id).innerHTML = '';
+    var msg = document.getElementById(id).innerHTML = "";
   }, 3000);
 };
 var isNumero = function isNumero(numero) {
@@ -2360,7 +2370,7 @@ var isTelefone = function isTelefone(telefone) {
   if (!regex.test(telefone)) {
     return false;
   }
-  telefone = telefone.replace(/[^0-9]/g, '');
+  telefone = telefone.replace(/[^0-9]/g, "");
   if (telefone.length === 0) {
     return false;
   }
@@ -2394,7 +2404,7 @@ var emailBd = /*#__PURE__*/function () {
         case 0:
           _context6.prev = 0;
           _context6.next = 3;
-          return fetch("http://appcadastro.cieemg.org.br:8080/verificarEmail?termo=".concat(email));
+          return fetch("http://localhost:8080/verificarEmail?termo=".concat(email));
         case 3:
           response = _context6.sent;
           if (!response.ok) {
@@ -2411,14 +2421,14 @@ var emailBd = /*#__PURE__*/function () {
           _context6.next = 12;
           break;
         case 11:
-          console.log('Erro na solicitação:', response.statusText);
+          console.log("Erro na solicitação:", response.statusText);
         case 12:
           _context6.next = 17;
           break;
         case 14:
           _context6.prev = 14;
           _context6.t0 = _context6["catch"](0);
-          console.error('Erro:', _context6.t0);
+          console.error("Erro:", _context6.t0);
         case 17:
         case "end":
           return _context6.stop();
@@ -2434,7 +2444,7 @@ var isCep = function isCep(cep) {
   if (!regex.test(cep)) {
     return false;
   }
-  cep = cep.replace(/[^0-9]/g, '');
+  cep = cep.replace(/[^0-9]/g, "");
   if (cep.length === 0 && cep.length !== 8) {
     return false;
   }
@@ -2450,11 +2460,11 @@ var dateTime = function dateTime() {
     year: "numeric",
     day: "2-digit",
     month: "2-digit"
-  }).replace(/[/]/g, '-'), " ").concat(today.toLocaleTimeString('pt-BR', {
+  }).replace(/[/]/g, "-"), " ").concat(today.toLocaleTimeString("pt-BR", {
     hour12: false,
-    hour: '2-digit',
-    minute: '2-digit',
-    second: '2-digit'
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit"
   }));
 };
 var dateRegister = function dateRegister() {
@@ -2720,7 +2730,7 @@ function _sendData() {
           data = _context2.sent;
           _context2.prev = 3;
           _context2.next = 6;
-          return fetch('https://appcadastro.cieemg.org.br/cadastrar', {
+          return fetch('http://localhost:8080/cadastrar', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'

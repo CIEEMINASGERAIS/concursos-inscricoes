@@ -1,58 +1,73 @@
-const { isDateFormatura, isSchool, isCourse, removerMensagem, isvalid, isSemestre, isMesFormatura, isPeriodo, isHorario } = require("../utils/util")
+const {
+  isDateFormatura,
+  isSchool,
+  isCourse,
+  removerMensagem,
+  isvalid,
+  isSemestre,
+  isMesFormatura,
+  isPeriodo,
+  isHorario,
+} = require("../utils/util");
 
 async function createFormSchoolData() {
   return new Promise(async (resolve, reject) => {
-    const response = await fetch('schoolData')
+    const response = await fetch("schoolData");
 
-    const htmlContent = await response.text()
+    const htmlContent = await response.text();
 
-    const schoolData = document.querySelector('.screen-school-data')
+    const schoolData = document.querySelector(".screen-school-data");
 
-    schoolData.innerHTML = htmlContent
+    schoolData.innerHTML = htmlContent;
 
-    const formSchoolData = document.querySelector('.form-school-data')
+    const formSchoolData = document.querySelector(".form-school-data");
 
-    const anoFormatura = document.getElementById('ano-formatura')
+    const anoFormatura = document.getElementById("ano-formatura");
 
-    const inicio = 1990
+    const inicio = 1990;
 
-    const fim = 2030
+    const fim = 2030;
 
-    const anosFormaturas = []
+    const anosFormaturas = [];
     for (let i = inicio; i <= fim; i++) {
-      anosFormaturas.push(i)
+      anosFormaturas.push(i);
     }
 
     for (let i = 0; i < anosFormaturas.length; i++) {
-      const option = document.createElement('option')
-      option.text = anosFormaturas[i]
-      option.value = anosFormaturas[i]
-      anoFormatura.appendChild(option)
+      const option = document.createElement("option");
+      option.text = anosFormaturas[i];
+      option.value = anosFormaturas[i];
+      anoFormatura.appendChild(option);
     }
 
-    const semestreFormatura = document.getElementById('semestre-formatura')
+    const semestreFormatura = document.getElementById("semestre-formatura");
 
-    const semestresFormaturas = [1, 2, 'Estágio Curricular']
+    const semestresFormaturas = [1, 2, "Estágio Curricular"];
 
     for (let i = 0; i < semestresFormaturas.length; i++) {
-      const option = document.createElement('option')
-      option.text = semestresFormaturas[i]
-      option.value = semestresFormaturas[i]
-      semestreFormatura.appendChild(option)
+      const option = document.createElement("option");
+      option.text = semestresFormaturas[i];
+      if (semestresFormaturas[i] === "Estágio Curricular") {
+        console.log(semestresFormaturas[i]);
+        option.value = 0;
+      } else {
+        option.value = semestresFormaturas[i];
+      }
+      semestreFormatura.appendChild(option);
     }
 
-    const mesFormatura = document.getElementById('mes-formatura')
+    const mesFormatura = document.getElementById("mes-formatura");
 
-    const mesesFormaturas = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+    const mesesFormaturas = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 
     for (let i = 0; i < mesesFormaturas.length; i++) {
-      const option = document.createElement('option')
-      option.text = mesesFormaturas[i]
-      option.value = mesesFormaturas[i]
-      mesFormatura.appendChild(option)
+      const option = document.createElement("option");
+      option.text = mesesFormaturas[i];
+      option.value = mesesFormaturas[i];
+      mesFormatura.appendChild(option);
     }
 
-    const periodo = document.getElementById('periodo')
+    const periodo = document.getElementById("periodo");
 
     const periodos = [
       1,
@@ -67,360 +82,352 @@ async function createFormSchoolData() {
       10,
       11,
       12,
-      'Estágio Curricular'
-    ]
+      "Estágio Curricular",
+    ];
 
     for (let i = 0; i < periodos.length; i++) {
-      const option = document.createElement('option')
-      option.text = periodos[i]
-      option.value = periodos[i]
-      periodo.appendChild(option)
+      const option = document.createElement("option");
+      option.text = periodos[i];
+      option.value = periodos[i];
+      periodo.appendChild(option);
     }
 
-    const horario = document.querySelector('.horario-estudo-search select')
-
+    const horario = document.querySelector(".horario-estudo-search select");
 
     horariosEstudos = [
-      'Manhã',
-      'Tarde',
-      'Noite',
-      'EAD',
-      'Estágio Curricular',
-      'Formado'
-    ]
+      "Manhã",
+      "Tarde",
+      "Noite",
+      "EAD",
+      "Estágio Curricular",
+      "Formado",
+    ];
 
     for (let i = 0; i < horariosEstudos.length; i++) {
-      const option = document.createElement('option')
-      option.text = horariosEstudos[i]
-      option.value = horariosEstudos[i]
-      horario.appendChild(option)
+      const option = document.createElement("option");
+      option.text = horariosEstudos[i];
+      option.value = horariosEstudos[i];
+      horario.appendChild(option);
     }
 
     function mostrarOpcoesAutocompleteHorario(horariosEstudos) {
-      horario.innerHTML = ''
+      horario.innerHTML = "";
 
-      const option1 = document.createElement('option')
-      option1.disabled = 'disabled'
-      option1.selected = 'selected'
-      option1.text = 'Selecione'
-      horario.appendChild(option1)
+      const option1 = document.createElement("option");
+      option1.disabled = "disabled";
+      option1.selected = "selected";
+      option1.text = "Selecione";
+      horario.appendChild(option1);
 
       for (let i = 0; i < horariosEstudos.length; i++) {
-        const option = document.createElement('option')
-        option.text = horariosEstudos[i]
-        option.value = horariosEstudos[i]
-        horario.appendChild(option)
+        const option = document.createElement("option");
+        option.text = horariosEstudos[i];
+        option.value = horariosEstudos[i];
+        horario.appendChild(option);
       }
 
-
-      $(horario).selectpicker('refresh')
+      $(horario).selectpicker("refresh");
     }
 
+    const dataFormSchool = {};
 
-
-    const dataFormSchool = {}
-
-    const escolas = document.querySelector('.escola-search select')
-    const cursos = document.querySelector('.curso-search select')
-    let codigoEscola = {}
-    let idCursoFinal
-    let idCurso = {}
-    let codeFinal
+    const escolas = document.querySelector(".escola-search select");
+    const cursos = document.querySelector(".curso-search select");
+    let codigoEscola = {};
+    let idCursoFinal;
+    let idCurso = {};
+    let codeFinal;
 
     async function mostrarOpcoesAutocompleteEscolas(opcoes) {
-      escolas.innerHTML = ''
+      escolas.innerHTML = "";
 
-      const option1 = document.createElement('option')
-      option1.disabled = 'disabled'
-      option1.selected = 'selected'
-      option1.text = 'Selecione'
-      escolas.appendChild(option1)
+      const option1 = document.createElement("option");
+      option1.disabled = "disabled";
+      option1.selected = "selected";
+      option1.text = "Selecione";
+      escolas.appendChild(option1);
 
       for (let i = 0; i < opcoes.length; i++) {
-        const option = document.createElement('option')
-        option.text = opcoes[i].razaosocial
-        option.value = opcoes[i].razaosocial
-        escolas.appendChild(option)
+        const option = document.createElement("option");
+        option.text = opcoes[i].razaosocial;
+        option.value = opcoes[i].razaosocial;
+        escolas.appendChild(option);
       }
 
-      $(escolas).selectpicker('refresh')
+      $(escolas).selectpicker("refresh");
     }
 
     async function mostrarOpcoesAutocompleteCursos(opcoes) {
-      cursos.innerHTML = ''
+      cursos.innerHTML = "";
 
-      const option1 = document.createElement('option')
-      option1.disabled = 'disabled'
-      option1.selected = 'selected'
-      option1.text = 'Selecione'
-      cursos.appendChild(option1)
+      const option1 = document.createElement("option");
+      option1.disabled = "disabled";
+      option1.selected = "selected";
+      option1.text = "Selecione";
+      cursos.appendChild(option1);
 
       for (let i = 0; i < opcoes.length; i++) {
-        const option = document.createElement('option')
-        option.text = opcoes[i].descricao
-        option.value = opcoes[i].descricao
-        cursos.appendChild(option)
+        const option = document.createElement("option");
+        option.text = opcoes[i].descricao;
+        option.value = opcoes[i].descricao;
+        cursos.appendChild(option);
       }
 
-      $(cursos).selectpicker('refresh')
+      $(cursos).selectpicker("refresh");
     }
 
     async function filtrarCursos(data) {
       for (let i = 0; i < codigoEscola.length; i++) {
         let codeEscola = {
           razaosocial: codigoEscola[i].razaosocial,
-          id: codigoEscola[i].id
-        }
+          id: codigoEscola[i].id,
+        };
         if (codeEscola.razaosocial === data) {
-          return (codeFinal = codeEscola.id)
+          return (codeFinal = codeEscola.id);
         }
       }
     }
-
 
     async function filtrarIdCurso(descricaoCurso) {
       for (let i = 0; i < idCurso.length; i++) {
         let cursoId = {
           descricao: idCurso[i].descricao,
-          idcurso: idCurso[i].idcurso
-        }
+          idcurso: idCurso[i].idcurso,
+        };
         if (cursoId.descricao === descricaoCurso) {
-          return idCursoFinal = cursoId.idcurso
+          return (idCursoFinal = cursoId.idcurso);
         }
       }
     }
 
     const callCourse = async () => {
-      console.log(codeFinal)
       try {
         const response = await fetch(
-          `http://appcadastro.cieemg.org.br/cadastrarCurso?termo=${codeFinal}`
-        )
+          `http://localhost:8080/cadastrarCurso?termo=${codeFinal}`
+        );
         if (response.ok) {
-          const opcoes = await response.json()
-          idCurso = opcoes
-          mostrarOpcoesAutocompleteCursos(opcoes)
+          const opcoes = await response.json();
+          idCurso = opcoes;
+          mostrarOpcoesAutocompleteCursos(opcoes);
         } else {
-          console.log('Erro na solicitação:', response.statusText)
+          console.log("Erro na solicitação:", response.statusText);
         }
       } catch (error) {
-        console.error('Erro:', error)
+        console.error("Erro:", error);
       }
-    }
+    };
 
     $(document).ready(async function () {
-      $('.escola-search select').selectpicker()
+      $(".escola-search select").selectpicker();
 
-      const input = document.querySelector('.escola-search input')
+      const input = document.querySelector(".escola-search input");
 
-      let validate
+      let validate;
 
-      let opcoes
+      let opcoes;
 
-      input.addEventListener('input', async e => {
-        const element = e.target
+      input.addEventListener("input", async (e) => {
+        const element = e.target;
 
         try {
-          const response = await fetch(`http://appcadastro.cieemg.org.br/cadastrarEscola?termo=${element.value}`)
+          const response = await fetch(
+            `http://localhost:8080/cadastrarEscola?termo=${element.value}`
+          );
           if (response.ok) {
-            opcoes = await response.json()
-            mostrarOpcoesAutocompleteEscolas(opcoes)
-            codigoEscola = opcoes
+            opcoes = await response.json();
+            mostrarOpcoesAutocompleteEscolas(opcoes);
+            codigoEscola = opcoes;
           } else {
-            console.log('Erro na solicitação:', response.statusText)
+            console.log("Erro na solicitação:", response.statusText);
           }
         } catch (error) {
-          console.error('Erro:', error)
+          console.error("Erro:", error);
         }
 
-        const SchoolFound = document.querySelector('.school-found')
+        const SchoolFound = document.querySelector(".school-found");
 
         if (opcoes.length === 0) {
+          SchoolFound.style.display = "block";
 
-          SchoolFound.style.display = 'block'
+          if (SchoolFound.style.display === "block") {
+            document.addEventListener("click", (e) => {
+              const element = e.target;
 
-          if (SchoolFound.style.display === 'block') {
-
-            document.addEventListener('click', e => {
-              const element = e.target
-
-              if (element.classList.contains('button-confirm-school')) {
-                SchoolFound.style.display = 'none'
+              if (element.classList.contains("button-confirm-school")) {
+                SchoolFound.style.display = "none";
               }
-            })
+            });
           }
         }
+      });
 
-      })
-
-      $('.escola-search select').change(async e => {
-        let data = e.currentTarget.value
-        filtrarCursos(data)
-        validate = await isSchool(data, codeFinal)
+      $(".escola-search select").change(async (e) => {
+        let data = e.currentTarget.value;
+        filtrarCursos(data);
+        validate = await isSchool(data, codeFinal);
         if (validate) {
-          document.getElementById("msg-escola").innerHTML = ""
-          callCourse()
-          dataFormSchool.escola_id = codeFinal
+          document.getElementById("msg-escola").innerHTML = "";
+          callCourse();
+          dataFormSchool.escola_id = codeFinal;
         } else {
           document.getElementById("msg-escola").innerHTML =
-            "<p>Escola inválida!</p>"
-          dataFormSchool.escola_id = false
+            "<p>Escola inválida!</p>";
+          dataFormSchool.escola_id = false;
         }
-      })
-    })
+      });
+    });
 
     $(document).ready(function () {
+      $(".curso-search select").selectpicker();
 
-
-
-      $('.curso-search select').selectpicker()
-
-      $('.curso-search select').change(async e => {
-        let data = e.currentTarget.value
-        filtrarIdCurso(data)
-        let validate = await isCourse(data, codeFinal, idCursoFinal)
+      $(".curso-search select").change(async (e) => {
+        let data = e.currentTarget.value;
+        filtrarIdCurso(data);
+        let validate = await isCourse(data, codeFinal, idCursoFinal);
         if (validate) {
-          document.getElementById("msg-curso").innerHTML = ""
-          dataFormSchool.curso_id = idCursoFinal
+          document.getElementById("msg-curso").innerHTML = "";
+          dataFormSchool.curso_id = idCursoFinal;
         } else {
           document.getElementById("msg-curso").innerHTML =
-            "<p>Curso inválido!</p>"
-          dataFormSchool.curso_id = false
+            "<p>Curso inválido!</p>";
+          dataFormSchool.curso_id = false;
         }
-      })
+      });
 
-      $('.ano-formatura-search select').selectpicker()
+      $(".ano-formatura-search select").selectpicker();
 
-      $('.ano-formatura-search select').change(e => {
+      $(".ano-formatura-search select").change((e) => {
+        let data = e.currentTarget.value;
 
-        let data = e.currentTarget.value
+        let validate;
 
-        let validate
+        let valid;
 
-        let valid
-
-        validate = isDateFormatura(data, inicio, fim)
-        valid = isvalid(data)
-        let horarioIncompleto
+        validate = isDateFormatura(data, inicio, fim);
+        valid = isvalid(data);
+        let horarioIncompleto;
         if (validate) {
-          document.getElementById("msg-ano").innerHTML = ""
-          dataFormSchool.previsao_ano = data
+          document.getElementById("msg-ano").innerHTML = "";
+          dataFormSchool.previsao_ano = data;
           if (!valid) {
-            horarioIncompleto = ['Estágio Curricular',
-              'Formado']
-            mostrarOpcoesAutocompleteHorario(horarioIncompleto)
-            document.getElementById('div-periodo').style.display = 'none'
-            document.getElementById('periodo').style.display = true
+            horarioIncompleto = ["Estágio Curricular", "Formado"];
+            mostrarOpcoesAutocompleteHorario(horarioIncompleto);
+            document.getElementById("div-periodo").style.display = "none";
+            document.getElementById("periodo").style.display = true;
           } else {
-            document.getElementById('div-periodo').style.display = 'block'
-            document.getElementById('periodo').style.display = false
-            horarioIncompleto = []
-            mostrarOpcoesAutocompleteHorario(horariosEstudos)
+            document.getElementById("div-periodo").style.display = "block";
+            document.getElementById("periodo").style.display = false;
+            horarioIncompleto = [];
+            mostrarOpcoesAutocompleteHorario(horariosEstudos);
           }
         } else {
-          document.getElementById("msg-ano").innerHTML =
-            "<p>Ano inválido!</p>"
-          dataFormSchool.previsao_ano = false
+          document.getElementById("msg-ano").innerHTML = "<p>Ano inválido!</p>";
+          dataFormSchool.previsao_ano = false;
         }
-      })
+      });
 
+      $(".semestre-formatura-search select").selectpicker();
 
-      $('.semestre-formatura-search select').selectpicker()
+      $(".semestre-formatura-search select").change((e) => {
+        let data = e.currentTarget.value;
+        let validate;
 
-      $('.semestre-formatura-search select').change(e => {
-        let data = e.currentTarget.value
-        let validate
-
-        validate = isSemestre(data)
+        validate = isSemestre(data);
+        console.log(validate);
 
         if (validate) {
-          document.getElementById("msg-semestre-formatura").innerHTML = ""
-          dataFormSchool.previsao_semestre = data
+          document.getElementById("msg-semestre-formatura").innerHTML = "";
+          dataFormSchool.previsao_semestre = data;
         } else {
           document.getElementById("msg-semestre-formatura").innerHTML =
-            "<p>Semestre de fomartura inválido!</p>"
-          dataFormSchool.previsao_semestre = false
+            "<p>Semestre de fomartura inválido!</p>";
+          dataFormSchool.previsao_semestre = false;
         }
-      })
+      });
 
-      $('.mes-formatura-search select').selectpicker()
+      $(".mes-formatura-search select").selectpicker();
 
-      $('.mes-formatura-search select').change(e => {
-        let data = e.currentTarget.value
+      $(".mes-formatura-search select").change((e) => {
+        let data = e.currentTarget.value;
 
-        let validate = isMesFormatura(data)
+        let validate = isMesFormatura(data);
 
         if (validate) {
-          document.getElementById("msg-mes-formatura").innerHTML = ""
-          dataFormSchool.previsao_mes = data
+          document.getElementById("msg-mes-formatura").innerHTML = "";
+          dataFormSchool.previsao_mes = data;
         } else {
           document.getElementById("msg-mes-formatura").innerHTML =
-            "<p>Mês de fomartura inválido!</p>"
-          dataFormSchool.previsao_mes = false
+            "<p>Mês de fomartura inválido!</p>";
+          dataFormSchool.previsao_mes = false;
         }
-      })
+      });
 
-      $('.periodo-search select').selectpicker()
+      $(".periodo-search select").selectpicker();
 
-      $('.periodo-search select').change(e => {
-        let data = e.currentTarget.value
+      $(".periodo-search select").change((e) => {
+        let data = e.currentTarget.value;
 
-        let validate = isPeriodo(data)
+        let validate = isPeriodo(data);
 
         if (validate) {
-          document.getElementById("msg-periodo").innerHTML = ""
-          dataFormSchool.periodo = data
+          document.getElementById("msg-periodo").innerHTML = "";
+          dataFormSchool.periodo = data;
         } else {
           document.getElementById("msg-periodo").innerHTML =
-            "<p>Mês de fomartura inválido!</p>"
-          dataFormSchool.periodo = false
+            "<p>Mês de fomartura inválido!</p>";
+          dataFormSchool.periodo = false;
         }
-      })
+      });
 
-      $('.horario-estudo-search select').selectpicker()
+      $(".horario-estudo-search select").selectpicker();
 
-      $('.horario-estudo-search select').change(e => {
-        let data = e.currentTarget.value
+      $(".horario-estudo-search select").change((e) => {
+        let data = e.currentTarget.value;
 
-        let validate = isHorario(data)
+        let validate = isHorario(data);
 
         if (validate) {
-          document.getElementById("msg-periodo").innerHTML = ""
-          dataFormSchool.horario = data
+          document.getElementById("msg-periodo").innerHTML = "";
+          dataFormSchool.horario = data;
         } else {
           document.getElementById("msg-periodo").innerHTML =
-            "<p>Mês de fomartura inválido!</p>"
-          dataFormSchool.horario = false
+            "<p>Mês de fomartura inválido!</p>";
+          dataFormSchool.horario = false;
         }
-      })
+      });
+    });
 
-    })
+    const alertEnd = document.querySelector(".end");
 
-    const alertEnd = document.querySelector('.end')
-
-    const today = new Date()
+    const today = new Date();
 
     if (formSchoolData) {
-      formSchoolData.addEventListener('submit', async e => {
-        e.preventDefault()
+      formSchoolData.addEventListener("submit", async (e) => {
+        e.preventDefault();
         if (
-          dataFormSchool.escola_id && dataFormSchool.curso_id && dataFormSchool.previsao_semestre && dataFormSchool.previsao_ano && dataFormSchool.previsao_mes && dataFormSchool.horario
+          dataFormSchool.escola_id &&
+          dataFormSchool.curso_id &&
+          dataFormSchool.previsao_semestre &&
+          dataFormSchool.previsao_ano &&
+          dataFormSchool.previsao_mes &&
+          dataFormSchool.horario
 
           // O dataFormSchool.periodo não é obrigatório
         ) {
-          dataFormSchool.ano = today.getFullYear()
-          alertEnd.style.display = 'block'
-          resolve(dataFormSchool)
+          dataFormSchool.ano = today.getFullYear();
+          alertEnd.style.display = "block";
+          resolve(dataFormSchool);
         } else {
-          document.getElementById("msg-fracasso-school").innerHTML = "<p>Formulário incompleto!</p>"
-          removerMensagem('msg-fracasso-school')
+          document.getElementById("msg-fracasso-school").innerHTML =
+            "<p>Formulário incompleto!</p>";
+          removerMensagem("msg-fracasso-school");
         }
-      })
+      });
     } else {
-      console.log('Erro ao enviar os dados para o banco!')
-      reject(error)
+      console.log("Erro ao enviar os dados para o banco!");
+      reject(error);
     }
-  })
+  });
 }
 
-module.exports = createFormSchoolData
+module.exports = createFormSchoolData;

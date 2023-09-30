@@ -1,144 +1,144 @@
 // Cria o elemento label para o nome, seta os atributos e preenche a label
 const createLabel = (forAttribute, text) => {
-  const label = document.createElement('label')
-  label.setAttribute('for', forAttribute)
-  label.innerText = text
-  return label
-}
+  const label = document.createElement("label");
+  label.setAttribute("for", forAttribute);
+  label.innerText = text;
+  return label;
+};
 
 // Cria um campo de entrada de texto para o nome e seta os atributos para colocar o parametro conforme necessário ao input
 const createInput = (type, name, id, placeholder, classe) => {
-  const input = document.createElement('input')
-  input.setAttribute('type', type)
-  input.setAttribute('name', name)
-  input.setAttribute('id', id)
-  input.setAttribute('placeholder', placeholder)
-  input.setAttribute('class', classe)
-  return input
-}
+  const input = document.createElement("input");
+  input.setAttribute("type", type);
+  input.setAttribute("name", name);
+  input.setAttribute("id", id);
+  input.setAttribute("placeholder", placeholder);
+  input.setAttribute("class", classe);
+  return input;
+};
 
 // Cria o elemento <form>
-const createForm = classe => {
-  const form = document.createElement('form')
-  form.setAttribute('class', classe)
-  return form
-}
+const createForm = (classe) => {
+  const form = document.createElement("form");
+  form.setAttribute("class", classe);
+  return form;
+};
 
 // Cria o elemento link
 const createLink = (rel, href) => {
-  const cssLink = document.createElement('link')
-  cssLink.setAttribute('rel', rel)
-  cssLink.setAttribute('href', href)
-  return cssLink
-}
+  const cssLink = document.createElement("link");
+  cssLink.setAttribute("rel", rel);
+  cssLink.setAttribute("href", href);
+  return cssLink;
+};
 
 const createButton = (text, classe, type) => {
-  const button = document.createElement('button')
-  button.setAttribute('class', classe)
-  button.setAttribute('type', type)
-  button.innerText = text
-  return button
-}
+  const button = document.createElement("button");
+  button.setAttribute("class", classe);
+  button.setAttribute("type", type);
+  button.innerText = text;
+  return button;
+};
 
 const createDiv = (classe, text) => {
-  const div = document.createElement('div')
-  div.setAttribute('class', classe)
-  div.innerText = text
-  return div
-}
+  const div = document.createElement("div");
+  div.setAttribute("class", classe);
+  div.innerText = text;
+  return div;
+};
 
 const createSelect = (id, name) => {
-  const select = document.createElement('select')
-  select.setAttribute('id', id)
-  select.setAttribute('name', name)
-  return select
-}
+  const select = document.createElement("select");
+  select.setAttribute("id", id);
+  select.setAttribute("name", name);
+  return select;
+};
 
 const createOption = (value, text, name) => {
-  const options = document.createElement('option')
-  if (options.text === 'Estágio Curricular') {
-    options.value = 'esc'
+  const options = document.createElement("option");
+  if (options.text === "Estágio Curricular") {
+    options.value = "esc";
   } else {
-    options.value = value
+    options.value = value;
   }
 
-  options.text = text
-  options.name = name
-  return options
-}
+  options.text = text;
+  options.name = name;
+  return options;
+};
 
-const putOption = list => {
-  const placeholderOption = document.createElement('option')
-  placeholderOption.disabled = true
-  placeholderOption.selected = true
-  placeholderOption.text = 'Selecione'
+const putOption = (list) => {
+  const placeholderOption = document.createElement("option");
+  placeholderOption.disabled = true;
+  placeholderOption.selected = true;
+  placeholderOption.text = "Selecione";
 
-  const options = [placeholderOption]
+  const options = [placeholderOption];
   for (let i = 0; i < list.length; i++) {
-    const option = createOption(list[i], list[i], list[i])
+    const option = createOption(list[i], list[i], list[i]);
 
-    options.push(option)
+    options.push(option);
   }
-  return options
-}
+  return options;
+};
 
-const carregarPaginaHtml = async url => {
+const carregarPaginaHtml = async (url) => {
   try {
-    const resposta = await fetch(url)
-    const conteudoHtml = await resposta.text()
-    return conteudoHtml
+    const resposta = await fetch(url);
+    const conteudoHtml = await resposta.text();
+    return conteudoHtml;
   } catch (erro) {
-    console.error('Erro ao carregar a página:', erro)
+    console.error("Erro ao carregar a página:", erro);
   }
-}
+};
 
 const adicionarPaginaHtml = async (url, elemento) => {
-  const conteudoHtml = await carregarPaginaHtml(url)
-  return (elemento.innerHTML = conteudoHtml)
-}
+  const conteudoHtml = await carregarPaginaHtml(url);
+  return (elemento.innerHTML = conteudoHtml);
+};
 
-const changeSubMainTitle = text => {
-  const subTitle = document.querySelector('.sub-main-title h1')
+const changeSubMainTitle = (text) => {
+  const subTitle = document.querySelector(".sub-main-title h1");
 
-  return (subTitle.innerText = text)
-}
+  return (subTitle.innerText = text);
+};
 
-const changeMains = nameClass => {
-  const screens = document.querySelectorAll('.screen')
+const changeMains = (nameClass) => {
+  const screens = document.querySelectorAll(".screen");
 
   for (let i = 0; i < screens.length; i++) {
-    screens[i].style.display = 'none'
+    screens[i].style.display = "none";
   }
-  const screen = document.querySelector(nameClass)
+  const screen = document.querySelector(nameClass);
   if (screen) {
-    screen.style.display = 'block'
+    screen.style.display = "block";
   }
-}
+};
 
 // Função com a lista de erros
 const listInputValidate = () => {
   const listInputValidate = {
-    name: 'Necessário preencher o campo nome!',
-    cpf: 'Necessário preencher o campo CPF!',
-    'nome-mae': 'Necessário preencher o campo nome da mãe!',
-    'nome-pai': 'Necessário preencher o campo nome da pai!',
-    'carteira-trabalho': 'Necessário preencher o campo carteira de trabalho!',
-    naturalidade: 'Necessário preencher o campo naturalidade!',
-    nacionalidade: 'Necessário preencher o campo nacionalidade!',
-    'estado-civil': 'Necessário preencher o campo estado civil!',
-    'data-nascimento': 'Necessário preencher o campo da data de nascimento!',
-    sexo: 'Necessário preencher o campo sexo!',
-    'uf-naturalidade': 'Necessário preencher o campo uf naturalidade!',
-    deficiencias: 'Necessário preencher o campo "Se possui alguma deficiência?'
-  }
+    name: "Necessário preencher o campo nome!",
+    cpf: "Necessário preencher o campo CPF!",
+    "nome-mae": "Necessário preencher o campo nome da mãe!",
+    "nome-pai": "Necessário preencher o campo nome da pai!",
+    "carteira-trabalho": "Necessário preencher o campo carteira de trabalho!",
+    naturalidade: "Necessário preencher o campo naturalidade!",
+    nacionalidade: "Necessário preencher o campo nacionalidade!",
+    "estado-civil": "Necessário preencher o campo estado civil!",
+    "data-nascimento": "Necessário preencher o campo da data de nascimento!",
+    sexo: "Necessário preencher o campo sexo!",
+    "uf-naturalidade": "Necessário preencher o campo uf naturalidade!",
+    deficiencias: 'Necessário preencher o campo "Se possui alguma deficiência?',
+  };
 
-  return listInputValidate
-}
+  return listInputValidate;
+};
 
-const isNome = nome => {
-  nome = nome.trim()
+const isNome = (nome) => {
+  nome = nome.trim();
 
-  let nomeSemEspaco = nome.replace(' ', '')
+  let nomeSemEspaco = nome.replace(" ", "");
 
   if (
     nome.length === 0 ||
@@ -147,149 +147,149 @@ const isNome = nome => {
     nomeSemEspaco.length < 3
     // Depois tem que fazer uma regra para o numero de letras em cada nome
   ) {
-    return false
+    return false;
   }
 
-  const regex = new RegExp("^[0-9]+$")
+  const regex = new RegExp("^[0-9]+$");
 
   if (regex.test(nome)) {
-    return false
+    return false;
   }
 
-  nome = parseInt(nome)
+  nome = parseInt(nome);
   if (nome) {
-    return false
+    return false;
   }
 
-
-  return true
-}
+  return true;
+};
 
 const isSchool = async (school, idSchool) => {
+  let likeSchool = {};
 
-  let likeSchool = {}
-
-  let schoolVerification, idSchoolVerification
+  let schoolVerification, idSchoolVerification;
 
   try {
     const response = await fetch(
-      `http://appcadastro.cieemg.org.br:8080/cadastrarEscola?termo=${school}`
-    )
+      `http://localhost:8080/cadastrarEscola?termo=${school}`
+    );
     if (response.ok) {
-      likeSchool = await response.json()
-      likeSchool = likeSchool.map(school => { return { razaoSocial: school.razaosocial, id: school.id } })
+      likeSchool = await response.json();
+      likeSchool = likeSchool.map((school) => {
+        return { razaoSocial: school.razaosocial, id: school.id };
+      });
     } else {
-      console.log('Erro na solicitação:', response.statusText)
+      console.log("Erro na solicitação:", response.statusText);
     }
   } catch (error) {
-    console.error('Erro:', error)
+    console.error("Erro:", error);
   }
 
-
   for (chave in likeSchool) {
-    if (likeSchool[chave]['razaoSocial'] === school && likeSchool[chave]['id'] === idSchool) {
-      idSchoolVerification = likeSchool[chave]['id']
-      schoolVerification = likeSchool[chave]['razaoSocial']
-      break
+    if (
+      likeSchool[chave]["razaoSocial"] === school &&
+      likeSchool[chave]["id"] === idSchool
+    ) {
+      idSchoolVerification = likeSchool[chave]["id"];
+      schoolVerification = likeSchool[chave]["razaoSocial"];
+      break;
     }
   }
 
   if (schoolVerification !== school) {
-    return false
+    return false;
   }
 
   if (idSchool !== idSchoolVerification) {
-    return false
+    return false;
   }
 
   if (school.length === 0) {
-    return false
+    return false;
   }
 
-
-  return true
-}
+  return true;
+};
 
 const isCourse = async (course, codeCourse, idCourse) => {
+  let likeCourse = {};
 
-  let likeCourse = {}
-
-  let courseVerification, courseIdVerification
+  let courseVerification, courseIdVerification;
 
   try {
     const response = await fetch(
-      `http://appcadastro.cieemg.org.br:8080/cadastrarCurso?termo=${codeCourse}`
-    )
+      `http://localhost:8080/cadastrarCurso?termo=${codeCourse}`
+    );
     if (response.ok) {
-      likeCourse = await response.json()
-      likeCourse = likeCourse.map(course => {
-        return { descricao: course.descricao, idcurso: course.idcurso }
-      })
+      likeCourse = await response.json();
+      likeCourse = likeCourse.map((course) => {
+        return { descricao: course.descricao, idcurso: course.idcurso };
+      });
     } else {
-      console.log('Erro na solicitação:', response.statusText)
+      console.log("Erro na solicitação:", response.statusText);
     }
   } catch (error) {
-    console.error('Erro:', error)
+    console.error("Erro:", error);
   }
 
   for (chave in likeCourse) {
-    if (likeCourse[chave]['descricao'] === course && likeCourse[chave]['idcurso'] === idCourse) {
-      courseVerification = likeCourse[chave]['descricao']
-      courseIdVerification = likeCourse[chave]['idcurso']
-      break
+    if (
+      likeCourse[chave]["descricao"] === course &&
+      likeCourse[chave]["idcurso"] === idCourse
+    ) {
+      courseVerification = likeCourse[chave]["descricao"];
+      courseIdVerification = likeCourse[chave]["idcurso"];
+      break;
     }
   }
 
   if (courseVerification !== course) {
-    return false
+    return false;
   }
 
   if (courseIdVerification !== idCourse) {
-    return false
+    return false;
   }
 
   if (course.length === 0) {
-    return false
+    return false;
   }
 
+  return true;
+};
 
-  return true
-}
-
-
-
-const isNaturalidadeNacionalidade = naturalidadeNacionalidade => {
-  naturalidadeNacionalidade = naturalidadeNacionalidade.trim()
+const isNaturalidadeNacionalidade = (naturalidadeNacionalidade) => {
+  naturalidadeNacionalidade = naturalidadeNacionalidade.trim();
 
   if (naturalidadeNacionalidade.length === 0) {
-    return false
+    return false;
   }
 
-  const regex = new RegExp(/^[0-9]+$/)
+  const regex = new RegExp(/^[0-9]+$/);
 
   if (regex.test(naturalidadeNacionalidade)) {
-    return false
+    return false;
   }
 
-  naturalidadeNacionalidade = parseInt(naturalidadeNacionalidade)
+  naturalidadeNacionalidade = parseInt(naturalidadeNacionalidade);
 
   if (naturalidadeNacionalidade) {
-    return false
+    return false;
   }
 
-  return true
-}
+  return true;
+};
 
-const isCtps = valor => {
-  valor = valor.trim()
+const isCtps = (valor) => {
+  valor = valor.trim();
 
-  const regex = new RegExp(/^[0-9]+$/)
+  const regex = new RegExp(/^[0-9]+$/);
 
   if (!regex.test(valor)) {
-    return false
+    return false;
   }
 
-  let valorSemEspaco = valor.replace(' ', '')
+  let valorSemEspaco = valor.replace(" ", "");
 
   if (
     valor.length === 0 ||
@@ -297,280 +297,277 @@ const isCtps = valor => {
     valorSemEspaco.length === 0 ||
     valorSemEspaco.length < 7
   ) {
-    return false
+    return false;
   }
 
-  valor = parseInt(valor)
+  valor = parseInt(valor);
 
   if (!valor) {
-    return false
+    return false;
   }
 
-  return true
-}
+  return true;
+};
 
-const isRg = valor => {
-  valor = valor.trim()
+const isRg = (valor) => {
+  valor = valor.trim();
 
-  valor = valor.replace(/[^0-9]/g, '')
+  valor = valor.replace(/[^0-9]/g, "");
 
-  let valorSemEspaco = valor.replace(' ', '')
+  let valorSemEspaco = valor.replace(" ", "");
 
   if (
     valor.length === 0 ||
     valor != valorSemEspaco ||
     valorSemEspaco.length === 0
   ) {
-    return false
+    return false;
   }
 
-  valor = parseInt(valor)
+  valor = parseInt(valor);
 
   if (!valor) {
-    return false
+    return false;
   }
 
-  return true
-}
-
+  return true;
+};
 
 const isCpf = async (cpf = 0) => {
-
-  let cpfBd
+  let cpfBd;
 
   try {
-    const response = await fetch(`http://appcadastro.cieemg.org.br:8080/verificarEstudante?termo=${cpf}`)
+    const response = await fetch(
+      `http://localhost:8080/verificarEstudante?termo=${cpf}`
+    );
     if (response.ok) {
-      const opcoes = await response.json()
-      cpfBd = opcoes.map(cpf => cpf.cpf)
+      const opcoes = await response.json();
+      cpfBd = opcoes.map((cpf) => cpf.cpf);
     } else {
-      console.log('Erro na solicitação:', response.statusText)
+      console.log("Erro na solicitação:", response.statusText);
     }
   } catch (error) {
-    console.error('Erro:', error)
+    console.error("Erro:", error);
   }
 
   if (cpfBd[0] === cpf) {
-    return false
+    return false;
   }
 
-  const regex = new RegExp(/^[0-9]{3}\.[0-9]{3}\.[0-9]{3}\-[0-9]{2}$/)
+  const regex = new RegExp(/^[0-9]{3}\.[0-9]{3}\.[0-9]{3}\-[0-9]{2}$/);
 
   if (!regex.test(cpf)) {
-    return false
+    return false;
   }
 
-  cpf = cpf.replace(/\.|-/g, '')
+  cpf = cpf.replace(/\.|-/g, "");
   if (!validaPrimeiroDigito(cpf)) {
-    return false
+    return false;
   }
   if (!validaSegundoDigito(cpf)) {
-    return false
+    return false;
   }
-  return true
-}
+  return true;
+};
 
 const validaPrimeiroDigito = (cpf) => {
-  let soma = 0
+  let soma = 0;
   for (let i = 0; i < cpf.length - 2; i++) {
-    soma += cpf[i] * ((cpf.length - 1) - i)
+    soma += cpf[i] * (cpf.length - 1 - i);
   }
 
-  soma = (soma * 10) % 11
+  soma = (soma * 10) % 11;
 
   if (soma === 10 || soma === 11) {
-    soma = 0
+    soma = 0;
   }
 
   if (soma != cpf[9]) {
-    return false
+    return false;
   }
 
-  return true
-}
+  return true;
+};
 
 const validaSegundoDigito = (cpf) => {
-  let soma = 0
+  let soma = 0;
   for (let i = 0; i < cpf.length - 1; i++) {
-    soma += cpf[i] * ((cpf.length) - i)
+    soma += cpf[i] * (cpf.length - i);
   }
 
-  soma = (soma * 10) % 11
+  soma = (soma * 10) % 11;
 
   if (soma === 10 || soma === 11) {
-    soma = 0
+    soma = 0;
   }
   if (soma != cpf[10]) {
-    return false
+    return false;
   }
 
-  return true
-}
+  return true;
+};
 
-const isEstadoCivil = estadoCivil => {
-  const regex = new RegExp(/^[scadv]$/)
+const isEstadoCivil = (estadoCivil) => {
+  const regex = new RegExp(/^[scadv]$/);
 
   if (!regex.test(estadoCivil)) {
-    return false
+    return false;
   }
 
-  estadoCivil = parseInt(estadoCivil)
+  estadoCivil = parseInt(estadoCivil);
 
   if (estadoCivil) {
-    return false
+    return false;
   }
 
-  return true
-}
+  return true;
+};
 
+const isDate = (date) => {
+  date = date.replace(/\-/g, "");
 
-const isDate = date => {
+  const yearFilter = date.substring(0, 4);
 
-  date = date.replace(/\-/g, '')
+  const monthFilter = date.substring(4, 6);
 
-  const yearFilter = date.substring(0, 4)
+  const dayFilter = date.substring(6, 8);
 
-  const monthFilter = date.substring(4, 6)
+  const today = new Date();
 
-  const dayFilter = date.substring(6, 8)
+  const year = today.getFullYear();
 
-  const today = new Date()
+  const month = today.getMonth() + 1;
 
-  const year = today.getFullYear()
+  const dayInMonth = today.getDate();
 
-  const month = today.getMonth() + 1
+  let idade = year - yearFilter;
 
-  const dayInMonth = today.getDate()
-
-  let idade = year - yearFilter
-
-  if (month < monthFilter || month == monthFilter && dayInMonth < dayFilter) {
-    idade--
-  }
-
-  if (idade < 14) {
-    return false
-  }
-
-  return true
-}
-
-const age = date => {
-  date = date.replace(/\-/g, '')
-
-  const yearFilter = date.substring(0, 4)
-
-  const monthFilter = date.substring(4, 6)
-
-  const dayFilter = date.substring(6, 8)
-
-  const today = new Date()
-
-  const year = today.getFullYear()
-
-  const month = today.getMonth() + 1
-
-  const dayInMonth = today.getDate()
-
-  let idade = year - yearFilter
-
-  if (month < monthFilter || month == monthFilter && dayInMonth < dayFilter) {
-    idade--
+  if (month < monthFilter || (month == monthFilter && dayInMonth < dayFilter)) {
+    idade--;
   }
 
   if (idade < 14) {
-    return false
+    return false;
   }
 
-  return idade
-}
+  return true;
+};
 
+const age = (date) => {
+  date = date.replace(/\-/g, "");
+
+  const yearFilter = date.substring(0, 4);
+
+  const monthFilter = date.substring(4, 6);
+
+  const dayFilter = date.substring(6, 8);
+
+  const today = new Date();
+
+  const year = today.getFullYear();
+
+  const month = today.getMonth() + 1;
+
+  const dayInMonth = today.getDate();
+
+  let idade = year - yearFilter;
+
+  if (month < monthFilter || (month == monthFilter && dayInMonth < dayFilter)) {
+    idade--;
+  }
+
+  if (idade < 14) {
+    return false;
+  }
+
+  return idade;
+};
 
 const isDateFormatura = (date, inicio, fim) => {
-
-  const regex = new RegExp(/^(19[9][0-9]|20[0-2][0-9]|2030)$/)
+  const regex = new RegExp(/^(19[9][0-9]|20[0-2][0-9]|2030)$/);
 
   if (!regex.test(date)) {
-    return false
+    return false;
   }
 
   if (date.length != 4) {
-    return false
+    return false;
   }
 
-  date = parseInt(date)
+  date = parseInt(date);
 
   if (date < inicio || date > fim) {
-    return false
+    return false;
   }
 
-  return true
-}
+  return true;
+};
 
 const isvalid = (date) => {
-
   if (date.length != 4) {
-    return false
+    return false;
   }
 
-  date = parseInt(date)
+  date = parseInt(date);
 
-  const today = new Date()
+  const today = new Date();
 
-  const year = today.getFullYear()
+  const year = today.getFullYear();
 
-  const anoValido = date - year
+  const anoValido = date - year;
 
   if (!date || anoValido < 0) {
-    return false
+    return false;
   }
 
-  return true
-}
+  return true;
+};
 
 const isSemestre = (data) => {
+  data = parseInt(data);
 
-  const semestresFormaturas = [1, 2, 'Estágio Curricular']
+  const semestreForm = [1, 2, 0];
 
-  let semestre
+  let semestre;
 
-  for (chave in semestresFormaturas) {
-    if (semestresFormaturas[chave] == data) {
-      semestre = semestresFormaturas[chave]
-      break
+  for (let chave in semestreForm) {
+    console.log(semestreForm[chave]);
+    console.log(data);
+    if (semestreForm[chave] === data) {
+      semestre = semestreForm[chave];
+      break;
     }
   }
 
-  if (!semestre) {
-    return false
+  if (semestre === 0 || semestre === 1 || semestre === 2) {
+    console.log(semestre);
+    return true;
   }
 
-  return true
-}
+  return false;
+};
 
 const isMesFormatura = (data) => {
-
-  data = parseInt(data)
+  data = parseInt(data);
 
   if (!data) {
-    return false
+    return false;
   }
 
-  const regex = new RegExp(/^(1|2|3|4|5|6|7|8|9|10|11|12)$/)
+  const regex = new RegExp(/^(1|2|3|4|5|6|7|8|9|10|11|12)$/);
 
   if (!regex.test(data)) {
-    return false
+    return false;
   }
 
   if (data < 1 || data > 12) {
-    return false
+    return false;
   }
 
-  return true
-}
+  return true;
+};
 
 const isPeriodo = (data) => {
-
   const periodos = [
     1,
     2,
@@ -584,325 +581,315 @@ const isPeriodo = (data) => {
     10,
     11,
     12,
-    'Estágio Curricular'
-  ]
+    "Estágio Curricular",
+  ];
 
-  let periodo
+  let periodo;
 
   for (chave in periodos) {
     if (periodos[chave] == data) {
-      periodo = periodos[chave]
-      break
+      periodo = periodos[chave];
+      break;
     }
   }
 
   if (!periodo) {
-    return false
+    return false;
   }
 
-  return true
-}
+  return true;
+};
 
 const isHorario = (data) => {
-
   const horariosEstudos = [
-    'Manhã',
-    'Tarde',
-    'Noite',
-    'EAD',
-    'Estágio Curricular',
-    'Formado'
-  ]
+    "Manhã",
+    "Tarde",
+    "Noite",
+    "EAD",
+    "Estágio Curricular",
+    "Formado",
+  ];
 
-  let horario
+  let horario;
 
   for (let chave in horariosEstudos) {
     if (horariosEstudos[chave] === data) {
-      horario = horariosEstudos[chave]
-      break
+      horario = horariosEstudos[chave];
+      break;
     }
   }
 
   if (!horario) {
-    return false
+    return false;
   }
 
-  return true
-}
+  return true;
+};
 
-const isSexo = sexo => {
-
-  const regex1 = new RegExp(/^[fm]$/)
+const isSexo = (sexo) => {
+  const regex1 = new RegExp(/^[fm]$/);
 
   if (!regex1.test(sexo)) {
-    return false
+    return false;
   }
 
-  sexo = parseInt(sexo)
+  sexo = parseInt(sexo);
   if (sexo) {
-    return false
+    return false;
   }
 
-  return true
-}
-
+  return true;
+};
 
 const isUfNaturalidade = (ufNaturalidade) => {
-
   const listUfNaturalidade = [
-    'RO',
-    'AC',
-    'AM',
-    'RR',
-    'PA',
-    'AP',
-    'TO',
-    'MA',
-    'PI',
-    'CE',
-    'RN',
-    'PB',
-    'PE',
-    'AL',
-    'SE',
-    'BA',
-    'MG',
-    'ES',
-    'RJ',
-    'SP',
-    'PR',
-    'SC',
-    'RS',
-    'MS',
-    'MT',
-    'GO',
-    'DF'
-  ]
+    "RO",
+    "AC",
+    "AM",
+    "RR",
+    "PA",
+    "AP",
+    "TO",
+    "MA",
+    "PI",
+    "CE",
+    "RN",
+    "PB",
+    "PE",
+    "AL",
+    "SE",
+    "BA",
+    "MG",
+    "ES",
+    "RJ",
+    "SP",
+    "PR",
+    "SC",
+    "RS",
+    "MS",
+    "MT",
+    "GO",
+    "DF",
+  ];
 
-  let state
+  let state;
 
   for (let i = 0; i < listUfNaturalidade.length; i++) {
     if (listUfNaturalidade[i] === ufNaturalidade) {
-      state = listUfNaturalidade[i]
+      state = listUfNaturalidade[i];
     }
   }
 
-  if (state != ufNaturalidade || ufNaturalidade.length === 0 || ufNaturalidade.length != 2) {
-    return false
+  if (
+    state != ufNaturalidade ||
+    ufNaturalidade.length === 0 ||
+    ufNaturalidade.length != 2
+  ) {
+    return false;
   }
 
-  ufNaturalidade = parseInt(ufNaturalidade)
+  ufNaturalidade = parseInt(ufNaturalidade);
   if (ufNaturalidade) {
-    return false
+    return false;
   }
 
-  return true
-}
+  return true;
+};
 
 const isDeficiente = (listDeficiencias, deficiencia) => {
-
-  let value
+  let value;
 
   for (let i = 0; i < listDeficiencias.length; i++) {
     if (deficiencia === listDeficiencias[i]) {
-      value = listDeficiencias[i]
+      value = listDeficiencias[i];
     }
   }
 
   if (value !== deficiencia) {
-    return false
+    return false;
   }
 
-  const regex = new RegExp(/^(N|F|A|V|ME|MU|TE)$/)
+  const regex = new RegExp(/^(N|F|A|V|ME|MU|TE)$/);
 
   if (!regex.test(deficiencia)) {
-    return false
+    return false;
   }
 
-  deficiencia = parseInt(deficiencia)
+  deficiencia = parseInt(deficiencia);
   if (deficiencia) {
-    return false
+    return false;
   }
 
-  return true
-}
+  return true;
+};
 
-
-const isDescricao = descricao => {
-
-  const regex = new RegExp(/^[0-9]+$/)
+const isDescricao = (descricao) => {
+  const regex = new RegExp(/^[0-9]+$/);
 
   if (regex.test(descricao)) {
-    return false
+    return false;
   }
 
   if (descricao.length === 0) {
-    return false
+    return false;
   }
 
-  return true
-}
+  return true;
+};
 
 const removerMensagem = (id) => {
   setTimeout(() => {
+    const msg = (document.getElementById(id).innerHTML = "");
+  }, 3000);
+};
 
-    const msg = document.getElementById(id).innerHTML = ''
-
-  }, 3000)
-}
-
-const isNumero = numero => {
-
-  const regex = new RegExp(/^\d+$/)
+const isNumero = (numero) => {
+  const regex = new RegExp(/^\d+$/);
 
   if (!regex.test(numero)) {
-    return false
+    return false;
   }
 
   if (numero.length === 0) {
-    return false
+    return false;
   }
 
-  numero = parseInt(numero)
+  numero = parseInt(numero);
   if (!numero) {
-    return false
+    return false;
   }
 
-  return true
-}
+  return true;
+};
 
-const isComplemento = complemento => {
-
+const isComplemento = (complemento) => {
   if (complemento.length === 0) {
-    return false
+    return false;
   }
 
-  return true
-}
+  return true;
+};
 
-const isTelefone = telefone => {
-
-  const regex = new RegExp(/^\([1-9]{2}\) (?:[2-8]|9[1-9])[0-9]{3}\-[0-9]{4}$/)
+const isTelefone = (telefone) => {
+  const regex = new RegExp(/^\([1-9]{2}\) (?:[2-8]|9[1-9])[0-9]{3}\-[0-9]{4}$/);
 
   if (!regex.test(telefone)) {
-    return false
+    return false;
   }
 
-  telefone = telefone.replace(/[^0-9]/g, '')
+  telefone = telefone.replace(/[^0-9]/g, "");
 
   if (telefone.length === 0) {
-    return false
+    return false;
   }
 
-  telefone = parseInt(telefone)
+  telefone = parseInt(telefone);
 
   if (!telefone) {
-    return false
+    return false;
   }
 
-  return true
-}
+  return true;
+};
 
-
-const isEmail = email => {
-
-  const regex = new RegExp(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/)
+const isEmail = (email) => {
+  const regex = new RegExp(
+    /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/
+  );
 
   if (!regex.test(email)) {
-    return false
+    return false;
   }
 
-  let emailBd
+  let emailBd;
 
-  console.log(emailBd)
+  console.log(emailBd);
 
   if (regex.test(email)) {
-
   }
 
-  console.log(emailBd, email)
+  console.log(emailBd, email);
 
   // if (emailBd[0]) {
 
   // }
 
-  return true
-}
-
+  return true;
+};
 
 const emailBd = async (emailBd) => {
-
-  let email
+  let email;
 
   try {
     const response = await fetch(
-      `http://appcadastro.cieemg.org.br:8080/verificarEmail?termo=${email}`
-    )
+      `http://localhost:8080/verificarEmail?termo=${email}`
+    );
     if (response.ok) {
-      const opcoes = await response.json()
-      email = opcoes.map(email => email.email)
+      const opcoes = await response.json();
+      email = opcoes.map((email) => email.email);
     } else {
-      console.log('Erro na solicitação:', response.statusText)
+      console.log("Erro na solicitação:", response.statusText);
     }
   } catch (error) {
-    console.error('Erro:', error)
+    console.error("Erro:", error);
   }
-}
+};
 
-const isCep = cep => {
-
-  const regex = new RegExp(/^[0-9]{5}-[0-9]{3}$/)
+const isCep = (cep) => {
+  const regex = new RegExp(/^[0-9]{5}-[0-9]{3}$/);
 
   if (!regex.test(cep)) {
-    return false
+    return false;
   }
 
-  cep = cep.replace(/[^0-9]/g, '')
+  cep = cep.replace(/[^0-9]/g, "");
 
   if (cep.length === 0 && cep.length !== 8) {
-    return false
+    return false;
   }
 
-  cep = parseInt(cep)
+  cep = parseInt(cep);
   if (!cep) {
-    return false
+    return false;
   }
 
-  return true
-}
+  return true;
+};
 
 const dateTime = () => {
-  const today = new Date()
+  const today = new Date();
 
-  return `${today.toLocaleDateString({
-    year: "numeric",
-    day: "2-digit",
-    month: "2-digit",
-  }).replace(/[/]/g, '-')} ${today.toLocaleTimeString('pt-BR', {
+  return `${today
+    .toLocaleDateString({
+      year: "numeric",
+      day: "2-digit",
+      month: "2-digit",
+    })
+    .replace(/[/]/g, "-")} ${today.toLocaleTimeString("pt-BR", {
     hour12: false,
-    hour: '2-digit',
-    minute: '2-digit',
-    second: '2-digit'
-  })}`
-}
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+  })}`;
+};
 
 const dateRegister = () => {
-  const today = new Date()
+  const today = new Date();
 
-  const year = today.getFullYear()
+  const year = today.getFullYear();
 
-  let month = today.getMonth() + 1
+  let month = today.getMonth() + 1;
   if (month < 10) {
-    month = "0" + month
+    month = "0" + month;
   }
 
-  let dayInMonth = today.getDate()
+  let dayInMonth = today.getDate();
   if (dayInMonth < 10) {
-    dayInMonth = "0" + dayInMonth
+    dayInMonth = "0" + dayInMonth;
   }
 
-  return year + "-" + month + "-" + dayInMonth
-}
+  return year + "-" + month + "-" + dayInMonth;
+};
 
 // value="s"
 // value="c"
@@ -1046,5 +1033,5 @@ module.exports = {
   dateTime,
   dateRegister,
   age,
-  emailBd
-}
+  emailBd,
+};

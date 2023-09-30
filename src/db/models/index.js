@@ -1,7 +1,7 @@
-const Sequelize = require('sequelize')
+const Sequelize = require("sequelize");
 
-const env = process.env.NODE_ENV || 'development'
-const config = require(__dirname + '/../config/config.js')[env]
+const env = process.env.NODE_ENV || "development";
+const config = require(__dirname + "/../config/config.js")[env];
 
 const sequelize = new Sequelize(
   config.database,
@@ -10,17 +10,21 @@ const sequelize = new Sequelize(
   {
     host: config.host,
     dialect: config.dialect,
+    timezone: config.timezone,
   }
-)
+);
 
 sequelize
   .authenticate()
   .then(function () {
-    console.log('Conexão com o banco de dados realizada com sucesso!')
+    console.log("Conexão com o banco de dados realizada com sucesso!");
   })
   .catch(function (error) {
-    console.log('Erro: Conexão com banco de dados não realizada com sucesso!', error)
-    throw error
-  })
+    console.log(
+      "Erro: Conexão com banco de dados não realizada com sucesso!",
+      error
+    );
+    throw error;
+  });
 
-module.exports = sequelize
+module.exports = sequelize;

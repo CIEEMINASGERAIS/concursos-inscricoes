@@ -259,6 +259,6 @@ app.post('/cadastrar', async (req, res) => {
 //   console.log('Servidor iniciado na porta 8080: http://localhost:8080')
 // })
 
-app.listen(8080, '186.248.218.2', () => {
+app.listen(8080, '0.0.0.0', () => {
   console.log('Servidor iniciado na porta 8080: http://186.248.218.2:8080')
 })

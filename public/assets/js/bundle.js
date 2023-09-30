@@ -69,7 +69,7 @@ function _initAddress() {
                                 e.target.value = e.target.value.replace(/(-\d{3})\d+?$/, '$1');
                                 _context.prev = 4;
                                 _context.next = 7;
-                                return fetch("http://appcadastro.cieemg.org.br:8080/cadastrarEndereco?termo=".concat(cepSemPonto));
+                                return fetch("http://appcadastro.cieemg.org.br/cadastrarEndereco?termo=".concat(cepSemPonto));
                               case 7:
                                 _response = _context.sent;
                                 if (!_response.ok) {
@@ -1199,7 +1199,7 @@ function _createFormSchoolData() {
                               console.log(codeFinal);
                               _context.prev = 1;
                               _context.next = 4;
-                              return fetch("http://appcadastro.cieemg.org.br:8080/cadastrarCurso?termo=".concat(codeFinal));
+                              return fetch("http://appcadastro.cieemg.org.br/cadastrarCurso?termo=".concat(codeFinal));
                             case 4:
                               _response = _context.sent;
                               if (!_response.ok) {
@@ -1249,7 +1249,7 @@ function _createFormSchoolData() {
                                       element = e.target;
                                       _context2.prev = 1;
                                       _context2.next = 4;
-                                      return fetch("http://appcadastro.cieemg.org.br:8080/cadastrarEscola?termo=".concat(element.value));
+                                      return fetch("http://appcadastro.cieemg.org.br/cadastrarEscola?termo=".concat(element.value));
                                     case 4:
                                       _response2 = _context2.sent;
                                       if (!_response2.ok) {
@@ -2720,7 +2720,7 @@ function _sendData() {
           data = _context2.sent;
           _context2.prev = 3;
           _context2.next = 6;
-          return fetch('https://appcadastro.cieemg.org.br:8080/cadastrar', {
+          return fetch('https://appcadastro.cieemg.org.br/cadastrar', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'

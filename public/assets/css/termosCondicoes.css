@@ -13,7 +13,7 @@ body {
 }
 
 .screen-terms-conditions {
-  margin: 5rem 0rem 9.8rem 11.5rem;
+  margin: 5rem 0rem 9.5rem 11rem;
 }
 
 .termos-box {
@@ -206,7 +206,7 @@ body {
 @media screen and (max-width: 920px) {
 
   .screen-terms-conditions {
-    margin: 7rem 0rem 9.8rem 3rem;
+    margin: 5rem 0rem 9.8rem 3rem;
   }
 
   .termos-box {
@@ -242,7 +242,7 @@ body {
 @media screen and (max-width: 600px) {
 
   .screen-terms-conditions {
-    margin: 7rem 0rem 9.8rem 3rem;
+    margin: 5rem 0rem 9.8rem 3rem;
   }
 
   .termos-box {

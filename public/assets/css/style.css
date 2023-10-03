@@ -94,6 +94,27 @@
   margin-right: 0.5rem;
 }
 
+.basic-data {
+  border: none;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: black;
+  cursor: pointer;
+  outline: none;
+}
+
+.button-basic-data {
+  background-color: white;
+  padding: 0.5rem;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.button-basic-data:hover {
+  background-color: rgba(88, 84, 84, 0.3);
+}
+
 .main-side ul {
   margin: 0rem 1rem 0rem 0.5rem;
   display: flex;
@@ -108,7 +129,6 @@
   display: flex;
   align-items: center;
   cursor: pointer;
-
 }
 
 .main-side ul li:hover {

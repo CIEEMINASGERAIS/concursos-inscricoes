@@ -505,7 +505,7 @@ const initDataBasic = async () => {
 
           document.addEventListener('click', function (event) {
             const element = event.target
-            if (element.classList.contains('address')) {
+            if (element.classList.contains('big-address') || element.classList.contains('button-address')) {
               changeMains('.screen-address')
               changeSubMainTitle('Formulário de Endereço')
             }

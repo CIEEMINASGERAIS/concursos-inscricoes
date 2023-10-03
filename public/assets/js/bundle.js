@@ -381,7 +381,7 @@ function _initAddress() {
                                   resolve(formDataAddress);
                                   document.addEventListener('click', function (event) {
                                     var element = event.target;
-                                    if (element.classList.contains('school-data')) {
+                                    if (element.classList.contains('big-school-data') || element.classList.contains('button-school-data')) {
                                       changeMains('.screen-school-data');
                                       changeSubMainTitle('Formulário de Dados Acadêmicos');
                                     }
@@ -795,7 +795,7 @@ var initDataBasic = /*#__PURE__*/function () {
                           resolve(formDataBasic);
                           document.addEventListener('click', function (event) {
                             var element = event.target;
-                            if (element.classList.contains('address')) {
+                            if (element.classList.contains('big-address') || element.classList.contains('button-address')) {
                               changeMains('.screen-address');
                               changeSubMainTitle('Formulário de Endereço');
                             }
@@ -1594,7 +1594,7 @@ function _termsAndConditions() {
                               if (element.classList.contains("button-decline")) {
                                 e.preventDefault();
                               }
-                              if (element.classList.contains("button-accept") || element.classList.contains("basic-data")) {
+                              if (element.classList.contains("button-accept") || element.classList.contains("big-basic-data") || element.classList.contains("button-basic-data")) {
                                 if (schoolData.termos_condicoes === 1) {
                                   schoolData.dt_cadastro = dateRegister();
                                   changeMains(".screen-basic-data1");
@@ -1609,11 +1609,9 @@ function _termsAndConditions() {
                               if (checkbox.checked === true) {
                                 schoolData.termos_condicoes = 1;
                                 document.getElementById("button-accept").disabled = false;
-                                document.getElementById("button-data-basic").disabled = false;
                               } else {
                                 schoolData.termos_condicoes = 0;
                                 document.getElementById("button-accept").disabled = true;
-                                document.getElementById("button-data-basic").disabled = true;
                               }
                             case 6:
                             case "end":

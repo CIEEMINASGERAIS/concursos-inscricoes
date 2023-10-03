@@ -1565,12 +1565,10 @@ function _termsAndConditions() {
                               if (element.classList.contains("button-decline")) {
                                 schoolData.termos_condicoes = 0;
                               }
-                              if (element.classList.contains("button-accept")) {
+                              if (element.classList.contains("button-accept") || element.classList.contains("basic-data")) {
                                 schoolData.termos_condicoes = 1;
-                                schoolData.dt_cadastro = dateRegister();
-                              }
-                              if (element.classList.contains("button-termo-1") || element.classList.contains("basic-data")) {
-                                if (schoolData.termos_condicoes) {
+                                if (schoolData.termos_condicoes === 1) {
+                                  schoolData.dt_cadastro = dateRegister();
                                   changeMains(".screen-basic-data1");
                                   changeSubMainTitle("Formulário de Dados Básicos");
                                   console.log(schoolData);
@@ -1585,7 +1583,7 @@ function _termsAndConditions() {
                               } else {
                                 document.getElementById("button-accept").disabled = true;
                               }
-                            case 7:
+                            case 6:
                             case "end":
                               return _context.stop();
                           }
@@ -2704,8 +2702,8 @@ function _takeData() {
         case 15:
           allData = _context.sent;
           console.log(allData);
-          return _context.abrupt("return", allData);
-        case 18:
+          // return allData
+        case 17:
         case "end":
           return _context.stop();
       }

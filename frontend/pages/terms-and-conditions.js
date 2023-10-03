@@ -58,16 +58,11 @@ async function termsAndConditions() {
         schoolData.termos_condicoes = 0;
       }
 
-      if (element.classList.contains("button-accept")) {
+      if (element.classList.contains("button-accept") ||
+        element.classList.contains("basic-data")) {
         schoolData.termos_condicoes = 1;
-        schoolData.dt_cadastro = dateRegister();
-      }
-
-      if (
-        element.classList.contains("button-termo-1") ||
-        element.classList.contains("basic-data")
-      ) {
-        if (schoolData.termos_condicoes) {
+        if (schoolData.termos_condicoes === 1) {
+          schoolData.dt_cadastro = dateRegister();
           changeMains(".screen-basic-data1");
           changeSubMainTitle("Formulário de Dados Básicos");
           console.log(schoolData);

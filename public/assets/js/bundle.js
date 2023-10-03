@@ -69,7 +69,7 @@ function _initAddress() {
                                 e.target.value = e.target.value.replace(/(-\d{3})\d+?$/, '$1');
                                 _context.prev = 4;
                                 _context.next = 7;
-                                return fetch("http://appcadastro.cieemg.org.br:8080/cadastrarEndereco?termo=".concat(cepSemPonto));
+                                return fetch("http://appcadastro.cieemg.org.br/cadastrarEndereco?termo=".concat(cepSemPonto));
                               case 7:
                                 _response = _context.sent;
                                 if (!_response.ok) {
@@ -452,7 +452,8 @@ var _require = __webpack_require__(/*! ../utils/util.js */ "./frontend/utils/uti
   removerMensagem = _require.removerMensagem,
   isRg = _require.isRg,
   isComplemento = _require.isComplemento,
-  age = _require.age;
+  age = _require.age,
+  cpfInBd = _require.cpfInBd;
 
 // Função responsável por iniciar as funções e gerar o conteúdo da página
 var initDataBasic = /*#__PURE__*/function () {
@@ -508,6 +509,7 @@ var initDataBasic = /*#__PURE__*/function () {
                     if (inputCpf) {
                       inputCpf.addEventListener('input', /*#__PURE__*/function () {
                         var _ref3 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(e) {
+                          var validateBd;
                           return _regeneratorRuntime().wrap(function _callee$(_context) {
                             while (1) switch (_context.prev = _context.next) {
                               case 0:
@@ -515,20 +517,31 @@ var initDataBasic = /*#__PURE__*/function () {
                                 e.target.value = e.target.value.replace(/(\d{3})(\d)/, '$1.$2');
                                 e.target.value = e.target.value.replace(/(\d{3})(\d)/, '$1.$2');
                                 e.target.value = e.target.value.replace(/(\d{3})(\d{1,2})$/, '$1-$2');
-                                _context.next = 6;
-                                return isCpf(e.target.value);
-                              case 6:
-                                _validate = _context.sent;
-                                if (_validate) {
-                                  document.getElementById('msg-cpf').innerHTML = '';
-                                  formDataBasic.cpf = e.target.value;
-                                } else {
-                                  e.preventDefault();
-                                  // Enviar para o HTML a mensagem de erro
-                                  document.getElementById('msg-cpf').innerHTML = "<p>CPF inválido!</p>";
-                                  formDataBasic.cpf = false;
+                                _validate = isCpf(e.target.value);
+                                if (!_validate) {
+                                  _context.next = 14;
+                                  break;
                                 }
-                              case 8:
+                                document.getElementById('msg-cpf').innerHTML = '';
+                                _context.next = 9;
+                                return cpfInBd(e.target.value);
+                              case 9:
+                                validateBd = _context.sent;
+                                console.log(validateBd);
+                                if (validateBd) {
+                                  formDataBasic.cpf = e.target.value;
+                                  document.getElementById('msg-cpf').innerHTML = '';
+                                } else {
+                                  document.getElementById('msg-cpf').innerHTML = "<p>CPF já cadastrado!</p>";
+                                }
+                                _context.next = 17;
+                                break;
+                              case 14:
+                                e.preventDefault();
+                                // Enviar para o HTML a mensagem de erro
+                                document.getElementById('msg-cpf').innerHTML = "<p>CPF inválido!</p>";
+                                formDataBasic.cpf = false;
+                              case 17:
                               case "end":
                                 return _context.stop();
                             }
@@ -773,9 +786,8 @@ var initDataBasic = /*#__PURE__*/function () {
                     if (formData) {
                       formData.addEventListener('submit', function (e) {
                         e.preventDefault();
-                        if (formDataBasic.nome && formDataBasic.nomemae && formDataBasic.naturalidade && formDataBasic.nacionalidade && formDataBasic.estadocivil && formDataBasic.dt_nascimento && formDataBasic.sexo && formDataBasic.uf_naturalidade && formDataBasic.deficiencia && formDataBasic.rg && formDataBasic.orgaoexpedidor && formDataBasic.idade
+                        if (formDataBasic.nome && formDataBasic.nomemae && formDataBasic.naturalidade && formDataBasic.nacionalidade && formDataBasic.estadocivil && formDataBasic.dt_nascimento && formDataBasic.sexo && formDataBasic.uf_naturalidade && formDataBasic.deficiencia && formDataBasic.rg && formDataBasic.orgaoexpedidor && formDataBasic.idade && formDataBasic.cpf
 
-                        // && formDataBasic.cpf
                         // No caso do nomepai e carteira de trabalho não são obrigatorios
                         ) {
                           changeMains('.screen-address');
@@ -1220,7 +1232,7 @@ function _createFormSchoolData() {
                             case 0:
                               _context.prev = 0;
                               _context.next = 3;
-                              return fetch("http://appcadastro.cieemg.org.br:8080/cadastrarCurso?termo=".concat(codeFinal));
+                              return fetch("http://appcadastro.cieemg.org.br/cadastrarCurso?termo=".concat(codeFinal));
                             case 3:
                               _response = _context.sent;
                               if (!_response.ok) {
@@ -1270,7 +1282,7 @@ function _createFormSchoolData() {
                                       element = e.target;
                                       _context2.prev = 1;
                                       _context2.next = 4;
-                                      return fetch("http://appcadastro.cieemg.org.br:8080/cadastrarEscola?termo=".concat(element.value));
+                                      return fetch("http://appcadastro.cieemg.org.br/cadastrarEscola?termo=".concat(element.value));
                                     case 4:
                                       _response2 = _context2.sent;
                                       if (!_response2.ok) {
@@ -1853,7 +1865,7 @@ var isSchool = /*#__PURE__*/function () {
           likeSchool = {};
           _context3.prev = 1;
           _context3.next = 4;
-          return fetch("http://appcadastro.cieemg.org.br:8080/cadastrarEscola?termo=".concat(school));
+          return fetch("http://appcadastro.cieemg.org.br/cadastrarEscola?termo=".concat(school));
         case 4:
           response = _context3.sent;
           if (!response.ok) {
@@ -1938,7 +1950,7 @@ var isCourse = /*#__PURE__*/function () {
           likeCourse = {};
           _context4.prev = 1;
           _context4.next = 4;
-          return fetch("http://appcadastro.cieemg.org.br:8080/cadastrarCurso?termo=".concat(codeCourse));
+          return fetch("http://appcadastro.cieemg.org.br/cadastrarCurso?termo=".concat(codeCourse));
         case 4:
           response = _context4.sent;
           if (!response.ok) {
@@ -2058,83 +2070,21 @@ var isRg = function isRg(valor) {
   }
   return true;
 };
-var isCpf = /*#__PURE__*/function () {
-  var _ref5 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee5() {
-    var cpf,
-      cpfBd,
-      response,
-      opcoes,
-      regex,
-      _args5 = arguments;
-    return _regeneratorRuntime().wrap(function _callee5$(_context5) {
-      while (1) switch (_context5.prev = _context5.next) {
-        case 0:
-          cpf = _args5.length > 0 && _args5[0] !== undefined ? _args5[0] : 0;
-          _context5.prev = 1;
-          _context5.next = 4;
-          return fetch("http://appcadastro.cieemg.org.br:8080/verificarEstudante?termo=".concat(cpf));
-        case 4:
-          response = _context5.sent;
-          if (!response.ok) {
-            _context5.next = 12;
-            break;
-          }
-          _context5.next = 8;
-          return response.json();
-        case 8:
-          opcoes = _context5.sent;
-          cpfBd = opcoes.map(function (cpf) {
-            return cpf.cpf;
-          });
-          _context5.next = 13;
-          break;
-        case 12:
-          console.log("Erro na solicitação:", response.statusText);
-        case 13:
-          _context5.next = 18;
-          break;
-        case 15:
-          _context5.prev = 15;
-          _context5.t0 = _context5["catch"](1);
-          console.error("Erro:", _context5.t0);
-        case 18:
-          if (!(cpfBd[0] === cpf)) {
-            _context5.next = 20;
-            break;
-          }
-          return _context5.abrupt("return", false);
-        case 20:
-          regex = new RegExp(/^[0-9]{3}\.[0-9]{3}\.[0-9]{3}\-[0-9]{2}$/);
-          if (regex.test(cpf)) {
-            _context5.next = 23;
-            break;
-          }
-          return _context5.abrupt("return", false);
-        case 23:
-          cpf = cpf.replace(/\.|-/g, "");
-          if (validaPrimeiroDigito(cpf)) {
-            _context5.next = 26;
-            break;
-          }
-          return _context5.abrupt("return", false);
-        case 26:
-          if (validaSegundoDigito(cpf)) {
-            _context5.next = 28;
-            break;
-          }
-          return _context5.abrupt("return", false);
-        case 28:
-          return _context5.abrupt("return", true);
-        case 29:
-        case "end":
-          return _context5.stop();
-      }
-    }, _callee5, null, [[1, 15]]);
-  }));
-  return function isCpf() {
-    return _ref5.apply(this, arguments);
-  };
-}();
+var isCpf = function isCpf() {
+  var cpf = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
+  var regex = new RegExp(/^[0-9]{3}\.[0-9]{3}\.[0-9]{3}\-[0-9]{2}$/);
+  if (!regex.test(cpf)) {
+    return false;
+  }
+  cpf = cpf.replace(/\.|-/g, "");
+  if (!validaPrimeiroDigito(cpf)) {
+    return false;
+  }
+  if (!validaSegundoDigito(cpf)) {
+    return false;
+  }
+  return true;
+};
 var validaPrimeiroDigito = function validaPrimeiroDigito(cpf) {
   var soma = 0;
   for (var i = 0; i < cpf.length - 2; i++) {
@@ -2163,6 +2113,58 @@ var validaSegundoDigito = function validaSegundoDigito(cpf) {
   }
   return true;
 };
+var cpfInBd = /*#__PURE__*/function () {
+  var _ref5 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee5(cpf) {
+    var cpfBd, response, opcoes;
+    return _regeneratorRuntime().wrap(function _callee5$(_context5) {
+      while (1) switch (_context5.prev = _context5.next) {
+        case 0:
+          _context5.prev = 0;
+          _context5.next = 3;
+          return fetch("http://appcadastro.cieemg.org.br/verificarEstudante?termo=".concat(cpf));
+        case 3:
+          response = _context5.sent;
+          if (!response.ok) {
+            _context5.next = 11;
+            break;
+          }
+          _context5.next = 7;
+          return response.json();
+        case 7:
+          opcoes = _context5.sent;
+          cpfBd = opcoes.map(function (cpf) {
+            return cpf.cpf;
+          });
+          _context5.next = 12;
+          break;
+        case 11:
+          console.log("Erro na solicitação:", response.statusText);
+        case 12:
+          _context5.next = 17;
+          break;
+        case 14:
+          _context5.prev = 14;
+          _context5.t0 = _context5["catch"](0);
+          console.error("Erro:", _context5.t0);
+        case 17:
+          console.log(cpfBd.length);
+          if (!(cpfBd.length > 0)) {
+            _context5.next = 20;
+            break;
+          }
+          return _context5.abrupt("return", false);
+        case 20:
+          return _context5.abrupt("return", true);
+        case 21:
+        case "end":
+          return _context5.stop();
+      }
+    }, _callee5, null, [[0, 14]]);
+  }));
+  return function cpfInBd(_x9) {
+    return _ref5.apply(this, arguments);
+  };
+}();
 var isEstadoCivil = function isEstadoCivil(estadoCivil) {
   var regex = new RegExp(/^[scadv]$/);
   if (!regex.test(estadoCivil)) {
@@ -2410,7 +2412,7 @@ var emailBd = /*#__PURE__*/function () {
         case 0:
           _context6.prev = 0;
           _context6.next = 3;
-          return fetch("http://appcadastro.cieemg.org.br:8080/verificarEmail?termo=".concat(_emailBd));
+          return fetch("http://appcadastro.cieemg.org.br/verificarEmail?termo=".concat(_emailBd));
         case 3:
           response = _context6.sent;
           if (!response.ok) {
@@ -2450,7 +2452,7 @@ var emailBd = /*#__PURE__*/function () {
       }
     }, _callee6, null, [[0, 14]]);
   }));
-  return function emailBd(_x9) {
+  return function emailBd(_x10) {
     return _ref6.apply(this, arguments);
   };
 }();
@@ -2638,7 +2640,8 @@ module.exports = {
   dateTime: dateTime,
   dateRegister: dateRegister,
   age: age,
-  emailBd: emailBd
+  emailBd: emailBd,
+  cpfInBd: cpfInBd
 };
 
 /***/ })
@@ -2745,7 +2748,7 @@ function _sendData() {
           data = _context2.sent;
           _context2.prev = 3;
           _context2.next = 6;
-          return fetch('http://appcadastro.cieemg.org.br:8080/cadastrar', {
+          return fetch('http://appcadastro.cieemg.org.br/cadastrar', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'

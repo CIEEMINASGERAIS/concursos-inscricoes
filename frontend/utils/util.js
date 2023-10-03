@@ -171,7 +171,7 @@ const isSchool = async (school, idSchool) => {
 
   try {
     const response = await fetch(
-      `http://appcadastro.cieemg.org.br:8080/cadastrarEscola?termo=${school}`
+      `http://appcadastro.cieemg.org.br/cadastrarEscola?termo=${school}`
     );
     if (response.ok) {
       likeSchool = await response.json();
@@ -218,7 +218,7 @@ const isCourse = async (course, codeCourse, idCourse) => {
 
   try {
     const response = await fetch(
-      `http://appcadastro.cieemg.org.br:8080/cadastrarCurso?termo=${codeCourse}`
+      `http://appcadastro.cieemg.org.br/cadastrarCurso?termo=${codeCourse}`
     );
     if (response.ok) {
       likeCourse = await response.json();
@@ -333,26 +333,7 @@ const isRg = (valor) => {
   return true;
 };
 
-const isCpf = async (cpf = 0) => {
-  let cpfBd;
-
-  try {
-    const response = await fetch(
-      `http://appcadastro.cieemg.org.br:8080/verificarEstudante?termo=${cpf}`
-    );
-    if (response.ok) {
-      const opcoes = await response.json();
-      cpfBd = opcoes.map((cpf) => cpf.cpf);
-    } else {
-      console.log("Erro na solicitação:", response.statusText);
-    }
-  } catch (error) {
-    console.error("Erro:", error);
-  }
-
-  if (cpfBd[0] === cpf) {
-    return false;
-  }
+const isCpf = (cpf = 0) => {
 
   const regex = new RegExp(/^[0-9]{3}\.[0-9]{3}\.[0-9]{3}\-[0-9]{2}$/);
 
@@ -406,6 +387,32 @@ const validaSegundoDigito = (cpf) => {
 
   return true;
 };
+
+const cpfInBd = async (cpf) => {
+  let cpfBd;
+
+  try {
+    const response = await fetch(
+      `http://appcadastro.cieemg.org.br/verificarEstudante?termo=${cpf}`
+    );
+    if (response.ok) {
+      const opcoes = await response.json();
+      cpfBd = opcoes.map((cpf) => cpf.cpf);
+    } else {
+      console.log("Erro na solicitação:", response.statusText);
+    }
+  } catch (error) {
+    console.error("Erro:", error);
+  }
+
+  console.log(cpfBd.length)
+
+  if (cpfBd.length > 0) {
+    return false;
+  }
+
+  return true
+}
 
 const isEstadoCivil = (estadoCivil) => {
   const regex = new RegExp(/^[scadv]$/);
@@ -809,7 +816,7 @@ const emailBd = async (emailBd) => {
 
   try {
     const response = await fetch(
-      `http://appcadastro.cieemg.org.br:8080/verificarEmail?termo=${emailBd}`
+      `http://appcadastro.cieemg.org.br/verificarEmail?termo=${emailBd}`
     );
     if (response.ok) {
       const opcoes = await response.json();
@@ -1029,4 +1036,5 @@ module.exports = {
   dateRegister,
   age,
   emailBd,
+  cpfInBd
 };

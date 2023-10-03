@@ -14,7 +14,8 @@ const {
   removerMensagem,
   isRg,
   isComplemento,
-  age
+  age,
+  cpfInBd
 } = require('../utils/util.js')
 
 // Função responsável por iniciar as funções e gerar o conteúdo da página
@@ -120,11 +121,19 @@ const initDataBasic = async () => {
         e.target.value = e.target.value.replace(/(\d{3})(\d)/, '$1.$2')
         e.target.value = e.target.value.replace(/(\d{3})(\d{1,2})$/, '$1-$2')
 
-        validate = await isCpf(e.target.value)
+        validate = isCpf(e.target.value)
 
         if (validate) {
           document.getElementById('msg-cpf').innerHTML = ''
-          formDataBasic.cpf = e.target.value
+          const validateBd = await cpfInBd(e.target.value)
+          console.log(validateBd)
+          if (validateBd) {
+            formDataBasic.cpf = e.target.value
+            document.getElementById('msg-cpf').innerHTML = ''
+          } else {
+            document.getElementById('msg-cpf').innerHTML =
+              "<p>CPF já cadastrado!</p>"
+          }
         } else {
           e.preventDefault()
           // Enviar para o HTML a mensagem de erro
@@ -485,9 +494,9 @@ const initDataBasic = async () => {
         e.preventDefault()
         if (
           formDataBasic.nome && formDataBasic.nomemae && formDataBasic.naturalidade && formDataBasic.nacionalidade && formDataBasic.estadocivil
-          && formDataBasic.dt_nascimento && formDataBasic.sexo && formDataBasic.uf_naturalidade && formDataBasic.deficiencia && formDataBasic.rg && formDataBasic.orgaoexpedidor && formDataBasic.idade
+          && formDataBasic.dt_nascimento && formDataBasic.sexo && formDataBasic.uf_naturalidade && formDataBasic.deficiencia && formDataBasic.rg && formDataBasic.orgaoexpedidor && formDataBasic.idade && formDataBasic.cpf
 
-          // && formDataBasic.cpf
+
           // No caso do nomepai e carteira de trabalho não são obrigatorios
         ) {
           changeMains('.screen-address')

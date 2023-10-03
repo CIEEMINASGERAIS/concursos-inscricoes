@@ -349,28 +349,55 @@ async function initAddress() {
 
     if (email) {
 
-      let validate
+      let validateInput, validateFocus
 
-      email.addEventListener('input', async e => {
+      email.addEventListener('input', e => {
 
-        validate = isEmail(e.target.value)
+        validateInput = isEmail(e.target.value)
 
-        if (validate) {
-          emailBd(e.target.value)
-        }
+        // if (validate) {
+        //   emailBd(e.target.value)
+        // }
 
-        if (validate) {
+        if (validateInput) {
           // Enviar para o HTML a mensagem de erro
           document.getElementById('msg-email').innerHTML = ""
-          return formDataAddress.email = e.target.value
         } else {
           e.preventDefault()
           // Enviar para o HTML a mensagem de erro
           document.getElementById('msg-email').innerHTML =
             "<p>Email inválido!</p>"
-          return formDataAddress.email = false
+          formDataAddress.email = false
         }
       })
+
+      email.onblur = async () => {
+        document.getElementById('msg-email').innerHTML = "<p style='color: black;'>Carregado...</p>"
+
+        formDataAddress.email = false
+
+        validateFocus = await emailBd(email.value)
+
+        setTimeout(() => {
+
+          console.log(validateFocus)
+
+          if (validateFocus) {
+            document.getElementById('msg-email').innerHTML = ""
+          } else {
+            if (email.value.length !== 0) {
+              document.getElementById('msg-email').innerHTML =
+                "<p>Email já cadastrado!</p>"
+            } else {
+              document.getElementById('msg-email').innerHTML = ""
+            }
+          }
+
+          if (validateFocus === true && validateInput === true) {
+            formDataAddress.email = email.value
+          }
+        }, 1000)
+      }
     }
 
     if (form) {

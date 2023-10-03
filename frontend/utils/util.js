@@ -801,19 +801,6 @@ const isEmail = (email) => {
     return false;
   }
 
-  let emailBd;
-
-  console.log(emailBd);
-
-  if (regex.test(email)) {
-  }
-
-  console.log(emailBd, email);
-
-  // if (emailBd[0]) {
-
-  // }
-
   return true;
 };
 
@@ -822,7 +809,7 @@ const emailBd = async (emailBd) => {
 
   try {
     const response = await fetch(
-      `http://appcadastro.cieemg.org.br:8080/verificarEmail?termo=${email}`
+      `http://appcadastro.cieemg.org.br:8080/verificarEmail?termo=${emailBd}`
     );
     if (response.ok) {
       const opcoes = await response.json();
@@ -833,6 +820,14 @@ const emailBd = async (emailBd) => {
   } catch (error) {
     console.error("Erro:", error);
   }
+
+  console.log(email)
+
+  if (email.length > 0) {
+    return false
+  }
+
+  return true
 };
 
 const isCep = (cep) => {
@@ -866,11 +861,11 @@ const dateTime = () => {
       month: "2-digit",
     })
     .replace(/[/]/g, "-")} ${today.toLocaleTimeString("pt-BR", {
-    hour12: false,
-    hour: "2-digit",
-    minute: "2-digit",
-    second: "2-digit",
-  })}`;
+      hour12: false,
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit",
+    })}`;
 };
 
 const dateRegister = () => {

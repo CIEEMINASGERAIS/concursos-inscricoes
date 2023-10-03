@@ -33,7 +33,7 @@ function _initAddress() {
         case 0:
           return _context5.abrupt("return", new Promise( /*#__PURE__*/function () {
             var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4(resolve, reject) {
-              var response, htmlContent, address, form, formDataAddress, cep, logradouro, uf, bairro, cidade, btnCep, cepFound, endereco, numero, validate, complemento, _validate, telefone1, _validate2, telefone2, _validate3, email, _validate4;
+              var response, htmlContent, address, form, formDataAddress, cep, logradouro, uf, bairro, cidade, btnCep, cepFound, endereco, numero, validate, complemento, _validate, telefone1, _validate2, telefone2, _validate3, email, validateInput, validateFocus;
               return _regeneratorRuntime().wrap(function _callee4$(_context4) {
                 while (1) switch (_context4.prev = _context4.next) {
                   case 0:
@@ -319,37 +319,54 @@ function _initAddress() {
                     }
                     email = document.getElementById('email');
                     if (email) {
-                      email.addEventListener('input', /*#__PURE__*/function () {
-                        var _ref3 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2(e) {
-                          return _regeneratorRuntime().wrap(function _callee2$(_context2) {
-                            while (1) switch (_context2.prev = _context2.next) {
-                              case 0:
-                                _validate4 = isEmail(e.target.value);
-                                if (_validate4) {
-                                  emailBd(e.target.value);
+                      email.addEventListener('input', function (e) {
+                        validateInput = isEmail(e.target.value);
+
+                        // if (validate) {
+                        //   emailBd(e.target.value)
+                        // }
+
+                        if (validateInput) {
+                          // Enviar para o HTML a mensagem de erro
+                          document.getElementById('msg-email').innerHTML = "";
+                        } else {
+                          e.preventDefault();
+                          // Enviar para o HTML a mensagem de erro
+                          document.getElementById('msg-email').innerHTML = "<p>Email inválido!</p>";
+                          formDataAddress.email = false;
+                        }
+                      });
+                      email.onblur = /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
+                        return _regeneratorRuntime().wrap(function _callee2$(_context2) {
+                          while (1) switch (_context2.prev = _context2.next) {
+                            case 0:
+                              document.getElementById('msg-email').innerHTML = "<p style='color: black;'>Carregado...</p>";
+                              formDataAddress.email = false;
+                              _context2.next = 4;
+                              return emailBd(email.value);
+                            case 4:
+                              validateFocus = _context2.sent;
+                              setTimeout(function () {
+                                console.log(validateFocus);
+                                if (validateFocus) {
+                                  document.getElementById('msg-email').innerHTML = "";
+                                } else {
+                                  if (email.value.length !== 0) {
+                                    document.getElementById('msg-email').innerHTML = "<p>Email já cadastrado!</p>";
+                                  } else {
+                                    document.getElementById('msg-email').innerHTML = "";
+                                  }
                                 }
-                                if (!_validate4) {
-                                  _context2.next = 7;
-                                  break;
+                                if (validateFocus === true && validateInput === true) {
+                                  formDataAddress.email = email.value;
                                 }
-                                // Enviar para o HTML a mensagem de erro
-                                document.getElementById('msg-email').innerHTML = "";
-                                return _context2.abrupt("return", formDataAddress.email = e.target.value);
-                              case 7:
-                                e.preventDefault();
-                                // Enviar para o HTML a mensagem de erro
-                                document.getElementById('msg-email').innerHTML = "<p>Email inválido!</p>";
-                                return _context2.abrupt("return", formDataAddress.email = false);
-                              case 10:
-                              case "end":
-                                return _context2.stop();
-                            }
-                          }, _callee2);
-                        }));
-                        return function (_x4) {
-                          return _ref3.apply(this, arguments);
-                        };
-                      }());
+                              }, 1000);
+                            case 6:
+                            case "end":
+                              return _context2.stop();
+                          }
+                        }, _callee2);
+                      }));
                     }
                     if (form) {
                       form.addEventListener('submit', /*#__PURE__*/function () {
@@ -379,7 +396,7 @@ function _initAddress() {
                             }
                           }, _callee3);
                         }));
-                        return function (_x5) {
+                        return function (_x4) {
                           return _ref4.apply(this, arguments);
                         };
                       }());
@@ -2381,15 +2398,6 @@ var isEmail = function isEmail(email) {
   if (!regex.test(email)) {
     return false;
   }
-  var emailBd;
-  console.log(emailBd);
-  if (regex.test(email)) {}
-  console.log(emailBd, email);
-
-  // if (emailBd[0]) {
-
-  // }
-
   return true;
 };
 var emailBd = /*#__PURE__*/function () {
@@ -2400,7 +2408,7 @@ var emailBd = /*#__PURE__*/function () {
         case 0:
           _context6.prev = 0;
           _context6.next = 3;
-          return fetch("http://appcadastro.cieemg.org.br:8080/verificarEmail?termo=".concat(email));
+          return fetch("http://appcadastro.cieemg.org.br:8080/verificarEmail?termo=".concat(_emailBd));
         case 3:
           response = _context6.sent;
           if (!response.ok) {
@@ -2426,6 +2434,15 @@ var emailBd = /*#__PURE__*/function () {
           _context6.t0 = _context6["catch"](0);
           console.error("Erro:", _context6.t0);
         case 17:
+          console.log(email);
+          if (!(email.length > 0)) {
+            _context6.next = 20;
+            break;
+          }
+          return _context6.abrupt("return", false);
+        case 20:
+          return _context6.abrupt("return", true);
+        case 21:
         case "end":
           return _context6.stop();
       }

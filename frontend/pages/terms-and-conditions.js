@@ -59,7 +59,7 @@ async function termsAndConditions() {
       }
 
       if (element.classList.contains("button-accept") ||
-        element.classList.contains("basic-data")) {
+        element.classList.contains("big-basic-data") || element.classList.contains("button-basic-data")) {
         if (schoolData.termos_condicoes === 1) {
           schoolData.dt_cadastro = dateRegister();
           changeMains(".screen-basic-data1");
@@ -76,11 +76,9 @@ async function termsAndConditions() {
       if (checkbox.checked === true) {
         schoolData.termos_condicoes = 1;
         document.getElementById("button-accept").disabled = false;
-        document.getElementById("button-data-basic").disabled = false;
       } else {
         schoolData.termos_condicoes = 0;
         document.getElementById("button-accept").disabled = true;
-        document.getElementById("button-data-basic").disabled = true;
       }
     });
 

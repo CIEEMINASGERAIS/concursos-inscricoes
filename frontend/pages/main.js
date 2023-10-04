@@ -115,7 +115,7 @@ const main = () => {
   function mainPage() {
     document.addEventListener('click', function (event) {
       const element = event.target
-      if (element.classList.contains('terms-conditions')) {
+      if (element.classList.contains('big-terms-conditions') || element.classList.contains('button-terms-conditions')) {
         changeMains('.screen-terms-conditions')
         changeSubMainTitle('Termos e condições')
       }

@@ -134,8 +134,6 @@ async function initAddress() {
             uf.removeAttribute('disabled');
             bairro.removeAttribute('disabled');
             cidade.removeAttribute('disabled');
-
-
           } else {
 
             // Validação do CEP falhou, desabilitar os campos
@@ -415,7 +413,7 @@ async function initAddress() {
 
           document.addEventListener('click', function (event) {
             const element = event.target
-            if (element.classList.contains('school-data')) {
+            if (element.classList.contains('big-school-data') || element.classList.contains('button-school-data')) {
               changeMains('.screen-school-data')
               changeSubMainTitle('Formulário de Dados Acadêmicos')
             }

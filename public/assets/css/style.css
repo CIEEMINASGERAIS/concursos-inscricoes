@@ -9,10 +9,6 @@
 
 }
 
-/* body {
-  background-color: rgb(238, 238, 238);
-} */
-
 .show-menu-side {
   background: transparent;
   color: white;
@@ -34,13 +30,6 @@
   margin-left: 0.9rem;
   font-size: 1.2rem;
 }
-
-.a {
-  text-decoration: none;
-  color: black;
-  font-weight: 400;
-}
-
 
 .fixed {
   position: fixed;
@@ -90,59 +79,44 @@
   display: block;
 }
 
-.main-side p img {
-  margin-right: 0.5rem;
-}
-
-.basic-data {
+.big-basic-data,
+.big-terms-conditions,
+.big-address,
+.big-school-data {
+  background-color: white;
+  border-radius: 10px;
+  padding: 1rem 0.5rem;
+  display: flex;
+  align-items: center;
   border: none;
   font-size: 1.2rem;
   font-weight: 600;
   color: black;
   cursor: pointer;
   outline: none;
-}
-
-.button-basic-data {
-  background-color: white;
-  padding: 0.5rem;
-  border-radius: 10px;
-  display: flex;
-  align-items: center;
-}
-
-.button-basic-data:hover {
-  background-color: rgba(88, 84, 84, 0.3);
-}
-
-.main-side ul {
-  margin: 0rem 1rem 0rem 0.5rem;
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-  list-style: none;
-}
-
-.main-side ul li {
-  padding: 0.3rem 0.5rem;
-  border-radius: 0.6rem;
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-}
-
-.main-side ul li:hover {
-  background-color: rgba(88, 84, 84, 0.3);
-}
-
-.main-side ul li img {
+  margin-top: 1rem;
+  margin-left: 0.5rem;
   margin-right: 0.5rem;
+  text-align: left;
 }
 
-.main-side ul li a {
-  font-size: 1.2rem;
-  font-weight: 600;
-  color: black;
+.big-basic-data img,
+.big-terms-conditions img,
+.big-address img,
+.big-school-data img {
+  margin-right: 1rem;
+}
+
+.big-address {
+  padding-right: 2rem;
+}
+
+.big-basic-data:hover,
+.big-terms-conditions:hover,
+.big-address:hover,
+.big-school-data:hover {
+  background-color: rgba(88, 84, 84, 0.3);
+  text-decoration: underline;
 }
 
 .screen-main .sub-main-title {

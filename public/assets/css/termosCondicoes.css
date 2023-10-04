@@ -27,7 +27,7 @@ body {
   justify-content: center;
   box-shadow: 0.563rem 0.563rem 0.5rem rgba(0, 0, 0, 0.336);
   line-height: 2.875rem;
-  padding: 2rem;
+  padding: 2rem 2rem 4.5rem 2rem;
   font-size: 1rem;
   border-radius: 0.8rem;
   max-width: 103rem;
@@ -56,6 +56,9 @@ body {
 
 .button-termo:hover {
   background-color: #0056b3;
+}
+.button-termo:focus{
+  outline: none;
 }
 
 .checkbox {

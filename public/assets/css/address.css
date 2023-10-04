@@ -122,6 +122,20 @@ input#cep {
   cursor: pointer;
   width: 10rem;
 }
+.button-back-address:hover,
+.button-advanced-adress:hover,
+.button-confirm-cep:hover,
+.btn-cep:hover {
+  background-color: #0056b3;
+  border:solid #0056b3;
+}
+
+.button-back-address:focus,
+.button-advanced-adress:focus,
+.btn-cep:focus,
+.button-confirm-cep:focus{
+  outline: none;
+}
 
 .div-buttons-address {
   display: flex;
@@ -214,6 +228,13 @@ input#cep {
   border-radius: 0.5rem;
   cursor: pointer;
   width: 10rem;
+}
+
+.button-confirm-cep:hover{
+  background-color: #0056b3;
+}
+.button-confirm-cep:focus{
+  outline: none;
 }
 
 

@@ -11,7 +11,6 @@ async function takeData() {
   const formAddress = await initAddress()
   const formSchoolData = await createFormSchoolData()
   const allData = await { ...termsConditions, ...formData, ...formAddress, ...formSchoolData }
-  console.log(allData)
   return allData
 }
 
@@ -23,7 +22,6 @@ async function sendData() {
       headers: {
         'Content-Type': 'application/json'
       },
-      // mode: 'no-cors',
       error: false,
       mensagem: 'Usuário cadastrado com sucesso',
       body: JSON.stringify(data)

@@ -183,7 +183,7 @@ app.get("/cadastrarCurso", async (req, res) => {
 
   try {
     const data = await Curso.findAll({
-      attributes: ["descricao", "idescola", "idcurso"],
+      attributes: ["descricao", "idescola", "idcurso", "duracao"],
       where: {
         idescola: {
           [Op.eq]: `${termoPesquisa}`,
@@ -196,6 +196,7 @@ app.get("/cadastrarCurso", async (req, res) => {
         descricao: curso.descricao,
         idescola: curso.idescola,
         idcurso: curso.idcurso,
+        duracao: curso.duracao
       };
     });
     res.json(opcoes);

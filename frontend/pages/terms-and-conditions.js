@@ -62,6 +62,7 @@ async function termsAndConditions() {
         element.classList.contains("big-basic-data") || element.classList.contains("button-basic-data")) {
         if (schoolData.termos_condicoes === 1) {
           schoolData.dt_cadastro = dateRegister();
+          schoolData.dt_atualizacao = dateRegister()
           changeMains(".screen-basic-data1");
           changeSubMainTitle("Formulário de Dados Básicos");
           console.log(schoolData);

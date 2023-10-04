@@ -224,7 +224,7 @@ module.exports = (sequelize, DataTypes) => {
             msg: "Esse campo não pode ser vazio.",
           },
           notNull: { msg: "O campo nome precisa ser preenchido" },
-          is: /^[scadv]$/,
+          is: /^[SCADV]$/,
         },
       },
       sexo: {
@@ -235,7 +235,7 @@ module.exports = (sequelize, DataTypes) => {
             msg: "Esse campo não pode ser vazio.",
           },
           notNull: { msg: "O campo nome precisa ser preenchido" },
-          is: /^[fm]$/,
+          is: /^[FM]$/,
         },
       },
       dt_nascimento: {
@@ -342,13 +342,11 @@ module.exports = (sequelize, DataTypes) => {
       dt_cadastro: {
         type: DataTypes.DATEONLY(),
         allowNull: false,
-        // validate: {
-        //   notEmpty: {
-        //     msg: "Esse campo não pode ser vazio."
-        //   },
-        //   notNull: { msg: "O campo data de cadastro precisa ser preenchido" },
-        //   // is: /^\d+$/
-        // }
+        validate: {
+          notEmpty: {
+            msg: "Esse campo não pode ser vazio."
+          }
+        }
         // Data do dia de cadastro
       },
       // *************************** VERIFICAR ***************************
@@ -431,7 +429,12 @@ module.exports = (sequelize, DataTypes) => {
       },
       dt_atualizacao: {
         type: DataTypes.DATEONLY(),
-        allowNull: true,
+        allowNull: false,
+        validate: {
+          notEmpty: {
+            msg: "Este campo não pode ser vazio."
+          }
+        }
         // Data do dia de cadastro
       },
       // *************************** VERIFICAR ***************************

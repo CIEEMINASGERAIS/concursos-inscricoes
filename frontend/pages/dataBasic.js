@@ -496,7 +496,6 @@ const initDataBasic = async () => {
           formDataBasic.nome && formDataBasic.nomemae && formDataBasic.naturalidade && formDataBasic.nacionalidade && formDataBasic.estadocivil
           && formDataBasic.dt_nascimento && formDataBasic.sexo && formDataBasic.uf_naturalidade && formDataBasic.deficiencia && formDataBasic.rg && formDataBasic.orgaoexpedidor && formDataBasic.idade && formDataBasic.cpf
 
-
           // No caso do nomepai e carteira de trabalho não são obrigatorios
         ) {
           changeMains('.screen-address')

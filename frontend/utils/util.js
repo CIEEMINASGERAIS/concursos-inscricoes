@@ -415,7 +415,7 @@ const cpfInBd = async (cpf) => {
 }
 
 const isEstadoCivil = (estadoCivil) => {
-  const regex = new RegExp(/^[scadv]$/);
+  const regex = new RegExp(/^[SCADV]$/);
 
   if (!regex.test(estadoCivil)) {
     return false;
@@ -511,10 +511,6 @@ const isDateFormatura = (date, inicio, fim) => {
 };
 
 const isvalid = (date) => {
-  if (date.length != 4) {
-    return false;
-  }
-
   date = parseInt(date);
 
   const today = new Date();
@@ -634,7 +630,7 @@ const isHorario = (data) => {
 };
 
 const isSexo = (sexo) => {
-  const regex1 = new RegExp(/^[fm]$/);
+  const regex1 = new RegExp(/^[FM]$/);
 
   if (!regex1.test(sexo)) {
     return false;

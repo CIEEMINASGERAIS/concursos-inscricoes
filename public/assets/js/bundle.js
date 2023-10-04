@@ -1001,147 +1001,67 @@ function createFormSchoolData() {
   return _createFormSchoolData.apply(this, arguments);
 }
 function _createFormSchoolData() {
-  _createFormSchoolData = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee12() {
-    return _regeneratorRuntime().wrap(function _callee12$(_context12) {
-      while (1) switch (_context12.prev = _context12.next) {
+  _createFormSchoolData = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee8() {
+    return _regeneratorRuntime().wrap(function _callee8$(_context8) {
+      while (1) switch (_context8.prev = _context8.next) {
         case 0:
-          return _context12.abrupt("return", new Promise( /*#__PURE__*/function () {
-            var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee11(resolve, reject) {
-              var response, htmlContent, schoolData, formSchoolData, anoFormatura, inicio, fim, anosFormaturas, i, _i, option, semestreFormatura, semestresFormaturas, _i2, _option, mesFormatura, mesesFormaturas, _i3, _option2, periodo, periodos, _i4, _option3, horario, _i5, _option4, mostrarOpcoesAutocompleteHorario, dataFormSchool, escolas, cursos, codigoEscola, idCursoFinal, idCurso, codeFinal, mostrarOpcoesAutocompleteEscolas, _mostrarOpcoesAutocompleteEscolas, mostrarOpcoesAutocompleteCursos, _mostrarOpcoesAutocompleteCursos, filtrarCursos, _filtrarCursos, filtrarIdCurso, _filtrarIdCurso, callCourse, alertEnd, today;
-              return _regeneratorRuntime().wrap(function _callee11$(_context11) {
-                while (1) switch (_context11.prev = _context11.next) {
+          return _context8.abrupt("return", new Promise( /*#__PURE__*/function () {
+            var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee7(resolve, reject) {
+              var response, htmlContent, schoolData, formSchoolData, anoFormatura, inicio, fim, anosFormaturas, i, _i, option, semestreFormatura, semestresFormaturas, _i2, _option, mesFormatura, mesesFormaturas, _i3, _option2, periodo, periodos, _i4, _option3, horario, _i5, _option4, mostrarOpcoesAutocompleteHorario, dataFormSchool, escolas, cursos, codigoEscola, idCursoFinal, idCurso, codeFinal, mostrarOpcoesAutocompleteEscolas, mostrarOpcoesAutocompleteCursos, filtrarCursos, filtrarIdCurso, periodoFinal, callCourse, valid, alertEnd, today;
+              return _regeneratorRuntime().wrap(function _callee7$(_context7) {
+                while (1) switch (_context7.prev = _context7.next) {
                   case 0:
-                    _filtrarIdCurso = function _filtrarIdCurso3() {
-                      _filtrarIdCurso = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee10(descricaoCurso) {
-                        var _i10, cursoId;
-                        return _regeneratorRuntime().wrap(function _callee10$(_context10) {
-                          while (1) switch (_context10.prev = _context10.next) {
-                            case 0:
-                              _i10 = 0;
-                            case 1:
-                              if (!(_i10 < idCurso.length)) {
-                                _context10.next = 8;
-                                break;
-                              }
-                              cursoId = {
-                                descricao: idCurso[_i10].descricao,
-                                idcurso: idCurso[_i10].idcurso
-                              };
-                              if (!(cursoId.descricao === descricaoCurso)) {
-                                _context10.next = 5;
-                                break;
-                              }
-                              return _context10.abrupt("return", idCursoFinal = cursoId.idcurso);
-                            case 5:
-                              _i10++;
-                              _context10.next = 1;
-                              break;
-                            case 8:
-                            case "end":
-                              return _context10.stop();
-                          }
-                        }, _callee10);
-                      }));
-                      return _filtrarIdCurso.apply(this, arguments);
+                    filtrarIdCurso = function _filtrarIdCurso(descricaoCurso) {
+                      for (var _i10 = 0; _i10 < idCurso.length; _i10++) {
+                        var cursoId = {
+                          descricao: idCurso[_i10].descricao,
+                          idcurso: idCurso[_i10].idcurso
+                        };
+                        if (cursoId.descricao === descricaoCurso) {
+                          return idCursoFinal = cursoId.idcurso;
+                        }
+                      }
                     };
-                    filtrarIdCurso = function _filtrarIdCurso2(_x6) {
-                      return _filtrarIdCurso.apply(this, arguments);
+                    filtrarCursos = function _filtrarCursos(data) {
+                      for (var _i9 = 0; _i9 < codigoEscola.length; _i9++) {
+                        var codeEscola = {
+                          razaosocial: codigoEscola[_i9].razaosocial,
+                          id: codigoEscola[_i9].id
+                        };
+                        if (codeEscola.razaosocial === data) {
+                          return codeFinal = codeEscola.id;
+                        }
+                      }
                     };
-                    _filtrarCursos = function _filtrarCursos3() {
-                      _filtrarCursos = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee9(data) {
-                        var _i9, codeEscola;
-                        return _regeneratorRuntime().wrap(function _callee9$(_context9) {
-                          while (1) switch (_context9.prev = _context9.next) {
-                            case 0:
-                              _i9 = 0;
-                            case 1:
-                              if (!(_i9 < codigoEscola.length)) {
-                                _context9.next = 8;
-                                break;
-                              }
-                              codeEscola = {
-                                razaosocial: codigoEscola[_i9].razaosocial,
-                                id: codigoEscola[_i9].id
-                              };
-                              if (!(codeEscola.razaosocial === data)) {
-                                _context9.next = 5;
-                                break;
-                              }
-                              return _context9.abrupt("return", codeFinal = codeEscola.id);
-                            case 5:
-                              _i9++;
-                              _context9.next = 1;
-                              break;
-                            case 8:
-                            case "end":
-                              return _context9.stop();
-                          }
-                        }, _callee9);
-                      }));
-                      return _filtrarCursos.apply(this, arguments);
+                    mostrarOpcoesAutocompleteCursos = function _mostrarOpcoesAutocom3(opcoes) {
+                      cursos.innerHTML = "";
+                      var option1 = document.createElement("option");
+                      option1.disabled = "disabled";
+                      option1.selected = "selected";
+                      option1.text = "Selecione";
+                      cursos.appendChild(option1);
+                      for (var _i8 = 0; _i8 < opcoes.length; _i8++) {
+                        var _option7 = document.createElement("option");
+                        _option7.text = opcoes[_i8].descricao;
+                        _option7.value = opcoes[_i8].descricao;
+                        cursos.appendChild(_option7);
+                      }
+                      $(cursos).selectpicker("refresh");
                     };
-                    filtrarCursos = function _filtrarCursos2(_x5) {
-                      return _filtrarCursos.apply(this, arguments);
-                    };
-                    _mostrarOpcoesAutocompleteCursos = function _mostrarOpcoesAutocom5() {
-                      _mostrarOpcoesAutocompleteCursos = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee8(opcoes) {
-                        var option1, _i8, _option7;
-                        return _regeneratorRuntime().wrap(function _callee8$(_context8) {
-                          while (1) switch (_context8.prev = _context8.next) {
-                            case 0:
-                              cursos.innerHTML = "";
-                              option1 = document.createElement("option");
-                              option1.disabled = "disabled";
-                              option1.selected = "selected";
-                              option1.text = "Selecione";
-                              cursos.appendChild(option1);
-                              for (_i8 = 0; _i8 < opcoes.length; _i8++) {
-                                _option7 = document.createElement("option");
-                                _option7.text = opcoes[_i8].descricao;
-                                _option7.value = opcoes[_i8].descricao;
-                                cursos.appendChild(_option7);
-                              }
-                              $(cursos).selectpicker("refresh");
-                            case 8:
-                            case "end":
-                              return _context8.stop();
-                          }
-                        }, _callee8);
-                      }));
-                      return _mostrarOpcoesAutocompleteCursos.apply(this, arguments);
-                    };
-                    mostrarOpcoesAutocompleteCursos = function _mostrarOpcoesAutocom4(_x4) {
-                      return _mostrarOpcoesAutocompleteCursos.apply(this, arguments);
-                    };
-                    _mostrarOpcoesAutocompleteEscolas = function _mostrarOpcoesAutocom3() {
-                      _mostrarOpcoesAutocompleteEscolas = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee7(opcoes) {
-                        var option1, _i7, _option6;
-                        return _regeneratorRuntime().wrap(function _callee7$(_context7) {
-                          while (1) switch (_context7.prev = _context7.next) {
-                            case 0:
-                              escolas.innerHTML = "";
-                              option1 = document.createElement("option");
-                              option1.disabled = "disabled";
-                              option1.selected = "selected";
-                              option1.text = "Selecione";
-                              escolas.appendChild(option1);
-                              for (_i7 = 0; _i7 < opcoes.length; _i7++) {
-                                _option6 = document.createElement("option");
-                                _option6.text = opcoes[_i7].razaosocial;
-                                _option6.value = opcoes[_i7].razaosocial;
-                                escolas.appendChild(_option6);
-                              }
-                              $(escolas).selectpicker("refresh");
-                            case 8:
-                            case "end":
-                              return _context7.stop();
-                          }
-                        }, _callee7);
-                      }));
-                      return _mostrarOpcoesAutocompleteEscolas.apply(this, arguments);
-                    };
-                    mostrarOpcoesAutocompleteEscolas = function _mostrarOpcoesAutocom2(_x3) {
-                      return _mostrarOpcoesAutocompleteEscolas.apply(this, arguments);
+                    mostrarOpcoesAutocompleteEscolas = function _mostrarOpcoesAutocom2(opcoes) {
+                      escolas.innerHTML = "";
+                      var option1 = document.createElement("option");
+                      option1.disabled = "disabled";
+                      option1.selected = "selected";
+                      option1.text = "Selecione";
+                      escolas.appendChild(option1);
+                      for (var _i7 = 0; _i7 < opcoes.length; _i7++) {
+                        var _option6 = document.createElement("option");
+                        _option6.text = opcoes[_i7].razaosocial;
+                        _option6.value = opcoes[_i7].razaosocial;
+                        escolas.appendChild(_option6);
+                      }
+                      $(escolas).selectpicker("refresh");
                     };
                     mostrarOpcoesAutocompleteHorario = function _mostrarOpcoesAutocom(horariosEstudos) {
                       horario.innerHTML = "";
@@ -1158,14 +1078,14 @@ function _createFormSchoolData() {
                       }
                       $(horario).selectpicker("refresh");
                     };
-                    _context11.next = 11;
+                    _context7.next = 7;
                     return fetch("schoolData");
-                  case 11:
-                    response = _context11.sent;
-                    _context11.next = 14;
+                  case 7:
+                    response = _context7.sent;
+                    _context7.next = 10;
                     return response.text();
-                  case 14:
-                    htmlContent = _context11.sent;
+                  case 10:
+                    htmlContent = _context7.sent;
                     schoolData = document.querySelector(".screen-school-data");
                     schoolData.innerHTML = htmlContent;
                     formSchoolData = document.querySelector(".form-school-data");
@@ -1224,6 +1144,13 @@ function _createFormSchoolData() {
                     cursos = document.querySelector(".curso-search select");
                     codigoEscola = {};
                     idCurso = {};
+                    periodoFinal = function periodoFinal() {
+                      for (var _i11 = 0; _i11 < idCurso.length; _i11++) {
+                        if (dataFormSchool.curso_id === idCurso[_i11].idcurso) {
+                          return idCurso[_i11].duracao;
+                        }
+                      }
+                    };
                     callCourse = /*#__PURE__*/function () {
                       var _ref2 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
                         var _response, opcoes;
@@ -1265,7 +1192,7 @@ function _createFormSchoolData() {
                       return function callCourse() {
                         return _ref2.apply(this, arguments);
                       };
-                    }();
+                    }(); // let 
                     $(document).ready( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4() {
                       var input, validate, opcoes;
                       return _regeneratorRuntime().wrap(function _callee4$(_context4) {
@@ -1325,7 +1252,7 @@ function _createFormSchoolData() {
                                   }
                                 }, _callee2, null, [[1, 16]]);
                               }));
-                              return function (_x7) {
+                              return function (_x3) {
                                 return _ref4.apply(this, arguments);
                               };
                             }());
@@ -1355,7 +1282,7 @@ function _createFormSchoolData() {
                                   }
                                 }, _callee3);
                               }));
-                              return function (_x8) {
+                              return function (_x4) {
                                 return _ref5.apply(this, arguments);
                               };
                             }());
@@ -1392,7 +1319,7 @@ function _createFormSchoolData() {
                             }
                           }, _callee5);
                         }));
-                        return function (_x9) {
+                        return function (_x5) {
                           return _ref6.apply(this, arguments);
                         };
                       }());
@@ -1400,7 +1327,6 @@ function _createFormSchoolData() {
                       $(".ano-formatura-search select").change(function (e) {
                         var data = e.currentTarget.value;
                         var validate;
-                        var valid;
                         validate = isDateFormatura(data, inicio, fim);
                         valid = isvalid(data);
                         var horarioIncompleto;
@@ -1484,9 +1410,12 @@ function _createFormSchoolData() {
                               case 0:
                                 e.preventDefault();
                                 if (dataFormSchool.escola_id && dataFormSchool.curso_id && dataFormSchool.previsao_semestre && dataFormSchool.previsao_ano && dataFormSchool.previsao_mes && dataFormSchool.horario
-
-                                // O dataFormSchool.periodo não é obrigatório
+                                // dataFormSchool.periodo
                                 ) {
+                                  console.log(valid);
+                                  if (!valid) {
+                                    dataFormSchool.periodo = periodoFinal();
+                                  }
                                   dataFormSchool.ano = today.getFullYear();
                                   alertEnd.style.display = "block";
                                   resolve(dataFormSchool);
@@ -1500,7 +1429,7 @@ function _createFormSchoolData() {
                             }
                           }, _callee6);
                         }));
-                        return function (_x10) {
+                        return function (_x6) {
                           return _ref7.apply(this, arguments);
                         };
                       }());
@@ -1508,11 +1437,11 @@ function _createFormSchoolData() {
                       console.log("Erro ao enviar os dados para o banco!");
                       reject(error);
                     }
-                  case 47:
+                  case 44:
                   case "end":
-                    return _context11.stop();
+                    return _context7.stop();
                 }
-              }, _callee11);
+              }, _callee7);
             }));
             return function (_x, _x2) {
               return _ref.apply(this, arguments);
@@ -1520,9 +1449,9 @@ function _createFormSchoolData() {
           }()));
         case 1:
         case "end":
-          return _context12.stop();
+          return _context8.stop();
       }
-    }, _callee12);
+    }, _callee8);
   }));
   return _createFormSchoolData.apply(this, arguments);
 }
@@ -1597,6 +1526,7 @@ function _termsAndConditions() {
                               if (element.classList.contains("button-accept") || element.classList.contains("big-basic-data") || element.classList.contains("button-basic-data")) {
                                 if (schoolData.termos_condicoes === 1) {
                                   schoolData.dt_cadastro = dateRegister();
+                                  schoolData.dt_atualizacao = dateRegister();
                                   changeMains(".screen-basic-data1");
                                   changeSubMainTitle("Formulário de Dados Básicos");
                                   console.log(schoolData);
@@ -2165,7 +2095,7 @@ var cpfInBd = /*#__PURE__*/function () {
   };
 }();
 var isEstadoCivil = function isEstadoCivil(estadoCivil) {
-  var regex = new RegExp(/^[scadv]$/);
+  var regex = new RegExp(/^[SCADV]$/);
   if (!regex.test(estadoCivil)) {
     return false;
   }
@@ -2226,9 +2156,6 @@ var isDateFormatura = function isDateFormatura(date, inicio, fim) {
   return true;
 };
 var isvalid = function isvalid(date) {
-  if (date.length != 4) {
-    return false;
-  }
   date = parseInt(date);
   var today = new Date();
   var year = today.getFullYear();
@@ -2299,7 +2226,7 @@ var isHorario = function isHorario(data) {
   return true;
 };
 var isSexo = function isSexo(sexo) {
-  var regex1 = new RegExp(/^[fm]$/);
+  var regex1 = new RegExp(/^[FM]$/);
   if (!regex1.test(sexo)) {
     return false;
   }
@@ -2722,9 +2649,8 @@ function _takeData() {
           return _objectSpread(_objectSpread(_objectSpread(_objectSpread({}, termsConditions), formData), formAddress), formSchoolData);
         case 15:
           allData = _context.sent;
-          console.log(allData);
           return _context.abrupt("return", allData);
-        case 18:
+        case 17:
         case "end":
           return _context.stop();
       }
@@ -2752,7 +2678,6 @@ function _sendData() {
             headers: {
               'Content-Type': 'application/json'
             },
-            // mode: 'no-cors',
             error: false,
             mensagem: 'Usuário cadastrado com sucesso',
             body: JSON.stringify(data)

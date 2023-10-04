@@ -138,7 +138,7 @@ async function createFormSchoolData() {
     let idCurso = {};
     let codeFinal;
 
-    async function mostrarOpcoesAutocompleteEscolas(opcoes) {
+    function mostrarOpcoesAutocompleteEscolas(opcoes) {
       escolas.innerHTML = "";
 
       const option1 = document.createElement("option");
@@ -157,7 +157,7 @@ async function createFormSchoolData() {
       $(escolas).selectpicker("refresh");
     }
 
-    async function mostrarOpcoesAutocompleteCursos(opcoes) {
+    function mostrarOpcoesAutocompleteCursos(opcoes) {
       cursos.innerHTML = "";
 
       const option1 = document.createElement("option");
@@ -176,7 +176,7 @@ async function createFormSchoolData() {
       $(cursos).selectpicker("refresh");
     }
 
-    async function filtrarCursos(data) {
+    function filtrarCursos(data) {
       for (let i = 0; i < codigoEscola.length; i++) {
         let codeEscola = {
           razaosocial: codigoEscola[i].razaosocial,
@@ -188,14 +188,22 @@ async function createFormSchoolData() {
       }
     }
 
-    async function filtrarIdCurso(descricaoCurso) {
+    function filtrarIdCurso(descricaoCurso) {
       for (let i = 0; i < idCurso.length; i++) {
         let cursoId = {
           descricao: idCurso[i].descricao,
           idcurso: idCurso[i].idcurso,
         };
         if (cursoId.descricao === descricaoCurso) {
-          return (idCursoFinal = cursoId.idcurso);
+          return idCursoFinal = cursoId.idcurso;
+        }
+      }
+    }
+
+    const periodoFinal = () => {
+      for (let i = 0; i < idCurso.length; i++) {
+        if (dataFormSchool.curso_id === idCurso[i].idcurso) {
+          return idCurso[i].duracao
         }
       }
     }
@@ -216,6 +224,8 @@ async function createFormSchoolData() {
         console.error("Erro:", error);
       }
     };
+
+    // let 
 
     $(document).ready(async function () {
       $(".escola-search select").selectpicker();
@@ -277,6 +287,8 @@ async function createFormSchoolData() {
       });
     });
 
+    let valid;
+
     $(document).ready(function () {
       $(".curso-search select").selectpicker();
 
@@ -300,8 +312,6 @@ async function createFormSchoolData() {
         let data = e.currentTarget.value;
 
         let validate;
-
-        let valid;
 
         validate = isDateFormatura(data, inicio, fim);
         valid = isvalid(data);
@@ -411,9 +421,12 @@ async function createFormSchoolData() {
           dataFormSchool.previsao_ano &&
           dataFormSchool.previsao_mes &&
           dataFormSchool.horario
-
-          // O dataFormSchool.periodo não é obrigatório
+          // dataFormSchool.periodo
         ) {
+          console.log(valid)
+          if (!valid) {
+            dataFormSchool.periodo = periodoFinal()
+          }
           dataFormSchool.ano = today.getFullYear();
           alertEnd.style.display = "block";
           resolve(dataFormSchool);

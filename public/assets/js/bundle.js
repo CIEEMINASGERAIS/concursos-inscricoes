@@ -953,7 +953,7 @@ var main = function main() {
   function mainPage() {
     document.addEventListener('click', function (event) {
       var element = event.target;
-      if (element.classList.contains('terms-conditions')) {
+      if (element.classList.contains('big-terms-conditions') || element.classList.contains('button-terms-conditions')) {
         changeMains('.screen-terms-conditions');
         changeSubMainTitle('Termos e condições');
       }
@@ -2723,8 +2723,8 @@ function _takeData() {
         case 15:
           allData = _context.sent;
           console.log(allData);
-          // return allData
-        case 17:
+          return _context.abrupt("return", allData);
+        case 18:
         case "end":
           return _context.stop();
       }

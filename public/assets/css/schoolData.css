@@ -127,6 +127,16 @@
   width: 5rem;
 }
 
+.button-back-school:hover,
+.button-finish-school:hover {
+  background-color: #0056b3;
+  border:solid #0056b3;
+}
+.button-back-school:focus,
+ .button-finish-school:focus{
+  outline: none;
+}
+
 .escola-search,
 .curso-search,
 .ano-formatura-search,
@@ -258,13 +268,13 @@
   display: flex;
 }
 
-.alert-school button {
+/* .alert-school button {
   background-color: white;
   cursor: pointer;
   font-size: 0.9em;
   font-weight: 700;
   padding: 0.5rem 1rem;
-}
+} */
 
 .alert-school {
   margin: 3rem auto;
@@ -280,7 +290,7 @@
 
 }
 
-.button-end-school {
+.button-end-school,.button-confirm-school {
   background-color: #007bff;
   margin: 0rem 0rem 0rem 0rem;
   display: flex;
@@ -298,9 +308,16 @@
   text-decoration:none;
   
 }
-.button-end-school:hover {
+.button-end-school:hover,
+.button-confirm-school:hover {
   text-decoration:none;
   color: #ffffff;
+  background-color: #005fc4;
+  order: solid #0063cc;
+}
+.button-end-school:focus,
+.button-confirm-school:focus {
+  outline: none;
 }
 
 @media screen and (max-width: 1200px) {

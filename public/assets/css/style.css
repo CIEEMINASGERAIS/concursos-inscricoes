@@ -116,7 +116,13 @@
 .big-address:hover,
 .big-school-data:hover {
   background-color: rgba(88, 84, 84, 0.3);
-  text-decoration: underline;
+}
+
+.big-basic-data:focus,
+.big-terms-conditions:focus,
+.big-address:focus,
+.big-school-data:focus{
+  outline: none;
 }
 
 .screen-main .sub-main-title {

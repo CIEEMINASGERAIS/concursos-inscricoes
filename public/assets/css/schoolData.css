@@ -295,6 +295,12 @@
   border-radius: 0.5rem;
   cursor: pointer;
   width: 10rem;
+  text-decoration:none;
+  
+}
+.button-end-school:hover {
+  text-decoration:none;
+  color: #ffffff;
 }
 
 @media screen and (max-width: 1200px) {

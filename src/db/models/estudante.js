@@ -1,5 +1,5 @@
 "use strict";
-const { Model } = require("sequelize");
+const { Model, UUIDV4 } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class Estudante extends Model {
     /**
@@ -200,7 +200,8 @@ module.exports = (sequelize, DataTypes) => {
       },
       senha: {
         type: DataTypes.STRING(255),
-        allowNull: true,
+        allowNull: false,
+        defaultValue: UUIDV4
       },
       nomepai: {
         type: DataTypes.STRING(255),
@@ -255,31 +256,32 @@ module.exports = (sequelize, DataTypes) => {
           notEmpty: {
             msg: "Esse campo não pode ser vazio.",
           },
-          notNull: { msg: "O campo nome precisa ser preenchido" },
-          isHorario(value, next) {
-            const horariosEstudos = [
-              "Manhã",
-              "Tarde",
-              "Noite",
-              "EAD",
-              "Estágio Curricular",
-              "Formado",
-            ];
+          is: /^(Manhã|Tarde|Noite|EAD|EC|F)$/
 
-            let horario;
+          // isHorario(value, next) {
+          //   const horariosEstudos = [
+          //     "Manhã",
+          //     "Tarde",
+          //     "Noite",
+          //     "EAD",
+          //     "Estágio Curricular",
+          //     "Formado",
+          //   ];
 
-            for (let chave in horariosEstudos) {
-              if (horariosEstudos[chave] === value) {
-                horario = horariosEstudos[chave];
-                break;
-              }
-            }
+          //   let horario;
 
-            if (!horario) {
-              return next("Horario incorreto!");
-            }
-            return next();
-          },
+          //   for (let chave in horariosEstudos) {
+          //     if (horariosEstudos[chave] === value) {
+          //       horario = horariosEstudos[chave];
+          //       break;
+          //     }
+          //   }
+
+          //   if (!horario) {
+          //     return next("Horario incorreto!");
+          //   }
+          //   return next();
+          // },
         },
       },
       // *************************** VERIFICAR ***************************
@@ -334,11 +336,9 @@ module.exports = (sequelize, DataTypes) => {
           notEmpty: {
             msg: "Esse campo não pode ser vazio.",
           },
-          notNull: { msg: "O id da escola precisa ser preenchido" },
           is: /^\d+$/,
         },
       },
-      // *************************** VERIFICAR ***************************
       dt_cadastro: {
         type: DataTypes.DATEONLY(),
         allowNull: false,
@@ -347,9 +347,8 @@ module.exports = (sequelize, DataTypes) => {
             msg: "Esse campo não pode ser vazio."
           }
         }
-        // Data do dia de cadastro
+
       },
-      // *************************** VERIFICAR ***************************
       uf: {
         type: DataTypes.STRING(2),
         allowNull: false,
@@ -357,7 +356,6 @@ module.exports = (sequelize, DataTypes) => {
           notEmpty: {
             msg: "Esse campo não pode ser vazio.",
           },
-          notNull: { msg: "O campo nome precisa ser preenchido" },
           isUf(value, next) {
             const listUfNaturalidade = [
               "RO",
@@ -417,7 +415,6 @@ module.exports = (sequelize, DataTypes) => {
           notEmpty: {
             msg: "Esse campo não pode ser vazio.",
           },
-          notNull: { msg: "O campo idade precisa ser preenchido" },
           is: /^[0-9]+$/,
           // Posso fazer uma regra de len para controlar o número de caracteres
         },
@@ -435,13 +432,16 @@ module.exports = (sequelize, DataTypes) => {
             msg: "Este campo não pode ser vazio."
           }
         }
-        // Data do dia de cadastro
       },
       // *************************** VERIFICAR ***************************
       periodo: {
         type: DataTypes.INTEGER(4),
-        allowNull: true,
-        // Esse é o período que vamos utilizar
+        allowNull: false,
+        validate: {
+          notEmpty: {
+            msg: "Este campo não pode ser vazio."
+          }
+        }
       },
       ano: {
         type: DataTypes.INTEGER(11),
@@ -449,9 +449,7 @@ module.exports = (sequelize, DataTypes) => {
         validate: {
           notEmpty: {
             msg: "Esse campo não pode ser vazio.",
-          },
-          notNull: { msg: "O campo nome precisa ser preenchido" },
-          // Ano atual
+          }
         },
       },
       previsao_semestre: {
@@ -460,9 +458,6 @@ module.exports = (sequelize, DataTypes) => {
         validate: {
           notEmpty: {
             msg: "Esse campo não pode ser vazio.",
-          },
-          notNull: {
-            msg: "O campo semestre de formatura precisa ser preenchido",
           },
           is: /^(1|2|0)$/, // Validar no front para estágio curricular passar o valor 0
           len: {
@@ -478,13 +473,11 @@ module.exports = (sequelize, DataTypes) => {
           notEmpty: {
             msg: "Esse campo não pode ser vazio.",
           },
-          notNull: { msg: "O campo ano de formatura precisa ser preenchido" },
           is: /^(19[9][0-9]|20[0-2][0-9]|2030)$/,
           len: {
             args: [4],
             msg: "Esse campo deve ter 4 caracteres.",
           },
-          // Previsão de formatura que vamos utilizar
         },
       },
       previsao_mes: {
@@ -494,13 +487,11 @@ module.exports = (sequelize, DataTypes) => {
           notEmpty: {
             msg: "Esse campo não pode ser vazio.",
           },
-          notNull: { msg: "O campo mês de formatura precisa ser preenchido" },
           is: /^(1|2|3|4|5|6|7|8|9|10|11|12)$/,
           len: {
             args: [1, 2],
             msg: "Esse campo deve ter 1 e 2 caracteres.",
           },
-          // Previsão do mês de formatura que vamos utilizar
         },
       },
       deficiencia: {
@@ -525,7 +516,6 @@ module.exports = (sequelize, DataTypes) => {
           notEmpty: {
             msg: "Esse campo não pode ser vazio.",
           },
-          notNull: { msg: "O campo telefone precisa ser preenchido" },
           is: /^\([1-9]{2}\) (?:[2-8]|9[1-9])[0-9]{3}\-[0-9]{4}$/,
         },
       },
@@ -536,7 +526,6 @@ module.exports = (sequelize, DataTypes) => {
           notEmpty: {
             msg: "Esse campo não pode ser vazio.",
           },
-          notNull: { msg: "O campo telefone precisa ser preenchido" },
           is: /^\([1-9]{2}\) (?:[2-8]|9[1-9])[0-9]{3}\-[0-9]{4}$/,
         },
       },
@@ -619,7 +608,6 @@ module.exports = (sequelize, DataTypes) => {
           notEmpty: {
             msg: "Esse campo não pode ser vazio.",
           },
-          notNull: { msg: "O campo nome precisa ser preenchido" },
           is: /^[1]$/,
           len: {
             args: [1],
@@ -627,14 +615,11 @@ module.exports = (sequelize, DataTypes) => {
           },
         },
       },
-      // **************** VERIFICAR ****************
       dt_aceite_termos: {
         type: DataTypes.DATE,
         allowNull: false,
         defaultValue: sequelize.literal("CURRENT_TIMESTAMP"),
-        // Está pronto, agora é só verificar com o Lídio
       },
-      // **************** VERIFICAR ****************
       naturalidade: {
         type: DataTypes.STRING(100),
         allowNull: false,
@@ -642,7 +627,6 @@ module.exports = (sequelize, DataTypes) => {
           notEmpty: {
             msg: "Esse campo não pode ser vazio.",
           },
-          notNull: { msg: "O campo nome precisa ser preenchido" },
           is: /^[a-zA-Z ]+$/,
           len: {
             args: [1, 100],
@@ -657,7 +641,6 @@ module.exports = (sequelize, DataTypes) => {
           notEmpty: {
             msg: "Esse campo não pode ser vazio.",
           },
-          notNull: { msg: "O campo nome precisa ser preenchido" },
           len: {
             args: [2],
             msg: "Esse campo deve ter 1 e 2 caracteres.",
@@ -671,7 +654,6 @@ module.exports = (sequelize, DataTypes) => {
           notEmpty: {
             msg: "Esse campo não pode ser vazio.",
           },
-          notNull: { msg: "O campo nome precisa ser preenchido" },
           is: /^[a-zA-Z ]+$/,
           len: {
             args: [1, 100],

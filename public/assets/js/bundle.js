@@ -260,7 +260,7 @@ function _initAddress() {
                           e.preventDefault();
                           // Enviar para o HTML a mensagem de erro
                           document.getElementById('msg-complemento').innerHTML = "<p>Valor inválido!</p>";
-                          return formDataAddress.complemento = false;
+                          return formDataAddress.complemento = '';
                         }
                       });
                       complemento.addEventListener('keypress', function (e) {
@@ -555,15 +555,12 @@ var initDataBasic = /*#__PURE__*/function () {
                     rg = document.querySelector('.rg');
                     if (rg) {
                       rg.addEventListener('input', function (e) {
-                        // Remove tudo, exceto números e pontos
-                        e.target.value = e.target.value.replace(/[^\d.]/g, '');
-                        // Adicione um ponto a cada três números
-                        e.target.value = e.target.value.replace(/(\d{3})(?=\d)/g, '$1.');
+                        // Remove tudo, exceto números
+                        e.target.value = e.target.value.replace(/[^\d]/g, '');
                         _validate2 = isRg(e.target.value);
                         if (_validate2) {
-                          var rgSemPonto = e.target.value.replace(/[^0-9]/g, '');
                           document.getElementById('msg-rg').innerHTML = '';
-                          formDataBasic.rg = rgSemPonto;
+                          formDataBasic.rg = e.target.value;
                         } else {
                           e.preventDefault();
                           // Enviar para o HTML a mensagem de erro
@@ -1073,7 +1070,15 @@ function _createFormSchoolData() {
                       for (var _i6 = 0; _i6 < horariosEstudos.length; _i6++) {
                         var _option5 = document.createElement("option");
                         _option5.text = horariosEstudos[_i6];
-                        _option5.value = horariosEstudos[_i6];
+                        if (horariosEstudos[_i6] === "Estágio Curricular") {
+                          console.log(horariosEstudos[_i6]);
+                          _option5.value = "EC";
+                        } else if (horariosEstudos[_i6] === "Formado") {
+                          console.log(horariosEstudos[_i6]);
+                          _option5.value = "F";
+                        } else {
+                          _option5.value = horariosEstudos[_i6];
+                        }
                         horario.appendChild(_option5);
                       }
                       $(horario).selectpicker("refresh");
@@ -1136,7 +1141,15 @@ function _createFormSchoolData() {
                     for (_i5 = 0; _i5 < horariosEstudos.length; _i5++) {
                       _option4 = document.createElement("option");
                       _option4.text = horariosEstudos[_i5];
-                      _option4.value = horariosEstudos[_i5];
+                      if (horariosEstudos[_i5] === "Estágio Curricular") {
+                        console.log(horariosEstudos[_i5]);
+                        _option4.value = "EC";
+                      } else if (horariosEstudos[_i5] === "Formado") {
+                        console.log(horariosEstudos[_i5]);
+                        _option4.value = "F";
+                      } else {
+                        _option4.value = horariosEstudos[_i5];
+                      }
                       horario.appendChild(_option4);
                     }
                     dataFormSchool = {};
@@ -1378,12 +1391,13 @@ function _createFormSchoolData() {
                       $(".periodo-search select").selectpicker();
                       $(".periodo-search select").change(function (e) {
                         var data = e.currentTarget.value;
+                        console.log(data);
                         var validate = isPeriodo(data);
                         if (validate) {
                           document.getElementById("msg-periodo").innerHTML = "";
                           dataFormSchool.periodo = data;
                         } else {
-                          document.getElementById("msg-periodo").innerHTML = "<p>Mês de fomartura inválido!</p>";
+                          document.getElementById("msg-periodo").innerHTML = "<p>Período inválido!</p>";
                           dataFormSchool.periodo = false;
                         }
                       });
@@ -1391,11 +1405,12 @@ function _createFormSchoolData() {
                       $(".horario-estudo-search select").change(function (e) {
                         var data = e.currentTarget.value;
                         var validate = isHorario(data);
+                        console.log(data);
                         if (validate) {
-                          document.getElementById("msg-periodo").innerHTML = "";
+                          document.getElementById("msg-horario").innerHTML = "";
                           dataFormSchool.horario = data;
                         } else {
-                          document.getElementById("msg-periodo").innerHTML = "<p>Mês de fomartura inválido!</p>";
+                          document.getElementById("msg-horario").innerHTML = "<p>Horário de estudo inválido!</p>";
                           dataFormSchool.horario = false;
                         }
                       });
@@ -1988,7 +2003,6 @@ var isCtps = function isCtps(valor) {
 };
 var isRg = function isRg(valor) {
   valor = valor.trim();
-  valor = valor.replace(/[^0-9]/g, "");
   var valorSemEspaco = valor.replace(" ", "");
   if (valor.length === 0 || valor != valorSemEspaco || valorSemEspaco.length === 0) {
     return false;
@@ -2200,9 +2214,9 @@ var isMesFormatura = function isMesFormatura(data) {
 var isPeriodo = function isPeriodo(data) {
   var periodos = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, "Estágio Curricular"];
   var periodo;
-  for (chave in periodos) {
-    if (periodos[chave] == data) {
-      periodo = periodos[chave];
+  for (var _chave2 in periodos) {
+    if (periodos[_chave2] == data) {
+      periodo = periodos[_chave2];
       break;
     }
   }
@@ -2212,11 +2226,11 @@ var isPeriodo = function isPeriodo(data) {
   return true;
 };
 var isHorario = function isHorario(data) {
-  var horariosEstudos = ["Manhã", "Tarde", "Noite", "EAD", "Estágio Curricular", "Formado"];
+  var horariosEstudos = ["Manhã", "Tarde", "Noite", "EAD", "EC", "F"];
   var horario;
-  for (var _chave2 in horariosEstudos) {
-    if (horariosEstudos[_chave2] === data) {
-      horario = horariosEstudos[_chave2];
+  for (var _chave3 in horariosEstudos) {
+    if (horariosEstudos[_chave3] === data) {
+      horario = horariosEstudos[_chave3];
       break;
     }
   }
@@ -2649,8 +2663,9 @@ function _takeData() {
           return _objectSpread(_objectSpread(_objectSpread(_objectSpread({}, termsConditions), formData), formAddress), formSchoolData);
         case 15:
           allData = _context.sent;
+          console.log(allData);
           return _context.abrupt("return", allData);
-        case 17:
+        case 18:
         case "end":
           return _context.stop();
       }

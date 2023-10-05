@@ -11,6 +11,7 @@ async function takeData() {
   const formAddress = await initAddress()
   const formSchoolData = await createFormSchoolData()
   const allData = await { ...termsConditions, ...formData, ...formAddress, ...formSchoolData }
+  console.log(allData)
   return allData
 }
 

@@ -151,17 +151,14 @@ const initDataBasic = async () => {
 
       rg.addEventListener('input', e => {
 
-        // Remove tudo, exceto números e pontos
-        e.target.value = e.target.value.replace(/[^\d.]/g, '');
-        // Adicione um ponto a cada três números
-        e.target.value = e.target.value.replace(/(\d{3})(?=\d)/g, '$1.');
+        // Remove tudo, exceto números
+        e.target.value = e.target.value.replace(/[^\d]/g, '');
 
         validate = isRg(e.target.value)
 
         if (validate) {
-          let rgSemPonto = e.target.value.replace(/[^0-9]/g, '')
           document.getElementById('msg-rg').innerHTML = ''
-          formDataBasic.rg = rgSemPonto
+          formDataBasic.rg = e.target.value
         } else {
           e.preventDefault()
           // Enviar para o HTML a mensagem de erro

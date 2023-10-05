@@ -253,13 +253,13 @@ async function initAddress() {
         if (validate) {
           // Enviar para o HTML a mensagem de erro
           document.getElementById('msg-complemento').innerHTML = ""
-          return (formDataAddress.complemento = e.target.value)
+          return formDataAddress.complemento = e.target.value
         } else {
           e.preventDefault()
           // Enviar para o HTML a mensagem de erro
           document.getElementById('msg-complemento').innerHTML =
             "<p>Valor inválido!</p>"
-          return (formDataAddress.complemento = false)
+          return formDataAddress.complemento = ''
         }
 
       })

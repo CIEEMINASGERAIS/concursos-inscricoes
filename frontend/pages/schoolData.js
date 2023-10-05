@@ -106,7 +106,16 @@ async function createFormSchoolData() {
     for (let i = 0; i < horariosEstudos.length; i++) {
       const option = document.createElement("option");
       option.text = horariosEstudos[i];
-      option.value = horariosEstudos[i];
+      if (horariosEstudos[i] === "Estágio Curricular") {
+        console.log(horariosEstudos[i])
+        option.value = "EC";
+      } else if (horariosEstudos[i] === "Formado") {
+        console.log(horariosEstudos[i])
+        option.value = "F";
+      }
+      else {
+        option.value = horariosEstudos[i];
+      }
       horario.appendChild(option);
     }
 
@@ -122,7 +131,16 @@ async function createFormSchoolData() {
       for (let i = 0; i < horariosEstudos.length; i++) {
         const option = document.createElement("option");
         option.text = horariosEstudos[i];
-        option.value = horariosEstudos[i];
+        if (horariosEstudos[i] === "Estágio Curricular") {
+          console.log(horariosEstudos[i])
+          option.value = "EC";
+        } else if (horariosEstudos[i] === "Formado") {
+          console.log(horariosEstudos[i])
+          option.value = "F";
+        }
+        else {
+          option.value = horariosEstudos[i];
+        }
         horario.appendChild(option);
       }
 
@@ -377,6 +395,8 @@ async function createFormSchoolData() {
       $(".periodo-search select").change((e) => {
         let data = e.currentTarget.value;
 
+        console.log(data)
+
         let validate = isPeriodo(data);
 
         if (validate) {
@@ -384,7 +404,7 @@ async function createFormSchoolData() {
           dataFormSchool.periodo = data;
         } else {
           document.getElementById("msg-periodo").innerHTML =
-            "<p>Mês de fomartura inválido!</p>";
+            "<p>Período inválido!</p>";
           dataFormSchool.periodo = false;
         }
       });
@@ -396,12 +416,14 @@ async function createFormSchoolData() {
 
         let validate = isHorario(data);
 
+        console.log(data)
+
         if (validate) {
-          document.getElementById("msg-periodo").innerHTML = "";
+          document.getElementById("msg-horario").innerHTML = "";
           dataFormSchool.horario = data;
         } else {
-          document.getElementById("msg-periodo").innerHTML =
-            "<p>Mês de fomartura inválido!</p>";
+          document.getElementById("msg-horario").innerHTML =
+            "<p>Horário de estudo inválido!</p>";
           dataFormSchool.horario = false;
         }
       });

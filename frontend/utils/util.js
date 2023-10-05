@@ -312,8 +312,6 @@ const isCtps = (valor) => {
 const isRg = (valor) => {
   valor = valor.trim();
 
-  valor = valor.replace(/[^0-9]/g, "");
-
   let valorSemEspaco = valor.replace(" ", "");
 
   if (
@@ -589,7 +587,7 @@ const isPeriodo = (data) => {
 
   let periodo;
 
-  for (chave in periodos) {
+  for (let chave in periodos) {
     if (periodos[chave] == data) {
       periodo = periodos[chave];
       break;
@@ -609,8 +607,8 @@ const isHorario = (data) => {
     "Tarde",
     "Noite",
     "EAD",
-    "Estágio Curricular",
-    "Formado",
+    "EC",
+    "F",
   ];
 
   let horario;

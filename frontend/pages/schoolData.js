@@ -48,7 +48,6 @@ async function createFormSchoolData() {
       const option = document.createElement("option");
       option.text = semestresFormaturas[i];
       if (semestresFormaturas[i] === "Estágio Curricular") {
-        console.log(semestresFormaturas[i]);
         option.value = 0;
       } else {
         option.value = semestresFormaturas[i];
@@ -107,10 +106,8 @@ async function createFormSchoolData() {
       const option = document.createElement("option");
       option.text = horariosEstudos[i];
       if (horariosEstudos[i] === "Estágio Curricular") {
-        console.log(horariosEstudos[i])
         option.value = "EC";
       } else if (horariosEstudos[i] === "Formado") {
-        console.log(horariosEstudos[i])
         option.value = "F";
       }
       else {
@@ -132,10 +129,8 @@ async function createFormSchoolData() {
         const option = document.createElement("option");
         option.text = horariosEstudos[i];
         if (horariosEstudos[i] === "Estágio Curricular") {
-          console.log(horariosEstudos[i])
           option.value = "EC";
         } else if (horariosEstudos[i] === "Formado") {
-          console.log(horariosEstudos[i])
           option.value = "F";
         }
         else {
@@ -361,7 +356,6 @@ async function createFormSchoolData() {
         let validate;
 
         validate = isSemestre(data);
-        console.log(validate);
 
         if (validate) {
           document.getElementById("msg-semestre-formatura").innerHTML = "";
@@ -395,8 +389,6 @@ async function createFormSchoolData() {
       $(".periodo-search select").change((e) => {
         let data = e.currentTarget.value;
 
-        console.log(data)
-
         let validate = isPeriodo(data);
 
         if (validate) {
@@ -415,8 +407,6 @@ async function createFormSchoolData() {
         let data = e.currentTarget.value;
 
         let validate = isHorario(data);
-
-        console.log(data)
 
         if (validate) {
           document.getElementById("msg-horario").innerHTML = "";
@@ -445,7 +435,6 @@ async function createFormSchoolData() {
           dataFormSchool.horario
           // dataFormSchool.periodo
         ) {
-          console.log(valid)
           if (!valid) {
             dataFormSchool.periodo = periodoFinal()
           }

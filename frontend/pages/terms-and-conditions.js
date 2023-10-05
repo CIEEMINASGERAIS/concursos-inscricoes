@@ -65,7 +65,6 @@ async function termsAndConditions() {
           schoolData.dt_atualizacao = dateRegister()
           changeMains(".screen-basic-data1");
           changeSubMainTitle("Formulário de Dados Básicos");
-          console.log(schoolData);
           resolve(schoolData);
         } else {
           e.preventDefault();

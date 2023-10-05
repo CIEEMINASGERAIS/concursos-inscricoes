@@ -11,7 +11,6 @@ async function takeData() {
   const formAddress = await initAddress()
   const formSchoolData = await createFormSchoolData()
   const allData = await { ...termsConditions, ...formData, ...formAddress, ...formSchoolData }
-  console.log(allData)
   return allData
 }
 
@@ -28,7 +27,6 @@ async function sendData() {
       body: JSON.stringify(data)
     })
     if (response.ok) {
-      console.log('Dados enviados com sucesso!')
     } else {
       console.log(response.status)
     }

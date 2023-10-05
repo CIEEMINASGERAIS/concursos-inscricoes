@@ -403,8 +403,6 @@ const cpfInBd = async (cpf) => {
     console.error("Erro:", error);
   }
 
-  console.log(cpfBd.length)
-
   if (cpfBd.length > 0) {
     return false;
   }
@@ -532,8 +530,6 @@ const isSemestre = (data) => {
   let semestre;
 
   for (let chave in semestreForm) {
-    console.log(semestreForm[chave]);
-    console.log(data);
     if (semestreForm[chave] === data) {
       semestre = semestreForm[chave];
       break;
@@ -541,7 +537,6 @@ const isSemestre = (data) => {
   }
 
   if (semestre === 0 || semestre === 1 || semestre === 2) {
-    console.log(semestre);
     return true;
   }
 
@@ -821,8 +816,6 @@ const emailBd = async (emailBd) => {
   } catch (error) {
     console.error("Erro:", error);
   }
-
-  console.log(email)
 
   if (email.length > 0) {
     return false

@@ -347,7 +347,6 @@ function _initAddress() {
                             case 4:
                               validateFocus = _context2.sent;
                               setTimeout(function () {
-                                console.log(validateFocus);
                                 if (validateFocus) {
                                   document.getElementById('msg-email').innerHTML = "";
                                 } else {
@@ -519,7 +518,7 @@ var initDataBasic = /*#__PURE__*/function () {
                                 e.target.value = e.target.value.replace(/(\d{3})(\d{1,2})$/, '$1-$2');
                                 _validate = isCpf(e.target.value);
                                 if (!_validate) {
-                                  _context.next = 14;
+                                  _context.next = 13;
                                   break;
                                 }
                                 document.getElementById('msg-cpf').innerHTML = '';
@@ -527,21 +526,20 @@ var initDataBasic = /*#__PURE__*/function () {
                                 return cpfInBd(e.target.value);
                               case 9:
                                 validateBd = _context.sent;
-                                console.log(validateBd);
                                 if (validateBd) {
                                   formDataBasic.cpf = e.target.value;
                                   document.getElementById('msg-cpf').innerHTML = '';
                                 } else {
                                   document.getElementById('msg-cpf').innerHTML = "<p>CPF já cadastrado!</p>";
                                 }
-                                _context.next = 17;
+                                _context.next = 16;
                                 break;
-                              case 14:
+                              case 13:
                                 e.preventDefault();
                                 // Enviar para o HTML a mensagem de erro
                                 document.getElementById('msg-cpf').innerHTML = "<p>CPF inválido!</p>";
                                 formDataBasic.cpf = false;
-                              case 17:
+                              case 16:
                               case "end":
                                 return _context.stop();
                             }
@@ -684,7 +682,6 @@ var initDataBasic = /*#__PURE__*/function () {
                       dataNascimento.addEventListener('input', function (e) {
                         e.target.value = e.target.value.replace(/[^0-9-]/g, '');
                         _validate10 = isDate(e.target.value);
-                        console.log(age(e.target.value));
                         if (_validate10) {
                           document.getElementById('msg-data-nascimento').innerHTML = '';
                           formDataBasic.dt_nascimento = e.target.value;
@@ -1071,10 +1068,8 @@ function _createFormSchoolData() {
                         var _option5 = document.createElement("option");
                         _option5.text = horariosEstudos[_i6];
                         if (horariosEstudos[_i6] === "Estágio Curricular") {
-                          console.log(horariosEstudos[_i6]);
                           _option5.value = "EC";
                         } else if (horariosEstudos[_i6] === "Formado") {
-                          console.log(horariosEstudos[_i6]);
                           _option5.value = "F";
                         } else {
                           _option5.value = horariosEstudos[_i6];
@@ -1113,7 +1108,6 @@ function _createFormSchoolData() {
                       _option = document.createElement("option");
                       _option.text = semestresFormaturas[_i2];
                       if (semestresFormaturas[_i2] === "Estágio Curricular") {
-                        console.log(semestresFormaturas[_i2]);
                         _option.value = 0;
                       } else {
                         _option.value = semestresFormaturas[_i2];
@@ -1142,10 +1136,8 @@ function _createFormSchoolData() {
                       _option4 = document.createElement("option");
                       _option4.text = horariosEstudos[_i5];
                       if (horariosEstudos[_i5] === "Estágio Curricular") {
-                        console.log(horariosEstudos[_i5]);
                         _option4.value = "EC";
                       } else if (horariosEstudos[_i5] === "Formado") {
-                        console.log(horariosEstudos[_i5]);
                         _option4.value = "F";
                       } else {
                         _option4.value = horariosEstudos[_i5];
@@ -1367,7 +1359,6 @@ function _createFormSchoolData() {
                         var data = e.currentTarget.value;
                         var validate;
                         validate = isSemestre(data);
-                        console.log(validate);
                         if (validate) {
                           document.getElementById("msg-semestre-formatura").innerHTML = "";
                           dataFormSchool.previsao_semestre = data;
@@ -1391,7 +1382,6 @@ function _createFormSchoolData() {
                       $(".periodo-search select").selectpicker();
                       $(".periodo-search select").change(function (e) {
                         var data = e.currentTarget.value;
-                        console.log(data);
                         var validate = isPeriodo(data);
                         if (validate) {
                           document.getElementById("msg-periodo").innerHTML = "";
@@ -1405,7 +1395,6 @@ function _createFormSchoolData() {
                       $(".horario-estudo-search select").change(function (e) {
                         var data = e.currentTarget.value;
                         var validate = isHorario(data);
-                        console.log(data);
                         if (validate) {
                           document.getElementById("msg-horario").innerHTML = "";
                           dataFormSchool.horario = data;
@@ -1427,7 +1416,6 @@ function _createFormSchoolData() {
                                 if (dataFormSchool.escola_id && dataFormSchool.curso_id && dataFormSchool.previsao_semestre && dataFormSchool.previsao_ano && dataFormSchool.previsao_mes && dataFormSchool.horario
                                 // dataFormSchool.periodo
                                 ) {
-                                  console.log(valid);
                                   if (!valid) {
                                     dataFormSchool.periodo = periodoFinal();
                                   }
@@ -1544,7 +1532,6 @@ function _termsAndConditions() {
                                   schoolData.dt_atualizacao = dateRegister();
                                   changeMains(".screen-basic-data1");
                                   changeSubMainTitle("Formulário de Dados Básicos");
-                                  console.log(schoolData);
                                   resolve(schoolData);
                                 } else {
                                   e.preventDefault();
@@ -2090,15 +2077,14 @@ var cpfInBd = /*#__PURE__*/function () {
           _context5.t0 = _context5["catch"](0);
           console.error("Erro:", _context5.t0);
         case 17:
-          console.log(cpfBd.length);
           if (!(cpfBd.length > 0)) {
-            _context5.next = 20;
+            _context5.next = 19;
             break;
           }
           return _context5.abrupt("return", false);
-        case 20:
+        case 19:
           return _context5.abrupt("return", true);
-        case 21:
+        case 20:
         case "end":
           return _context5.stop();
       }
@@ -2184,15 +2170,12 @@ var isSemestre = function isSemestre(data) {
   var semestreForm = [1, 2, 0];
   var semestre;
   for (var _chave in semestreForm) {
-    console.log(semestreForm[_chave]);
-    console.log(data);
     if (semestreForm[_chave] === data) {
       semestre = semestreForm[_chave];
       break;
     }
   }
   if (semestre === 0 || semestre === 1 || semestre === 2) {
-    console.log(semestre);
     return true;
   }
   return false;
@@ -2378,15 +2361,14 @@ var emailBd = /*#__PURE__*/function () {
           _context6.t0 = _context6["catch"](0);
           console.error("Erro:", _context6.t0);
         case 17:
-          console.log(email);
           if (!(email.length > 0)) {
-            _context6.next = 20;
+            _context6.next = 19;
             break;
           }
           return _context6.abrupt("return", false);
-        case 20:
+        case 19:
           return _context6.abrupt("return", true);
-        case 21:
+        case 20:
         case "end":
           return _context6.stop();
       }
@@ -2663,9 +2645,8 @@ function _takeData() {
           return _objectSpread(_objectSpread(_objectSpread(_objectSpread({}, termsConditions), formData), formAddress), formSchoolData);
         case 15:
           allData = _context.sent;
-          console.log(allData);
           return _context.abrupt("return", allData);
-        case 18:
+        case 17:
         case "end":
           return _context.stop();
       }
@@ -2699,9 +2680,7 @@ function _sendData() {
           });
         case 6:
           response = _context2.sent;
-          if (response.ok) {
-            console.log('Dados enviados com sucesso!');
-          } else {
+          if (response.ok) {} else {
             console.log(response.status);
           }
           _context2.next = 13;

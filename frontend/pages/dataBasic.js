@@ -126,7 +126,6 @@ const initDataBasic = async () => {
         if (validate) {
           document.getElementById('msg-cpf').innerHTML = ''
           const validateBd = await cpfInBd(e.target.value)
-          console.log(validateBd)
           if (validateBd) {
             formDataBasic.cpf = e.target.value
             document.getElementById('msg-cpf').innerHTML = ''
@@ -354,8 +353,6 @@ const initDataBasic = async () => {
         e.target.value = e.target.value.replace(/[^0-9-]/g, '')
 
         validate = isDate(e.target.value)
-
-        console.log(age(e.target.value))
 
         if (validate) {
           document.getElementById('msg-data-nascimento').innerHTML = ''

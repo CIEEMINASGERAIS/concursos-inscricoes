@@ -378,8 +378,6 @@ async function initAddress() {
 
         setTimeout(() => {
 
-          console.log(validateFocus)
-
           if (validateFocus) {
             document.getElementById('msg-email').innerHTML = ""
           } else {

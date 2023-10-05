@@ -1564,7 +1564,7 @@ function _termsAndConditions() {
                       if (isMobile) {
                         setTimeout(function () {
                           document.getElementById("li-concordo").disabled = false;
-                        }, 15000);
+                        }, 5000);
                       } else {
                         $(".text-terms-conditions").bind("scroll", function () {
                           /*

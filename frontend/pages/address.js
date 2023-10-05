@@ -259,7 +259,7 @@ async function initAddress() {
           // Enviar para o HTML a mensagem de erro
           document.getElementById('msg-complemento').innerHTML =
             "<p>Valor inválido!</p>"
-          return formDataAddress.complemento = ''
+          return formDataAddress.complemento = " "
         }
 
       })

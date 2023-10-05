@@ -260,7 +260,7 @@ function _initAddress() {
                           e.preventDefault();
                           // Enviar para o HTML a mensagem de erro
                           document.getElementById('msg-complemento').innerHTML = "<p>Valor inválido!</p>";
-                          return formDataAddress.complemento = '';
+                          return formDataAddress.complemento = " ";
                         }
                       });
                       complemento.addEventListener('keypress', function (e) {

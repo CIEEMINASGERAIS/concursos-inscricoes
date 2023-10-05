@@ -287,9 +287,10 @@ function _initAddress() {
                         e.target.value = e.target.value.replace(/(\d)(\d{4})$/, "$1-$2");
                         _validate2 = isTelefone(e.target.value);
                         if (_validate2) {
+                          var telefone1SemSimbolo = e.target.value.replace(/\D/g, '');
                           // Enviar para o HTML a mensagem de erro
                           document.getElementById('msg-telefone1').innerHTML = "";
-                          return formDataAddress.telefone1 = e.target.value;
+                          return formDataAddress.telefone1 = telefone1SemSimbolo;
                         } else {
                           e.preventDefault();
                           // Enviar para o HTML a mensagem de erro
@@ -306,9 +307,10 @@ function _initAddress() {
                         e.target.value = e.target.value.replace(/(\d)(\d{4})$/, "$1-$2");
                         _validate3 = isTelefone(e.target.value);
                         if (_validate3) {
-                          // Enviar para o HTML a mensagem de erro
+                          var telefone2SemSimbolo = e.target.value.replace(/\D/g, '');
+                          // Enviar para o HTML a mensagem de erro          
                           document.getElementById('msg-telefone2').innerHTML = "";
-                          return formDataAddress.telefone2 = e.target.value;
+                          return formDataAddress.telefone2 = telefone2SemSimbolo;
                         } else {
                           e.preventDefault();
                           // Enviar para o HTML a mensagem de erro

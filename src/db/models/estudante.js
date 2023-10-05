@@ -1,6 +1,5 @@
 "use strict";
 const { Model, UUIDV4 } = require("sequelize");
-const { UUIDV1 } = require("sequelize/lib/data-types");
 module.exports = (sequelize, DataTypes) => {
   class Estudante extends Model {
     /**
@@ -202,7 +201,7 @@ module.exports = (sequelize, DataTypes) => {
       senha: {
         type: DataTypes.STRING(255),
         allowNull: false,
-        defaultValue: UUIDV1
+        defaultValue: UUIDV4
       },
       nomepai: {
         type: DataTypes.STRING(255),

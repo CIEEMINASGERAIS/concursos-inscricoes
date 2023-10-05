@@ -301,9 +301,10 @@ async function initAddress() {
         validate = isTelefone(e.target.value)
 
         if (validate) {
+          const telefone1SemSimbolo = e.target.value.replace(/\D/g, '')
           // Enviar para o HTML a mensagem de erro
           document.getElementById('msg-telefone1').innerHTML = ""
-          return (formDataAddress.telefone1 = e.target.value)
+          return formDataAddress.telefone1 = telefone1SemSimbolo
         } else {
           e.preventDefault()
           // Enviar para o HTML a mensagem de erro
@@ -330,9 +331,10 @@ async function initAddress() {
         validate = isTelefone(e.target.value)
 
         if (validate) {
-          // Enviar para o HTML a mensagem de erro
+          const telefone2SemSimbolo = e.target.value.replace(/\D/g, '')
+          // Enviar para o HTML a mensagem de erro          
           document.getElementById('msg-telefone2').innerHTML = ""
-          return (formDataAddress.telefone2 = e.target.value)
+          return (formDataAddress.telefone2 = telefone2SemSimbolo)
         } else {
           e.preventDefault()
           // Enviar para o HTML a mensagem de erro

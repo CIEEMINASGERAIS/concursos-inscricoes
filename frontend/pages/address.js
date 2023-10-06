@@ -162,7 +162,6 @@ async function initAddress() {
       })
 
       cep.addEventListener('keydown', e => {
-        console.log(e.code)
         if (e.key === "Enter") {
           let validateCep = false
 

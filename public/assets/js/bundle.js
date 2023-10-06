@@ -198,7 +198,6 @@ function _initAddress() {
                         };
                       }());
                       cep.addEventListener('keydown', function (e) {
-                        console.log(e.code);
                         if (e.key === "Enter") {
                           var validateCep = false;
                           validateCep = isCep(formDataAddress.cep);

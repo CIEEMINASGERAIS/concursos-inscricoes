@@ -111,7 +111,7 @@ app.get("/cadastrarEscola", async (req, res) => {
           [Op.like]: `%${termoPesquisa}%`,
         },
       },
-      limit: 10,
+      limit: 25,
     });
     const opcoes = data.map((escola) => {
       return {
@@ -255,16 +255,6 @@ app.post("/cadastrar", async (req, res) => {
 });
 
 // Iniciar o servidor na porta 8080, criar a função utilizando modelo Arrow function para retornar a mensagem de sucesso
-// app.listen(8080, () => {
-//   console.log('Servidor iniciado na porta 8080: http://localhost:8080')
-// })
-
-app.use((req, res, next) => {
-  const clientIP = req.ip;
-  console.log(`IP do Cliente: ${clientIP}`);
-  next();
-});
-
 app.listen(8080, "0.0.0.0", () => {
   console.log(
     "Servidor iniciado na porta 8080: http://localhost:8080"

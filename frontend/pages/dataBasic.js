@@ -466,8 +466,6 @@ const initDataBasic = async () => {
 
       if (element.classList.contains('descricoes')) {
 
-        element.value = element.value.replace(/[0-9]/g, '')
-
         validate = isDescricao(element.value)
 
         if (validate) {

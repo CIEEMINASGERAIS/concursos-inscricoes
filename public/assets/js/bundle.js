@@ -33,7 +33,7 @@ function _initAddress() {
         case 0:
           return _context5.abrupt("return", new Promise( /*#__PURE__*/function () {
             var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4(resolve, reject) {
-              var response, htmlContent, address, form, formDataAddress, cep, logradouro, uf, bairro, cidade, btnCep, cepFound, endereco, numero, validate, complemento, _validate, telefone1, _validate2, telefone2, _validate3, email, validateInput, validateFocus;
+              var response, htmlContent, address, form, formDataAddress, cep, logradouro, uf, bairro, cidade, btnCep, cepFound, endereco, validationAddress, numero, validate, complemento, _validate, telefone1, _validate2, telefone2, _validate3, email, validateInput, validateFocus;
               return _regeneratorRuntime().wrap(function _callee4$(_context4) {
                 while (1) switch (_context4.prev = _context4.next) {
                   case 0:
@@ -61,6 +61,80 @@ function _initAddress() {
                     cidade.setAttribute('disabled', 'true');
                     if (cep) {
                       cepFound = document.querySelector('.cep-found');
+                      validationAddress = function validationAddress(validateCep) {
+                        if (validateCep) {
+                          var validate = false;
+                          logradouro.value = endereco.map(function (logradouro) {
+                            return logradouro.logradouro;
+                          });
+                          validate = isNaturalidadeNacionalidade(logradouro.value);
+                          if (validate) {
+                            document.getElementById("msg-logradouro").innerHTML = "";
+                            formDataAddress.logradouro = logradouro.value;
+                          } else {
+                            document.getElementById("msg-logradouro").innerHTML = "<p>Logradouro inválido!</p>";
+                            formDataAddress.logradouro = false;
+                          }
+                          uf.value = endereco.map(function (uf) {
+                            return uf.uf;
+                          });
+                          validate = isUfNaturalidade(uf.value);
+                          if (validate) {
+                            document.getElementById("msg-uf").innerHTML = "";
+                            formDataAddress.uf = uf.value;
+                          } else {
+                            document.getElementById("msg-uf").innerHTML = "<p>UF inválido!</p>";
+                            formDataAddress.uf = false;
+                          }
+                          bairro.value = endereco.map(function (bairro) {
+                            return bairro.bairro;
+                          });
+                          validate = isNaturalidadeNacionalidade(bairro.value);
+                          if (validate) {
+                            document.getElementById("msg-bairro").innerHTML = "";
+                            formDataAddress.bairro = bairro.value;
+                          } else {
+                            document.getElementById("msg-bairro").innerHTML = "<p>Bairro inválido!</p>";
+                            formDataAddress.bairro = false;
+                          }
+                          cidade.value = endereco.map(function (cidade) {
+                            return cidade.cidade;
+                          });
+                          validate = isNaturalidadeNacionalidade(cidade.value);
+                          if (validate) {
+                            document.getElementById("msg-cidade").innerHTML = "";
+                            formDataAddress.cidade = cidade.value;
+                          } else {
+                            document.getElementById("msg-cidade").innerHTML = "<p>Cidade inválido!</p>";
+                            formDataAddress.cidade = false;
+                          }
+
+                          // Validação do CEP bem-sucedida, permitir que o usuário digite nos campos
+                          logradouro.removeAttribute('disabled');
+                          uf.removeAttribute('disabled');
+                          bairro.removeAttribute('disabled');
+                          cidade.removeAttribute('disabled');
+                        } else {
+                          // Validação do CEP falhou, desabilitar os campos
+                          logradouro.setAttribute('disabled', 'true');
+                          uf.setAttribute('disabled', 'true');
+                          bairro.setAttribute('disabled', 'true');
+                          cidade.setAttribute('disabled', 'true');
+                          logradouro.value = '';
+                          uf.value = '';
+                          bairro.value = '';
+                          cidade.value = '';
+                          cepFound.style.display = 'block';
+                          if (cepFound.style.display === 'block') {
+                            document.addEventListener('click', function (e) {
+                              var element = e.target;
+                              if (element.classList.contains('button-confirm-cep')) {
+                                cepFound.style.display = 'none';
+                              }
+                            });
+                          }
+                        }
+                      };
                       cep.addEventListener('input', /*#__PURE__*/function () {
                         var _ref2 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(e) {
                           var dadosCep, validate, cepSemPonto, _response, opcoes;
@@ -123,82 +197,19 @@ function _initAddress() {
                           return _ref2.apply(this, arguments);
                         };
                       }());
+                      cep.addEventListener('keydown', function (e) {
+                        console.log(e.code);
+                        if (e.key === "Enter") {
+                          var validateCep = false;
+                          validateCep = isCep(formDataAddress.cep);
+                          validationAddress(validateCep);
+                        }
+                      });
                       if (btnCep) {
                         btnCep.addEventListener('click', function (e) {
                           var validateCep = false;
                           validateCep = isCep(formDataAddress.cep);
-                          if (validateCep) {
-                            var validate = false;
-                            logradouro.value = endereco.map(function (logradouro) {
-                              return logradouro.logradouro;
-                            });
-                            validate = isNaturalidadeNacionalidade(logradouro.value);
-                            if (validate) {
-                              document.getElementById("msg-logradouro").innerHTML = "";
-                              formDataAddress.logradouro = logradouro.value;
-                            } else {
-                              document.getElementById("msg-logradouro").innerHTML = "<p>Logradouro inválido!</p>";
-                              formDataAddress.logradouro = false;
-                            }
-                            uf.value = endereco.map(function (uf) {
-                              return uf.uf;
-                            });
-                            validate = isUfNaturalidade(uf.value);
-                            if (validate) {
-                              document.getElementById("msg-uf").innerHTML = "";
-                              formDataAddress.uf = uf.value;
-                            } else {
-                              document.getElementById("msg-uf").innerHTML = "<p>UF inválido!</p>";
-                              formDataAddress.uf = false;
-                            }
-                            bairro.value = endereco.map(function (bairro) {
-                              return bairro.bairro;
-                            });
-                            validate = isNaturalidadeNacionalidade(bairro.value);
-                            if (validate) {
-                              document.getElementById("msg-bairro").innerHTML = "";
-                              formDataAddress.bairro = bairro.value;
-                            } else {
-                              document.getElementById("msg-bairro").innerHTML = "<p>Bairro inválido!</p>";
-                              formDataAddress.bairro = false;
-                            }
-                            cidade.value = endereco.map(function (cidade) {
-                              return cidade.cidade;
-                            });
-                            validate = isNaturalidadeNacionalidade(cidade.value);
-                            if (validate) {
-                              document.getElementById("msg-cidade").innerHTML = "";
-                              formDataAddress.cidade = cidade.value;
-                            } else {
-                              document.getElementById("msg-cidade").innerHTML = "<p>Cidade inválido!</p>";
-                              formDataAddress.cidade = false;
-                            }
-
-                            // Validação do CEP bem-sucedida, permitir que o usuário digite nos campos
-                            logradouro.removeAttribute('disabled');
-                            uf.removeAttribute('disabled');
-                            bairro.removeAttribute('disabled');
-                            cidade.removeAttribute('disabled');
-                          } else {
-                            // Validação do CEP falhou, desabilitar os campos
-                            logradouro.setAttribute('disabled', 'true');
-                            uf.setAttribute('disabled', 'true');
-                            bairro.setAttribute('disabled', 'true');
-                            cidade.setAttribute('disabled', 'true');
-                            logradouro.value = '';
-                            uf.value = '';
-                            bairro.value = '';
-                            cidade.value = '';
-                            cepFound.style.display = 'block';
-                            if (cepFound.style.display === 'block') {
-                              document.addEventListener('click', function (e) {
-                                var element = e.target;
-                                if (element.classList.contains('button-confirm-cep')) {
-                                  cepFound.style.display = 'none';
-                                }
-                              });
-                            }
-                          }
+                          validationAddress(validateCep);
                         });
                       }
                     }

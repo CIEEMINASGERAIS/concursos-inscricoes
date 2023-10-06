@@ -119,10 +119,6 @@ const main = () => {
         changeMains('.screen-terms-conditions')
         changeSubMainTitle('Termos e condições')
       }
-      // if (element.classList.contains('school-data')) {
-      //   changeMains('.screen-school-data')
-      //   changeSubMainTitle('Formulário de Dados Acadêmicos')
-      // }
       if (element.classList.contains('button-back-address')) {
         changeMains('.screen-basic-data1')
         changeSubMainTitle('Formulário de Dados Básicos')

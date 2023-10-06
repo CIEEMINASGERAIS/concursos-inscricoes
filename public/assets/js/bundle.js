@@ -198,7 +198,6 @@ function _initAddress() {
                         };
                       }());
                       cep.addEventListener('keydown', function (e) {
-                        console.log(e.code);
                         if (e.key === "Enter") {
                           var validateCep = false;
                           validateCep = isCep(formDataAddress.cep);
@@ -748,16 +747,17 @@ var initDataBasic = /*#__PURE__*/function () {
                         _validate13 = isDeficiente(listDeficiencias, e.target.value);
                         if (_validate13) {
                           document.getElementById('msg-deficiencias').innerHTML = '';
-                          return formDataBasic.deficiencia = e.target.value;
+                          formDataBasic.deficiencia = e.target.value;
                         } else {
                           e.preventDefault();
                           // Enviar para o HTML a mensagem de erro
                           document.getElementById('msg-deficiencias').innerHTML = "<p>Opção inválida!</p>";
-                          return formDataBasic.deficiencia = 'N';
+                          formDataBasic.deficiencia = false;
                         }
                       });
                       deficiencias.addEventListener('input', function (e) {
                         if (e.target.value != 'Selecione' && e.target.value != 'N') {
+                          formDataBasic.deficiencia = false;
                           var descricoesInputs = document.querySelectorAll('.descricoes');
                           if (descricoesInputs.length === 0) {
                             var descLabel = document.createElement('label');
@@ -774,6 +774,7 @@ var initDataBasic = /*#__PURE__*/function () {
                         } else {
                           descDiv.innerHTML = '';
                           document.getElementById('msg-descricao').innerHTML = '';
+                          formDataBasic.deficiencia_descricao = '';
                         }
                       });
                     }
@@ -783,13 +784,13 @@ var initDataBasic = /*#__PURE__*/function () {
                       if (element.classList.contains('descricoes')) {
                         validate = isDescricao(element.value);
                         if (validate) {
-                          document.getElementById('msg-descricao').innerHTML = '';
-                          return formDataBasic.deficiencia_descricao = e.target.value;
+                          formDataBasic.deficiencia = deficiencias.value;
+                          formDataBasic.deficiencia_descricao = element.value;
+                          document.getElementById('msg-descricao').innerHTML = "";
                         } else {
-                          e.preventDefault();
-                          // Enviar para o HTML a mensagem de erro
-                          document.getElementById('msg-descricao').innerHTML = "<p>Opção inválida!</p>";
-                          return formDataBasic.deficiencia_descricao = false;
+                          formDataBasic.deficiencia = false;
+                          formDataBasic.deficiencia_descricao = false;
+                          document.getElementById('msg-descricao').innerHTML = "<p>Favor descrever a deficiência.</p>";
                         }
                       }
                     });
@@ -967,10 +968,6 @@ var main = function main() {
         changeMains('.screen-terms-conditions');
         changeSubMainTitle('Termos e condições');
       }
-      // if (element.classList.contains('school-data')) {
-      //   changeMains('.screen-school-data')
-      //   changeSubMainTitle('Formulário de Dados Acadêmicos')
-      // }
       if (element.classList.contains('button-back-address')) {
         changeMains('.screen-basic-data1');
         changeSubMainTitle('Formulário de Dados Básicos');
@@ -2435,106 +2432,6 @@ var dateRegister = function dateRegister() {
   }
   return year + "-" + month + "-" + dayInMonth;
 };
-
-// value="s"
-// value="c"
-// value="a"
-// value="d"
-// value="v"
-
-// formData.addEventListener('submit', async (e) => {
-
-// const listaDeInput = document.querySelectorAll('.input-form-validate')
-
-// // Laço de repetição para ler os campos
-// for (let contador = 0; contador < listaDeInput.length; contador++){
-
-//   // Receber o campo completo
-//   const inputField = listaDeInput[contador]
-//   console.log(inputField)
-
-//   // Recuperar o nome do primeiro seletor dentro do atributo class
-//   const nameInput = inputField.classList[0]
-//   console.log(nameInput)
-
-//   // Receber o valor do campo
-//   const valueInputValidate = document.getElementById(nameInput).value
-
-//   console.log(valueInputValidate)
-
-//   // Verificar se o campo está vazio
-//   if (valueInputValidate === '' || valueInputValidate === "Selecione") {
-//     // Bloquear a atualização da página
-//     e.preventDefault()
-
-//     const listInputValidate = html.listInputValidate()
-//     console.log(listInputValidate)
-
-//     // Verificar se existe o campo lista de erros
-//     if (listInputValidate.hasOwnProperty(nameInput)) {
-//       console.log(`msg - ${ nameInput } `)
-//       // Enviar para o HTML a mensagem de erro
-//       document.getElementById(`msg - ${ nameInput } `).innerHTML = "<p style='color: #f00;'>"+listInputValidate[nameInput]+ "</p>"
-//     } else {
-//       // Enviar para o HTML a mensagem de erro
-//       document.getElementById('msg').innerHTML = "<p style='color: #f00;'>Erro: Necessário preencher todos os campos obrigatórios!</p>"
-//     }
-
-//     return
-//   } else {
-//     document.getElementById(`msg - ${ nameInput } `).innerHTML = "<p style='color: #f00;'></p>"
-//       if (nameInput === 'deficiencias') {
-//         e.preventDefault()
-
-//         html.changeMains('.screen-address')
-//         html.changeSubMainTitle('Formulário de Endereço')
-//       }
-//     }
-// }
-
-// formDataBasic.cpf = e.target.cpf.value
-// formDataBasic.rg = e.target.registroGeral.value
-// formDataBasic.orgaoexpedidor = e.target.orgaoExpedidor.value
-// formDataBasic.ctps = e.target.carteiraDeTrabalho.value
-// formDataBasic.nomepai = e.target.nomeDoPai.value
-// formDataBasic.nomemae = e.target.nomeDaMae.value
-// formDataBasic.sexo = e.target.sexos.value
-// formDataBasic.estadocivil = e.target.estadoCivil.value
-// formDataBasic.dt_nascimento = e.target.dataDeNascimento.value
-// formDataBasic.naturalidade = e.target.naturalidade.value
-// formDataBasic.uf_naturalidade = e.target.ufNaturalidade.value
-// formDataBasic.nacionalidade = e.target.nacionalidade.value
-// formDataBasic.deficiencia_descricao = e.target.deficiencias.value
-
-// formDataBasic.telefone = 4578556933
-// formDataBasic.senha = ''
-// formDataBasic.periodoano = ''
-// formDataBasic.previsaoformatura = ''
-// formDataBasic.dt_cadastro = ''
-// formDataBasic.idade = ''
-// formDataBasic.estagiario_ativo = ''
-// formDataBasic.dt_atualizacao = ''
-// formDataBasic.ano = ''
-// formDataBasic.deficiencia_descricao = ''
-// formDataBasic.candidato_selecionado = ''
-// formDataBasic.anoingresso = ''
-// formDataBasic.semestreingresso = ''
-// formDataBasic.cpf_pai = ''
-// formDataBasic.cpf_mae = ''
-// formDataBasic.notificacao = ''
-// formDataBasic.dt_alteracao_notificacao = ''
-// formDataBasic.codigo = ''
-// formDataBasic.dt_expiracao_codigo = ''
-// formDataBasic.url_anexo_curriculo = ''
-// formDataBasic.nome_arquivo_curriculo = ''
-// formDataBasic.primeiro_acesso = ''
-// formDataBasic.termos_condicoes = ''
-// formDataBasic.dt_aceite_termos = ''
-
-// resolve(formDataBasic)
-// console.log(formDataBasic)
-// })
-
 module.exports = {
   isCpf: isCpf,
   isNome: isNome,

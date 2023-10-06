@@ -427,18 +427,19 @@ const initDataBasic = async () => {
 
         if (validate) {
           document.getElementById('msg-deficiencias').innerHTML = ''
-          return (formDataBasic.deficiencia = e.target.value)
+          formDataBasic.deficiencia = e.target.value
         } else {
           e.preventDefault()
           // Enviar para o HTML a mensagem de erro
           document.getElementById('msg-deficiencias').innerHTML =
             "<p>Opção inválida!</p>"
-          return (formDataBasic.deficiencia = 'N')
+          formDataBasic.deficiencia = false
         }
       })
 
       deficiencias.addEventListener('input', e => {
         if (e.target.value != 'Selecione' && e.target.value != 'N') {
+          formDataBasic.deficiencia = false
           const descricoesInputs = document.querySelectorAll('.descricoes')
           if (descricoesInputs.length === 0) {
             const descLabel = document.createElement('label')
@@ -455,6 +456,7 @@ const initDataBasic = async () => {
         } else {
           descDiv.innerHTML = ''
           document.getElementById('msg-descricao').innerHTML = ''
+          formDataBasic.deficiencia_descricao = ''
         }
       })
     }
@@ -469,14 +471,14 @@ const initDataBasic = async () => {
         validate = isDescricao(element.value)
 
         if (validate) {
-          document.getElementById('msg-descricao').innerHTML = ''
-          return (formDataBasic.deficiencia_descricao = e.target.value)
+          formDataBasic.deficiencia = deficiencias.value
+          formDataBasic.deficiencia_descricao = element.value
+          document.getElementById('msg-descricao').innerHTML = ""
         } else {
-          e.preventDefault()
-          // Enviar para o HTML a mensagem de erro
+          formDataBasic.deficiencia = false
+          formDataBasic.deficiencia_descricao = false
           document.getElementById('msg-descricao').innerHTML =
-            "<p>Opção inválida!</p>"
-          return (formDataBasic.deficiencia_descricao = false)
+            "<p>Favor descrever a deficiência.</p>"
         }
       }
     })

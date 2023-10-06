@@ -55,6 +55,10 @@ function _initAddress() {
                     bairro = document.getElementById('bairro');
                     cidade = document.getElementById('cidade');
                     btnCep = document.querySelector('.btn-cep');
+                    logradouro.setAttribute('disabled', 'true');
+                    uf.setAttribute('disabled', 'true');
+                    bairro.setAttribute('disabled', 'true');
+                    cidade.setAttribute('disabled', 'true');
                     if (cep) {
                       cepFound = document.querySelector('.cep-found');
                       cep.addEventListener('input', /*#__PURE__*/function () {
@@ -405,7 +409,7 @@ function _initAddress() {
                       console.log('Erro ao buscar dados do formulário');
                       reject(error);
                     }
-                  case 29:
+                  case 33:
                   case "end":
                     return _context4.stop();
                 }

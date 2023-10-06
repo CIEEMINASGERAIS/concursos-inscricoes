@@ -25,6 +25,11 @@ async function initAddress() {
 
     const btnCep = document.querySelector('.btn-cep')
 
+    logradouro.setAttribute('disabled', 'true');
+    uf.setAttribute('disabled', 'true');
+    bairro.setAttribute('disabled', 'true');
+    cidade.setAttribute('disabled', 'true');
+
     if (cep) {
 
       const cepFound = document.querySelector('.cep-found')

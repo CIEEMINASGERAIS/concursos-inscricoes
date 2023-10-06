@@ -781,7 +781,6 @@ var initDataBasic = /*#__PURE__*/function () {
                       var element = e.target;
                       var validate;
                       if (element.classList.contains('descricoes')) {
-                        element.value = element.value.replace(/[0-9]/g, '');
                         validate = isDescricao(element.value);
                         if (validate) {
                           document.getElementById('msg-descricao').innerHTML = '';

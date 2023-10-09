@@ -28,7 +28,6 @@ async function sendData() {
     })
     if (response.ok) {
     } else {
-      console.log(response.status)
     }
   } catch (error) {
     console.log('Erro: ', error)

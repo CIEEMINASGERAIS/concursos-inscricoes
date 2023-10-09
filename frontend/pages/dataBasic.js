@@ -464,13 +464,13 @@ const initDataBasic = async () => {
     document.addEventListener('input', e => {
       const element = e.target
 
-      let validate
+      let validateDescricoes
 
       if (element.classList.contains('descricoes')) {
 
-        validate = isDescricao(element.value)
+        validateDescricoes = isDescricao(element.value)
 
-        if (validate) {
+        if (validateDescricoes) {
           formDataBasic.deficiencia = deficiencias.value
           formDataBasic.deficiencia_descricao = element.value
           document.getElementById('msg-descricao').innerHTML = ""

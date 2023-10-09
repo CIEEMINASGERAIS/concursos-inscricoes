@@ -720,6 +720,8 @@ const isDeficiente = (listDeficiencias, deficiencia) => {
 };
 
 const isDescricao = (descricao) => {
+  descricao = descricao.trim();
+
   const regex = new RegExp(/^[0-9]+$/);
 
   if (regex.test(descricao)) {

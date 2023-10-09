@@ -780,10 +780,10 @@ var initDataBasic = /*#__PURE__*/function () {
                     }
                     document.addEventListener('input', function (e) {
                       var element = e.target;
-                      var validate;
+                      var validateDescricoes;
                       if (element.classList.contains('descricoes')) {
-                        validate = isDescricao(element.value);
-                        if (validate) {
+                        validateDescricoes = isDescricao(element.value);
+                        if (validateDescricoes) {
                           formDataBasic.deficiencia = deficiencias.value;
                           formDataBasic.deficiencia_descricao = element.value;
                           document.getElementById('msg-descricao').innerHTML = "";
@@ -2284,6 +2284,7 @@ var isDeficiente = function isDeficiente(listDeficiencias, deficiencia) {
   return true;
 };
 var isDescricao = function isDescricao(descricao) {
+  descricao = descricao.trim();
   var regex = new RegExp(/^[0-9]+$/);
   if (regex.test(descricao)) {
     return false;

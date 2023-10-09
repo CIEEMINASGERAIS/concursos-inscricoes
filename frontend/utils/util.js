@@ -258,6 +258,15 @@ const isCourse = async (course, codeCourse, idCourse) => {
   return true;
 };
 
+const conferirForm = (objeto) => {
+  for (let chave in objeto) {
+    if (objeto[chave] === false) {
+      return false
+    }
+    return true
+  }
+}
+
 const isNaturalidadeNacionalidade = (naturalidadeNacionalidade) => {
   naturalidadeNacionalidade = naturalidadeNacionalidade.trim();
 
@@ -926,5 +935,6 @@ module.exports = {
   dateRegister,
   age,
   emailBd,
-  cpfInBd
+  cpfInBd,
+  conferirForm
 };

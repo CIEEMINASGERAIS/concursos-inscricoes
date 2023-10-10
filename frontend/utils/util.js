@@ -258,15 +258,6 @@ const isCourse = async (course, codeCourse, idCourse) => {
   return true;
 };
 
-const conferirFormTerms = (objeto) => {
-  for (let chave in objeto) {
-    if (objeto[chave] === false) {
-      return false
-    }
-  }
-  return true
-}
-
 const conferirFormBasic = (objeto) => {
   for (let chave in objeto) {
     if (objeto[chave] === false && chave !== 'nomepai' && chave !== 'ctps') {

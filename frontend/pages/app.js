@@ -3,35 +3,11 @@ const termsAndConditions = require('./terms-and-conditions.js')
 const initAddress = require('./address.js')
 const initDataBasic = require('./dataBasic.js')
 const createFormSchoolData = require('./schoolData.js')
-const { conferirFormTerms, conferirFormAddress, conferirFormBasic, changeMains, changeSubMainTitle } = require('../utils/util.js')
+const { conferirFormAddress, conferirFormBasic, changeMains, changeSubMainTitle } = require('../utils/util.js')
 
 async function takeData() {
   const callMain = main()
   const termsConditions = await termsAndConditions()
-
-  // let validateFormTerms
-
-  // document.addEventListener('click', function (event) {
-  //   const element = event.target
-
-  //   validateFormTerms = false
-
-  //   validateFormTerms = conferirFormTerms(termsConditions)
-
-  //   console.log(validateFormTerms)
-
-  //   if (validateFormTerms) {
-  //     if (element.classList.contains("button-accept") ||
-  //       element.classList.contains("big-basic-data") || element.classList.contains("button-basic-data")) {
-  //       changeMains(".screen-basic-data1");
-  //       changeSubMainTitle("Formulário de Dados Básicos");
-  //     }
-  //   } else {
-  //     if (element.classList.contains('main') || ('button-accept')) {
-  //       event.preventDefault()
-  //     }
-  //   }
-  // })
 
   const formData = await initDataBasic()
   let validateFormBasic

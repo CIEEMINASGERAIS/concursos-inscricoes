@@ -1963,25 +1963,17 @@ var isCourse = /*#__PURE__*/function () {
     return _ref4.apply(this, arguments);
   };
 }();
-var conferirFormTerms = function conferirFormTerms(objeto) {
-  for (var _chave in objeto) {
-    if (objeto[_chave] === false) {
-      return false;
-    }
-  }
-  return true;
-};
 var conferirFormBasic = function conferirFormBasic(objeto) {
-  for (var _chave2 in objeto) {
-    if (objeto[_chave2] === false && _chave2 !== 'nomepai' && _chave2 !== 'ctps') {
+  for (var _chave in objeto) {
+    if (objeto[_chave] === false && _chave !== 'nomepai' && _chave !== 'ctps') {
       return false;
     }
   }
   return true;
 };
 var conferirFormAddress = function conferirFormAddress(objeto) {
-  for (var _chave3 in objeto) {
-    if (objeto[_chave3] === false && _chave3 !== 'complemento') {
+  for (var _chave2 in objeto) {
+    if (objeto[_chave2] === false && _chave2 !== 'complemento') {
       return false;
     }
   }
@@ -2199,9 +2191,9 @@ var isSemestre = function isSemestre(data) {
   data = parseInt(data);
   var semestreForm = [1, 2, 0];
   var semestre;
-  for (var _chave4 in semestreForm) {
-    if (semestreForm[_chave4] === data) {
-      semestre = semestreForm[_chave4];
+  for (var _chave3 in semestreForm) {
+    if (semestreForm[_chave3] === data) {
+      semestre = semestreForm[_chave3];
       break;
     }
   }
@@ -2227,9 +2219,9 @@ var isMesFormatura = function isMesFormatura(data) {
 var isPeriodo = function isPeriodo(data) {
   var periodos = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, "Estágio Curricular"];
   var periodo;
-  for (var _chave5 in periodos) {
-    if (periodos[_chave5] == data) {
-      periodo = periodos[_chave5];
+  for (var _chave4 in periodos) {
+    if (periodos[_chave4] == data) {
+      periodo = periodos[_chave4];
       break;
     }
   }
@@ -2241,9 +2233,9 @@ var isPeriodo = function isPeriodo(data) {
 var isHorario = function isHorario(data) {
   var horariosEstudos = ["Manhã", "Tarde", "Noite", "EAD", "EC", "F"];
   var horario;
-  for (var _chave6 in horariosEstudos) {
-    if (horariosEstudos[_chave6] === data) {
-      horario = horariosEstudos[_chave6];
+  for (var _chave5 in horariosEstudos) {
+    if (horariosEstudos[_chave5] === data) {
+      horario = horariosEstudos[_chave5];
       break;
     }
   }
@@ -2550,7 +2542,6 @@ var initAddress = __webpack_require__(/*! ./address.js */ "./frontend/pages/addr
 var initDataBasic = __webpack_require__(/*! ./dataBasic.js */ "./frontend/pages/dataBasic.js");
 var createFormSchoolData = __webpack_require__(/*! ./schoolData.js */ "./frontend/pages/schoolData.js");
 var _require = __webpack_require__(/*! ../utils/util.js */ "./frontend/utils/util.js"),
-  conferirFormTerms = _require.conferirFormTerms,
   conferirFormAddress = _require.conferirFormAddress,
   conferirFormBasic = _require.conferirFormBasic,
   changeMains = _require.changeMains,

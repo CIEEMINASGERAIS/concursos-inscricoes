@@ -48,7 +48,7 @@
 
 .form-data span p {
   color: rgb(255, 0, 0);
-  cursor: pointer;
+  cursor: default;
   font-weight: bold;
   margin: 0rem;
   margin-top: 0rem;

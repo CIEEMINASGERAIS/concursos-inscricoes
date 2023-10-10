@@ -2594,7 +2594,9 @@ function _sendData() {
           });
         case 6:
           response = _context2.sent;
-          if (response.ok) {} else {}
+          if (response.ok) {} else {
+            console.log(response.status);
+          }
           _context2.next = 13;
           break;
         case 10:

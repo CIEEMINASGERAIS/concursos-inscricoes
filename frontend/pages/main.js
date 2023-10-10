@@ -115,10 +115,6 @@ const main = () => {
   function mainPage() {
     document.addEventListener('click', function (event) {
       const element = event.target
-      if (element.classList.contains('big-terms-conditions') || element.classList.contains('button-terms-conditions')) {
-        changeMains('.screen-terms-conditions')
-        changeSubMainTitle('Termos e condições')
-      }
       if (element.classList.contains('button-back-address')) {
         changeMains('.screen-basic-data1')
         changeSubMainTitle('Formulário de Dados Básicos')

@@ -9,12 +9,31 @@ async function takeData() {
   const callMain = main()
   const termsConditions = await termsAndConditions()
 
-  conferirFormTerms
-  let validateFormTerms
+  // let validateFormTerms
 
-  console.log(termsConditions)
+  // document.addEventListener('click', function (event) {
+  //   const element = event.target
+
+  //   validateFormTerms = false
+
+  //   validateFormTerms = conferirFormTerms(termsConditions)
+
+  //   console.log(validateFormTerms)
+
+  //   if (validateFormTerms) {
+  //     if (element.classList.contains("button-accept") ||
+  //       element.classList.contains("big-basic-data") || element.classList.contains("button-basic-data")) {
+  //       changeMains(".screen-basic-data1");
+  //       changeSubMainTitle("Formulário de Dados Básicos");
+  //     }
+  //   } else {
+  //     if (element.classList.contains('main') || ('button-accept')) {
+  //       event.preventDefault()
+  //     }
+  //   }
+  // })
+
   const formData = await initDataBasic()
-  conferirFormBasic(formData)
   let validateFormBasic
   document.addEventListener('click', function (event) {
     const element = event.target
@@ -23,7 +42,7 @@ async function takeData() {
 
     validateFormBasic = conferirFormBasic(formData)
 
-    if (validateFormBasic) {
+    if (validateFormBasic && validateFormTerms) {
       if (element.classList.contains('big-address') || element.classList.contains('button-address')) {
         changeMains('.screen-address')
         changeSubMainTitle('Formulário de Endereço')
@@ -36,7 +55,6 @@ async function takeData() {
   })
 
   const formAddress = await initAddress()
-  conferirFormAddress(formAddress)
   let validateFormAddress
   document.addEventListener('click', function (event) {
     const element = event.target
@@ -45,7 +63,7 @@ async function takeData() {
 
     validateFormAddress = conferirFormAddress(formAddress)
 
-    if (validateFormAddress && validateFormBasic) {
+    if (validateFormAddress && validateFormBasic && validateFormTerms) {
       if (element.classList.contains('big-school-data') || element.classList.contains('button-school-data')) {
         changeMains('.screen-school-data')
         changeSubMainTitle('Formulário de Dados Acadêmicos')

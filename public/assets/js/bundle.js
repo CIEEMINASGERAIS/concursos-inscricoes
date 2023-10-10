@@ -961,10 +961,6 @@ var main = function main() {
   function mainPage() {
     document.addEventListener('click', function (event) {
       var element = event.target;
-      if (element.classList.contains('big-terms-conditions') || element.classList.contains('button-terms-conditions')) {
-        changeMains('.screen-terms-conditions');
-        changeSubMainTitle('Termos e condições');
-      }
       if (element.classList.contains('button-back-address')) {
         changeMains('.screen-basic-data1');
         changeSubMainTitle('Formulário de Dados Básicos');
@@ -2564,7 +2560,7 @@ function takeData() {
 }
 function _takeData() {
   _takeData = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
-    var callMain, termsConditions, validateFormTerms, formData, validateFormBasic, formAddress, validateFormAddress, formSchoolData, allData;
+    var callMain, termsConditions, formData, validateFormBasic, formAddress, validateFormAddress, formSchoolData, allData;
     return _regeneratorRuntime().wrap(function _callee$(_context) {
       while (1) switch (_context.prev = _context.next) {
         case 0:
@@ -2573,18 +2569,15 @@ function _takeData() {
           return termsAndConditions();
         case 3:
           termsConditions = _context.sent;
-          conferirFormTerms;
-          console.log(termsConditions);
-          _context.next = 8;
+          _context.next = 6;
           return initDataBasic();
-        case 8:
+        case 6:
           formData = _context.sent;
-          conferirFormBasic(formData);
           document.addEventListener('click', function (event) {
             var element = event.target;
             validateFormBasic = false;
             validateFormBasic = conferirFormBasic(formData);
-            if (validateFormBasic) {
+            if (validateFormBasic && validateFormTerms) {
               if (element.classList.contains('big-address') || element.classList.contains('button-address')) {
                 changeMains('.screen-address');
                 changeSubMainTitle('Formulário de Endereço');
@@ -2595,16 +2588,15 @@ function _takeData() {
               }
             }
           });
-          _context.next = 13;
+          _context.next = 10;
           return initAddress();
-        case 13:
+        case 10:
           formAddress = _context.sent;
-          conferirFormAddress(formAddress);
           document.addEventListener('click', function (event) {
             var element = event.target;
             validateFormAddress = false;
             validateFormAddress = conferirFormAddress(formAddress);
-            if (validateFormAddress && validateFormBasic) {
+            if (validateFormAddress && validateFormBasic && validateFormTerms) {
               if (element.classList.contains('big-school-data') || element.classList.contains('button-school-data')) {
                 changeMains('.screen-school-data');
                 changeSubMainTitle('Formulário de Dados Acadêmicos');
@@ -2615,16 +2607,16 @@ function _takeData() {
               }
             }
           });
-          _context.next = 18;
+          _context.next = 14;
           return createFormSchoolData();
-        case 18:
+        case 14:
           formSchoolData = _context.sent;
-          _context.next = 21;
+          _context.next = 17;
           return _objectSpread(_objectSpread(_objectSpread(_objectSpread({}, termsConditions), formData), formAddress), formSchoolData);
-        case 21:
+        case 17:
           allData = _context.sent;
           return _context.abrupt("return", allData);
-        case 23:
+        case 19:
         case "end":
           return _context.stop();
       }

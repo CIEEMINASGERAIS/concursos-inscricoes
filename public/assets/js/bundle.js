@@ -1007,7 +1007,7 @@ function _createFormSchoolData() {
         case 0:
           return _context8.abrupt("return", new Promise( /*#__PURE__*/function () {
             var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee7(resolve, reject) {
-              var response, htmlContent, schoolData, formSchoolData, anoFormatura, inicio, fim, anosFormaturas, i, _i, option, semestreFormatura, semestresFormaturas, _i2, _option, mesFormatura, mesesFormaturas, _i3, _option2, periodo, periodos, _i4, _option3, horario, _i5, _option4, mostrarOpcoesAutocompleteHorario, dataFormSchool, escolas, cursos, codigoEscola, idCursoFinal, idCurso, codeFinal, mostrarOpcoesAutocompleteEscolas, mostrarOpcoesAutocompleteCursos, filtrarCursos, filtrarIdCurso, periodoFinal, callCourse, valid, alertEnd, today;
+              var response, htmlContent, schoolData, formSchoolData, anoFormatura, inicio, fim, anosFormaturas, i, _i, option, semestreFormatura, semestresFormaturas, _i2, _option, mesFormatura, mesesFormaturas, _i3, _option2, periodo, periodos, _i4, _option3, horario, _i5, _option4, mostrarOpcoesAutocompleteHorario, dataFormSchool, escolas, cursos, codigoEscola, idCursoFinal, idCurso, codeFinal, mostrarOpcoesAutocompleteEscolas, mostrarOpcoesAutocompleteCursos, filtrarCursos, filtrarIdCurso, periodoFinal, callCourse, valid, alertEnd;
               return _regeneratorRuntime().wrap(function _callee7$(_context7) {
                 while (1) switch (_context7.prev = _context7.next) {
                   case 0:
@@ -1411,10 +1411,10 @@ function _createFormSchoolData() {
                       });
                     });
                     alertEnd = document.querySelector(".end");
-                    today = new Date();
                     if (formSchoolData) {
                       formSchoolData.addEventListener("submit", /*#__PURE__*/function () {
                         var _ref7 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee6(e) {
+                          var today;
                           return _regeneratorRuntime().wrap(function _callee6$(_context6) {
                             while (1) switch (_context6.prev = _context6.next) {
                               case 0:
@@ -1425,6 +1425,7 @@ function _createFormSchoolData() {
                                   if (!valid) {
                                     dataFormSchool.periodo = periodoFinal();
                                   }
+                                  today = new Date();
                                   dataFormSchool.ano = today.getFullYear();
                                   alertEnd.style.display = "block";
                                   resolve(dataFormSchool);
@@ -1446,7 +1447,7 @@ function _createFormSchoolData() {
                       console.log("Erro ao enviar os dados para o banco!");
                       reject(error);
                     }
-                  case 44:
+                  case 43:
                   case "end":
                     return _context7.stop();
                 }
@@ -2488,8 +2489,7 @@ module.exports = {
   emailBd: emailBd,
   cpfInBd: cpfInBd,
   conferirFormBasic: conferirFormBasic,
-  conferirFormAddress: conferirFormAddress,
-  conferirFormTerms: conferirFormTerms
+  conferirFormAddress: conferirFormAddress
 };
 
 /***/ })

@@ -258,6 +258,33 @@ const isCourse = async (course, codeCourse, idCourse) => {
   return true;
 };
 
+const conferirFormTerms = (objeto) => {
+  for (let chave in objeto) {
+    if (objeto[chave] === false) {
+      return false
+    }
+  }
+  return true
+}
+
+const conferirFormBasic = (objeto) => {
+  for (let chave in objeto) {
+    if (objeto[chave] === false && chave !== 'nomepai' && chave !== 'ctps') {
+      return false
+    }
+  }
+  return true
+}
+
+const conferirFormAddress = (objeto) => {
+  for (let chave in objeto) {
+    if (objeto[chave] === false && chave !== 'complemento') {
+      return false
+    }
+  }
+  return true
+}
+
 const isNaturalidadeNacionalidade = (naturalidadeNacionalidade) => {
   naturalidadeNacionalidade = naturalidadeNacionalidade.trim();
 
@@ -926,5 +953,8 @@ module.exports = {
   dateRegister,
   age,
   emailBd,
-  cpfInBd
+  cpfInBd,
+  conferirFormBasic,
+  conferirFormAddress,
+  conferirFormTerms
 };

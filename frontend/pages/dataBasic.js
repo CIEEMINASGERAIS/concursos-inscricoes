@@ -496,13 +496,16 @@ const initDataBasic = async () => {
           changeSubMainTitle('Formulário de Endereço')
           resolve(formDataBasic)
 
-          document.addEventListener('click', function (event) {
-            const element = event.target
-            if (element.classList.contains('big-address') || element.classList.contains('button-address')) {
-              changeMains('.screen-address')
-              changeSubMainTitle('Formulário de Endereço')
-            }
-          })
+          // if (validateForm) {
+
+          // } else {
+          //   document.addEventListener('click', function (event) {
+          //     const element = event.target
+          //     if (element.classList.contains('big-address') || element.classList.contains('button-address')) {
+          //       event.preventDefault()
+          //     }
+          //   })
+          // }
 
         } else {
           document.getElementById('msg-fracasso').innerHTML =

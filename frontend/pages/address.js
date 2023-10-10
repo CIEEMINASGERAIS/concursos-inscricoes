@@ -429,15 +429,6 @@ async function initAddress() {
           changeSubMainTitle('Formulário de Dados Acadêmicos')
           resolve(formDataAddress)
 
-          document.addEventListener('click', function (event) {
-            const element = event.target
-            if (element.classList.contains('big-school-data') || element.classList.contains('button-school-data')) {
-              changeMains('.screen-school-data')
-              changeSubMainTitle('Formulário de Dados Acadêmicos')
-            }
-          })
-
-
         } else {
           document.getElementById('msg-fracasso-address').innerHTML =
             "<p>Formulário incompleto!</p>"

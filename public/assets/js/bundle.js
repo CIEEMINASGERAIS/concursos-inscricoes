@@ -394,13 +394,6 @@ function _initAddress() {
                                   changeMains('.screen-school-data');
                                   changeSubMainTitle('Formulário de Dados Acadêmicos');
                                   resolve(formDataAddress);
-                                  document.addEventListener('click', function (event) {
-                                    var element = event.target;
-                                    if (element.classList.contains('big-school-data') || element.classList.contains('button-school-data')) {
-                                      changeMains('.screen-school-data');
-                                      changeSubMainTitle('Formulário de Dados Acadêmicos');
-                                    }
-                                  });
                                 } else {
                                   document.getElementById('msg-fracasso-address').innerHTML = "<p>Formulário incompleto!</p>";
                                   removerMensagem('msg-fracasso-address');
@@ -804,13 +797,17 @@ var initDataBasic = /*#__PURE__*/function () {
                           changeMains('.screen-address');
                           changeSubMainTitle('Formulário de Endereço');
                           resolve(formDataBasic);
-                          document.addEventListener('click', function (event) {
-                            var element = event.target;
-                            if (element.classList.contains('big-address') || element.classList.contains('button-address')) {
-                              changeMains('.screen-address');
-                              changeSubMainTitle('Formulário de Endereço');
-                            }
-                          });
+
+                          // if (validateForm) {
+
+                          // } else {
+                          //   document.addEventListener('click', function (event) {
+                          //     const element = event.target
+                          //     if (element.classList.contains('big-address') || element.classList.contains('button-address')) {
+                          //       event.preventDefault()
+                          //     }
+                          //   })
+                          // }
                         } else {
                           document.getElementById('msg-fracasso').innerHTML = "<p>Formulário incompleto!</p>";
                           removerMensagem('msg-fracasso');
@@ -1970,6 +1967,30 @@ var isCourse = /*#__PURE__*/function () {
     return _ref4.apply(this, arguments);
   };
 }();
+var conferirFormTerms = function conferirFormTerms(objeto) {
+  for (var _chave in objeto) {
+    if (objeto[_chave] === false) {
+      return false;
+    }
+  }
+  return true;
+};
+var conferirFormBasic = function conferirFormBasic(objeto) {
+  for (var _chave2 in objeto) {
+    if (objeto[_chave2] === false && _chave2 !== 'nomepai' && _chave2 !== 'ctps') {
+      return false;
+    }
+  }
+  return true;
+};
+var conferirFormAddress = function conferirFormAddress(objeto) {
+  for (var _chave3 in objeto) {
+    if (objeto[_chave3] === false && _chave3 !== 'complemento') {
+      return false;
+    }
+  }
+  return true;
+};
 var isNaturalidadeNacionalidade = function isNaturalidadeNacionalidade(naturalidadeNacionalidade) {
   naturalidadeNacionalidade = naturalidadeNacionalidade.trim();
   if (naturalidadeNacionalidade.length === 0) {
@@ -2182,9 +2203,9 @@ var isSemestre = function isSemestre(data) {
   data = parseInt(data);
   var semestreForm = [1, 2, 0];
   var semestre;
-  for (var _chave in semestreForm) {
-    if (semestreForm[_chave] === data) {
-      semestre = semestreForm[_chave];
+  for (var _chave4 in semestreForm) {
+    if (semestreForm[_chave4] === data) {
+      semestre = semestreForm[_chave4];
       break;
     }
   }
@@ -2210,9 +2231,9 @@ var isMesFormatura = function isMesFormatura(data) {
 var isPeriodo = function isPeriodo(data) {
   var periodos = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, "Estágio Curricular"];
   var periodo;
-  for (var _chave2 in periodos) {
-    if (periodos[_chave2] == data) {
-      periodo = periodos[_chave2];
+  for (var _chave5 in periodos) {
+    if (periodos[_chave5] == data) {
+      periodo = periodos[_chave5];
       break;
     }
   }
@@ -2224,9 +2245,9 @@ var isPeriodo = function isPeriodo(data) {
 var isHorario = function isHorario(data) {
   var horariosEstudos = ["Manhã", "Tarde", "Noite", "EAD", "EC", "F"];
   var horario;
-  for (var _chave3 in horariosEstudos) {
-    if (horariosEstudos[_chave3] === data) {
-      horario = horariosEstudos[_chave3];
+  for (var _chave6 in horariosEstudos) {
+    if (horariosEstudos[_chave6] === data) {
+      horario = horariosEstudos[_chave6];
       break;
     }
   }
@@ -2477,7 +2498,10 @@ module.exports = {
   dateRegister: dateRegister,
   age: age,
   emailBd: emailBd,
-  cpfInBd: cpfInBd
+  cpfInBd: cpfInBd,
+  conferirFormBasic: conferirFormBasic,
+  conferirFormAddress: conferirFormAddress,
+  conferirFormTerms: conferirFormTerms
 };
 
 /***/ })
@@ -2529,12 +2553,18 @@ var termsAndConditions = __webpack_require__(/*! ./terms-and-conditions.js */ ".
 var initAddress = __webpack_require__(/*! ./address.js */ "./frontend/pages/address.js");
 var initDataBasic = __webpack_require__(/*! ./dataBasic.js */ "./frontend/pages/dataBasic.js");
 var createFormSchoolData = __webpack_require__(/*! ./schoolData.js */ "./frontend/pages/schoolData.js");
+var _require = __webpack_require__(/*! ../utils/util.js */ "./frontend/utils/util.js"),
+  conferirFormTerms = _require.conferirFormTerms,
+  conferirFormAddress = _require.conferirFormAddress,
+  conferirFormBasic = _require.conferirFormBasic,
+  changeMains = _require.changeMains,
+  changeSubMainTitle = _require.changeSubMainTitle;
 function takeData() {
   return _takeData.apply(this, arguments);
 }
 function _takeData() {
   _takeData = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
-    var callMain, termsConditions, formData, formAddress, formSchoolData, allData;
+    var callMain, termsConditions, validateFormTerms, formData, validateFormBasic, formAddress, validateFormAddress, formSchoolData, allData;
     return _regeneratorRuntime().wrap(function _callee$(_context) {
       while (1) switch (_context.prev = _context.next) {
         case 0:
@@ -2543,24 +2573,58 @@ function _takeData() {
           return termsAndConditions();
         case 3:
           termsConditions = _context.sent;
-          _context.next = 6;
+          conferirFormTerms;
+          console.log(termsConditions);
+          _context.next = 8;
           return initDataBasic();
-        case 6:
+        case 8:
           formData = _context.sent;
-          _context.next = 9;
+          conferirFormBasic(formData);
+          document.addEventListener('click', function (event) {
+            var element = event.target;
+            validateFormBasic = false;
+            validateFormBasic = conferirFormBasic(formData);
+            if (validateFormBasic) {
+              if (element.classList.contains('big-address') || element.classList.contains('button-address')) {
+                changeMains('.screen-address');
+                changeSubMainTitle('Formulário de Endereço');
+              }
+            } else {
+              if (element.classList.contains('main')) {
+                event.preventDefault();
+              }
+            }
+          });
+          _context.next = 13;
           return initAddress();
-        case 9:
+        case 13:
           formAddress = _context.sent;
-          _context.next = 12;
+          conferirFormAddress(formAddress);
+          document.addEventListener('click', function (event) {
+            var element = event.target;
+            validateFormAddress = false;
+            validateFormAddress = conferirFormAddress(formAddress);
+            if (validateFormAddress && validateFormBasic) {
+              if (element.classList.contains('big-school-data') || element.classList.contains('button-school-data')) {
+                changeMains('.screen-school-data');
+                changeSubMainTitle('Formulário de Dados Acadêmicos');
+              }
+            } else {
+              if (element.classList.contains('main')) {
+                event.preventDefault();
+              }
+            }
+          });
+          _context.next = 18;
           return createFormSchoolData();
-        case 12:
+        case 18:
           formSchoolData = _context.sent;
-          _context.next = 15;
+          _context.next = 21;
           return _objectSpread(_objectSpread(_objectSpread(_objectSpread({}, termsConditions), formData), formAddress), formSchoolData);
-        case 15:
+        case 21:
           allData = _context.sent;
           return _context.abrupt("return", allData);
-        case 17:
+        case 23:
         case "end":
           return _context.stop();
       }

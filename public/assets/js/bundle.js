@@ -961,10 +961,6 @@ var main = function main() {
   function mainPage() {
     document.addEventListener('click', function (event) {
       var element = event.target;
-      if (element.classList.contains('big-terms-conditions') || element.classList.contains('button-terms-conditions')) {
-        changeMains('.screen-terms-conditions');
-        changeSubMainTitle('Termos e condições');
-      }
       if (element.classList.contains('button-back-address')) {
         changeMains('.screen-basic-data1');
         changeSubMainTitle('Formulário de Dados Básicos');
@@ -1967,25 +1963,17 @@ var isCourse = /*#__PURE__*/function () {
     return _ref4.apply(this, arguments);
   };
 }();
-var conferirFormTerms = function conferirFormTerms(objeto) {
-  for (var _chave in objeto) {
-    if (objeto[_chave] === false) {
-      return false;
-    }
-  }
-  return true;
-};
 var conferirFormBasic = function conferirFormBasic(objeto) {
-  for (var _chave2 in objeto) {
-    if (objeto[_chave2] === false && _chave2 !== 'nomepai' && _chave2 !== 'ctps') {
+  for (var _chave in objeto) {
+    if (objeto[_chave] === false && _chave !== 'nomepai' && _chave !== 'ctps') {
       return false;
     }
   }
   return true;
 };
 var conferirFormAddress = function conferirFormAddress(objeto) {
-  for (var _chave3 in objeto) {
-    if (objeto[_chave3] === false && _chave3 !== 'complemento') {
+  for (var _chave2 in objeto) {
+    if (objeto[_chave2] === false && _chave2 !== 'complemento') {
       return false;
     }
   }
@@ -2203,9 +2191,9 @@ var isSemestre = function isSemestre(data) {
   data = parseInt(data);
   var semestreForm = [1, 2, 0];
   var semestre;
-  for (var _chave4 in semestreForm) {
-    if (semestreForm[_chave4] === data) {
-      semestre = semestreForm[_chave4];
+  for (var _chave3 in semestreForm) {
+    if (semestreForm[_chave3] === data) {
+      semestre = semestreForm[_chave3];
       break;
     }
   }
@@ -2231,9 +2219,9 @@ var isMesFormatura = function isMesFormatura(data) {
 var isPeriodo = function isPeriodo(data) {
   var periodos = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, "Estágio Curricular"];
   var periodo;
-  for (var _chave5 in periodos) {
-    if (periodos[_chave5] == data) {
-      periodo = periodos[_chave5];
+  for (var _chave4 in periodos) {
+    if (periodos[_chave4] == data) {
+      periodo = periodos[_chave4];
       break;
     }
   }
@@ -2245,9 +2233,9 @@ var isPeriodo = function isPeriodo(data) {
 var isHorario = function isHorario(data) {
   var horariosEstudos = ["Manhã", "Tarde", "Noite", "EAD", "EC", "F"];
   var horario;
-  for (var _chave6 in horariosEstudos) {
-    if (horariosEstudos[_chave6] === data) {
-      horario = horariosEstudos[_chave6];
+  for (var _chave5 in horariosEstudos) {
+    if (horariosEstudos[_chave5] === data) {
+      horario = horariosEstudos[_chave5];
       break;
     }
   }
@@ -2554,7 +2542,6 @@ var initAddress = __webpack_require__(/*! ./address.js */ "./frontend/pages/addr
 var initDataBasic = __webpack_require__(/*! ./dataBasic.js */ "./frontend/pages/dataBasic.js");
 var createFormSchoolData = __webpack_require__(/*! ./schoolData.js */ "./frontend/pages/schoolData.js");
 var _require = __webpack_require__(/*! ../utils/util.js */ "./frontend/utils/util.js"),
-  conferirFormTerms = _require.conferirFormTerms,
   conferirFormAddress = _require.conferirFormAddress,
   conferirFormBasic = _require.conferirFormBasic,
   changeMains = _require.changeMains,
@@ -2564,7 +2551,7 @@ function takeData() {
 }
 function _takeData() {
   _takeData = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
-    var callMain, termsConditions, validateFormTerms, formData, validateFormBasic, formAddress, validateFormAddress, formSchoolData, allData;
+    var callMain, termsConditions, formData, validateFormBasic, formAddress, validateFormAddress, formSchoolData, allData;
     return _regeneratorRuntime().wrap(function _callee$(_context) {
       while (1) switch (_context.prev = _context.next) {
         case 0:
@@ -2573,18 +2560,15 @@ function _takeData() {
           return termsAndConditions();
         case 3:
           termsConditions = _context.sent;
-          conferirFormTerms;
-          console.log(termsConditions);
-          _context.next = 8;
+          _context.next = 6;
           return initDataBasic();
-        case 8:
+        case 6:
           formData = _context.sent;
-          conferirFormBasic(formData);
           document.addEventListener('click', function (event) {
             var element = event.target;
             validateFormBasic = false;
             validateFormBasic = conferirFormBasic(formData);
-            if (validateFormBasic) {
+            if (validateFormBasic && validateFormTerms) {
               if (element.classList.contains('big-address') || element.classList.contains('button-address')) {
                 changeMains('.screen-address');
                 changeSubMainTitle('Formulário de Endereço');
@@ -2595,16 +2579,15 @@ function _takeData() {
               }
             }
           });
-          _context.next = 13;
+          _context.next = 10;
           return initAddress();
-        case 13:
+        case 10:
           formAddress = _context.sent;
-          conferirFormAddress(formAddress);
           document.addEventListener('click', function (event) {
             var element = event.target;
             validateFormAddress = false;
             validateFormAddress = conferirFormAddress(formAddress);
-            if (validateFormAddress && validateFormBasic) {
+            if (validateFormAddress && validateFormBasic && validateFormTerms) {
               if (element.classList.contains('big-school-data') || element.classList.contains('button-school-data')) {
                 changeMains('.screen-school-data');
                 changeSubMainTitle('Formulário de Dados Acadêmicos');
@@ -2615,16 +2598,16 @@ function _takeData() {
               }
             }
           });
-          _context.next = 18;
+          _context.next = 14;
           return createFormSchoolData();
-        case 18:
+        case 14:
           formSchoolData = _context.sent;
-          _context.next = 21;
+          _context.next = 17;
           return _objectSpread(_objectSpread(_objectSpread(_objectSpread({}, termsConditions), formData), formAddress), formSchoolData);
-        case 21:
+        case 17:
           allData = _context.sent;
           return _context.abrupt("return", allData);
-        case 23:
+        case 19:
         case "end":
           return _context.stop();
       }

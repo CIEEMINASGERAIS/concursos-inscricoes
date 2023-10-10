@@ -258,13 +258,31 @@ const isCourse = async (course, codeCourse, idCourse) => {
   return true;
 };
 
-const conferirForm = (objeto) => {
+const conferirFormTerms = (objeto) => {
   for (let chave in objeto) {
     if (objeto[chave] === false) {
       return false
     }
-    return true
   }
+  return true
+}
+
+const conferirFormBasic = (objeto) => {
+  for (let chave in objeto) {
+    if (objeto[chave] === false && chave !== 'nomepai' && chave !== 'ctps') {
+      return false
+    }
+  }
+  return true
+}
+
+const conferirFormAddress = (objeto) => {
+  for (let chave in objeto) {
+    if (objeto[chave] === false && chave !== 'complemento') {
+      return false
+    }
+  }
+  return true
 }
 
 const isNaturalidadeNacionalidade = (naturalidadeNacionalidade) => {
@@ -936,5 +954,7 @@ module.exports = {
   age,
   emailBd,
   cpfInBd,
-  conferirForm
+  conferirFormBasic,
+  conferirFormAddress,
+  conferirFormTerms
 };

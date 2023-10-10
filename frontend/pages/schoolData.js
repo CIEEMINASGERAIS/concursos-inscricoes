@@ -421,8 +421,6 @@ async function createFormSchoolData() {
 
     const alertEnd = document.querySelector(".end");
 
-    const today = new Date();
-
     if (formSchoolData) {
       formSchoolData.addEventListener("submit", async (e) => {
         e.preventDefault();
@@ -438,6 +436,7 @@ async function createFormSchoolData() {
           if (!valid) {
             dataFormSchool.periodo = periodoFinal()
           }
+          const today = new Date();
           dataFormSchool.ano = today.getFullYear();
           alertEnd.style.display = "block";
           resolve(dataFormSchool);

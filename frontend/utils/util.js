@@ -946,6 +946,5 @@ module.exports = {
   emailBd,
   cpfInBd,
   conferirFormBasic,
-  conferirFormAddress,
-  conferirFormTerms
+  conferirFormAddress
 };

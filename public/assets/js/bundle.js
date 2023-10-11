@@ -1274,10 +1274,11 @@ function _createFormSchoolData() {
                                   while (1) switch (_context3.prev = _context3.next) {
                                     case 0:
                                       data = e.currentTarget.value;
+                                      console.log(data);
                                       filtrarCursos(data);
-                                      _context3.next = 4;
+                                      _context3.next = 5;
                                       return isSchool(data, codeFinal);
-                                    case 4:
+                                    case 5:
                                       validate = _context3.sent;
                                       if (validate) {
                                         document.getElementById("msg-escola").innerHTML = "";
@@ -1287,7 +1288,7 @@ function _createFormSchoolData() {
                                         document.getElementById("msg-escola").innerHTML = "<p>Escola inválida!</p>";
                                         dataFormSchool.escola_id = false;
                                       }
-                                    case 6:
+                                    case 7:
                                     case "end":
                                       return _context3.stop();
                                   }
@@ -1312,10 +1313,11 @@ function _createFormSchoolData() {
                             while (1) switch (_context5.prev = _context5.next) {
                               case 0:
                                 data = e.currentTarget.value;
+                                console.log(data);
                                 filtrarIdCurso(data);
-                                _context5.next = 4;
+                                _context5.next = 5;
                                 return isCourse(data, codeFinal, idCursoFinal);
-                              case 4:
+                              case 5:
                                 validate = _context5.sent;
                                 if (validate) {
                                   document.getElementById("msg-curso").innerHTML = "";
@@ -1324,7 +1326,7 @@ function _createFormSchoolData() {
                                   document.getElementById("msg-curso").innerHTML = "<p>Curso inválido!</p>";
                                   dataFormSchool.curso_id = false;
                                 }
-                              case 6:
+                              case 7:
                               case "end":
                                 return _context5.stop();
                             }

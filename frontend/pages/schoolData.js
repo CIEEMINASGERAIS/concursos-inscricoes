@@ -286,6 +286,7 @@ async function createFormSchoolData() {
 
       $(".escola-search select").change(async (e) => {
         let data = e.currentTarget.value;
+        console.log(data)
         filtrarCursos(data);
         validate = await isSchool(data, codeFinal);
         if (validate) {
@@ -307,6 +308,7 @@ async function createFormSchoolData() {
 
       $(".curso-search select").change(async (e) => {
         let data = e.currentTarget.value;
+        console.log(data)
         filtrarIdCurso(data);
         let validate = await isCourse(data, codeFinal, idCursoFinal);
         if (validate) {

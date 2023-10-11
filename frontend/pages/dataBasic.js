@@ -496,17 +496,6 @@ const initDataBasic = async () => {
           changeSubMainTitle('Formulário de Endereço')
           resolve(formDataBasic)
 
-          // if (validateForm) {
-
-          // } else {
-          //   document.addEventListener('click', function (event) {
-          //     const element = event.target
-          //     if (element.classList.contains('big-address') || element.classList.contains('button-address')) {
-          //       event.preventDefault()
-          //     }
-          //   })
-          // }
-
         } else {
           document.getElementById('msg-fracasso').innerHTML =
             "<p>Formulário incompleto!</p>"

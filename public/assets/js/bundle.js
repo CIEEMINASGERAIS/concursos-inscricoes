@@ -212,9 +212,59 @@ function _initAddress() {
                         });
                       }
                     }
+                    if (logradouro) {
+                      logradouro.addEventListener('input', function (e) {
+                        var value = e.target.value;
+                        var validate = isNaturalidadeNacionalidade(value);
+                        if (validate) {
+                          document.getElementById("msg-logradouro").innerHTML = "";
+                          formDataAddress.logradouro = value;
+                        } else {
+                          document.getElementById("msg-logradouro").innerHTML = "<p>Logradouro inválido!</p>";
+                          formDataAddress.logradouro = false;
+                        }
+                      });
+                    }
                     if (uf) {
                       uf.addEventListener('input', function (e) {
-                        e.target.value = e.target.value.replace(/[^a-zA-Z]/g, '');
+                        var value = e.target.value;
+                        value = e.target.value.replace(/[^a-zA-Z]/g, '');
+                        var validate = isNaturalidadeNacionalidade(value);
+                        if (validate) {
+                          document.getElementById("msg-uf").innerHTML = "";
+                          formDataAddress.uf = value;
+                        } else {
+                          document.getElementById("msg-uf").innerHTML = "<p>UF inválido!</p>";
+                          formDataAddress.uf = false;
+                        }
+                      });
+                    }
+                    if (bairro) {
+                      bairro.addEventListener('input', function (e) {
+                        var value = e.target.value;
+                        console.log(value);
+                        var validate = isNaturalidadeNacionalidade(value);
+                        console.log(validate);
+                        if (validate) {
+                          document.getElementById("msg-bairro").innerHTML = "";
+                          formDataAddress.bairro = value;
+                        } else {
+                          document.getElementById("msg-bairro").innerHTML = "<p>Bairro inválido!</p>";
+                          formDataAddress.bairro = false;
+                        }
+                      });
+                    }
+                    if (cidade) {
+                      cidade.addEventListener('input', function (e) {
+                        var value = e.target.value;
+                        var validate = isNaturalidadeNacionalidade(value);
+                        if (validate) {
+                          document.getElementById("msg-cidade").innerHTML = "";
+                          formDataAddress.cidade = value;
+                        } else {
+                          document.getElementById("msg-cidade").innerHTML = "<p>Cidade inválido!</p>";
+                          formDataAddress.cidade = false;
+                        }
                       });
                     }
                     numero = document.getElementById('numero');
@@ -393,6 +443,7 @@ function _initAddress() {
                                 if (formDataAddress.cep && formDataAddress.logradouro && formDataAddress.numero && formDataAddress.uf && formDataAddress.bairro && formDataAddress.cidade && formDataAddress.telefone1 && formDataAddress.telefone2 && formDataAddress.email) {
                                   changeMains('.screen-school-data');
                                   changeSubMainTitle('Formulário de Dados Acadêmicos');
+                                  console.log(formDataAddress);
                                   resolve(formDataAddress);
                                 } else {
                                   document.getElementById('msg-fracasso-address').innerHTML = "<p>Formulário incompleto!</p>";
@@ -412,7 +463,7 @@ function _initAddress() {
                       console.log('Erro ao buscar dados do formulário');
                       reject(error);
                     }
-                  case 33:
+                  case 36:
                   case "end":
                     return _context4.stop();
                 }
@@ -797,17 +848,6 @@ var initDataBasic = /*#__PURE__*/function () {
                           changeMains('.screen-address');
                           changeSubMainTitle('Formulário de Endereço');
                           resolve(formDataBasic);
-
-                          // if (validateForm) {
-
-                          // } else {
-                          //   document.addEventListener('click', function (event) {
-                          //     const element = event.target
-                          //     if (element.classList.contains('big-address') || element.classList.contains('button-address')) {
-                          //       event.preventDefault()
-                          //     }
-                          //   })
-                          // }
                         } else {
                           document.getElementById('msg-fracasso').innerHTML = "<p>Formulário incompleto!</p>";
                           removerMensagem('msg-fracasso');
@@ -1274,11 +1314,10 @@ function _createFormSchoolData() {
                                   while (1) switch (_context3.prev = _context3.next) {
                                     case 0:
                                       data = e.currentTarget.value;
-                                      console.log(data);
                                       filtrarCursos(data);
-                                      _context3.next = 5;
+                                      _context3.next = 4;
                                       return isSchool(data, codeFinal);
-                                    case 5:
+                                    case 4:
                                       validate = _context3.sent;
                                       if (validate) {
                                         document.getElementById("msg-escola").innerHTML = "";
@@ -1288,7 +1327,7 @@ function _createFormSchoolData() {
                                         document.getElementById("msg-escola").innerHTML = "<p>Escola inválida!</p>";
                                         dataFormSchool.escola_id = false;
                                       }
-                                    case 7:
+                                    case 6:
                                     case "end":
                                       return _context3.stop();
                                   }
@@ -1313,11 +1352,10 @@ function _createFormSchoolData() {
                             while (1) switch (_context5.prev = _context5.next) {
                               case 0:
                                 data = e.currentTarget.value;
-                                console.log(data);
                                 filtrarIdCurso(data);
-                                _context5.next = 5;
+                                _context5.next = 4;
                                 return isCourse(data, codeFinal, idCursoFinal);
-                              case 5:
+                              case 4:
                                 validate = _context5.sent;
                                 if (validate) {
                                   document.getElementById("msg-curso").innerHTML = "";
@@ -1326,7 +1364,7 @@ function _createFormSchoolData() {
                                   document.getElementById("msg-curso").innerHTML = "<p>Curso inválido!</p>";
                                   dataFormSchool.curso_id = false;
                                 }
-                              case 7:
+                              case 6:
                               case "end":
                                 return _context5.stop();
                             }

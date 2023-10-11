@@ -185,11 +185,86 @@ async function initAddress() {
 
     }
 
+    if (logradouro) {
+
+      logradouro.addEventListener('input', e => {
+
+        let value = e.target.value
+
+        let validate = isNaturalidadeNacionalidade(value)
+
+        if (validate) {
+          document.getElementById("msg-logradouro").innerHTML = ""
+          formDataAddress.logradouro = value
+        } else {
+          document.getElementById("msg-logradouro").innerHTML =
+            "<p>Logradouro inválido!</p>"
+          formDataAddress.logradouro = false
+        }
+      })
+    }
+
     if (uf) {
 
       uf.addEventListener('input', e => {
 
-        e.target.value = e.target.value.replace(/[^a-zA-Z]/g, '')
+        let value = e.target.value
+
+        value = e.target.value.replace(/[^a-zA-Z]/g, '')
+
+        let validate = isNaturalidadeNacionalidade(value)
+
+        if (validate) {
+          document.getElementById("msg-uf").innerHTML = ""
+          formDataAddress.uf = value
+        } else {
+          document.getElementById("msg-uf").innerHTML =
+            "<p>UF inválido!</p>"
+          formDataAddress.uf = false
+        }
+
+      })
+    }
+
+    if (bairro) {
+
+      bairro.addEventListener('input', e => {
+
+        let value = e.target.value
+
+        console.log(value)
+
+        let validate = (isNaturalidadeNacionalidade(value))
+
+        console.log(validate)
+
+        if (validate) {
+          document.getElementById("msg-bairro").innerHTML = ""
+          formDataAddress.bairro = value
+        } else {
+          document.getElementById("msg-bairro").innerHTML =
+            "<p>Bairro inválido!</p>"
+          formDataAddress.bairro = false
+        }
+      })
+    }
+
+    if (cidade) {
+
+      cidade.addEventListener('input', e => {
+
+        let value = e.target.value
+
+        let validate = (isNaturalidadeNacionalidade(value))
+
+        if (validate) {
+          document.getElementById("msg-cidade").innerHTML = ""
+          formDataAddress.cidade = value
+        } else {
+          document.getElementById("msg-cidade").innerHTML =
+            "<p>Cidade inválido!</p>"
+          formDataAddress.cidade = false
+        }
 
       })
     }
@@ -427,8 +502,8 @@ async function initAddress() {
         ) {
           changeMains('.screen-school-data')
           changeSubMainTitle('Formulário de Dados Acadêmicos')
+          console.log(formDataAddress)
           resolve(formDataAddress)
-
         } else {
           document.getElementById('msg-fracasso-address').innerHTML =
             "<p>Formulário incompleto!</p>"

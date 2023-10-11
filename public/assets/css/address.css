@@ -84,7 +84,7 @@ input#cep {
 
 .form-address span p {
   color: rgb(255, 0, 0);
-  cursor: pointer;
+  cursor: default;
   font-weight: bold;
   margin: 0.2rem 0rem 0rem 0rem;
   margin-top: 0.2rem;

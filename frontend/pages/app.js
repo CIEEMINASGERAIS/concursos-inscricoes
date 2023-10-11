@@ -18,7 +18,7 @@ async function takeData() {
 
     validateFormBasic = conferirFormBasic(formData)
 
-    if (validateFormBasic && validateFormTerms) {
+    if (validateFormBasic) {
       if (element.classList.contains('big-address') || element.classList.contains('button-address')) {
         changeMains('.screen-address')
         changeSubMainTitle('Formulário de Endereço')
@@ -39,7 +39,7 @@ async function takeData() {
 
     validateFormAddress = conferirFormAddress(formAddress)
 
-    if (validateFormAddress && validateFormBasic && validateFormTerms) {
+    if (validateFormAddress && validateFormBasic) {
       if (element.classList.contains('big-school-data') || element.classList.contains('button-school-data')) {
         changeMains('.screen-school-data')
         changeSubMainTitle('Formulário de Dados Acadêmicos')

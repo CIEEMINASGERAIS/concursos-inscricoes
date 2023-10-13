@@ -51,31 +51,31 @@ app.use((req, res, next) => {
   next();
 });
 
-const tranposter = nodemailer.createTransport({
-  host: '192.168.0.11',
-  port: 25,
-  secure: false,
-  auth: {
-    user: 'nao_responda@cieeminas.org.br',
-    pass: 'documentos#123',
-  },
-  tls: {
-    // do not fail on invalid certs
-    rejectUnauthorized: false,
-  },
-})
+// const tranposter = nodemailer.createTransport({
+//   host: '192.168.0.11',
+//   port: 25,
+//   secure: false,
+//   auth: {
+//     user: 'nao_responda@cieeminas.org.br',
+//     pass: 'documentos#123',
+//   },
+//   tls: {
+//     // do not fail on invalid certs
+//     rejectUnauthorized: false,
+//   },
+// })
 
-async function emailASerEnviado(to) {
+// async function emailASerEnviado(to) {
 
-  const info = await tranposter.sendMail({
-    from: 'noreply@cieeminas.org',
-    to: `${to}`,
-    subject: 'Email teste',
-    text: 'Email enviado com sucesso!',
-  })
+//   const info = await tranposter.sendMail({
+//     from: 'noreply@cieeminas.org',
+//     to: `${to}`,
+//     subject: 'Email teste',
+//     text: 'Email enviado com sucesso!',
+//   })
 
-  console.log('Message sent: %s', info.messageId)
-}
+//   console.log('Message sent: %s', info.messageId)
+// }
 
 // Testar conexão com o banco de dados
 // const db = require("./db/models")

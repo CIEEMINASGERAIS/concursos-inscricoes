@@ -886,115 +886,7 @@ module.exports = initDataBasic;
 var _require = __webpack_require__(/*! ../utils/util.js */ "./frontend/utils/util.js"),
   changeSubMainTitle = _require.changeSubMainTitle,
   changeMains = _require.changeMains;
-var menuSideComplete = document.querySelector('.nav-bar');
-var mainSide = document.querySelector('.main-side');
-var mainSideMobile = document.querySelector('.main-side-mobile');
-var buttonMenu = document.querySelector('.button-menu-mobile');
-var fontMenuMobile = document.querySelectorAll('.main-side ul li a');
-var logo = document.querySelector('.container img');
-var imageButton = document.querySelector('.button-menu-mobile button img');
-var mediaQuery = window.matchMedia('(max-width:920px)');
-var showMenu = document.querySelector('.show-menu-side');
-var closeMenu = document.querySelector('.close-menu-side');
-var menuGrande, menuPequeno;
 var main = function main() {
-  // showMenu.addEventListener('click', function () {
-  //   // if (mainSide.style.display === 'none') {
-
-  //   // if (mainSide.style.display === 'block') {
-  //   // mainSide.style.display = 'none'
-  //   // mainSideMobile.style.display = 'block'
-  //   // menuSideComplete.style.width = '4rem'
-  //   // buttonMenu.style.marginLeft = '4.5rem'
-  //   // logo.style.width = '3.5rem'
-  //   // menuSideComplete.style.gap = '3rem'
-  //   // imageButton.src = 'images/menu.png'
-  //   // }
-  //   // else {
-  //   console.log('Sucesso!')
-  //   mainSide.style.display = 'block'
-  //   mainSideMobile.style.display = 'none'
-  //   menuSideComplete.style.width = '12rem'
-  //   buttonMenu.style.marginLeft = '13rem'
-  //   menuSideComplete.style.gap = '0rem'
-  //   closeMenu.style.display = 'block'
-  //   showMenu.style.display = 'none'
-  //   imageButton.src = 'images/close.png'
-  //   // }
-  // })
-  // }
-
-  // document.addEventListener('click', function (event) {
-  //   const element = event.target
-
-  //   if (element.classList.contains('show-menu-side')) {
-  //     if (mainSide.style.display === 'none') {
-  //       // mainSide.style.display = 'none'
-  //       // mainSideMobile.style.display = 'block'
-  //       // menuSideComplete.style.width = '4rem'
-  //       // buttonMenu.style.marginLeft = '4.5rem'
-  //       // logo.style.width = '3.5rem'
-  //       // menuSideComplete.style.gap = '3rem'
-  //       // imageButton.src = 'images/menu.png'
-  //       // menuGrande = false
-  //       // }
-  //       // if (!menuGrande)
-  //       // else {
-  //       //   mainSide.style.display = 'block'
-  //       //   mainSideMobile.style.display = 'none'
-  //       //   menuSideComplete.style.width = '12rem'
-  //       //   buttonMenu.style.marginLeft = '13rem'
-  //       //   menuSideComplete.style.gap = '0rem'
-  //       //   imageButton.src = 'images/close.png'
-  //       // menuPequeno = false
-
-  //       const changeMediaQuery = mediaQuery => {
-  //         if (mediaQuery.matches) {
-  //           for (let i = 0; i < fontMenuMobile.length; i++) {
-  //             fontMenuMobile[i].style.fontSize = '0.7rem'
-  //           }
-
-  //           logo.style.width = '11rem'
-  //           mainSide.style.marginTop = '1.5rem'
-  //         } else {
-  //           for (let i = 0; i < fontMenuMobile.length; i++) {
-  //             fontMenuMobile[i].style.fontSize = '1.2rem'
-  //           }
-
-  //           mainSide.style.display = 'block'
-  //           buttonMenu.style.marginLeft = '13rem'
-  //           menuSideComplete.style.width = '12rem'
-  //           mainSideMobile.style.display = 'none'
-  //           logo.style.width = '10rem'
-  //         }
-  //       }
-
-  //       changeMediaQuery(mediaQuery)
-  //       mediaQuery.addEventListener('change', changeMediaQuery)
-  //     }
-  //   } else {
-  //     const changeMediaQueryOut = () => {
-  //       if (mediaQuery.matches) {
-  //         if (element.classList.contains('main')) {
-  //           return
-  //         } else {
-  //           if (mainSide.style.display === 'block') {
-  //             mainSide.style.display = 'none'
-  //             mainSideMobile.style.display = 'block'
-  //             menuSideComplete.style.width = '4rem'
-  //             buttonMenu.style.marginLeft = '4.5rem'
-  //             logo.style.width = '3.5rem'
-  //             menuSideComplete.style.gap = '3rem'
-  //             imageButton.src = 'images/menu.png'
-  //           }
-  //         }
-  //       }
-
-  //     }
-  //     changeMediaQueryOut(mediaQuery)
-  //   }
-  // })
-
   function mainPage() {
     document.addEventListener('click', function (event) {
       var element = event.target;
@@ -2667,7 +2559,7 @@ function _sendData() {
           data = _context2.sent;
           _context2.prev = 3;
           _context2.next = 6;
-          return fetch('http://appcadastro.cieemg.org.br/cadastrar', {
+          return fetch('http://localhost:8080/cadastrar', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'

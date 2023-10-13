@@ -10,6 +10,22 @@ const ejs = require("ejs");
 
 const path = require("path");
 
+const sequelize = require("./src/db/models");
+
+const DataTypes = require("sequelize/lib/data-types");
+const { Op } = require("sequelize");
+
+// Acessar o models estudante
+const Estudante = require("./src/db/models/estudante")(sequelize, DataTypes);
+
+const Escola = require("./src/db/models/escola")(sequelize, DataTypes);
+
+const Curso = require("./src/db/models/curso")(sequelize, DataTypes);
+
+const Cep = require("./src/db/models/cep")(sequelize, DataTypes);
+
+const nodemailer = require("nodemailer")
+
 app.use(express.urlencoded({ extended: true }));
 
 app.use(express.static(path.resolve(__dirname, "public", "assets")));
@@ -35,19 +51,31 @@ app.use((req, res, next) => {
   next();
 });
 
-const sequelize = require("./src/db/models");
+const tranposter = nodemailer.createTransport({
+  host: '192.168.0.11',
+  port: 25,
+  secure: false,
+  auth: {
+    user: 'nao_responda@cieeminas.org.br',
+    pass: 'documentos#123',
+  },
+  tls: {
+    // do not fail on invalid certs
+    rejectUnauthorized: false,
+  },
+})
 
-const DataTypes = require("sequelize/lib/data-types");
-const { Op } = require("sequelize");
+async function emailASerEnviado(to) {
 
-// Acessar o models estudante
-const Estudante = require("./src/db/models/estudante")(sequelize, DataTypes);
+  const info = await tranposter.sendMail({
+    from: 'noreply@cieeminas.org',
+    to: `${to}`,
+    subject: 'Email teste',
+    text: 'Email enviado com sucesso!',
+  })
 
-const Escola = require("./src/db/models/escola")(sequelize, DataTypes);
-
-const Curso = require("./src/db/models/curso")(sequelize, DataTypes);
-
-const Cep = require("./src/db/models/cep")(sequelize, DataTypes);
+  console.log('Message sent: %s', info.messageId)
+}
 
 // Testar conexão com o banco de dados
 // const db = require("./db/models")
@@ -242,10 +270,11 @@ app.get("/", async (req, res) => {
 app.post("/cadastrar", async (req, res) => {
   await Estudante.create(req.body)
     .then(() => {
+      emailASerEnviado(req.body.email).catch(console.error)
       return res.json({
-        // erro: false,
         mensagem: "Usuário cadastrado com sucesso!",
       });
+
     })
     .catch((err) => {
       return res.status(400).json({

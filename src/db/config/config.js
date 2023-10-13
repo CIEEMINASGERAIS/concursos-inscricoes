@@ -2,7 +2,6 @@
 require("dotenv").config();
 
 // Exportar as credenciais do banco de dados
-
 module.exports = {
   development: {
     username: process.env.DB_USER,

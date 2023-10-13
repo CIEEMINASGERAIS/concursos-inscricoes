@@ -392,11 +392,6 @@ function _initAddress() {
                     if (email) {
                       email.addEventListener('input', function (e) {
                         validateInput = isEmail(e.target.value);
-
-                        // if (validate) {
-                        //   emailBd(e.target.value)
-                        // }
-
                         if (validateInput) {
                           // Enviar para o HTML a mensagem de erro
                           document.getElementById('msg-email').innerHTML = "";
@@ -448,7 +443,6 @@ function _initAddress() {
                                 if (formDataAddress.cep && formDataAddress.logradouro && formDataAddress.numero && formDataAddress.uf && formDataAddress.bairro && formDataAddress.cidade && formDataAddress.telefone1 && formDataAddress.telefone2 && formDataAddress.email) {
                                   changeMains('.screen-school-data');
                                   changeSubMainTitle('Formulário de Dados Acadêmicos');
-                                  console.log(formDataAddress);
                                   resolve(formDataAddress);
                                 } else {
                                   document.getElementById('msg-fracasso-address').innerHTML = "<p>Formulário incompleto!</p>";
@@ -2567,7 +2561,7 @@ function _sendData() {
           data = _context2.sent;
           _context2.prev = 3;
           _context2.next = 6;
-          return fetch('http://localhost:8080/cadastrar', {
+          return fetch('http://appcadastro.cieemg.org.br/cadastrar', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'

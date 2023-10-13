@@ -452,10 +452,6 @@ async function initAddress() {
 
         validateInput = isEmail(e.target.value)
 
-        // if (validate) {
-        //   emailBd(e.target.value)
-        // }
-
         if (validateInput) {
           // Enviar para o HTML a mensagem de erro
           document.getElementById('msg-email').innerHTML = ""
@@ -506,7 +502,6 @@ async function initAddress() {
         ) {
           changeMains('.screen-school-data')
           changeSubMainTitle('Formulário de Dados Acadêmicos')
-          console.log(formDataAddress)
           resolve(formDataAddress)
         } else {
           document.getElementById('msg-fracasso-address').innerHTML =

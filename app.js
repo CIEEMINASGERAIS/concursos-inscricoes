@@ -270,7 +270,7 @@ app.get("/", async (req, res) => {
 app.post("/cadastrar", async (req, res) => {
   await Estudante.create(req.body)
     .then(() => {
-      emailASerEnviado(req.body.email).catch(console.error)
+      // emailASerEnviado(req.body.email).catch(console.error)
       return res.json({
         mensagem: "Usuário cadastrado com sucesso!",
       });

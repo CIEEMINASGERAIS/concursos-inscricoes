@@ -6,7 +6,7 @@ const router = express.Router()
 // Incluir o arquivo que possui a conexão com banco de dados
 const db = require('./../db/models')
 
-const escola = require('./../db/models/escola.js')
+const Escola = require('./../db/models/escola.js')
 const sequelize = require('./../db/models')
 const { Sequelize } = require('sequelize')
 

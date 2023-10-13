@@ -38,35 +38,37 @@ function _initAddress() {
                 while (1) switch (_context4.prev = _context4.next) {
                   case 0:
                     _context4.next = 2;
-                    return fetch("address");
+                    return fetch('address');
                   case 2:
                     response = _context4.sent;
                     _context4.next = 5;
                     return response.text();
                   case 5:
                     htmlContent = _context4.sent;
-                    address = document.querySelector(".screen-address");
+                    address = document.querySelector('.screen-address');
                     address.innerHTML = htmlContent;
-                    form = document.querySelector(".form-address");
+                    form = document.querySelector('.form-address');
                     formDataAddress = {};
-                    cep = document.getElementById("cep");
-                    logradouro = document.getElementById("logradouro");
-                    uf = document.getElementById("uf");
-                    bairro = document.getElementById("bairro");
-                    cidade = document.getElementById("cidade");
-                    btnCep = document.querySelector(".btn-cep");
-                    logradouro.setAttribute("disabled", "true");
-                    uf.setAttribute("disabled", "true");
-                    bairro.setAttribute("disabled", "true");
-                    cidade.setAttribute("disabled", "true");
+                    cep = document.getElementById('cep');
+                    logradouro = document.getElementById('logradouro');
+                    uf = document.getElementById('uf');
+                    bairro = document.getElementById('bairro');
+                    cidade = document.getElementById('cidade');
+                    btnCep = document.querySelector('.btn-cep');
+                    logradouro.setAttribute('disabled', 'true');
+                    uf.setAttribute('disabled', 'true');
+                    bairro.setAttribute('disabled', 'true');
+                    cidade.setAttribute('disabled', 'true');
                     if (cep) {
-                      cepFound = document.querySelector(".cep-found");
+                      cepFound = document.querySelector('.cep-found');
                       validationAddress = function validationAddress(validateCep) {
                         if (validateCep) {
                           var validate = false;
-                          logradouro.value = endereco.map(function (logradouro) {
+                          var valores;
+                          valores = endereco.map(function (logradouro) {
                             return logradouro.logradouro;
                           });
+                          logradouro.value = valores[0];
                           validate = isNaturalidadeNacionalidade(logradouro.value);
                           if (validate) {
                             document.getElementById("msg-logradouro").innerHTML = "";
@@ -75,9 +77,10 @@ function _initAddress() {
                             document.getElementById("msg-logradouro").innerHTML = "<p>Logradouro inválido!</p>";
                             formDataAddress.logradouro = false;
                           }
-                          uf.value = endereco.map(function (uf) {
+                          valores = endereco.map(function (uf) {
                             return uf.uf;
                           });
+                          uf.value = valores[0];
                           validate = isUfNaturalidade(uf.value);
                           if (validate) {
                             document.getElementById("msg-uf").innerHTML = "";
@@ -86,9 +89,10 @@ function _initAddress() {
                             document.getElementById("msg-uf").innerHTML = "<p>UF inválido!</p>";
                             formDataAddress.uf = false;
                           }
-                          bairro.value = endereco.map(function (bairro) {
+                          valores = endereco.map(function (bairro) {
                             return bairro.bairro;
                           });
+                          bairro.value = valores[0];
                           validate = isNaturalidadeNacionalidade(bairro.value);
                           if (validate) {
                             document.getElementById("msg-bairro").innerHTML = "";
@@ -97,9 +101,10 @@ function _initAddress() {
                             document.getElementById("msg-bairro").innerHTML = "<p>Bairro inválido!</p>";
                             formDataAddress.bairro = false;
                           }
-                          cidade.value = endereco.map(function (cidade) {
+                          valores = endereco.map(function (cidade) {
                             return cidade.cidade;
                           });
+                          cidade.value = valores[0];
                           validate = isNaturalidadeNacionalidade(cidade.value);
                           if (validate) {
                             document.getElementById("msg-cidade").innerHTML = "";
@@ -110,41 +115,41 @@ function _initAddress() {
                           }
 
                           // Validação do CEP bem-sucedida, permitir que o usuário digite nos campos
-                          logradouro.removeAttribute("disabled");
-                          uf.removeAttribute("disabled");
-                          bairro.removeAttribute("disabled");
-                          cidade.removeAttribute("disabled");
+                          logradouro.removeAttribute('disabled');
+                          uf.removeAttribute('disabled');
+                          bairro.removeAttribute('disabled');
+                          cidade.removeAttribute('disabled');
                         } else {
                           // Validação do CEP falhou, desabilitar os campos
-                          logradouro.setAttribute("disabled", "true");
-                          uf.setAttribute("disabled", "true");
-                          bairro.setAttribute("disabled", "true");
-                          cidade.setAttribute("disabled", "true");
-                          logradouro.value = "";
-                          uf.value = "";
-                          bairro.value = "";
-                          cidade.value = "";
-                          cepFound.style.display = "block";
-                          if (cepFound.style.display === "block") {
-                            document.addEventListener("click", function (e) {
+                          logradouro.setAttribute('disabled', 'true');
+                          uf.setAttribute('disabled', 'true');
+                          bairro.setAttribute('disabled', 'true');
+                          cidade.setAttribute('disabled', 'true');
+                          logradouro.value = '';
+                          uf.value = '';
+                          bairro.value = '';
+                          cidade.value = '';
+                          cepFound.style.display = 'block';
+                          if (cepFound.style.display === 'block') {
+                            document.addEventListener('click', function (e) {
                               var element = e.target;
-                              if (element.classList.contains("button-confirm-cep")) {
-                                cepFound.style.display = "none";
+                              if (element.classList.contains('button-confirm-cep')) {
+                                cepFound.style.display = 'none';
                               }
                             });
                           }
                         }
                       };
-                      cep.addEventListener("input", /*#__PURE__*/function () {
+                      cep.addEventListener('input', /*#__PURE__*/function () {
                         var _ref2 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(e) {
                           var dadosCep, validate, cepSemPonto, _response, opcoes;
                           return _regeneratorRuntime().wrap(function _callee$(_context) {
                             while (1) switch (_context.prev = _context.next) {
                               case 0:
-                                cepSemPonto = e.target.value.replace(/[^0-9]/g, "");
-                                e.target.value = e.target.value.replace(/\D/g, "");
-                                e.target.value = e.target.value.replace(/(\d{5})(\d)/, "$1-$2");
-                                e.target.value = e.target.value.replace(/(-\d{3})\d+?$/, "$1");
+                                cepSemPonto = e.target.value.replace(/[^0-9]/g, '');
+                                e.target.value = e.target.value.replace(/\D/g, '');
+                                e.target.value = e.target.value.replace(/(\d{5})(\d)/, '$1-$2');
+                                e.target.value = e.target.value.replace(/(-\d{3})\d+?$/, '$1');
                                 _context.prev = 4;
                                 _context.next = 7;
                                 return fetch("http://appcadastro.cieemg.org.br/cadastrarEndereco?termo=".concat(cepSemPonto));
@@ -165,14 +170,14 @@ function _initAddress() {
                                 _context.next = 17;
                                 break;
                               case 16:
-                                console.log("Erro na solicitação:", _response.statusText);
+                                console.log('Erro na solicitação:', _response.statusText);
                               case 17:
                                 _context.next = 22;
                                 break;
                               case 19:
                                 _context.prev = 19;
                                 _context.t0 = _context["catch"](4);
-                                console.error("Erro:", _context.t0);
+                                console.error('Erro:', _context.t0);
                               case 22:
                                 validate = isCep(e.target.value);
                                 if (!(validate && dadosCep[0])) {
@@ -197,7 +202,7 @@ function _initAddress() {
                           return _ref2.apply(this, arguments);
                         };
                       }());
-                      cep.addEventListener("keydown", function (e) {
+                      cep.addEventListener('keydown', function (e) {
                         if (e.key === "Enter") {
                           var validateCep = false;
                           validateCep = isCep(formDataAddress.cep);
@@ -205,7 +210,7 @@ function _initAddress() {
                         }
                       });
                       if (btnCep) {
-                        btnCep.addEventListener("click", function (e) {
+                        btnCep.addEventListener('click', function (e) {
                           var validateCep = false;
                           validateCep = isCep(formDataAddress.cep);
                           validationAddress(validateCep);
@@ -213,7 +218,7 @@ function _initAddress() {
                       }
                     }
                     if (logradouro) {
-                      logradouro.addEventListener("input", function (e) {
+                      logradouro.addEventListener('input', function (e) {
                         var value = e.target.value;
                         var validate = isNaturalidadeNacionalidade(value);
                         if (validate) {
@@ -226,10 +231,10 @@ function _initAddress() {
                       });
                     }
                     if (uf) {
-                      uf.addEventListener("input", function (e) {
+                      uf.addEventListener('input', function (e) {
                         var value = e.target.value;
-                        value = e.target.value.replace(/[^a-zA-Z]/g, "");
-                        var validate = isUfNaturalidade(value);
+                        value = e.target.value.replace(/[^a-zA-Z]/g, '');
+                        var validate = isNaturalidadeNacionalidade(value);
                         if (validate) {
                           document.getElementById("msg-uf").innerHTML = "";
                           formDataAddress.uf = value;
@@ -240,9 +245,11 @@ function _initAddress() {
                       });
                     }
                     if (bairro) {
-                      bairro.addEventListener("input", function (e) {
+                      bairro.addEventListener('input', function (e) {
                         var value = e.target.value;
+                        console.log(value);
                         var validate = isNaturalidadeNacionalidade(value);
+                        console.log(validate);
                         if (validate) {
                           document.getElementById("msg-bairro").innerHTML = "";
                           formDataAddress.bairro = value;
@@ -253,7 +260,7 @@ function _initAddress() {
                       });
                     }
                     if (cidade) {
-                      cidade.addEventListener("input", function (e) {
+                      cidade.addEventListener('input', function (e) {
                         var value = e.target.value;
                         var validate = isNaturalidadeNacionalidade(value);
                         if (validate) {
@@ -265,125 +272,125 @@ function _initAddress() {
                         }
                       });
                     }
-                    numero = document.getElementById("numero");
+                    numero = document.getElementById('numero');
                     if (numero) {
-                      numero.addEventListener("input", function (e) {
+                      numero.addEventListener('input', function (e) {
                         var regex = new RegExp("^[0-9\b]+$");
                         for (var i = 0; i < e.target.value.length; i++) {
                           if (!regex.test(e.target.value[i])) {
                             var subtituicao = e.target.value[i];
-                            e.target.value = e.target.value.replace(subtituicao, "");
+                            e.target.value = e.target.value.replace(subtituicao, '');
                           }
                         }
                         validate = isNumero(e.target.value);
                         if (validate) {
                           // Enviar para o HTML a mensagem de erro
-                          document.getElementById("msg-numero").innerHTML = "";
+                          document.getElementById('msg-numero').innerHTML = "";
                           return formDataAddress.numero = e.target.value;
                         } else {
                           e.preventDefault();
                           // Enviar para o HTML a mensagem de erro
-                          document.getElementById("msg-numero").innerHTML = "<p>Valor inválido!</p>";
+                          document.getElementById('msg-numero').innerHTML = "<p>Valor inválido!</p>";
                           return formDataAddress.numero = false;
                         }
                       });
-                      numero.addEventListener("keypress", function (e) {
+                      numero.addEventListener('keypress', function (e) {
                         var notAllowedChars = /^[A-Za-z!"#$%&'()*+,-./:;<=>?@[\]^_`´{|}~¨¬¢£³²¹ºª°§ \\]+$/;
                         var _char = e.key;
                         if (notAllowedChars.test(_char)) {
                           e.preventDefault();
                         }
                       });
-                      numero.addEventListener("paste", function (e) {
+                      numero.addEventListener('paste', function (e) {
                         var regex = new RegExp("^[0-9\b]+$");
                         setTimeout(function () {
                           if (!regex.test(e.target.value)) {
-                            e.target.value = "";
+                            e.target.value = '';
                           }
                         }, 0);
                       });
                     }
-                    complemento = document.getElementById("complemento");
+                    complemento = document.getElementById('complemento');
                     if (complemento) {
-                      complemento.addEventListener("input", function (e) {
-                        var regex = new RegExp("^[#$%'()*+:;<=>?@[]_{|}¨¬¢£³²¹§\\]+$");
+                      complemento.addEventListener('input', function (e) {
+                        var regex = new RegExp("^[#$%'()*+:;<=>?@[\]_{|}¨¬¢£³²¹§\\]+$");
                         for (var i = 0; i < e.target.value.length; i++) {
                           if (regex.test(e.target.value[i])) {
                             var subtituicao = e.target.value[i];
-                            e.target.value = e.target.value.replace(subtituicao, "");
+                            e.target.value = e.target.value.replace(subtituicao, '');
                           }
                         }
                         _validate = isComplemento(e.target.value);
                         if (_validate) {
                           // Enviar para o HTML a mensagem de erro
-                          document.getElementById("msg-complemento").innerHTML = "";
+                          document.getElementById('msg-complemento').innerHTML = "";
                           return formDataAddress.complemento = e.target.value;
                         } else {
                           e.preventDefault();
                           // Enviar para o HTML a mensagem de erro
-                          document.getElementById("msg-complemento").innerHTML = "<p>Valor inválido!</p>";
+                          document.getElementById('msg-complemento').innerHTML = "<p>Valor inválido!</p>";
                           return formDataAddress.complemento = " ";
                         }
                       });
-                      complemento.addEventListener("keypress", function (e) {
+                      complemento.addEventListener('keypress', function (e) {
                         var notAllowedChars = /^[#$%'()*+:;<=>?@[\]_{|}¨¬¢£³²¹§\\]+$/;
                         var _char2 = e.key;
                         if (notAllowedChars.test(_char2)) {
                           e.preventDefault();
                         }
                       });
-                      complemento.addEventListener("paste", function (e) {
-                        var regex = new RegExp("^[#$%'()*+:;<=>?@[]_{|}¨¬¢£³²¹§\\]+$");
+                      complemento.addEventListener('paste', function (e) {
+                        var regex = new RegExp("^[#$%'()*+:;<=>?@[\]_{|}¨¬¢£³²¹§\\]+$");
                         setTimeout(function () {
                           if (regex.test(e.target.value)) {
-                            e.target.value = "";
+                            e.target.value = '';
                           }
                         }, 0);
                       });
                     }
-                    telefone1 = document.getElementById("telefone1");
+                    telefone1 = document.getElementById('telefone1');
                     if (telefone1) {
-                      telefone1.addEventListener("input", function (e) {
-                        e.target.value = e.target.value.replace(/\D/g, "");
+                      telefone1.addEventListener('input', function (e) {
+                        e.target.value = e.target.value.replace(/\D/g, '');
                         e.target.value = e.target.value.replace(/(\d{2})(\d)/, "($1) $2");
                         e.target.value = e.target.value.replace(/(\d)(\d{4})$/, "$1-$2");
                         _validate2 = isTelefone(e.target.value);
                         if (_validate2) {
-                          var telefone1SemSimbolo = e.target.value.replace(/\D/g, "");
+                          var telefone1SemSimbolo = e.target.value.replace(/\D/g, '');
                           // Enviar para o HTML a mensagem de erro
-                          document.getElementById("msg-telefone1").innerHTML = "";
+                          document.getElementById('msg-telefone1').innerHTML = "";
                           return formDataAddress.telefone1 = telefone1SemSimbolo;
                         } else {
                           e.preventDefault();
                           // Enviar para o HTML a mensagem de erro
-                          document.getElementById("msg-telefone1").innerHTML = "<p>Telefone inválido!</p>";
+                          document.getElementById('msg-telefone1').innerHTML = "<p>Telefone inválido!</p>";
                           return formDataAddress.telefone1 = false;
                         }
                       });
                     }
-                    telefone2 = document.getElementById("telefone2");
+                    telefone2 = document.getElementById('telefone2');
                     if (telefone2) {
-                      telefone2.addEventListener("input", function (e) {
-                        e.target.value = e.target.value.replace(/\D/g, "");
+                      telefone2.addEventListener('input', function (e) {
+                        e.target.value = e.target.value.replace(/\D/g, '');
                         e.target.value = e.target.value.replace(/(\d{2})(\d)/, "($1) $2");
                         e.target.value = e.target.value.replace(/(\d)(\d{4})$/, "$1-$2");
                         _validate3 = isTelefone(e.target.value);
                         if (_validate3) {
-                          var telefone2SemSimbolo = e.target.value.replace(/\D/g, "");
-                          // Enviar para o HTML a mensagem de erro
-                          document.getElementById("msg-telefone2").innerHTML = "";
+                          var telefone2SemSimbolo = e.target.value.replace(/\D/g, '');
+                          // Enviar para o HTML a mensagem de erro          
+                          document.getElementById('msg-telefone2').innerHTML = "";
                           return formDataAddress.telefone2 = telefone2SemSimbolo;
                         } else {
                           e.preventDefault();
                           // Enviar para o HTML a mensagem de erro
-                          document.getElementById("msg-telefone2").innerHTML = "<p>Telefone inválido!</p>";
+                          document.getElementById('msg-telefone2').innerHTML = "<p>Telefone inválido!</p>";
                           return formDataAddress.telefone2 = false;
                         }
                       });
                     }
-                    email = document.getElementById("email");
+                    email = document.getElementById('email');
                     if (email) {
-                      email.addEventListener("input", function (e) {
+                      email.addEventListener('input', function (e) {
                         validateInput = isEmail(e.target.value);
 
                         // if (validate) {
@@ -392,11 +399,11 @@ function _initAddress() {
 
                         if (validateInput) {
                           // Enviar para o HTML a mensagem de erro
-                          document.getElementById("msg-email").innerHTML = "";
+                          document.getElementById('msg-email').innerHTML = "";
                         } else {
                           e.preventDefault();
                           // Enviar para o HTML a mensagem de erro
-                          document.getElementById("msg-email").innerHTML = "<p>Email inválido!</p>";
+                          document.getElementById('msg-email').innerHTML = "<p>Email inválido!</p>";
                           formDataAddress.email = false;
                         }
                       });
@@ -404,7 +411,7 @@ function _initAddress() {
                         return _regeneratorRuntime().wrap(function _callee2$(_context2) {
                           while (1) switch (_context2.prev = _context2.next) {
                             case 0:
-                              document.getElementById("msg-email").innerHTML = "<p style='color: black;'>Carregado...</p>";
+                              document.getElementById('msg-email').innerHTML = "<p style='color: black;'>Carregado...</p>";
                               formDataAddress.email = false;
                               _context2.next = 4;
                               return emailBd(email.value);
@@ -412,12 +419,12 @@ function _initAddress() {
                               validateFocus = _context2.sent;
                               setTimeout(function () {
                                 if (validateFocus) {
-                                  document.getElementById("msg-email").innerHTML = "";
+                                  document.getElementById('msg-email').innerHTML = "";
                                 } else {
                                   if (email.value.length !== 0) {
-                                    document.getElementById("msg-email").innerHTML = "<p>Email já cadastrado!</p>";
+                                    document.getElementById('msg-email').innerHTML = "<p>Email já cadastrado!</p>";
                                   } else {
-                                    document.getElementById("msg-email").innerHTML = "";
+                                    document.getElementById('msg-email').innerHTML = "";
                                   }
                                 }
                                 if (validateFocus === true && validateInput === true) {
@@ -432,19 +439,20 @@ function _initAddress() {
                       }));
                     }
                     if (form) {
-                      form.addEventListener("submit", /*#__PURE__*/function () {
+                      form.addEventListener('submit', /*#__PURE__*/function () {
                         var _ref4 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3(e) {
                           return _regeneratorRuntime().wrap(function _callee3$(_context3) {
                             while (1) switch (_context3.prev = _context3.next) {
                               case 0:
                                 e.preventDefault();
                                 if (formDataAddress.cep && formDataAddress.logradouro && formDataAddress.numero && formDataAddress.uf && formDataAddress.bairro && formDataAddress.cidade && formDataAddress.telefone1 && formDataAddress.telefone2 && formDataAddress.email) {
-                                  changeMains(".screen-school-data");
-                                  changeSubMainTitle("Formulário de Dados Acadêmicos");
+                                  changeMains('.screen-school-data');
+                                  changeSubMainTitle('Formulário de Dados Acadêmicos');
+                                  console.log(formDataAddress);
                                   resolve(formDataAddress);
                                 } else {
-                                  document.getElementById("msg-fracasso-address").innerHTML = "<p>Formulário incompleto!</p>";
-                                  removerMensagem("msg-fracasso-address");
+                                  document.getElementById('msg-fracasso-address').innerHTML = "<p>Formulário incompleto!</p>";
+                                  removerMensagem('msg-fracasso-address');
                                 }
                               case 2:
                               case "end":
@@ -457,7 +465,7 @@ function _initAddress() {
                         };
                       }());
                     } else {
-                      console.log("Erro ao buscar dados do formulário");
+                      console.log('Erro ao buscar dados do formulário');
                       reject(error);
                     }
                   case 36:

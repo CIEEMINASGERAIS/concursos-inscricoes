@@ -221,6 +221,16 @@ async function createFormSchoolData() {
       }
     }
 
+    const anoIngresso = (formatura) => {
+      for (let i = 0; i < idCurso.length; i++) {
+        if (dataFormSchool.curso_id === idCurso[i].idcurso) {
+          let tempoCurso = idCurso[i].duracao / 2
+          tempoCurso = Math.ceil(tempoCurso)
+          return dataFormSchool.anoingresso = formatura - tempoCurso
+        }
+      }
+    }
+
     const callCourse = async () => {
       try {
         const response = await fetch(
@@ -312,6 +322,7 @@ async function createFormSchoolData() {
         if (validate) {
           document.getElementById("msg-curso").innerHTML = "";
           dataFormSchool.curso_id = idCursoFinal;
+          anoIngresso()
         } else {
           document.getElementById("msg-curso").innerHTML =
             "<p>Curso inválido!</p>";
@@ -436,6 +447,7 @@ async function createFormSchoolData() {
           if (!valid) {
             dataFormSchool.periodo = periodoFinal()
           }
+          anoIngresso(dataFormSchool.previsao_ano)
           const today = new Date();
           dataFormSchool.ano = today.getFullYear();
           alertEnd.style.display = "block";

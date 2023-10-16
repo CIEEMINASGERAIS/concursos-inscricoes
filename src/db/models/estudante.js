@@ -257,31 +257,6 @@ module.exports = (sequelize, DataTypes) => {
             msg: "Esse campo não pode ser vazio.",
           },
           is: /^(Manhã|Tarde|Noite|EAD|EC|F)$/
-
-          // isHorario(value, next) {
-          //   const horariosEstudos = [
-          //     "Manhã",
-          //     "Tarde",
-          //     "Noite",
-          //     "EAD",
-          //     "Estágio Curricular",
-          //     "Formado",
-          //   ];
-
-          //   let horario;
-
-          //   for (let chave in horariosEstudos) {
-          //     if (horariosEstudos[chave] === value) {
-          //       horario = horariosEstudos[chave];
-          //       break;
-          //     }
-          //   }
-
-          //   if (!horario) {
-          //     return next("Horario incorreto!");
-          //   }
-          //   return next();
-          // },
         },
       },
       // *************************** VERIFICAR ***************************
@@ -347,7 +322,6 @@ module.exports = (sequelize, DataTypes) => {
             msg: "Esse campo não pode ser vazio."
           }
         }
-
       },
       uf: {
         type: DataTypes.STRING(2),
@@ -549,7 +523,6 @@ module.exports = (sequelize, DataTypes) => {
       anoingresso: {
         type: DataTypes.INTEGER(11),
         allowNull: false,
-        defaultValue: 2021,
         // Fazer uma lógica para buscar o ano de ingresso e fazer o calculo
       },
       semestreingresso: {

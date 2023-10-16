@@ -938,7 +938,7 @@ function _createFormSchoolData() {
         case 0:
           return _context8.abrupt("return", new Promise( /*#__PURE__*/function () {
             var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee7(resolve, reject) {
-              var response, htmlContent, schoolData, formSchoolData, anoFormatura, inicio, fim, anosFormaturas, i, _i, option, semestreFormatura, semestresFormaturas, _i2, _option, mesFormatura, mesesFormaturas, _i3, _option2, periodo, periodos, _i4, _option3, horario, _i5, _option4, mostrarOpcoesAutocompleteHorario, dataFormSchool, escolas, cursos, codigoEscola, idCursoFinal, idCurso, codeFinal, mostrarOpcoesAutocompleteEscolas, mostrarOpcoesAutocompleteCursos, filtrarCursos, filtrarIdCurso, periodoFinal, callCourse, valid, alertEnd;
+              var response, htmlContent, schoolData, formSchoolData, anoFormatura, inicio, fim, anosFormaturas, i, _i, option, semestreFormatura, semestresFormaturas, _i2, _option, mesFormatura, mesesFormaturas, _i3, _option2, periodo, periodos, _i4, _option3, horario, _i5, _option4, mostrarOpcoesAutocompleteHorario, dataFormSchool, escolas, cursos, codigoEscola, idCursoFinal, idCurso, codeFinal, mostrarOpcoesAutocompleteEscolas, mostrarOpcoesAutocompleteCursos, filtrarCursos, filtrarIdCurso, periodoFinal, anoIngresso, callCourse, valid, alertEnd;
               return _regeneratorRuntime().wrap(function _callee7$(_context7) {
                 while (1) switch (_context7.prev = _context7.next) {
                   case 0:
@@ -1090,6 +1090,15 @@ function _createFormSchoolData() {
                       for (var _i11 = 0; _i11 < idCurso.length; _i11++) {
                         if (dataFormSchool.curso_id === idCurso[_i11].idcurso) {
                           return idCurso[_i11].duracao;
+                        }
+                      }
+                    };
+                    anoIngresso = function anoIngresso(formatura) {
+                      for (var _i12 = 0; _i12 < idCurso.length; _i12++) {
+                        if (dataFormSchool.curso_id === idCurso[_i12].idcurso) {
+                          var tempoCurso = idCurso[_i12].duracao / 2;
+                          tempoCurso = Math.ceil(tempoCurso);
+                          return dataFormSchool.anoingresso = formatura - tempoCurso;
                         }
                       }
                     };
@@ -1251,6 +1260,7 @@ function _createFormSchoolData() {
                                 if (validate) {
                                   document.getElementById("msg-curso").innerHTML = "";
                                   dataFormSchool.curso_id = idCursoFinal;
+                                  anoIngresso();
                                 } else {
                                   document.getElementById("msg-curso").innerHTML = "<p>Curso inválido!</p>";
                                   dataFormSchool.curso_id = false;
@@ -1356,6 +1366,7 @@ function _createFormSchoolData() {
                                   if (!valid) {
                                     dataFormSchool.periodo = periodoFinal();
                                   }
+                                  anoIngresso(dataFormSchool.previsao_ano);
                                   today = new Date();
                                   dataFormSchool.ano = today.getFullYear();
                                   alertEnd.style.display = "block";
@@ -1378,7 +1389,7 @@ function _createFormSchoolData() {
                       console.log("Erro ao enviar os dados para o banco!");
                       reject(error);
                     }
-                  case 43:
+                  case 44:
                   case "end":
                     return _context7.stop();
                 }
@@ -2537,7 +2548,8 @@ function _takeData() {
           return _objectSpread(_objectSpread(_objectSpread(_objectSpread({}, termsConditions), formData), formAddress), formSchoolData);
         case 17:
           allData = _context.sent;
-          return _context.abrupt("return", allData);
+          console.log(allData);
+          // return allData
         case 19:
         case "end":
           return _context.stop();

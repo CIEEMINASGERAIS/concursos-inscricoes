@@ -3,6 +3,9 @@
 const express = require("express");
 // Importar a biblioteca para permitir conexão externa
 const cors = require("cors");
+
+const router = express.Router()
+
 // Chamar a função express
 const app = express();
 
@@ -25,6 +28,12 @@ const Curso = require("./src/db/models/curso")(sequelize, DataTypes);
 const Cep = require("./src/db/models/cep")(sequelize, DataTypes);
 
 const nodemailer = require("nodemailer")
+
+const getEndereco = require('./src/controllers/getEndereco')
+
+const getEmail = require('./src/controllers/getEmail')
+
+const getCadastraCurso = require('./src/controllers/getCadastraCurso')
 
 app.use(express.urlencoded({ extended: true }));
 
@@ -234,34 +243,14 @@ app.get("/cadastrarCurso", async (req, res) => {
   }
 });
 
-app.get("/cadastrarEndereco", async (req, res) => {
-  const termoPesquisa = req.query.termo;
+// Rota para validar email
+app.get("/verificarEmail", getEmail.verificarEmail);
 
-  try {
-    const data = await Cep.findAll({
-      attributes: ["cep", "logradouro", "bairro", "cidade", "uf", "regiao"],
-      where: {
-        cep: {
-          [Op.eq]: `${termoPesquisa}`,
-        },
-      },
-    });
-    const opcoes = data.map((endereco) => {
-      return {
-        cep: endereco.cep,
-        logradouro: endereco.logradouro,
-        bairro: endereco.bairro,
-        cidade: endereco.cidade,
-        uf: endereco.uf,
-        regiao: endereco.regiao,
-      };
-    });
-    res.json(opcoes);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: "Erro ao buscar cep." });
-  }
-});
+// Rota para cadastrar endereco
+app.get("/cadastrarEndereco", getEndereco.getCadastrarEndereco);
+
+// Rota para cadastrar curso
+app.get("/cadastrarCurso", getCadastraCurso.cadastrarCurso)
 
 app.get("/", async (req, res) => {
   res.render("index");

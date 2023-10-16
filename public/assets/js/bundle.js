@@ -152,7 +152,7 @@ function _initAddress() {
                                 e.target.value = e.target.value.replace(/(-\d{3})\d+?$/, '$1');
                                 _context.prev = 4;
                                 _context.next = 7;
-                                return fetch("http://appcadastro.cieemg.org.br/cadastrarEndereco?termo=".concat(cepSemPonto));
+                                return fetch("http://localhost:8080/cadastrarEndereco?termo=".concat(cepSemPonto));
                               case 7:
                                 _response = _context.sent;
                                 if (!_response.ok) {

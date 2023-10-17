@@ -409,7 +409,7 @@ const cpfInBd = async (cpf) => {
 
   try {
     const response = await fetch(
-      `http://localhost:8080/verificarEstudante?termo=${cpf}`
+      `http://appcadastro.cieemg.org.br/verificarEstudante?termo=${cpf}`
     );
     if (response.ok) {
       const opcoes = await response.json();
@@ -825,7 +825,7 @@ const emailBd = async (emailBd) => {
 
   try {
     const response = await fetch(
-      `http://localhost:8080/verificarEmail?termo=${emailBd}`
+      `http://appcadastro.cieemg.org.br/verificarEmail?termo=${emailBd}`
     );
     if (response.ok) {
       const opcoes = await response.json();

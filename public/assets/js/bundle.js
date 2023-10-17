@@ -2016,7 +2016,7 @@ var cpfInBd = /*#__PURE__*/function () {
         case 0:
           _context5.prev = 0;
           _context5.next = 3;
-          return fetch("http://appcadastro.cieemg.org.br/verificarEstudante?termo=".concat(cpf));
+          return fetch("http://localhost:8080/verificarEstudante?termo=".concat(cpf));
         case 3:
           response = _context5.sent;
           if (!response.ok) {

@@ -1,6 +1,7 @@
 // Incluir as bibliotecas
 // Gerenciar as requisições, rotas e URLs, entre outras funcionalidades
 const express = require("express");
+
 // Importar a biblioteca para permitir conexão externa
 const cors = require("cors");
 
@@ -18,6 +19,7 @@ const DataTypes = require("sequelize/lib/data-types");
 // Acessar o models estudante
 const Estudante = require("./src/db/models/estudante")(sequelize, DataTypes);
 
+// Acessar os controllers
 const getEndereco = require('./src/controllers/getEndereco')
 
 const getEmail = require('./src/controllers/getEmail')
@@ -27,6 +29,15 @@ const getCadastraCurso = require('./src/controllers/getCadastraCurso')
 const getVerificarEstudante = require('./src/controllers/getVerificarEstudante')
 
 const getCadastrarEscola = require('./src/controllers/getCadastrarEscola')
+
+// Acessar os renders das páginas
+const index = require('./src/controllers/renderIndex')
+
+const termsConditions = require('./src/controllers/renderTermsConditions')
+
+const dataBasic = require('./src/controllers/renderDataBasic')
+
+const address = require('./src/controllers/renderAddress')
 
 const enviandoEmail = require('./src/controllers/enviarEmail')
 
@@ -56,39 +67,6 @@ app.use((req, res, next) => {
 });
 
 // Rota para renderizar o EJS em HTML
-app.get("/terms-and-conditions", (req, res) => {
-  ejs.renderFile("./src/views/terms-and-conditions.ejs", (err, html) => {
-    if (err) {
-      console.error(err);
-      return res.status(500).send("Erro ao renderizar o arquivo EJS.");
-    }
-    res.send(html);
-  });
-});
-
-// Rota para renderizar o EJS em HTML
-app.get("/formDataBasic", (req, res) => {
-  ejs.renderFile("./src/views/formDataBasic.ejs", (err, html) => {
-    if (err) {
-      console.error(err);
-      return res.status(500).send("Erro ao renderizar o arquivo EJS.");
-    }
-    res.send(html);
-  });
-});
-
-// Rota para renderizar o EJS em HTML
-app.get("/address", (req, res) => {
-  ejs.renderFile("./src/views/address.ejs", (err, html) => {
-    if (err) {
-      console.error(err);
-      return res.status(500).send("Erro ao renderizar o arquivo EJS.");
-    }
-    res.send(html);
-  });
-});
-
-// Rota para renderizar o EJS em HTML
 app.get("/schoolData", (req, res) => {
   ejs.renderFile("./src/views/schoolData.ejs", (err, html) => {
     if (err) {
@@ -99,6 +77,7 @@ app.get("/schoolData", (req, res) => {
   });
 });
 
+// Rota para buscar escolas
 app.get("/cadastrarEscola", getCadastrarEscola.cadastrarEscola)
 
 // Rota para verificar cpf do estudante
@@ -113,10 +92,21 @@ app.get("/cadastrarEndereco", getEndereco.getCadastrarEndereco);
 // Rota para cadastrar curso
 app.get("/cadastrarCurso", getCadastraCurso.cadastrarCurso)
 
-app.get("/", async (req, res) => {
-  res.render("index");
-});
+// Função responsável por renderizar a primeira página
+app.get("/", index.renderIndex)
 
+// Função responsável por renderizar a segunda página
+app.get("/terms-and-conditions", termsConditions.renderTermsConditions)
+
+// Função responsável por renderizar a terceira página
+app.get("/formDataBasic", dataBasic.renderDataBasic)
+
+// Função responsável por renderizar a quarta página
+app.get("/address", address.renderAddress)
+
+
+
+// Função responsável por enviar as informações para o banco de dados
 app.post("/cadastrar", async (req, res) => {
   await Estudante.create(req.body)
     .then(() => {

@@ -825,7 +825,7 @@ const emailBd = async (emailBd) => {
 
   try {
     const response = await fetch(
-      `http://appcadastro.cieemg.org.br/verificarEmail?termo=${emailBd}`
+      `http://localhost:8080/verificarEmail?termo=${emailBd}`
     );
     if (response.ok) {
       const opcoes = await response.json();

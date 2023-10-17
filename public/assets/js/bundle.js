@@ -2301,7 +2301,7 @@ var emailBd = /*#__PURE__*/function () {
         case 0:
           _context6.prev = 0;
           _context6.next = 3;
-          return fetch("http://appcadastro.cieemg.org.br/verificarEmail?termo=".concat(_emailBd));
+          return fetch("http://localhost:8080/verificarEmail?termo=".concat(_emailBd));
         case 3:
           response = _context6.sent;
           if (!response.ok) {

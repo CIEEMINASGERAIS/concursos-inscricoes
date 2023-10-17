@@ -152,7 +152,7 @@ function _initAddress() {
                                 e.target.value = e.target.value.replace(/(-\d{3})\d+?$/, '$1');
                                 _context.prev = 4;
                                 _context.next = 7;
-                                return fetch("http://localhost:8080/cadastrarEndereco?termo=".concat(cepSemPonto));
+                                return fetch("http://appcadastro.cieemg.org.br/cadastrarEndereco?termo=".concat(cepSemPonto));
                               case 7:
                                 _response = _context.sent;
                                 if (!_response.ok) {
@@ -1143,7 +1143,7 @@ function _createFormSchoolData() {
                       return function callCourse() {
                         return _ref2.apply(this, arguments);
                       };
-                    }(); // let 
+                    }();
                     $(document).ready( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4() {
                       var input, validate, opcoes;
                       return _regeneratorRuntime().wrap(function _callee4$(_context4) {
@@ -2548,8 +2548,7 @@ function _takeData() {
           return _objectSpread(_objectSpread(_objectSpread(_objectSpread({}, termsConditions), formData), formAddress), formSchoolData);
         case 17:
           allData = _context.sent;
-          console.log(allData);
-          // return allData
+          return _context.abrupt("return", allData);
         case 19:
         case "end":
           return _context.stop();

@@ -1,3 +1,11 @@
+const sequelize = require("../db/models");
+
+const DataTypes = require("sequelize/lib/data-types");
+
+const { Op } = require("sequelize");
+
+const Cep = require("../db/models/cep")(sequelize, DataTypes);
+
 async function getCadastrarEndereco(req, res) {
   const termoPesquisa = req.query.termo;
 

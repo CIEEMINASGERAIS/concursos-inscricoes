@@ -4,8 +4,6 @@ const express = require("express");
 // Importar a biblioteca para permitir conexão externa
 const cors = require("cors");
 
-const router = express.Router()
-
 // Chamar a função express
 const app = express();
 
@@ -16,24 +14,21 @@ const path = require("path");
 const sequelize = require("./src/db/models");
 
 const DataTypes = require("sequelize/lib/data-types");
-const { Op } = require("sequelize");
 
 // Acessar o models estudante
 const Estudante = require("./src/db/models/estudante")(sequelize, DataTypes);
-
-const Escola = require("./src/db/models/escola")(sequelize, DataTypes);
-
-const Curso = require("./src/db/models/curso")(sequelize, DataTypes);
-
-const Cep = require("./src/db/models/cep")(sequelize, DataTypes);
-
-const nodemailer = require("nodemailer")
 
 const getEndereco = require('./src/controllers/getEndereco')
 
 const getEmail = require('./src/controllers/getEmail')
 
 const getCadastraCurso = require('./src/controllers/getCadastraCurso')
+
+const getVerificarEstudante = require('./src/controllers/getVerificarEstudante')
+
+const getCadastrarEscola = require('./src/controllers/getCadastrarEscola')
+
+const enviandoEmail = require('./src/controllers/enviarEmail')
 
 app.use(express.urlencoded({ extended: true }));
 
@@ -59,38 +54,6 @@ app.use((req, res, next) => {
   // Quando não houver o erro deve continuar o processamento
   next();
 });
-
-// const tranposter = nodemailer.createTransport({
-//   host: '192.168.0.11',
-//   port: 25,
-//   secure: false,
-//   auth: {
-//     user: 'nao_responda@cieeminas.org.br',
-//     pass: 'documentos#123',
-//   },
-//   tls: {
-//     // do not fail on invalid certs
-//     rejectUnauthorized: false,
-//   },
-// })
-
-// async function emailASerEnviado(to) {
-
-//   const info = await tranposter.sendMail({
-//     from: 'noreply@cieeminas.org',
-//     to: `${to}`,
-//     subject: 'Email teste',
-//     text: 'Email enviado com sucesso!',
-//   })
-
-//   console.log('Message sent: %s', info.messageId)
-// }
-
-// Testar conexão com o banco de dados
-// const db = require("./db/models")
-
-// Incluir as CONTROLLERS
-// const estudante = require('./controllers/estudante')
 
 // Rota para renderizar o EJS em HTML
 app.get("/terms-and-conditions", (req, res) => {
@@ -136,112 +99,10 @@ app.get("/schoolData", (req, res) => {
   });
 });
 
-// Rotar para obter dados do banco (GET)
-app.get("/cadastrarEscola", async (req, res) => {
-  const termoPesquisa = req.query.termo;
+app.get("/cadastrarEscola", getCadastrarEscola.cadastrarEscola)
 
-  try {
-    const data = await Escola.findAll({
-      attributes: ["razaosocial", "id"],
-      where: {
-        razaosocial: {
-          [Op.like]: `%${termoPesquisa}%`,
-        },
-      },
-      limit: 25,
-    });
-    const opcoes = data.map((escola) => {
-      return {
-        razaosocial: escola.razaosocial,
-        id: escola.id,
-      };
-    });
-
-    res.json(opcoes);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: "Erro ao buscar escola." });
-  }
-});
-
-app.get("/verificarEstudante", async (req, res) => {
-  const termoPesquisa = req.query.termo;
-
-  try {
-    const data = await Estudante.findAll({
-      attributes: ["cpf"],
-      where: {
-        cpf: {
-          [Op.eq]: `${termoPesquisa}`,
-        },
-      },
-      limit: 1,
-    });
-    const opcoes = data.map((estudante) => {
-      return {
-        cpf: estudante.cpf,
-      };
-    });
-    res.json(opcoes);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: "Erro ao buscar cpf do estudante." });
-  }
-});
-
-app.get("/verificarEmail", async (req, res) => {
-  const termoPesquisa = req.query.termo;
-
-  try {
-    const data = await Estudante.findAll({
-      attributes: ["email"],
-      where: {
-        email: {
-          [Op.eq]: `${termoPesquisa}`,
-        },
-      },
-      limit: 1,
-    });
-    const opcoes = data.map((estudante) => {
-      return {
-        email: estudante.email,
-      };
-    });
-    res.json(opcoes);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: "Erro ao buscar email do estudante." });
-  }
-});
-
-// Rotar para obter dados do banco (GET)
-app.get("/cadastrarCurso", async (req, res) => {
-  const termoPesquisa = req.query.termo;
-
-  try {
-    const data = await Curso.findAll({
-      attributes: ["descricao", "idescola", "idcurso", "duracao"],
-      where: {
-        idescola: {
-          [Op.eq]: `${termoPesquisa}`,
-        },
-      },
-      limit: 100,
-    });
-    const opcoes = data.map((curso) => {
-      return {
-        descricao: curso.descricao,
-        idescola: curso.idescola,
-        idcurso: curso.idcurso,
-        duracao: curso.duracao
-      };
-    });
-    res.json(opcoes);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: "Erro ao buscar curso." });
-  }
-});
+// Rota para verificar cpf do estudante
+app.get("/verificarEstudante", getVerificarEstudante.verificarEstudante)
 
 // Rota para validar email
 app.get("/verificarEmail", getEmail.verificarEmail);
@@ -259,7 +120,7 @@ app.get("/", async (req, res) => {
 app.post("/cadastrar", async (req, res) => {
   await Estudante.create(req.body)
     .then(() => {
-      // emailASerEnviado(req.body.email).catch(console.error)
+      // enviandoEmail.emailASerEnviado(req.body.email).catch(console.error)
       return res.json({
         mensagem: "Usuário cadastrado com sucesso!",
       });

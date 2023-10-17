@@ -248,8 +248,6 @@ async function createFormSchoolData() {
       }
     };
 
-    // let 
-
     $(document).ready(async function () {
       $(".escola-search select").selectpicker();
 

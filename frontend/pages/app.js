@@ -53,8 +53,7 @@ async function takeData() {
 
   const formSchoolData = await createFormSchoolData()
   const allData = await { ...termsConditions, ...formData, ...formAddress, ...formSchoolData }
-  console.log(allData)
-  // return allData
+  return allData
 }
 
 async function sendData() {

@@ -511,7 +511,8 @@ var _require = __webpack_require__(/*! ../utils/util.js */ "./frontend/utils/uti
   isRg = _require.isRg,
   isComplemento = _require.isComplemento,
   age = _require.age,
-  cpfInBd = _require.cpfInBd;
+  cpfInBd = _require.cpfInBd,
+  campoInvalido = _require.campoInvalido;
 
 // Função responsável por iniciar as funções e gerar o conteúdo da página
 var initDataBasic = /*#__PURE__*/function () {
@@ -521,7 +522,7 @@ var initDataBasic = /*#__PURE__*/function () {
         case 0:
           return _context3.abrupt("return", new Promise( /*#__PURE__*/function () {
             var _ref2 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2(resolve, reject) {
-              var response, htmlContent, dataBasic, formData, ufNaturalidade, ufs, i, option, listDeficiencias, formDataBasic, inputNome, validate, inputCpf, _validate, rg, _validate2, orgaoExpedidor, _validate3, inputNomeMae, _validate4, inputNomePai, _validate5, ctps, _validate6, naturalidade, _validate7, nacionalidade, _validate8, estadoCivil, _validate9, dataNascimento, _validate10, sexo, _validate11, _validate12, deficiencias, descDiv, _validate13;
+              var response, htmlContent, dataBasic, formData, ufNaturalidade, ufs, i, option, listDeficiencias, formDataBasic, nameInput, inputNome, validate, inputCpf, _validate, rg, _validate2, orgaoExpedidor, _validate3, inputNomeMae, _validate4, inputNomePai, _validate5, ctps, _validate6, naturalidade, _validate7, nacionalidade, _validate8, estadoCivil, _validate9, dataNascimento, _validate10, sexo, _validate11, _validate12, deficiencias, descDiv, _validate13;
               return _regeneratorRuntime().wrap(function _callee2$(_context2) {
                 while (1) switch (_context2.prev = _context2.next) {
                   case 0:
@@ -559,6 +560,10 @@ var initDataBasic = /*#__PURE__*/function () {
                           e.preventDefault();
                           // Enviar para o HTML a mensagem de erro
                           document.getElementById('msg-name').innerHTML = "<p>Favor preencher o Nome completo!</p>";
+                          nameInput = 'Nome Completo';
+                          // document.getElementById('msg-fracasso').innerHTML =
+                          //   "<p>Formulário incompleto, favor preencher o Nome completo!</p>"
+                          // removerMensagem('msg-fracasso')
                           return formDataBasic.nome = false;
                         }
                       });
@@ -721,7 +726,7 @@ var initDataBasic = /*#__PURE__*/function () {
                         }
                       });
                     }
-                    estadoCivil = document.getElementById('estado-civil');
+                    estadoCivil = document.getElementById('estadoCivil');
                     if (estadoCivil) {
                       estadoCivil.addEventListener('input', function (e) {
                         _validate9 = isEstadoCivil(e.target.value);
@@ -810,7 +815,7 @@ var initDataBasic = /*#__PURE__*/function () {
                             descLabel.setAttribute('for', 'descricao');
                             descDiv.appendChild(descInput);
                             descInput.setAttribute('id', 'descricao');
-                            descInput.setAttribute('class', 'descricoes');
+                            descInput.setAttribute('class', 'descricoes input-form-validadate');
                             descInput.setAttribute('name', 'descricaoDeficiencia');
                             descInput.setAttribute('maxlength', '255');
                           }
@@ -846,9 +851,12 @@ var initDataBasic = /*#__PURE__*/function () {
                         ) {
                           changeMains('.screen-address');
                           changeSubMainTitle('Formulário de Endereço');
+                          campoInvalido('', '');
                           resolve(formDataBasic);
                         } else {
-                          document.getElementById('msg-fracasso').innerHTML = "<p>Formulário incompleto!</p>";
+                          campoInvalido('nome', 'msg-fracasso');
+                          // document.getElementById('msg-fracasso').innerHTML =
+                          //   "<p>Formulário incompleto!</p>"
                           removerMensagem('msg-fracasso');
                         }
                       });
@@ -1703,21 +1711,74 @@ var changeMains = function changeMains(nameClass) {
 // Função com a lista de erros
 var listInputValidate = function listInputValidate() {
   var listInputValidate = {
-    name: "Necessário preencher o campo nome!",
+    nome: "Necessário preencher o campo Nome!",
     cpf: "Necessário preencher o campo CPF!",
-    "nome-mae": "Necessário preencher o campo nome da mãe!",
-    "nome-pai": "Necessário preencher o campo nome da pai!",
-    "carteira-trabalho": "Necessário preencher o campo carteira de trabalho!",
-    naturalidade: "Necessário preencher o campo naturalidade!",
-    nacionalidade: "Necessário preencher o campo nacionalidade!",
-    "estado-civil": "Necessário preencher o campo estado civil!",
-    "data-nascimento": "Necessário preencher o campo da data de nascimento!",
+    rg: "Necessário preencher o campo RG!",
+    orgaoExpedidor: "Necessário preencher o campo Orgão Expedidor!",
+    nomeMae: "Necessário preencher o campo Nome da Mãe!",
+    nomePai: "Necessário preencher o campo Nome do Pai!",
+    carteiraTrabalho: "Necessário preencher o campo Carteira de Trabalho!",
+    naturalidade: "Necessário preencher o campo Naturalidade!",
+    nacionalidade: "Necessário preencher o campo Nacionalidade!",
+    estadoCivil: "Necessário preencher o campo Estado Civil!",
+    dataNascimento: "Necessário preencher o campo da Data de Nascimento!",
     sexo: "Necessário preencher o campo sexo!",
-    "uf-naturalidade": "Necessário preencher o campo uf naturalidade!",
-    deficiencias: 'Necessário preencher o campo "Se possui alguma deficiência?'
+    ufNaturalidade: "Necessário preencher o campo UF da Naturalidade!",
+    deficiencias: "Necessário preencher o campo Possui alguma deficiência?",
+    descricao: "Necessário preencher o campo Descrição?"
   };
   return listInputValidate;
 };
+var campoInvalido = function campoInvalido(campo, id) {
+  // console.log(listInputValidate[campo])
+  var mensagem = listInputValidate();
+  console.log(mensagem[campo]);
+  if (mensagem[campo]) {
+    return document.getElementById(id).innerHTML = "<p>".concat(mensagem[campo], "</p>");
+  } else {
+    return document.getElementById(id).innerHTML = "<p>Formul\xE1rio incompleto!</p>";
+  }
+};
+// for (let chave in listInputValidate) {
+//   console.log(chave)
+//   if (chave === campo) {
+//     console.log(listInputValidate[chave])
+
+//     // console.log(listInputValidate.nome)
+
+//   } else {
+
+//   }
+
+// const listaDeInput = document.querySelectorAll(classe)
+
+// for (let chave in objeto) {
+//   let contador = 0
+//   if (objeto[chave] === false) {
+//     console.log(objeto)
+
+//   }
+// }
+
+// for (let contador = 0; contador < listaDeInput.length; contador++) {
+//   const inputField = listaDeInput[contador]
+
+//   const nameInput = inputField.classList[0]
+//   console.log(nameInput)
+
+//   const valueInputValidate = document.getElementById(nameInput).value
+
+//   console.log(valueInputValidate)
+
+//   if (!valueInputValidate) {
+//     console.log(document.getElementById(nome))
+//     document.getElementById(nome).innerHTML =
+//       `<p>Formulário incompleto, favor preencher o campo ${inputField.text}!</p>`
+//     removerMensagem(`${nome}`)
+//   }
+// }
+// }
+
 var isNome = function isNome(nome) {
   nome = nome.trim();
   var nomeSemEspaco = nome.replace(" ", "");
@@ -2431,7 +2492,8 @@ module.exports = {
   emailBd: emailBd,
   cpfInBd: cpfInBd,
   conferirFormBasic: conferirFormBasic,
-  conferirFormAddress: conferirFormAddress
+  conferirFormAddress: conferirFormAddress,
+  campoInvalido: campoInvalido
 };
 
 /***/ })

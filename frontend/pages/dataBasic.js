@@ -15,7 +15,8 @@ const {
   isRg,
   isComplemento,
   age,
-  cpfInBd
+  cpfInBd,
+  campoInvalido
 } = require('../utils/util.js')
 
 // Função responsável por iniciar as funções e gerar o conteúdo da página
@@ -84,6 +85,8 @@ const initDataBasic = async () => {
 
     const formDataBasic = {}
 
+    let nameInput
+
     const inputNome = document.querySelector('.name')
 
     if (inputNome) {
@@ -97,13 +100,17 @@ const initDataBasic = async () => {
 
         if (validate) {
           document.getElementById('msg-name').innerHTML = ''
-          return (formDataBasic.nome = e.target.value)
+          return formDataBasic.nome = e.target.value
         } else {
           e.preventDefault()
           // Enviar para o HTML a mensagem de erro
           document.getElementById('msg-name').innerHTML =
             "<p>Favor preencher o Nome completo!</p>"
-          return (formDataBasic.nome = false)
+          nameInput = 'Nome Completo'
+          // document.getElementById('msg-fracasso').innerHTML =
+          //   "<p>Formulário incompleto, favor preencher o Nome completo!</p>"
+          // removerMensagem('msg-fracasso')
+          return formDataBasic.nome = false
         }
       })
 
@@ -319,7 +326,7 @@ const initDataBasic = async () => {
       })
     }
 
-    const estadoCivil = document.getElementById('estado-civil')
+    const estadoCivil = document.getElementById('estadoCivil')
 
     if (estadoCivil) {
 
@@ -449,7 +456,7 @@ const initDataBasic = async () => {
             descLabel.setAttribute('for', 'descricao')
             descDiv.appendChild(descInput)
             descInput.setAttribute('id', 'descricao')
-            descInput.setAttribute('class', 'descricoes')
+            descInput.setAttribute('class', 'descricoes input-form-validadate')
             descInput.setAttribute('name', 'descricaoDeficiencia')
             descInput.setAttribute('maxlength', '255')
           }
@@ -494,11 +501,12 @@ const initDataBasic = async () => {
         ) {
           changeMains('.screen-address')
           changeSubMainTitle('Formulário de Endereço')
+          campoInvalido('', '')
           resolve(formDataBasic)
-
         } else {
-          document.getElementById('msg-fracasso').innerHTML =
-            "<p>Formulário incompleto!</p>"
+          campoInvalido('nome', 'msg-fracasso')
+          // document.getElementById('msg-fracasso').innerHTML =
+          //   "<p>Formulário incompleto!</p>"
           removerMensagem('msg-fracasso')
         }
       })

@@ -118,22 +118,82 @@ const changeMains = (nameClass) => {
 // Função com a lista de erros
 const listInputValidate = () => {
   const listInputValidate = {
-    name: "Necessário preencher o campo nome!",
+    nome: "Necessário preencher o campo Nome!",
     cpf: "Necessário preencher o campo CPF!",
-    "nome-mae": "Necessário preencher o campo nome da mãe!",
-    "nome-pai": "Necessário preencher o campo nome da pai!",
-    "carteira-trabalho": "Necessário preencher o campo carteira de trabalho!",
-    naturalidade: "Necessário preencher o campo naturalidade!",
-    nacionalidade: "Necessário preencher o campo nacionalidade!",
-    "estado-civil": "Necessário preencher o campo estado civil!",
-    "data-nascimento": "Necessário preencher o campo da data de nascimento!",
+    rg: "Necessário preencher o campo RG!",
+    orgaoExpedidor: "Necessário preencher o campo Orgão Expedidor!",
+    nomeMae: "Necessário preencher o campo Nome da Mãe!",
+    nomePai: "Necessário preencher o campo Nome do Pai!",
+    carteiraTrabalho: "Necessário preencher o campo Carteira de Trabalho!",
+    naturalidade: "Necessário preencher o campo Naturalidade!",
+    nacionalidade: "Necessário preencher o campo Nacionalidade!",
+    estadoCivil: "Necessário preencher o campo Estado Civil!",
+    dataNascimento: "Necessário preencher o campo da Data de Nascimento!",
     sexo: "Necessário preencher o campo sexo!",
-    "uf-naturalidade": "Necessário preencher o campo uf naturalidade!",
-    deficiencias: 'Necessário preencher o campo "Se possui alguma deficiência?',
+    ufNaturalidade: "Necessário preencher o campo UF da Naturalidade!",
+    deficiencias: "Necessário preencher o campo Possui alguma deficiência?",
+    descricao: "Necessário preencher o campo Descrição?"
   };
 
   return listInputValidate;
 };
+
+const campoInvalido = (campo, id) => {
+  // console.log(listInputValidate[campo])
+  let mensagem = listInputValidate()
+  console.log(mensagem[campo])
+
+  if (mensagem[campo]) {
+    return document.getElementById(id).innerHTML =
+      `<p>${mensagem[campo]}</p>`
+  } else {
+    return document.getElementById(id).innerHTML =
+      `<p>Formulário incompleto!</p>`
+  }
+}
+// for (let chave in listInputValidate) {
+//   console.log(chave)
+//   if (chave === campo) {
+//     console.log(listInputValidate[chave])
+
+//     // console.log(listInputValidate.nome)
+
+
+
+//   } else {
+
+//   }
+
+// const listaDeInput = document.querySelectorAll(classe)
+
+// for (let chave in objeto) {
+//   let contador = 0
+//   if (objeto[chave] === false) {
+//     console.log(objeto)
+
+//   }
+// }
+
+// for (let contador = 0; contador < listaDeInput.length; contador++) {
+//   const inputField = listaDeInput[contador]
+
+//   const nameInput = inputField.classList[0]
+//   console.log(nameInput)
+
+//   const valueInputValidate = document.getElementById(nameInput).value
+
+//   console.log(valueInputValidate)
+
+//   if (!valueInputValidate) {
+//     console.log(document.getElementById(nome))
+//     document.getElementById(nome).innerHTML =
+//       `<p>Formulário incompleto, favor preencher o campo ${inputField.text}!</p>`
+//     removerMensagem(`${nome}`)
+//   }
+// }
+// }
+
+
 
 const isNome = (nome) => {
   nome = nome.trim();
@@ -946,5 +1006,6 @@ module.exports = {
   emailBd,
   cpfInBd,
   conferirFormBasic,
-  conferirFormAddress
+  conferirFormAddress,
+  campoInvalido
 };

@@ -31,7 +31,7 @@ module.exports = (sequelize, DataTypes) => {
             args: [3, 255],
             msg: "Esse campo deve ter 3 e 255 caracteres.",
           },
-          is: /^[a-zA-Z \b]+$/,
+          is: /^[^0-9]*$/,
         },
       },
       cpf: {
@@ -185,7 +185,7 @@ module.exports = (sequelize, DataTypes) => {
           notEmpty: {
             msg: "Esse campo não pode ser vazio.",
           },
-          notNull: { msg: "O campo nome precisa ser preenchido" },
+          notNull: { msg: "O campo cidade precisa ser preenchido" },
         },
       },
       bairro: {
@@ -195,7 +195,7 @@ module.exports = (sequelize, DataTypes) => {
           notEmpty: {
             msg: "Esse campo não pode ser vazio.",
           },
-          notNull: { msg: "O campo nome precisa ser preenchido" },
+          notNull: { msg: "O campo bairro precisa ser preenchido" },
         },
       },
       senha: {

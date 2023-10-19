@@ -555,12 +555,14 @@ var initDataBasic = /*#__PURE__*/function () {
                         validate = isNome(e.target.value);
                         if (validate) {
                           document.getElementById('msg-name').innerHTML = '';
+                          // campoInvalido("incompleto", 'msg-fracasso')
                           return formDataBasic.nome = e.target.value;
                         } else {
                           e.preventDefault();
                           // Enviar para o HTML a mensagem de erro
                           document.getElementById('msg-name').innerHTML = "<p>Favor preencher o Nome completo!</p>";
-                          nameInput = 'Nome Completo';
+                          // nameInput = 'Nome Completo'          
+                          // campoInvalido('nome', 'msg-fracasso')
                           // document.getElementById('msg-fracasso').innerHTML =
                           //   "<p>Formulário incompleto, favor preencher o Nome completo!</p>"
                           // removerMensagem('msg-fracasso')
@@ -851,12 +853,9 @@ var initDataBasic = /*#__PURE__*/function () {
                         ) {
                           changeMains('.screen-address');
                           changeSubMainTitle('Formulário de Endereço');
-                          campoInvalido('', '');
                           resolve(formDataBasic);
                         } else {
-                          campoInvalido('nome', 'msg-fracasso');
-                          // document.getElementById('msg-fracasso').innerHTML =
-                          //   "<p>Formulário incompleto!</p>"
+                          document.getElementById('msg-fracasso').innerHTML = "<p>Formulário incompleto!</p>";
                           removerMensagem('msg-fracasso');
                         }
                       });
@@ -1725,7 +1724,8 @@ var listInputValidate = function listInputValidate() {
     sexo: "Necessário preencher o campo sexo!",
     ufNaturalidade: "Necessário preencher o campo UF da Naturalidade!",
     deficiencias: "Necessário preencher o campo Possui alguma deficiência?",
-    descricao: "Necessário preencher o campo Descrição?"
+    descricao: "Necessário preencher o campo Descrição?",
+    incompleto: "Formulário Incompleto"
   };
   return listInputValidate;
 };

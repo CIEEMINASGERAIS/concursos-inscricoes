@@ -100,13 +100,15 @@ const initDataBasic = async () => {
 
         if (validate) {
           document.getElementById('msg-name').innerHTML = ''
+          // campoInvalido("incompleto", 'msg-fracasso')
           return formDataBasic.nome = e.target.value
         } else {
           e.preventDefault()
           // Enviar para o HTML a mensagem de erro
           document.getElementById('msg-name').innerHTML =
             "<p>Favor preencher o Nome completo!</p>"
-          nameInput = 'Nome Completo'
+          // nameInput = 'Nome Completo'          
+          // campoInvalido('nome', 'msg-fracasso')
           // document.getElementById('msg-fracasso').innerHTML =
           //   "<p>Formulário incompleto, favor preencher o Nome completo!</p>"
           // removerMensagem('msg-fracasso')
@@ -501,12 +503,10 @@ const initDataBasic = async () => {
         ) {
           changeMains('.screen-address')
           changeSubMainTitle('Formulário de Endereço')
-          campoInvalido('', '')
           resolve(formDataBasic)
         } else {
-          campoInvalido('nome', 'msg-fracasso')
-          // document.getElementById('msg-fracasso').innerHTML =
-          //   "<p>Formulário incompleto!</p>"
+          document.getElementById('msg-fracasso').innerHTML =
+            "<p>Formulário incompleto!</p>"
           removerMensagem('msg-fracasso')
         }
       })

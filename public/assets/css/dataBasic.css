@@ -52,8 +52,15 @@
   font-weight: bold;
   margin: 0rem;
   margin-top: 0rem;
-  padding: 0rem 0rem 0rem 0.5rem;
-  border-radius: 0.5rem;
+  padding: 0;
+}
+
+.obrigatorio{
+  display: flex;
+  justify-content: flex-end;
+  font-size: 0.7rem;
+  margin: 0 0.5rem 0 0  ;
+  padding: 0;
 }
 
 .name,

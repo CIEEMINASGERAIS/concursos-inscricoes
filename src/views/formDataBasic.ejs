@@ -4,12 +4,15 @@
       <label for="name">Nome</label>
       <input type="text" name="nome" class="name input-form-validadate" placeholder="Nome" id="name" maxlength="255"
         autocomplete="given-name" />
+        <p class="obrigatorio">Obrigatório</p>
       <span id="msg-name"></span>
+      
     </div>
     <div class="div-cpf">
       <label for="cpf">CPF</label>
       <input type="text" name="cpf" autocomplete="off" maxlength="14" class="cpf input-form-validadate" id="cpf"
         placeholder="CPF" />
+        <p class="obrigatorio">Obrigatório</p>
       <span id="msg-cpf"></span>
     </div>
   </div>
@@ -17,12 +20,14 @@
     <div class="div-rg">
       <label for="rg">RG</label>
       <input type="text" name="rg" class="rg input-form-validadate" placeholder="RG" id="rg" maxlength="15" />
+      <p class="obrigatorio">Obrigatório</p>
       <span id="msg-rg"></span>
     </div>
     <div class="div-orgao-expedidor">
       <label for="orgao-expedidor">Orgão Expedidor</label>
       <input type="text" name="orgaoExpedidor" class="orgao-expedidor input-form-validadate" id="orgao-expedidor"
         placeholder="Orgão Expedidor" maxlength="45" />
+        <p class="obrigatorio">Obrigatório</p>
       <span id="msg-orgao-expedidor"></span>
     </div>
   </div>
@@ -31,6 +36,7 @@
       <label for="nome-mae">Nome da Mãe</label>
       <input type="text" name="nomeDaMae" class="nome-mae input-form-validadate" placeholder="Nome da Mãe" id="nome-mae"
         maxlength="255" />
+        <p class="obrigatorio">Obrigatório</p>
       <span id="msg-nome-mae"></span>
     </div>
     <div class="div-nome-pai">
@@ -50,12 +56,14 @@
       <label for="naturalidade">Naturalidade</label>
       <input type="text" class="naturalidade input-form-validadate" placeholder="Naturalidade" id="naturalidade"
         maxlength="100" />
+      <p class="obrigatorio">Obrigatório</p>
       <span id="msg-naturalidade"></span>
     </div>
     <div class="div-nacionalidade">
       <label for="nacionalidade">Nacionalidade</label>
       <input type="text" class="nacionalidade input-form-validadate" id="nacionalidade" placeholder="Nacionalidade"
         maxlength="100" />
+      <p class="obrigatorio">Obrigatório</p>
       <span id="msg-nacionalidade"></span>
     </div>
   </div>
@@ -70,12 +78,14 @@
         <option value="D" name="divorciado">Divorciado(a)</option>
         <option value="V" name="viuvo">Viúvo(a)</option>
       </select>
+      <p class="obrigatorio">Obrigatório</p>
       <span id="msg-estado-civil"></span>
     </div>
     <div class="div-data-nascimento">
       <label for="data-nascimento">Data de Nascimento</label>
       <input type="date" name="dataDeNascimento" class="data-nascimento input-form-validadate" id="data-nascimento"
         min="1907-01-01" max="3000-12-31" />
+      <p class="obrigatorio">Obrigatório</p>
       <span id="msg-data-nascimento"></span>
     </div>
     <div class="div-sexo">
@@ -85,6 +95,7 @@
         <option value="M" name="masculino">Masculino</option>
         <option value="F" name="feminino">Feminino</option>
       </select>
+      <p class="obrigatorio">Obrigatório</p>
       <span id="msg-sexo"></span>
     </div>
   </div>
@@ -94,6 +105,7 @@
       <select name="ufNaturalidade" class="uf-naturalidade input-form-validadate" id="uf-naturalidade">
         <option disabled selected>Selecione</option>
       </select>
+      <p class="obrigatorio">Obrigatório</p>
       <span id="msg-uf-naturalidade"></span>
     </div>
     <div class="div-deficiencias">
@@ -110,6 +122,7 @@
           Transtorno do Espectro (TEA)
         </option>
       </select>
+      <p class="obrigatorio">Obrigatório</p>
       <span id="msg-deficiencias"></span>
     </div>
   </div>

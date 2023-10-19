@@ -728,7 +728,7 @@ var initDataBasic = /*#__PURE__*/function () {
                         }
                       });
                     }
-                    estadoCivil = document.getElementById('estadoCivil');
+                    estadoCivil = document.getElementById('estado-civil');
                     if (estadoCivil) {
                       estadoCivil.addEventListener('input', function (e) {
                         _validate9 = isEstadoCivil(e.target.value);
@@ -2634,7 +2634,7 @@ function _sendData() {
           data = _context2.sent;
           _context2.prev = 3;
           _context2.next = 6;
-          return fetch('http://appcadastro.cieemg.org.br/cadastrar', {
+          return fetch('http://localhost:8080/cadastrar', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'

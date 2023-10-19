@@ -328,7 +328,7 @@ const initDataBasic = async () => {
       })
     }
 
-    const estadoCivil = document.getElementById('estadoCivil')
+    const estadoCivil = document.getElementById('estado-civil')
 
     if (estadoCivil) {
 

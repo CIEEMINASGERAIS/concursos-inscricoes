@@ -45,7 +45,6 @@ input#cep {
   outline: none;
 }
 
-
 .cep-logradouro,
 .numero-complemento,
 .uf-bairro,
@@ -82,12 +81,15 @@ input#cep {
   margin-left: 2rem;
 }
 
+.obrigatorio{
+  color: #ffffff;
+}
+
 .form-address span p {
   color: rgb(255, 0, 0);
   cursor: default;
   font-weight: bold;
-  margin: 0.2rem 0rem 0rem 0rem;
-  margin-top: 0.2rem;
+  margin:0;
   padding: 0rem 0rem 0rem 0.5rem;
   border-radius: 0.5rem;
   max-width: 100%;

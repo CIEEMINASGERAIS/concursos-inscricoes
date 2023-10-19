@@ -43,6 +43,7 @@
   z-index: 1;
 }
 
+
 .escolas-cursos,
 .ano-semestre-formatura,
 .div-ano-formatura,
@@ -199,6 +200,16 @@
   display: flex;
   align-items: center;
   flex-direction: column;
+}
+.obg{
+  margin-top: -1rem;
+  padding: 0;
+  display: flex;
+  justify-content: flex-end;
+  font-size: 0.7rem;
+  margin: 0 0.5rem 0 0  ;
+  padding: 0;
+  color: #ffffff;
 }
 
 #msg-fracasso-school p {

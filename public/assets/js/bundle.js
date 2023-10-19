@@ -676,6 +676,7 @@ var initDataBasic = /*#__PURE__*/function () {
                           e.preventDefault();
                           // Enviar para o HTML a mensagem de erro
                           document.getElementById('msg-nome-pai').innerHTML = "<p>Favor preencher o nome completo!</p>";
+                          removerMensagem('msg-nome-pai');
                           return formDataBasic.nomepai = false;
                         }
                       });
@@ -692,6 +693,7 @@ var initDataBasic = /*#__PURE__*/function () {
                           e.preventDefault();
                           // Enviar para o HTML a mensagem de erro
                           document.getElementById('msg-carteira-trabalho').innerHTML = "<p>CTPS inválido!</p>";
+                          removerMensagem('msg-carteira-trabalho');
                           return formDataBasic.ctps = false;
                         }
                       });
@@ -2634,7 +2636,7 @@ function _sendData() {
           data = _context2.sent;
           _context2.prev = 3;
           _context2.next = 6;
-          return fetch('http://appcadastro.cieemg.org.br/cadastrar', {
+          return fetch('http://localhost:8080/cadastrar', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'

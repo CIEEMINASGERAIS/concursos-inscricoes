@@ -246,6 +246,7 @@ const initDataBasic = async () => {
           // Enviar para o HTML a mensagem de erro
           document.getElementById('msg-nome-pai').innerHTML =
             "<p>Favor preencher o nome completo!</p>"
+          removerMensagem('msg-nome-pai')
           return (formDataBasic.nomepai = false)
         }
       })
@@ -271,6 +272,7 @@ const initDataBasic = async () => {
           // Enviar para o HTML a mensagem de erro
           document.getElementById('msg-carteira-trabalho').innerHTML =
             "<p>CTPS inválido!</p>"
+          removerMensagem('msg-carteira-trabalho')
           return (formDataBasic.ctps = false)
         }
       })

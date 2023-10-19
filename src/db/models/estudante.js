@@ -299,7 +299,7 @@ module.exports = (sequelize, DataTypes) => {
           notEmpty: {
             msg: "Esse campo não pode ser vazio.",
           },
-          notNull: { msg: "O campo nome precisa ser preenchido" },
+          notNull: { msg: "O campo curso_id precisa ser preenchido" },
           is: /^\d+$/,
         },
       },

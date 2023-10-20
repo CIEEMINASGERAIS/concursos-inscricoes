@@ -280,6 +280,10 @@ input#cep {
   .div-email {
     margin-left: 0rem;
   }
+  
+.div-uf{
+  margin-top: 1rem;
+}
 
   .div-email {
     margin-bottom: 2.5rem;

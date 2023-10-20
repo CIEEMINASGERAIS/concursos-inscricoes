@@ -10,6 +10,8 @@ const {
   isHorario,
 } = require("../utils/util");
 
+const generator = require('generate-password');
+
 async function createFormSchoolData() {
   return new Promise(async (resolve, reject) => {
     const response = await fetch("schoolData");
@@ -141,6 +143,15 @@ async function createFormSchoolData() {
 
       $(horario).selectpicker("refresh");
     }
+
+    const password = generator.generate({
+      length: 6,
+      numbers: true,
+      lowercase: true,
+      uppercase: true,
+      excludeSimilarCharacters: true
+    });
+
 
     const dataFormSchool = {};
 
@@ -448,7 +459,9 @@ async function createFormSchoolData() {
           anoIngresso(dataFormSchool.previsao_ano)
           const today = new Date();
           dataFormSchool.ano = today.getFullYear();
+          dataFormSchool.senha = password
           alertEnd.style.display = "block";
+          console.log(dataFormSchool)
           resolve(dataFormSchool);
         } else {
           document.getElementById("msg-fracasso-school").innerHTML =

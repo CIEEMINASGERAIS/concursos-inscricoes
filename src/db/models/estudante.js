@@ -1,5 +1,21 @@
 "use strict";
-const { Model, UUIDV4 } = require("sequelize");
+const { Model } = require("sequelize");
+const Blowfish = require('blowfish-node');
+const crypto = require('crypto');
+
+
+function generateRandomIv() {
+  return crypto.randomBytes(8)
+}
+
+function encryptPassword(password, iv) {
+  const bf = new Blowfish('blowfish', Blowfish.MODE.ECB, Blowfish.PADDING.NULL); // only key isn't optional
+  bf.setIv(iv); // optional for ECB mode; bytes length should be equal 8
+
+  const encryptedPassword = bf.encode(password)
+  return encryptedPassword
+}
+
 module.exports = (sequelize, DataTypes) => {
   class Estudante extends Model {
     /**
@@ -201,7 +217,17 @@ module.exports = (sequelize, DataTypes) => {
       senha: {
         type: DataTypes.STRING(255),
         allowNull: false,
-        defaultValue: UUIDV4
+        async isUnique(value, next) {
+
+          const iv = generateRandomIv()
+
+          const encryptPassword = encryptPassword(value, iv)
+
+          if (!encryptPassword) {
+            return next("Erro ao fazer a criptografia.")
+          }
+          return next()
+        },
       },
       nomepai: {
         type: DataTypes.STRING(255),

@@ -2,7 +2,7 @@ const nodemailer = require("nodemailer")
 
 const tranposter = nodemailer.createTransport({
     host: '192.168.0.11',
-    port: 587,
+    port: 465,
     secure: true,
     auth: {
         user: 'nao_responda@cieeminas.org.br',

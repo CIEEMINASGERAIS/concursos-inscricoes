@@ -2,8 +2,8 @@ const nodemailer = require("nodemailer")
 
 const tranposter = nodemailer.createTransport({
     host: '192.168.0.11',
-    port: 25,
-    secure: false,
+    port: 587,
+    secure: true,
     auth: {
         user: 'nao_responda@cieeminas.org.br',
         pass: 'documentos#123',
@@ -17,7 +17,7 @@ const tranposter = nodemailer.createTransport({
 async function emailASerEnviado(to, user, pass) {
 
     const info = await tranposter.sendMail({
-        from: 'noreply@cieemg.org',
+        from: 'noreply@cieemg.org.br',
         to: `${to}`,
         subject: 'Senha para acesso do Portal Estudante',
         html: ` 

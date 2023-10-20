@@ -217,13 +217,14 @@ module.exports = (sequelize, DataTypes) => {
       senha: {
         type: DataTypes.STRING(255),
         allowNull: false,
+
         async isUnique(value, next) {
 
           const iv = generateRandomIv()
 
-          const encryptPassword = encryptPassword(value, iv)
+          const encryptedPassword = encryptPassword(value, iv)
 
-          if (!encryptPassword) {
+          if (!encryptedPassword) {
             return next("Erro ao fazer a criptografia.")
           }
           return next()

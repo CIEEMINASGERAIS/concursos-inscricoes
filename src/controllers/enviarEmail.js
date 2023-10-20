@@ -14,7 +14,7 @@ const tranposter = nodemailer.createTransport({
     },
 })
 
-async function emailASerEnviado(to, user) {
+async function emailASerEnviado(to, user, pass) {
 
     const info = await tranposter.sendMail({
         from: 'noreply@cieemg.org',
@@ -25,13 +25,13 @@ async function emailASerEnviado(to, user) {
             <img alt="Logo do CIEEMG" src="https://cieemg.org.br/files/2023-09/logooficialsimplificada2023.png?58d4bae036"
                 id="logo-email" />
             <div id="line1-message"></div>
-            <p class="body">Prezado(a) <b>Wesley Icaro Lima dos Santos</b>,
+            <p class="body">Prezado(a) <b>${user}</b>,
             </p>
             <p class="body">
 
                 Esta é a sua senha, pedimos que altere sua senha no primeiro acesso ao sistema.</p>
 
-            <p class="body">A senha é: <b>CSv0y1</b>.</p>
+            <p class="body">A senha é: <b>${pass}</b>.</p>
             <div id="line2-message"></div>
             <p class="foot">CIEEMG - Centro de Integração Empresa Escola de Minas Gerais</p>
             <p class="foot">Portal CIEE/MG (www.cieemg.org.br)</p>

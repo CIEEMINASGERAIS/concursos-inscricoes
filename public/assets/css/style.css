@@ -121,7 +121,7 @@
 .big-basic-data:focus,
 .big-terms-conditions:focus,
 .big-address:focus,
-.big-school-data:focus{
+.big-school-data:focus {
   outline: none;
 }
 
@@ -210,7 +210,6 @@
 
   .screen-main .sub-main-title {
     position: fixed;
-    /* top: 2.5rem; */
     top: 0;
     right: 0;
     left: 0;
@@ -237,7 +236,6 @@
     display: flex;
     align-items: center;
     background: linear-gradient(90deg, rgba(1, 72, 146, 255) 35%, rgba(201, 46, 109, 255) 100%);
-    /* background: linear-gradient(90deg,rgb(0, 132, 255) 35%, rgb(0, 255, 242) 100%); */
     width: 100%;
     height: 2.5rem;
     outline: solid 1px rgb(84, 84, 84, 0.3);
@@ -272,31 +270,40 @@
     margin-left: 0.5rem;
     width: 4rem;
     padding-left: 0.2rem;
-    /* color: white; */
   }
 
   .main-side-mobile {
     display: block;
   }
 
-  .main-side-mobile ul {
-    margin-top: 1.5rem;
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: 4rem;
+  .main-side-mobile button {
+    margin-bottom: 3rem;
+    background-color: white;
+    cursor: pointer;
+    border: none;
   }
 
-  .main-side-mobile ul li {
-    cursor: pointer;
+  .main-side-mobile img {
+    padding: 1rem;
   }
+
+  .main-side-mobile button:focus {
+    outline: none;
+  }
+
+  .button-basic-data:hover,
+  .button-terms-conditions:hover,
+  .button-address:hover,
+  .button-school-data:hover {
+    background-color: rgba(88, 84, 84, 0.3);
+  }
+
 }
 
 @media screen and (max-width: 300px) {
 
   .h1-sub-title {
     font-size: 1rem;
-
   }
 }
 
@@ -307,11 +314,6 @@
 
   .container img {
     width: 8rem;
-  }
-
-  .main-side ul {
-    margin-top: 2rem;
-    gap: 1rem;
   }
 }
 
@@ -327,10 +329,6 @@
     margin-bottom: -2rem;
   }
 
-  .main-side ul {
-    margin-top: 2rem;
-    gap: 1rem;
-  }
 }
 
 @media screen and (max-height:400px) {
@@ -340,20 +338,6 @@
 
   .container img {
     width: 8rem;
-  }
-
-  .main-side p {
-    position: unset;
-    margin: 1rem 1rem 0rem 0.5rem;
-  }
-
-  .main-side ul li a {
-    font-weight: 600;
-  }
-
-  .main-side p a {
-    font-size: 1rem;
-    font-weight: 600;
   }
 }
 

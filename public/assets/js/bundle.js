@@ -45451,7 +45451,7 @@ var initDataBasic = /*#__PURE__*/function () {
         case 0:
           return _context3.abrupt("return", new Promise( /*#__PURE__*/function () {
             var _ref2 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2(resolve, reject) {
-              var response, htmlContent, dataBasic, formData, ufNaturalidade, ufs, i, option, listDeficiencias, formDataBasic, nameInput, inputNome, validate, inputCpf, _validate, rg, _validate2, orgaoExpedidor, _validate3, inputNomeMae, _validate4, inputNomePai, _validate5, ctps, _validate6, naturalidade, _validate7, nacionalidade, _validate8, estadoCivil, _validate9, dataNascimento, _validate10, sexo, _validate11, _validate12, deficiencias, descDiv, _validate13;
+              var response, htmlContent, dataBasic, formData, ufNaturalidade, ufs, i, option, listDeficiencias, formDataBasic, inputNome, validate, inputCpf, _validate, rg, _validate2, orgaoExpedidor, _validate3, inputNomeMae, _validate4, inputNomePai, _validate5, ctps, _validate6, naturalidade, _validate7, nacionalidade, _validate8, estadoCivil, _validate9, dataNascimento, _validate10, sexo, _validate11, _validate12, deficiencias, descDiv, _validate13;
               return _regeneratorRuntime().wrap(function _callee2$(_context2) {
                 while (1) switch (_context2.prev = _context2.next) {
                   case 0:
@@ -45484,17 +45484,11 @@ var initDataBasic = /*#__PURE__*/function () {
                         validate = isNome(e.target.value);
                         if (validate) {
                           document.getElementById('msg-name').innerHTML = '';
-                          // campoInvalido("incompleto", 'msg-fracasso')
                           return formDataBasic.nome = e.target.value;
                         } else {
                           e.preventDefault();
                           // Enviar para o HTML a mensagem de erro
                           document.getElementById('msg-name').innerHTML = "<p>Favor preencher o Nome completo!</p>";
-                          // nameInput = 'Nome Completo'          
-                          // campoInvalido('nome', 'msg-fracasso')
-                          // document.getElementById('msg-fracasso').innerHTML =
-                          //   "<p>Formulário incompleto, favor preencher o Nome completo!</p>"
-                          // removerMensagem('msg-fracasso')
                           return formDataBasic.nome = false;
                         }
                       });
@@ -45751,6 +45745,10 @@ var initDataBasic = /*#__PURE__*/function () {
                             descInput.setAttribute('class', 'descricoes input-form-validadate');
                             descInput.setAttribute('name', 'descricaoDeficiencia');
                             descInput.setAttribute('maxlength', '255');
+                            var paragrafoObgtr = document.createElement('p');
+                            paragrafoObgtr.setAttribute('class', 'obrigatorio');
+                            paragrafoObgtr.innerText = 'Obrigatório';
+                            descDiv.appendChild(paragrafoObgtr);
                           }
                         } else {
                           descDiv.innerHTML = '';

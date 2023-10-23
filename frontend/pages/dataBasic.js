@@ -85,8 +85,6 @@ const initDataBasic = async () => {
 
     const formDataBasic = {}
 
-    let nameInput
-
     const inputNome = document.querySelector('.name')
 
     if (inputNome) {
@@ -100,18 +98,12 @@ const initDataBasic = async () => {
 
         if (validate) {
           document.getElementById('msg-name').innerHTML = ''
-          // campoInvalido("incompleto", 'msg-fracasso')
           return formDataBasic.nome = e.target.value
         } else {
           e.preventDefault()
           // Enviar para o HTML a mensagem de erro
           document.getElementById('msg-name').innerHTML =
             "<p>Favor preencher o Nome completo!</p>"
-          // nameInput = 'Nome Completo'          
-          // campoInvalido('nome', 'msg-fracasso')
-          // document.getElementById('msg-fracasso').innerHTML =
-          //   "<p>Formulário incompleto, favor preencher o Nome completo!</p>"
-          // removerMensagem('msg-fracasso')
           return formDataBasic.nome = false
         }
       })
@@ -463,6 +455,10 @@ const initDataBasic = async () => {
             descInput.setAttribute('class', 'descricoes input-form-validadate')
             descInput.setAttribute('name', 'descricaoDeficiencia')
             descInput.setAttribute('maxlength', '255')
+            const paragrafoObgtr = document.createElement('p')
+            paragrafoObgtr.setAttribute('class', 'obrigatorio')
+            paragrafoObgtr.innerText = 'Obrigatório'
+            descDiv.appendChild(paragrafoObgtr)
           }
         } else {
           descDiv.innerHTML = ''

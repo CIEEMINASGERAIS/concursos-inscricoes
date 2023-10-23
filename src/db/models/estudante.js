@@ -1,20 +1,6 @@
 "use strict";
 const { Model } = require("sequelize");
-const Blowfish = require('blowfish-node');
-const crypto = require('crypto');
-
-
-function generateRandomIv() {
-  return crypto.randomBytes(8)
-}
-
-function encryptPassword(password, iv) {
-  const bf = new Blowfish('blowfish', Blowfish.MODE.ECB, Blowfish.PADDING.NULL); // only key isn't optional
-  bf.setIv(iv); // optional for ECB mode; bytes length should be equal 8
-
-  const encryptedPassword = bf.encode(password)
-  return encryptedPassword
-}
+const bcrypt = require('bcrypt');
 
 module.exports = (sequelize, DataTypes) => {
   class Estudante extends Model {
@@ -218,17 +204,37 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING(255),
         allowNull: false,
 
-        async isUnique(value, next) {
+        // set: async function (value) {
+        //   const encryptedPassword = await encryptPassword(value);
 
-          const iv = generateRandomIv()
+        //   if (encryptedPassword !== null) {
+        //     this.setDataValue('senha', encryptedPassword);
+        //   }
 
-          const encryptedPassword = encryptPassword(value, iv)
 
-          if (!encryptedPassword) {
-            return next("Erro ao fazer a criptografia.")
-          }
-          return next()
-        },
+
+
+
+
+        // set(value) {
+
+        //   const iv = generateRandomIv()
+
+        //   const encryptedPassword = encryptPassword(value, iv)
+
+        //   if (typeof encryptedPassword !== 'string') {
+        //     console.error('Valor criptografado não é uma string:', encryptedPassword);
+        //     throw new Error('Erro ao fazer a criptografia.');
+        //   }
+
+        //   if (!encryptedPassword) {
+        //     throw new Error("Erro ao fazer a criptografia.")
+        //   }
+
+        //   this.setDataValue("senha", encryptedPassword)
+        //   this.setDataValue("iv", iv.toString('hex'))
+
+        // },
       },
       nomepai: {
         type: DataTypes.STRING(255),
@@ -672,6 +678,20 @@ module.exports = (sequelize, DataTypes) => {
       tableName: "estudante",
     }
   );
+
+  Estudante.beforeSave(async (estudante) => {
+    if (estudante.changed('senha')) {
+      try {
+        const saltRounds = 10;
+        const hash = await bcrypt.hash(estudante.senha, saltRounds);
+        estudante.senha = hash;
+      } catch (error) {
+        throw new Error('Erro na criptografia da senha: ' + error);
+      }
+    }
+  })
+
+
   return Estudante;
 };
 

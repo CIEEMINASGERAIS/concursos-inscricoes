@@ -236,11 +236,7 @@ async function initAddress() {
 
         let value = e.target.value
 
-        console.log(value)
-
         let validate = (isNaturalidadeNacionalidade(value))
-
-        console.log(validate)
 
         if (validate) {
           document.getElementById("msg-bairro").innerHTML = ""
@@ -465,7 +461,7 @@ async function initAddress() {
       })
 
       email.onblur = async () => {
-        document.getElementById('msg-email').innerHTML = "<p style='color: black;'>Carregado...</p>"
+        document.getElementById('msg-email').innerHTML = "<p style='color: #ffffff;'>Carregando...</p>"
 
         formDataAddress.email = false
 

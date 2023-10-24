@@ -2,8 +2,8 @@ const nodemailer = require("nodemailer")
 
 const tranposter = nodemailer.createTransport({
     host: 'smtp.mandrillapp.com',
-    port: 465,
-    secure: true,
+    port: 587,
+    secure: false,
     auth: {
         user: 'Teste',
         pass: "md-LNGHK7IuNF041z9EW8OZQw",

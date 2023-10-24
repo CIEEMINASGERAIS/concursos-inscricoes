@@ -45176,9 +45176,7 @@ function _initAddress() {
                     if (bairro) {
                       bairro.addEventListener('input', function (e) {
                         var value = e.target.value;
-                        console.log(value);
                         var validate = isNaturalidadeNacionalidade(value);
-                        console.log(validate);
                         if (validate) {
                           document.getElementById("msg-bairro").innerHTML = "";
                           formDataAddress.bairro = value;
@@ -45335,7 +45333,7 @@ function _initAddress() {
                         return _regeneratorRuntime().wrap(function _callee2$(_context2) {
                           while (1) switch (_context2.prev = _context2.next) {
                             case 0:
-                              document.getElementById('msg-email').innerHTML = "<p style='color: black;'>Carregado...</p>";
+                              document.getElementById('msg-email').innerHTML = "<p style='color: #ffffff;'>Carregando...</p>";
                               formDataAddress.email = false;
                               _context2.next = 4;
                               return emailBd(email.value);

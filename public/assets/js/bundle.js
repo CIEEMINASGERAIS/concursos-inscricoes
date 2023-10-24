@@ -46315,7 +46315,6 @@ function _createFormSchoolData() {
                                   dataFormSchool.ano = today.getFullYear();
                                   dataFormSchool.senha = password;
                                   alertEnd.style.display = "block";
-                                  console.log(dataFormSchool);
                                   resolve(dataFormSchool);
                                 } else {
                                   document.getElementById("msg-fracasso-school").innerHTML = "<p>Formulário incompleto!</p>";
@@ -47664,7 +47663,7 @@ function _sendData() {
           data = _context2.sent;
           _context2.prev = 3;
           _context2.next = 6;
-          return fetch('http://localhost:8080/cadastrar', {
+          return fetch('http://appcadastro.cieemg.org.br/cadastrar', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'

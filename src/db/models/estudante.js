@@ -203,38 +203,6 @@ module.exports = (sequelize, DataTypes) => {
       senha: {
         type: DataTypes.STRING(255),
         allowNull: false,
-
-        // set: async function (value) {
-        //   const encryptedPassword = await encryptPassword(value);
-
-        //   if (encryptedPassword !== null) {
-        //     this.setDataValue('senha', encryptedPassword);
-        //   }
-
-
-
-
-
-
-        // set(value) {
-
-        //   const iv = generateRandomIv()
-
-        //   const encryptedPassword = encryptPassword(value, iv)
-
-        //   if (typeof encryptedPassword !== 'string') {
-        //     console.error('Valor criptografado não é uma string:', encryptedPassword);
-        //     throw new Error('Erro ao fazer a criptografia.');
-        //   }
-
-        //   if (!encryptedPassword) {
-        //     throw new Error("Erro ao fazer a criptografia.")
-        //   }
-
-        //   this.setDataValue("senha", encryptedPassword)
-        //   this.setDataValue("iv", iv.toString('hex'))
-
-        // },
       },
       nomepai: {
         type: DataTypes.STRING(255),

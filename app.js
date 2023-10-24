@@ -104,8 +104,6 @@ app.get("/formDataBasic", dataBasic.renderDataBasic)
 // Função responsável por renderizar a quarta página
 app.get("/address", address.renderAddress)
 
-
-
 // Função responsável por enviar as informações para o banco de dados
 app.post("/cadastrar", async (req, res) => {
   await Estudante.create(req.body)

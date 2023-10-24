@@ -46302,9 +46302,7 @@ function _createFormSchoolData() {
                             while (1) switch (_context6.prev = _context6.next) {
                               case 0:
                                 e.preventDefault();
-                                if (dataFormSchool.escola_id && dataFormSchool.curso_id && dataFormSchool.previsao_semestre && dataFormSchool.previsao_ano && dataFormSchool.previsao_mes && dataFormSchool.horario
-                                // dataFormSchool.periodo
-                                ) {
+                                if (dataFormSchool.escola_id && dataFormSchool.curso_id && dataFormSchool.previsao_semestre && dataFormSchool.previsao_ano && dataFormSchool.previsao_mes && dataFormSchool.horario) {
                                   if (!valid) {
                                     dataFormSchool.periodo = periodoFinal();
                                   }
@@ -47661,7 +47659,7 @@ function _sendData() {
           data = _context2.sent;
           _context2.prev = 3;
           _context2.next = 6;
-          return fetch('http://localhost:8080/cadastrar', {
+          return fetch('http://appcadastro.cieemg.org.br/cadastrar', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'

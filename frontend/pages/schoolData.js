@@ -451,7 +451,6 @@ async function createFormSchoolData() {
           dataFormSchool.previsao_ano &&
           dataFormSchool.previsao_mes &&
           dataFormSchool.horario
-          // dataFormSchool.periodo
         ) {
           if (!valid) {
             dataFormSchool.periodo = periodoFinal()

@@ -465,7 +465,7 @@ async function initAddress() {
       })
 
       email.onblur = async () => {
-        document.getElementById('msg-email').innerHTML = "<p style='color: black;'>Carregado...</p>"
+        document.getElementById('msg-email').innerHTML = "<p style='color: #00e910;'>Carregando...</p>"
 
         formDataAddress.email = false
 

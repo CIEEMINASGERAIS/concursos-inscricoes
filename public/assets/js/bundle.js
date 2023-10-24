@@ -45335,7 +45335,7 @@ function _initAddress() {
                         return _regeneratorRuntime().wrap(function _callee2$(_context2) {
                           while (1) switch (_context2.prev = _context2.next) {
                             case 0:
-                              document.getElementById('msg-email').innerHTML = "<p style='color: #00e910;'>Carregando...</p>";
+                              document.getElementById('msg-email').innerHTML = "<p style='color: #ffffff;'>Carregando...</p>";
                               formDataAddress.email = false;
                               _context2.next = 4;
                               return emailBd(email.value);

@@ -3,7 +3,7 @@ const termsAndConditions = require('./terms-and-conditions.js')
 const initAddress = require('./address.js')
 const initDataBasic = require('./dataBasic.js')
 const createFormSchoolData = require('./schoolData.js')
-const createsocioEconomic = require('./socioEconomic.js')
+// const createsocioEconomic = require('./socioEconomic.js')
 const { conferirFormAddress, conferirFormBasic, changeMains, changeSubMainTitle, conferirFormSchool } = require('../utils/util.js')
 
 async function takeData() {
@@ -81,7 +81,7 @@ async function takeData() {
 async function sendData() {
   const data = await takeData()
   try {
-    const response = await fetch('http://appcadastro.cieemg.org.br/cadastrar', {
+    const response = await fetch('http://localhost:8080/cadastrar', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

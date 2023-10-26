@@ -32,7 +32,8 @@ module.exports = (sequelize, DataTypes) => {
           len: {
             args: [3, 255],
             msg: "Esse campo deve ter 3 e 255 caracteres.",
-          }
+          },
+          is: /^[^0-9]*$/,
         },
       },
       cpf: {
@@ -598,7 +599,7 @@ module.exports = (sequelize, DataTypes) => {
           notEmpty: {
             msg: "Esse campo não pode ser vazio.",
           },
-          is: /^[a-zA-Z ]+$/,
+          is: /^[^0-9]*$/,
           len: {
             args: [1, 100],
             msg: "Esse campo deve ter 1 e 100 caracteres.",
@@ -625,7 +626,7 @@ module.exports = (sequelize, DataTypes) => {
           notEmpty: {
             msg: "Esse campo não pode ser vazio.",
           },
-          is: /^[a-zA-Z ]+$/,
+          is: /^[^0-9]*$/,
           len: {
             args: [1, 100],
             msg: "Esse campo deve ter 1 e 100 caracteres.",

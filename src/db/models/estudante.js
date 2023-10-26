@@ -32,8 +32,7 @@ module.exports = (sequelize, DataTypes) => {
           len: {
             args: [3, 255],
             msg: "Esse campo deve ter 3 e 255 caracteres.",
-          },
-          is: /^[^0-9]*$/,
+          }
         },
       },
       cpf: {

@@ -140,9 +140,7 @@ const listInputValidate = () => {
 };
 
 const campoInvalido = (campo, id) => {
-  // console.log(listInputValidate[campo])
   let mensagem = listInputValidate()
-  console.log(mensagem[campo])
 
   if (mensagem[campo]) {
     return document.getElementById(id).innerHTML =
@@ -152,49 +150,6 @@ const campoInvalido = (campo, id) => {
       `<p>Formulário incompleto!</p>`
   }
 }
-// for (let chave in listInputValidate) {
-//   console.log(chave)
-//   if (chave === campo) {
-//     console.log(listInputValidate[chave])
-
-//     // console.log(listInputValidate.nome)
-
-
-
-//   } else {
-
-//   }
-
-// const listaDeInput = document.querySelectorAll(classe)
-
-// for (let chave in objeto) {
-//   let contador = 0
-//   if (objeto[chave] === false) {
-//     console.log(objeto)
-
-//   }
-// }
-
-// for (let contador = 0; contador < listaDeInput.length; contador++) {
-//   const inputField = listaDeInput[contador]
-
-//   const nameInput = inputField.classList[0]
-//   console.log(nameInput)
-
-//   const valueInputValidate = document.getElementById(nameInput).value
-
-//   console.log(valueInputValidate)
-
-//   if (!valueInputValidate) {
-//     console.log(document.getElementById(nome))
-//     document.getElementById(nome).innerHTML =
-//       `<p>Formulário incompleto, favor preencher o campo ${inputField.text}!</p>`
-//     removerMensagem(`${nome}`)
-//   }
-// }
-// }
-
-
 
 const isNome = (nome) => {
   nome = nome.trim();
@@ -331,6 +286,16 @@ const conferirFormBasic = (objeto) => {
 const conferirFormAddress = (objeto) => {
   for (let chave in objeto) {
     if (objeto[chave] === false && chave !== 'complemento') {
+      return false
+    }
+  }
+  return true
+}
+
+const conferirFormSchool = (objeto) => {
+  for (let chave in objeto) {
+    console.log(chave[objeto])
+    if (objeto[chave] === false) {
       return false
     }
   }
@@ -1008,5 +973,6 @@ module.exports = {
   cpfInBd,
   conferirFormBasic,
   conferirFormAddress,
-  campoInvalido
+  campoInvalido,
+  conferirFormSchool
 };

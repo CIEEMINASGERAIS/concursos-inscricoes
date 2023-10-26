@@ -4,7 +4,7 @@ const initAddress = require('./address.js')
 const initDataBasic = require('./dataBasic.js')
 const createFormSchoolData = require('./schoolData.js')
 const createsocioEconomic = require('./socioEconomic.js')
-const { conferirFormAddress, conferirFormBasic, changeMains, changeSubMainTitle } = require('../utils/util.js')
+const { conferirFormAddress, conferirFormBasic, changeMains, changeSubMainTitle, conferirFormSchool } = require('../utils/util.js')
 
 async function takeData() {
   const callMain = main()
@@ -53,7 +53,27 @@ async function takeData() {
   })
 
   const formSchoolData = await createFormSchoolData()
-  const socioEconomic = createsocioEconomic()
+  // let validateFormSchool
+  // document.addEventListener('click', function (event) {
+  //   const element = event.target
+
+  //   validateFormSchool = false
+
+  //   validateFormSchool = conferirFormSchool(formAddress)
+
+  //   if (validateFormSchool && validateFormAddress && validateFormBasic) {
+  //     if (element.classList.contains('big-socio-economic') || element.classList.contains('button-socio-economic')) {
+  //       console.log('AAA')
+  //       changeMains('.screen-socio-economic')
+  //       changeSubMainTitle('Formulário Socioeconômico')
+  //     }
+  //   } else {
+  //     if (element.classList.contains('main')) {
+  //       event.preventDefault()
+  //     }
+  //   }
+  // })
+  // const socioEconomic = await createsocioEconomic()
   const allData = await { ...termsConditions, ...formData, ...formAddress, ...formSchoolData }
   return allData
 }

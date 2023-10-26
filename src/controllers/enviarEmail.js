@@ -1,17 +1,17 @@
 const nodemailer = require("nodemailer")
 
 const tranposter = nodemailer.createTransport({
-    host: 'smtp.mandrillapp.com',
+    host: '192.168.0.11',
     port: 587,
     secure: false,
     auth: {
-        user: 'Teste',
-        pass: "md-LNGHK7IuNF041z9EW8OZQw",
+        user: "nao_responda@cieeminas.org.br",
+        pass: "documentos#123",
     },
-    // tls: {
-    //     // do not fail on invalid certs
-    //     rejectUnauthorized: false,
-    // },
+    tls: {
+        // do not fail on invalid certs
+        rejectUnauthorized: false,
+    },
 })
 
 async function emailASerEnviado(to, user, pass) {

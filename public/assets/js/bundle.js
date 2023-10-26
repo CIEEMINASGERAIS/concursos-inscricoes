@@ -46352,28 +46352,6 @@ module.exports = createFormSchoolData;
 
 /***/ }),
 
-/***/ "./frontend/pages/socioEconomic.js":
-/*!*****************************************!*\
-  !*** ./frontend/pages/socioEconomic.js ***!
-  \*****************************************/
-/***/ (() => {
-
-// async function SocioEconomic() {
-
-//     const response = await fetch('socio-economic')
-
-//     const htmlContent = await response.text()
-
-//     let formSocioEconomic = document.querySelector('.form-socio-economic')
-
-//     formSocioEconomic.innerHTML = htmlContent
-
-// }
-
-// module.exports = SocioEconomic
-
-/***/ }),
-
 /***/ "./frontend/pages/terms-and-conditions.js":
 /*!************************************************!*\
   !*** ./frontend/pages/terms-and-conditions.js ***!
@@ -47560,7 +47538,7 @@ var termsAndConditions = __webpack_require__(/*! ./terms-and-conditions.js */ ".
 var initAddress = __webpack_require__(/*! ./address.js */ "./frontend/pages/address.js");
 var initDataBasic = __webpack_require__(/*! ./dataBasic.js */ "./frontend/pages/dataBasic.js");
 var createFormSchoolData = __webpack_require__(/*! ./schoolData.js */ "./frontend/pages/schoolData.js");
-var createsocioEconomic = __webpack_require__(/*! ./socioEconomic.js */ "./frontend/pages/socioEconomic.js");
+// const createsocioEconomic = require('./socioEconomic.js')
 var _require = __webpack_require__(/*! ../utils/util.js */ "./frontend/utils/util.js"),
   conferirFormAddress = _require.conferirFormAddress,
   conferirFormBasic = _require.conferirFormBasic,
@@ -47651,7 +47629,7 @@ function _sendData() {
           data = _context2.sent;
           _context2.prev = 3;
           _context2.next = 6;
-          return fetch('http://appcadastro.cieemg.org.br/cadastrar', {
+          return fetch('http://localhost:8080/cadastrar', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'

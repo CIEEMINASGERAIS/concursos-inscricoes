@@ -15,7 +15,6 @@ const generator = require('generate-password');
 async function createFormSchoolData() {
   return new Promise(async (resolve, reject) => {
     const response = await fetch("schoolData");
-
     const htmlContent = await response.text();
 
     const schoolData = document.querySelector(".screen-school-data");

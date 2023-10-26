@@ -3,6 +3,7 @@ const termsAndConditions = require('./terms-and-conditions.js')
 const initAddress = require('./address.js')
 const initDataBasic = require('./dataBasic.js')
 const createFormSchoolData = require('./schoolData.js')
+const createsocioEconomic = require('./socioEconomic.js')
 const { conferirFormAddress, conferirFormBasic, changeMains, changeSubMainTitle } = require('../utils/util.js')
 
 async function takeData() {
@@ -52,6 +53,7 @@ async function takeData() {
   })
 
   const formSchoolData = await createFormSchoolData()
+  const socioEconomic = createsocioEconomic()
   const allData = await { ...termsConditions, ...formData, ...formAddress, ...formSchoolData }
   return allData
 }

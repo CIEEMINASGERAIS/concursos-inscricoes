@@ -313,16 +313,16 @@
 }
 @media screen and (max-height:630px) {
   .main-side-mobile button {
-    padding-bottom: 0rem;
+    padding-bottom: 1rem;
   }
   .container {
-    margin: -2.2rem 0.5rem 0.25rem 1rem;
+    margin: -1.2rem 0.5rem 0.25rem 1rem;
   }
 }
 
 @media screen and (max-height:500px) {
   .container {
-    margin: -0.7rem 0.5rem 0.25rem 1rem;
+    margin: -1.2rem 0.5rem 0.25rem 1rem;
   }
 
   .container img {
@@ -334,6 +334,22 @@
     .nav-bar {
       overflow: auto;
     }
+  }
+}
+
+@media screen and (max-height:450px) {
+  .container {
+    margin: -1.2rem 0.5rem 0.25rem 1rem;
+  }
+
+  .main-side-mobile{
+    margin-top: -2.3rem;
+    .nav-bar {
+      overflow: auto;
+    }
+  }
+  .nav-bar {
+    overflow: auto;
   }
 }
 

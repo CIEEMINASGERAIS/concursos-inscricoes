@@ -3,7 +3,7 @@ const nodemailer = require("nodemailer")
 const tranposter = nodemailer.createTransport({
     host: '192.168.0.11',
     port: 587,
-    secure: false,
+    secure: false, // true para 465, false para as outras
     auth: {
         user: "nao_responda@cieeminas.org.br",
         pass: "documentos#123",
@@ -86,6 +86,15 @@ async function emailASerEnviado(to, user, pass) {
             </style>
         </html>
          `,
+        text: `
+        Prezado(a) ${user},        
+
+        Esta é a sua senha, pedimos que altere sua senha no primeiro acesso ao sistema.
+
+        A senha é: ${pass}.
+
+            CIEEMG - Centro de Integração Empresa Escola de Minas Gerais
+            Portal CIEE/MG (www.cieemg.org.br)`
     })
 
     console.log('Message sent: %s', info.messageId)

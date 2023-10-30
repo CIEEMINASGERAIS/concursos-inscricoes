@@ -277,49 +277,22 @@ async function initAddress() {
 
       numero.addEventListener('input', e => {
 
-        const regex = new RegExp("^[0-9\b]+$")
-
-        for (let i = 0; i < e.target.value.length; i++) {
-          if (!regex.test(e.target.value[i])) {
-            let subtituicao = e.target.value[i]
-            e.target.value = e.target.value.replace(subtituicao, '')
-          }
-        }
+        e.target.value = e.target.value.replace(/\D/g, '')
 
         validate = isNumero(e.target.value)
 
         if (validate) {
           // Enviar para o HTML a mensagem de erro
           document.getElementById('msg-numero').innerHTML = ""
-          return (formDataAddress.numero = e.target.value)
+          formDataAddress.numero = e.target.value
         } else {
           e.preventDefault()
           // Enviar para o HTML a mensagem de erro
           document.getElementById('msg-numero').innerHTML =
             "<p>Valor inválido!</p>"
-          return (formDataAddress.numero = false)
+          formDataAddress.numero = false
         }
 
-      })
-
-      numero.addEventListener('keypress', e => {
-
-        const notAllowedChars = /^[A-Za-z!"#$%&'()*+,-./:;<=>?@[\]^_`´{|}~¨¬¢£³²¹ºª°§ \\]+$/
-        const char = e.key
-
-        if (notAllowedChars.test(char)) {
-          e.preventDefault()
-        }
-      })
-
-      numero.addEventListener('paste', e => {
-        const regex = new RegExp("^[0-9\b]+$")
-
-        setTimeout(() => {
-          if (!regex.test(e.target.value)) {
-            e.target.value = ''
-          }
-        }, 0)
       })
 
     }
@@ -332,14 +305,14 @@ async function initAddress() {
 
       complemento.addEventListener('input', e => {
 
-        const regex = new RegExp("^[#$%'()*+:;<=>?@[\]_{|}¨¬¢£³²¹§\\]+$")
+        // const regex = new RegExp("^[#$%'()*+:;<=>?@[\]_{|}¨¬¢£³²¹§\\]+$")
 
-        for (let i = 0; i < e.target.value.length; i++) {
-          if (regex.test(e.target.value[i])) {
-            let subtituicao = e.target.value[i]
-            e.target.value = e.target.value.replace(subtituicao, '')
-          }
-        }
+        // for (let i = 0; i < e.target.value.length; i++) {
+        //   if (regex.test(e.target.value[i])) {
+        //     let subtituicao = e.target.value[i]
+        //     e.target.value = e.target.value.replace(subtituicao, '')
+        //   }
+        // }
 
         validate = isComplemento(e.target.value)
 
@@ -356,27 +329,6 @@ async function initAddress() {
         }
 
       })
-
-      complemento.addEventListener('keypress', e => {
-
-        const notAllowedChars = /^[#$%'()*+:;<=>?@[\]_{|}¨¬¢£³²¹§\\]+$/
-        const char = e.key
-
-        if (notAllowedChars.test(char)) {
-          e.preventDefault()
-        }
-      })
-
-      complemento.addEventListener('paste', e => {
-        const regex = new RegExp("^[#$%'()*+:;<=>?@[\]_{|}¨¬¢£³²¹§\\]+$")
-
-        setTimeout(() => {
-          if (regex.test(e.target.value)) {
-            e.target.value = ''
-          }
-        }, 0)
-      })
-
     }
 
     const telefone1 = document.getElementById('telefone1')

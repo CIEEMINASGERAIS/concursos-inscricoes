@@ -45202,51 +45202,32 @@ function _initAddress() {
                     numero = document.getElementById('numero');
                     if (numero) {
                       numero.addEventListener('input', function (e) {
-                        var regex = new RegExp("^[0-9\b]+$");
-                        for (var i = 0; i < e.target.value.length; i++) {
-                          if (!regex.test(e.target.value[i])) {
-                            var subtituicao = e.target.value[i];
-                            e.target.value = e.target.value.replace(subtituicao, '');
-                          }
-                        }
+                        e.target.value = e.target.value.replace(/\D/g, '');
                         validate = isNumero(e.target.value);
                         if (validate) {
                           // Enviar para o HTML a mensagem de erro
                           document.getElementById('msg-numero').innerHTML = "";
-                          return formDataAddress.numero = e.target.value;
+                          formDataAddress.numero = e.target.value;
                         } else {
                           e.preventDefault();
                           // Enviar para o HTML a mensagem de erro
                           document.getElementById('msg-numero').innerHTML = "<p>Valor inválido!</p>";
-                          return formDataAddress.numero = false;
+                          formDataAddress.numero = false;
                         }
-                      });
-                      numero.addEventListener('keypress', function (e) {
-                        var notAllowedChars = /^[A-Za-z!"#$%&'()*+,-./:;<=>?@[\]^_`´{|}~¨¬¢£³²¹ºª°§ \\]+$/;
-                        var _char = e.key;
-                        if (notAllowedChars.test(_char)) {
-                          e.preventDefault();
-                        }
-                      });
-                      numero.addEventListener('paste', function (e) {
-                        var regex = new RegExp("^[0-9\b]+$");
-                        setTimeout(function () {
-                          if (!regex.test(e.target.value)) {
-                            e.target.value = '';
-                          }
-                        }, 0);
                       });
                     }
                     complemento = document.getElementById('complemento');
                     if (complemento) {
                       complemento.addEventListener('input', function (e) {
-                        var regex = new RegExp("^[#$%'()*+:;<=>?@[\]_{|}¨¬¢£³²¹§\\]+$");
-                        for (var i = 0; i < e.target.value.length; i++) {
-                          if (regex.test(e.target.value[i])) {
-                            var subtituicao = e.target.value[i];
-                            e.target.value = e.target.value.replace(subtituicao, '');
-                          }
-                        }
+                        // const regex = new RegExp("^[#$%'()*+:;<=>?@[\]_{|}¨¬¢£³²¹§\\]+$")
+
+                        // for (let i = 0; i < e.target.value.length; i++) {
+                        //   if (regex.test(e.target.value[i])) {
+                        //     let subtituicao = e.target.value[i]
+                        //     e.target.value = e.target.value.replace(subtituicao, '')
+                        //   }
+                        // }
+
                         _validate = isComplemento(e.target.value);
                         if (_validate) {
                           // Enviar para o HTML a mensagem de erro
@@ -45258,21 +45239,6 @@ function _initAddress() {
                           document.getElementById('msg-complemento').innerHTML = "<p>Valor inválido!</p>";
                           return formDataAddress.complemento = " ";
                         }
-                      });
-                      complemento.addEventListener('keypress', function (e) {
-                        var notAllowedChars = /^[#$%'()*+:;<=>?@[\]_{|}¨¬¢£³²¹§\\]+$/;
-                        var _char2 = e.key;
-                        if (notAllowedChars.test(_char2)) {
-                          e.preventDefault();
-                        }
-                      });
-                      complemento.addEventListener('paste', function (e) {
-                        var regex = new RegExp("^[#$%'()*+:;<=>?@[\]_{|}¨¬¢£³²¹§\\]+$");
-                        setTimeout(function () {
-                          if (regex.test(e.target.value)) {
-                            e.target.value = '';
-                          }
-                        }, 0);
                       });
                     }
                     telefone1 = document.getElementById('telefone1');

@@ -45219,15 +45219,6 @@ function _initAddress() {
                     complemento = document.getElementById('complemento');
                     if (complemento) {
                       complemento.addEventListener('input', function (e) {
-                        // const regex = new RegExp("^[#$%'()*+:;<=>?@[\]_{|}¨¬¢£³²¹§\\]+$")
-
-                        // for (let i = 0; i < e.target.value.length; i++) {
-                        //   if (regex.test(e.target.value[i])) {
-                        //     let subtituicao = e.target.value[i]
-                        //     e.target.value = e.target.value.replace(subtituicao, '')
-                        //   }
-                        // }
-
                         _validate = isComplemento(e.target.value);
                         if (_validate) {
                           // Enviar para o HTML a mensagem de erro

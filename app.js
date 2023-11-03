@@ -12,13 +12,6 @@ const ejs = require("ejs");
 
 const path = require("path");
 
-const sequelize = require("./src/db/models");
-
-const DataTypes = require("sequelize/lib/data-types");
-
-// Acessar o models estudante
-const Estudante = require("./src/db/models/estudante")(sequelize, DataTypes);
-
 // Acessar os controllers
 const getEndereco = require('./src/controllers/getEndereco')
 
@@ -30,6 +23,10 @@ const getVerificarEstudante = require('./src/controllers/getVerificarEstudante')
 
 const getCadastrarEscola = require('./src/controllers/getCadastrarEscola')
 
+const getEscola = require('./src/controllers/renderSchool')
+
+const postCadastro = require('./src/controllers/postCadastrar')
+
 // Acessar os renders das páginas
 const index = require('./src/controllers/renderIndex')
 
@@ -38,8 +35,6 @@ const termsConditions = require('./src/controllers/renderTermsConditions')
 const dataBasic = require('./src/controllers/renderDataBasic')
 
 const address = require('./src/controllers/renderAddress')
-
-const enviandoEmail = require('./src/controllers/enviarEmail')
 
 app.use(express.urlencoded({ extended: true }));
 
@@ -66,16 +61,8 @@ app.use((req, res, next) => {
   next();
 });
 
-// Rota para renderizar o EJS em HTML
-app.get("/schoolData", (req, res) => {
-  ejs.renderFile("./src/views/schoolData.ejs", (err, html) => {
-    if (err) {
-      console.error(err);
-      return res.status(500).send("Erro ao renderizar o arquivo EJS.");
-    }
-    res.send(html);
-  });
-});
+// Rota para renderizar o EJS em HTML da Escola
+app.get("/schoolData", getEscola.renderSchoolData)
 
 // Rota para buscar escolas
 app.get("/cadastrarEscola", getCadastrarEscola.cadastrarEscola)
@@ -105,21 +92,7 @@ app.get("/formDataBasic", dataBasic.renderDataBasic)
 app.get("/address", address.renderAddress)
 
 // Função responsável por enviar as informações para o banco de dados
-app.post("/cadastrar", async (req, res) => {
-  await Estudante.create(req.body)
-    .then(() => {
-      // enviandoEmail.emailASerEnviado(req.body.email, req.body.nome, req.body.senha).catch(console.error)
-      return res.json({
-        mensagem: "Usuário cadastrado com sucesso!",
-      });
-
-    })
-    .catch((err) => {
-      return res.status(400).json({
-        erro: err,
-      });
-    });
-});
+app.post("/cadastrar", postCadastro.postRegister)
 
 // Iniciar o servidor na porta 8080, criar a função utilizando modelo Arrow function para retornar a mensagem de sucesso
 app.listen(8080, "0.0.0.0", () => {

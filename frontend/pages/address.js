@@ -305,15 +305,6 @@ async function initAddress() {
 
       complemento.addEventListener('input', e => {
 
-        // const regex = new RegExp("^[#$%'()*+:;<=>?@[\]_{|}¨¬¢£³²¹§\\]+$")
-
-        // for (let i = 0; i < e.target.value.length; i++) {
-        //   if (regex.test(e.target.value[i])) {
-        //     let subtituicao = e.target.value[i]
-        //     e.target.value = e.target.value.replace(subtituicao, '')
-        //   }
-        // }
-
         validate = isComplemento(e.target.value)
 
         if (validate) {

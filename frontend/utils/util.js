@@ -294,7 +294,6 @@ const conferirFormAddress = (objeto) => {
 
 const conferirFormSchool = (objeto) => {
   for (let chave in objeto) {
-    console.log(chave[objeto])
     if (objeto[chave] === false) {
       return false
     }

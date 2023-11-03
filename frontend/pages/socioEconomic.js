@@ -7,6 +7,13 @@ async function socioEconomic() {
         let screenSocioEconomic = document.querySelector('.screen-socio-economic')
 
         screenSocioEconomic.innerHTML = htmlContent
+
+        const formSocioEconomic = document.querySelector('.form-socio-economic')
+
+        if (formSocioEconomic) {
+            
+        }
+
     })
 }
 

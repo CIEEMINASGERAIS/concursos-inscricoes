@@ -46343,7 +46343,7 @@ function _socioEconomic() {
         case 0:
           return _context2.abrupt("return", new Promise( /*#__PURE__*/function () {
             var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(resolve, reject) {
-              var response, htmlContent, screenSocioEconomic;
+              var response, htmlContent, screenSocioEconomic, formSocioEconomic;
               return _regeneratorRuntime().wrap(function _callee$(_context) {
                 while (1) switch (_context.prev = _context.next) {
                   case 0:
@@ -46357,7 +46357,9 @@ function _socioEconomic() {
                     htmlContent = _context.sent;
                     screenSocioEconomic = document.querySelector('.screen-socio-economic');
                     screenSocioEconomic.innerHTML = htmlContent;
-                  case 8:
+                    formSocioEconomic = document.querySelector('.form-socio-economic');
+                    if (formSocioEconomic) {}
+                  case 10:
                   case "end":
                     return _context.stop();
                 }
@@ -46904,7 +46906,6 @@ var conferirFormAddress = function conferirFormAddress(objeto) {
 };
 var conferirFormSchool = function conferirFormSchool(objeto) {
   for (var _chave3 in objeto) {
-    console.log(_chave3[objeto]);
     if (objeto[_chave3] === false) {
       return false;
     }
@@ -47565,7 +47566,7 @@ var termsAndConditions = __webpack_require__(/*! ./terms-and-conditions.js */ ".
 var initAddress = __webpack_require__(/*! ./address.js */ "./frontend/pages/address.js");
 var initDataBasic = __webpack_require__(/*! ./dataBasic.js */ "./frontend/pages/dataBasic.js");
 var createFormSchoolData = __webpack_require__(/*! ./schoolData.js */ "./frontend/pages/schoolData.js");
-var createSocioEconomic = __webpack_require__(/*! ./socioEconomic.js */ "./frontend/pages/socioEconomic.js");
+var socioEconomic = __webpack_require__(/*! ./socioEconomic.js */ "./frontend/pages/socioEconomic.js");
 var _require = __webpack_require__(/*! ../utils/util.js */ "./frontend/utils/util.js"),
   conferirFormAddress = _require.conferirFormAddress,
   conferirFormBasic = _require.conferirFormBasic,
@@ -47577,7 +47578,7 @@ function takeData() {
 }
 function _takeData() {
   _takeData = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
-    var callMain, termsConditions, formData, validateFormBasic, formAddress, validateFormAddress, formSchoolData, validateFormSchool, socioEconomic, allData;
+    var callMain, termsConditions, formData, validateFormBasic, formAddress, validateFormAddress, formSchoolData, validateFormSchool, createSocioEconomic, allData;
     return _regeneratorRuntime().wrap(function _callee$(_context) {
       while (1) switch (_context.prev = _context.next) {
         case 0:
@@ -47631,10 +47632,9 @@ function _takeData() {
           document.addEventListener('click', function (event) {
             var element = event.target;
             validateFormSchool = false;
-            validateFormSchool = conferirFormSchool(formAddress);
+            validateFormSchool = conferirFormSchool(formSchoolData);
             if (validateFormSchool && validateFormAddress && validateFormBasic) {
               if (element.classList.contains('big-socio-economic') || element.classList.contains('button-socio-economic')) {
-                console.log('AAA');
                 changeMains('.screen-socio-economic');
                 changeSubMainTitle('Formulário Socioeconômico');
               }
@@ -47645,9 +47645,9 @@ function _takeData() {
             }
           });
           _context.next = 18;
-          return createSocioEconomic();
+          return socioEconomic();
         case 18:
-          socioEconomic = _context.sent;
+          createSocioEconomic = _context.sent;
           _context.next = 21;
           return _objectSpread(_objectSpread(_objectSpread(_objectSpread({}, termsConditions), formData), formAddress), formSchoolData);
         case 21:

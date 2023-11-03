@@ -3,7 +3,7 @@ const termsAndConditions = require('./terms-and-conditions.js')
 const initAddress = require('./address.js')
 const initDataBasic = require('./dataBasic.js')
 const createFormSchoolData = require('./schoolData.js')
-const createSocioEconomic = require('./socioEconomic.js')
+const socioEconomic = require('./socioEconomic.js')
 const { conferirFormAddress, conferirFormBasic, changeMains, changeSubMainTitle, conferirFormSchool } = require('../utils/util.js')
 
 async function takeData() {
@@ -59,11 +59,10 @@ async function takeData() {
 
     validateFormSchool = false
 
-    validateFormSchool = conferirFormSchool(formAddress)
+    validateFormSchool = conferirFormSchool(formSchoolData)
 
     if (validateFormSchool && validateFormAddress && validateFormBasic) {
       if (element.classList.contains('big-socio-economic') || element.classList.contains('button-socio-economic')) {
-        console.log('AAA')
         changeMains('.screen-socio-economic')
         changeSubMainTitle('Formulário Socioeconômico')
       }
@@ -73,7 +72,7 @@ async function takeData() {
       }
     }
   })
-  const socioEconomic = await createSocioEconomic()
+  const createSocioEconomic = await socioEconomic()
   const allData = await { ...termsConditions, ...formData, ...formAddress, ...formSchoolData }
   return allData
 }

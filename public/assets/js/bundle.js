@@ -46266,7 +46266,14 @@ function _createFormSchoolData() {
                             while (1) switch (_context6.prev = _context6.next) {
                               case 0:
                                 e.preventDefault();
-                                if (dataFormSchool.escola_id && dataFormSchool.curso_id && dataFormSchool.previsao_semestre && dataFormSchool.previsao_ano && dataFormSchool.previsao_mes && dataFormSchool.horario) {
+                                if (
+                                // dataFormSchool.escola_id &&
+                                // dataFormSchool.curso_id &&
+                                // dataFormSchool.previsao_semestre &&
+                                // dataFormSchool.previsao_ano &&
+                                // dataFormSchool.previsao_mes &&
+                                // dataFormSchool.horario
+                                dataFormSchool) {
                                   if (!valid) {
                                     dataFormSchool.periodo = periodoFinal();
                                   }

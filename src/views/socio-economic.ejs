@@ -1,4 +1,97 @@
 <form class="form-socio-economic">
-    <label for="exemplo">Salário</label>
-    <input type="text" id="exemplo">
+    <div class="container_form">
+        <h3>Esta avaliação será analisada pela equipe do Serviço Social para identificação do perfil socio-econômico
+        </h3>
+        <form class="form" action="#" method="post">
+
+            <div class="form_grupo">
+                <label for="nome" class="form_label">1. Você já foi aprendiz? Se positivo, qual foi o curso realizado?
+                    (se possível descrever a CBO ou ARCO)</label>
+                <input type="text" name="nome" class="form_input" id="nome" placeholder="Nome" required>
+            </div>
+
+            <div class="form_grupo">
+                <label for="e-mail" class="form_label">2. Se tem idade menor que 18 anos, possui responsavéis legais que
+                    não sejam seus pais? Se positivo, qual
+                    o parentesco ou situação?</label>
+                <input type="text" name="nome" class="form_input" id="nome" placeholder="Nome" required>
+            </div>
+
+            
+
+            <div class="form_grupo">
+                <span class="legenda">3. Estuda ou estudou em escola da:</span>
+                <div class="check-btn">
+                    <input type="checkbox" class="form_new_input" id="html5" name="aprender" value="html5">
+                    <label for="html5" class="form_label check_label"> <span class="check_new_btn"></span> Rede Pública
+                        Municipal </label>
+                </div>
+                <div class="check-btn">
+                    <input type="checkbox" class="form_new_input" id="css3" name="aprender" value="css3">
+                    <label for="css3" class="form_label check_label"><span class="check_new_btn"></span> Escola
+                        Particular com bolsa </label>
+                </div>
+                <div class="check-btn">
+                    <input type="checkbox" class="form_new_input" id="jquery" name="aprender" value="jquery">
+                    <label for="jquery" class="form_label check_label"><span class="check_new_btn"></span> Rede Pública
+                        Estadual </label>
+                </div>
+                <div class="check-btn">
+                    <input type="checkbox" class="form_new_input" id="wordpress" name="aprender" value="wordpress">
+                    <label for="wordpress" class="form_label check_label"><span class="check_new_btn"></span> Escola
+                        Particular sem bolsa
+                    </label>
+                </div>
+                <div class="check-btn">
+                    <input type="checkbox" class="form_new_input" id="wordpress" name="aprender" value="wordpress">
+                    <label for="wordpress" class="form_label check_label"><span class="check_new_btn"></span> Rede
+                        Pública Federa
+                    </label>
+                </div>
+
+                <div class="form_grupo">
+                    <label for="nome" class="form_label">4. Você reside em imóvel alugado, próprio ou outro? Se o imóvel gera algum custo, como aluguel,
+                        financiamento e etc, favor informar o valor mensal pago.
+                        </label>
+                    <input type="text" name="nome" class="form_input" id="nome" placeholder="Nome" required>
+                </div> 
+                
+                <div class="form_grupo">
+                    <label for="nome" class="form_label">5. Além de você, quantas pessoas do seu grupo familiar residem na sua casa?</label>
+                    <input type="text" name="nome" class="form_input" id="nome" placeholder="Nome" required>
+                </div>
+
+                <div class="form_grupo">
+                    <label for="datanascimento" class="form_label">6. Informe o valor total da renda, formal ou informal, do
+                        seu grupo familiar, incluindo pensão alimentícia
+                        ou por falecimento, aposentadoria, benefícios do Governo, como BPC, BEM e outros (estas
+                        informações deverão ser comprovadas quando solicitadas):</label>
+    
+                    <div class="radio-btn">
+                        <input type="radio" class="form_new_input" id="masculino" name="sexo" value="Masculino"
+                            required="required">
+                        <label for="masculino" class="radio_label form_label"> <span class="radio_new_btn"></span>Até 1
+                            Salário Mínimo</label>
+                    </div>
+                    <div class="radio-btn">
+                        <input type="radio" class="form_new_input" id="feminino" name="sexo" value="Feminino"
+                            required="required">
+                        <label for="feminino" class="radio_label form_label"> <span class="radio_new_btn"></span> Até 2
+                            Salários Mínimos</label>
+                    </div>
+                    <div class="radio-btn">
+                        <input type="radio" class="form_new_input" id="feminino" name="sexo" value="Feminino"
+                            required="required">
+                        <label for="feminino" class="radio_label form_label"> <span class="radio_new_btn"></span> Até 3
+                            Salários Mínimos</label>
+                    </div>
+                    <div class="radio-btn">
+                        <input type="radio" class="form_new_input" id="feminino" name="sexo" value="Feminino"
+                            required="required">
+                        <label for="feminino" class="radio_label form_label"> <span class="radio_new_btn"></span> A partir
+                            de 4 Salários Mínimos</label>
+                    </div>
+                </div>
+        </form>
+    </div><!--container_form-->
 </form>

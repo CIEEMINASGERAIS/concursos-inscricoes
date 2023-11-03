@@ -3,7 +3,7 @@ const termsAndConditions = require('./terms-and-conditions.js')
 const initAddress = require('./address.js')
 const initDataBasic = require('./dataBasic.js')
 const createFormSchoolData = require('./schoolData.js')
-// const createsocioEconomic = require('./socioEconomic.js')
+const createSocioEconomic = require('./socioEconomic.js')
 const { conferirFormAddress, conferirFormBasic, changeMains, changeSubMainTitle, conferirFormSchool } = require('../utils/util.js')
 
 async function takeData() {
@@ -53,27 +53,27 @@ async function takeData() {
   })
 
   const formSchoolData = await createFormSchoolData()
-  // let validateFormSchool
-  // document.addEventListener('click', function (event) {
-  //   const element = event.target
+  let validateFormSchool
+  document.addEventListener('click', function (event) {
+    const element = event.target
 
-  //   validateFormSchool = false
+    validateFormSchool = false
 
-  //   validateFormSchool = conferirFormSchool(formAddress)
+    validateFormSchool = conferirFormSchool(formAddress)
 
-  //   if (validateFormSchool && validateFormAddress && validateFormBasic) {
-  //     if (element.classList.contains('big-socio-economic') || element.classList.contains('button-socio-economic')) {
-  //       console.log('AAA')
-  //       changeMains('.screen-socio-economic')
-  //       changeSubMainTitle('Formulário Socioeconômico')
-  //     }
-  //   } else {
-  //     if (element.classList.contains('main')) {
-  //       event.preventDefault()
-  //     }
-  //   }
-  // })
-  // const socioEconomic = await createsocioEconomic()
+    if (validateFormSchool && validateFormAddress && validateFormBasic) {
+      if (element.classList.contains('big-socio-economic') || element.classList.contains('button-socio-economic')) {
+        console.log('AAA')
+        changeMains('.screen-socio-economic')
+        changeSubMainTitle('Formulário Socioeconômico')
+      }
+    } else {
+      if (element.classList.contains('main')) {
+        event.preventDefault()
+      }
+    }
+  })
+  const socioEconomic = await createSocioEconomic()
   const allData = await { ...termsConditions, ...formData, ...formAddress, ...formSchoolData }
   return allData
 }

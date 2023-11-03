@@ -458,7 +458,7 @@ async function createFormSchoolData() {
           const today = new Date();
           dataFormSchool.ano = today.getFullYear();
           dataFormSchool.senha = password
-          alertEnd.style.display = "block";
+          // alertEnd.style.display = "block";
           resolve(dataFormSchool);
         } else {
           document.getElementById("msg-fracasso-school").innerHTML =

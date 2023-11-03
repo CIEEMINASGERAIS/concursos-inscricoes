@@ -36,6 +36,8 @@ const dataBasic = require('./src/controllers/renderDataBasic')
 
 const address = require('./src/controllers/renderAddress')
 
+const socialEconomic = require('./src/controllers/renderSocialEconomy')
+
 app.use(express.urlencoded({ extended: true }));
 
 app.use(express.static(path.resolve(__dirname, "public", "assets")));
@@ -90,6 +92,9 @@ app.get("/formDataBasic", dataBasic.renderDataBasic)
 
 // Função responsável por renderizar a quarta página
 app.get("/address", address.renderAddress)
+
+// Função responsável por renderizar a quinta página
+app.get("/socio-economic", socialEconomic.renderSocioEconomic)
 
 // Função responsável por enviar as informações para o banco de dados
 app.post("/cadastrar", postCadastro.postRegister)

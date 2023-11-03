@@ -1,13 +1,14 @@
-// async function SocioEconomic() {
+async function socioEconomic() {
+    return new Promise(async (resolve, reject) => {
+        const response = await fetch('socio-economic')
 
-//     const response = await fetch('socio-economic')
+        const htmlContent = await response.text()
 
-//     const htmlContent = await response.text()
+        let screenSocioEconomic = document.querySelector('.screen-socio-economic')
 
-//     let formSocioEconomic = document.querySelector('.form-socio-economic')
+        screenSocioEconomic.innerHTML = htmlContent
+    })
+}
 
-//     formSocioEconomic.innerHTML = htmlContent
 
-// }
-
-// module.exports = SocioEconomic
+module.exports = socioEconomic

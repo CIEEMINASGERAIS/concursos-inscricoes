@@ -17,7 +17,7 @@
             <span id="msg-responsavel"></span>
         </div>
 
-        <div class="div-tres">
+        <div class="form-group">
             <label class="label-tres">3. Estuda ou estudou em escola da:</label>
             <div class="div-escola-minicipal">
                 <input type="checkbox" class="escola-particular" id="html5" name="aprender" value="html5">
@@ -47,22 +47,18 @@
                 </label>
             </div>
         </div>
-
-        <div class="div-quatro">
-            <label for="imovel" class="">4. Você reside em imóvel alugado, próprio ou outro? Se o imóvel gera
-                algum custo, como aluguel,
-                financiamento e etc, favor informar o valor mensal pago.
+        <div class="div-escola-particular">
+            <input type="checkbox" class="escola-particular" id="wordpress" name="aprender" value="wordpress">
+            <label for="wordpress" class="escola-particular"><span class="check_new_btn"></span> Escola
+                Particular sem bolsa
             </label>
-            <input type="text" name="imovel" class="" id="imovel" placeholder="Residência." required>
-            <span id="msg-imovel"></span>
+            <input type="text" name="nome" class="form-control" id="nome" placeholder="Nome" required>
         </div>
 
         <div class="div-cinco">
-            <label for="pessoas" class="">5. Além de você, quantas pessoas do seu grupo familiar residem na sua
+            <label for="nome" class="">5. Além de você, quantas pessoas do seu grupo familiar residem na sua
                 casa?</label>
-            <input type="text" name="pessoas" class="" id="pessoas" placeholder="Quantas pessoas residem na sua
-            casa?" required>
-            <span id="msg-pessoas"></span>
+            <input type="text" name="nome" class="form-control" id="nome" placeholder="Nome" required>
         </div>
 
         <div class="div-seis">
@@ -94,13 +90,11 @@
         </div>
         <div class="div-sete">
             <label for="nome" class="">7. Você possui algum tipo de deficiência? Qual?</label>
-            <input type="text" name="nome" class="" id="nome" placeholder="Nome" required>
+            <input type="text" name="nome" class="form-control" id="nome" placeholder="Nome" required>
         </div>
         <div class="div-oito">
             <label for="nome" class="">8. Qual a sua identidade de gênero?</label>
-            <input type="text" name="nome" class="" id="nome" placeholder="Nome" required>
             <div class="">
-                <input type="radio" class="" id="feminino" name="sexo" value="Feminino" required="required">
                 <label for="feminino" class=""> </span> Cisgênero: pessoa que se identifica com as características
                     do sexo designado a ela no
                     nascimento </label>
@@ -114,8 +108,6 @@
         </div>
         <div class="div-nove">
             <label for="nome" class="">9. Como você se declara:</label>
-            <input type="text" name="nome" class="" id="nome" placeholder="Nome" required>
-
             <div class="">
                 <input type="radio" class="" id="feminino" name="sexo" value="Feminino" required="required">
                 <label for="feminino" class=""> </span> Negro</label>
@@ -142,11 +134,10 @@
         <div class="div-nove">
             <label for="nome" class="">10. Se você tem filho(s), quantos são e informe se recebe ou paga auxílio
                 financeiro para ele(a).</label>
-            <input type="text" name="nome" class="" id="nome" placeholder="Nome" required>
+            <input type="text" name="nome" class="form-control" id="nome" placeholder="Nome" required>
         </div>
         <div class="div-nove">
             <label for="nome" class="">11. Você se enquadra em uma das opções abaixo?</label>
-            <input type="text" name="nome" class="" id="nome" placeholder="Nome" required>
             <div class="">
                 <input type="radio" class="" id="feminino" name="sexo" value="Feminino" required="required">
                 <label for="feminino" class=""> </span>está em acolhimento institucional (abrigo) </label>
@@ -168,10 +159,140 @@
                 <label for="feminino" class=""> </span>não me enquadro em nenhuma das opções</label>
             </div>
         </div>
-        <div class="">
-            <input type="checkbox" class="" id="feminino" name="sexo" value="Feminino" required="required">
-            <label for="feminino" class=""> </span>Declaro que as informações por mim preenchidas são verdadeiras e
+        <div class="form-check">
+            <input type="checkbox" class="form-check-input" id="feminino" name="sexo" value="Feminino"
+                required="required">
+            <label for="feminino" class="form-check-label"> </span>Declaro que as informações por mim preenchidas são
+                verdadeiras e
                 que apresentarei os documentos
                 necessários quando solicitados.</label>
+        </div>
+</div>
+
+<div class="div-quatro">
+    <label for="imovel" class="">4. Você reside em imóvel alugado, próprio ou outro? Se o imóvel gera
+        algum custo, como aluguel,
+        financiamento e etc, favor informar o valor mensal pago.
+    </label>
+    <input type="text" name="imovel" class="" id="imovel" placeholder="Residência." required>
+    <span id="msg-imovel"></span>
+</div>
+
+<div class="div-cinco">
+    <label for="pessoas" class="">5. Além de você, quantas pessoas do seu grupo familiar residem na sua
+        casa?</label>
+    <input type="text" name="pessoas" class="" id="pessoas" placeholder="Quantas pessoas residem na sua
+            casa?" required>
+    <span id="msg-pessoas"></span>
+</div>
+
+<div class="div-seis">
+    <label for="datanascimento" class="">6. Informe o valor total da renda, formal ou informal, do
+        seu grupo familiar, incluindo pensão alimentícia
+        ou por falecimento, aposentadoria, benefícios do Governo, como BPC, BEM e outros (estas
+        informações deverão ser comprovadas quando solicitadas):</label>
+
+    <div class="">
+        <input type="radio" class="" id="masculino" name="sexo" value="Masculino" required="required">
+        <label for="masculino" class=""> </span>Até 1
+            Salário Mínimo</label>
+    </div>
+    <div class="">
+        <input type="radio" class="" id="feminino" name="sexo" value="Feminino" required="required">
+        <label for="feminino" class=""> </span> Até 2
+            Salários Mínimos</label>
+    </div>
+    <div class="">
+        <input type="radio" class="" id="feminino" name="sexo" value="Feminino" required="required">
+        <label for="feminino" class=""> </span> Até 3
+            Salários Mínimos</label>
+    </div>
+    <div class="">
+        <input type="radio" class="" id="feminino" name="sexo" value="Feminino" required="required">
+        <label for="feminino" class=""> </span> A partir
+            de 4 Salários Mínimos</label>
+    </div>
+</div>
+<div class="div-sete">
+    <label for="nome" class="">7. Você possui algum tipo de deficiência? Qual?</label>
+    <input type="text" name="nome" class="" id="nome" placeholder="Nome" required>
+</div>
+<div class="div-oito">
+    <label for="nome" class="">8. Qual a sua identidade de gênero?</label>
+    <input type="text" name="nome" class="" id="nome" placeholder="Nome" required>
+    <div class="">
+        <input type="radio" class="" id="feminino" name="sexo" value="Feminino" required="required">
+        <label for="feminino" class=""> </span> Cisgênero: pessoa que se identifica com as características
+            do sexo designado a ela no
+            nascimento </label>
+    </div>
+    <div class="">
+        <input type="radio" class="" id="feminino" name="sexo" value="Feminino" required="required">
+        <label for="feminino" class=""> </span> Transgênero: pessoa que não se identifica com as
+            características do sexo designado a ela
+            no nascimento</label>
+    </div>
+</div>
+<div class="div-nove">
+    <label for="nome" class="">9. Como você se declara:</label>
+    <input type="text" name="nome" class="" id="nome" placeholder="Nome" required>
+
+    <div class="">
+        <input type="radio" class="" id="feminino" name="sexo" value="Feminino" required="required">
+        <label for="feminino" class=""> </span> Negro</label>
+    </div>
+    <div class="">
+        <input type="radio" class="" id="feminino" name="sexo" value="Feminino" required="required">
+        <label for="feminino" class=""> </span> Branco</label>
+    </div>
+    <div class="">
+        <input type="radio" class="" id="feminino" name="sexo" value="Feminino" required="required">
+        <label for="feminino" class=""> </span> Pardo </label>
+    </div>
+    <div class="">
+        <input type="radio" class="" id="feminino" name="sexo" value="Feminino" required="required">
+        <label for="feminino" class=""> </span> Amarelo</label>
+    </div>
+    <div class="">
+        <input type="radio" class="" id="feminino" name="sexo" value="Feminino" required="required">
+        <label for="feminino" class=""> </span> Indígena (possui declaração de vínculo com a comunidade
+            indígena pela FUNAI)
+        </label>
+    </div>
+</div>
+<div class="div-nove">
+    <label for="nome" class="">10. Se você tem filho(s), quantos são e informe se recebe ou paga auxílio
+        financeiro para ele(a).</label>
+    <input type="text" name="nome" class="" id="nome" placeholder="Nome" required>
+</div>
+<div class="div-nove">
+    <label for="nome" class="">11. Você se enquadra em uma das opções abaixo?</label>
+    <input type="text" name="nome" class="" id="nome" placeholder="Nome" required>
+    <div class="">
+        <input type="radio" class="" id="feminino" name="sexo" value="Feminino" required="required">
+        <label for="feminino" class=""> </span>está em acolhimento institucional (abrigo) </label>
+    </div>
+    <div class="">
+        <input type="radio" class="" id="feminino" name="sexo" value="Feminino" required="required">
+        <label for="feminino" class=""> </span> está em medida protetiva</label>
+    </div>
+    <div class="">
+        <input type="radio" class="" id="feminino" name="sexo" value="Feminino" required="required">
+        <label for="feminino" class=""> </span> está em cumprindo medida sócioeducativa </label>
+    </div>
+    <div class="">
+        <input type="radio" class="" id="feminino" name="sexo" value="Feminino" required="required">
+        <label for="feminino" class=""> </span> está no sistema prisional</label>
+    </div>
+    <div class="">
+        <input type="radio" class="" id="feminino" name="sexo" value="Feminino" required="required">
+        <label for="feminino" class=""> </span>não me enquadro em nenhuma das opções</label>
+    </div>
+</div>
+<div class="">
+    <input type="checkbox" class="" id="feminino" name="sexo" value="Feminino" required="required">
+    <label for="feminino" class=""> </span>Declaro que as informações por mim preenchidas são verdadeiras e
+        que apresentarei os documentos
+        necessários quando solicitados.</label>
     </form>
 </div>

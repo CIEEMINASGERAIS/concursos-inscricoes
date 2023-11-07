@@ -5,7 +5,7 @@
         <div class="form-group">
             <label for="aprendiz" class="label-um">1. Você já foi aprendiz? Se positivo, qual foi o curso realizado?
                 (se possível descrever a CBO ou ARCO)</label>
-            <input type="text" name="aprendiz" class="" id="aprendiz" placeholder="Você já foi aprendiz?" required>
+            <input type="text" name="aprendiz" class="form-control" id="aprendiz" placeholder="Você já foi aprendiz?" required>
             <span id="msg-aprendiz"></span>
         </div>
 
@@ -13,24 +13,24 @@
             <label for="responsavel" class="label-dois">2. Se tem idade menor que 18 anos, possui responsavéis legais
                 que
                 não sejam seus pais? Se positivo, qual o parentesco ou situação?</label>
-            <input type="text" name="responsavel" class="" id="responsavel" placeholder="Responsável." required>
+            <input type="text" name="responsavel" class="form-control" id="responsavel" placeholder="Responsável." required>
             <span id="msg-responsavel"></span>
         </div>
 
         <div class="form-group">
             <label class="label-tres">3. Estuda ou estudou em escola da:</label>
             <div class="div-escola-minicipal">
-                <input type="checkbox" class="escola-particular" id="html5" name="aprender" value="html5">
+                <input type="radio" class="escola-particular" id="html5" name="aprender" value="html5">
                 <label for="html5" class="escola-minicipal"> <span class="check_new_btn"></span> Rede Pública
                     Municipal </label>
             </div>
             <div class="div-escola-particular">
-                <input type="checkbox" class="escola-particular" id="css3" name="aprender" value="css3">
+                <input type="radio" class="escola-particular" id="css3" name="aprender" value="css3">
                 <label for="css3" class=""><span class="escola-particular"></span> Escola
                     Particular com bolsa </label>
             </div>
             <div class="div-escola-estadual">
-                <input type="checkbox" class="escola-estadual" id="jquery" name="aprender" value="jquery">
+                <input type="radio" class="escola-estadual" id="jquery" name="aprender" value="jquery">
                 <label for="jquery" class=""><span class="escola-estadual"></span> Rede Pública
                     Estadual </label>
             </div>
@@ -51,17 +51,21 @@
                 </label>
             </div>
             <div class="div-escola-publica">
-                <input type="checkbox" class="escola-publica" id="wordpress" name="aprender" value="wordpress">
+                <input type="radio" class="escola-publica" id="wordpress" name="aprender" value="wordpress">
                 <label for="wordpress" class="escola-publica"><span class="check_new_btn"></span> Rede
                     Pública Federal
                 </label>
             </div>
+            <div class="div-escola-particular">
+                <input type="radio" class="escola-particular" id="wordpress" name="aprender" value="wordpress">
+                <label for="wordpress" class="escola-particular"><span class="check_new_btn"></span> Escola
+                    Particular sem bolsa
+                </label>
+            </div>
         </div>
-        <div class="div-escola-particular">
-            <input type="checkbox" class="escola-particular" id="wordpress" name="aprender" value="wordpress">
-            <label for="wordpress" class="escola-particular"><span class="check_new_btn"></span> Escola
-                Particular sem bolsa
-            </label>
+        <div class="form-group">
+            <label for="nome" class="">4. Você reside em imóvel alugado, próprio ou outro? Se o imóvel gera algum custo, como aluguel,
+                financiamento e etc, favor informar o valor mensal pago.</label>
             <input type="text" name="nome" class="form-control" id="nome" placeholder="Nome" required>
         </div>
 
@@ -99,11 +103,7 @@
             </div>
         </div>
         <div class="form-group">
-            <label for="nome" class="">7. Você possui algum tipo de deficiência? Qual?</label>
-            <input type="text" name="nome" class="form-control" id="nome" placeholder="Nome" required>
-        </div>
-        <div class="form-group">
-            <label for="nome" class="">8. Qual a sua identidade de gênero?</label>
+            <label for="nome" class="">7. Qual a sua identidade de gênero?</label>
             <div class="">
                 <label for="feminino" class=""> </span> Cisgênero: pessoa que se identifica com as características
                     do sexo designado a ela no
@@ -116,7 +116,7 @@
             </div>
         </div>
         <div class="form-group">
-            <label for="nome" class="">9. Como você se declara:</label>
+            <label for="nome" class="">8. Como você se declara:</label>
             <div class="">
                 <input type="radio" class="" id="feminino" name="sexo" value="Feminino" required="required">
                 <label for="feminino" class=""> </span> Negro</label>
@@ -141,7 +141,7 @@
             </div>
         </div>
         <div class="form-group">
-            <label for="nome" class="">9. Se você tem filho(s), quantos são e informe se recebe ou paga auxílio
+            <label for="nome" class="">8. Se você tem filho(s), quantos são e informe se recebe ou paga auxílio
                 financeiro para ele(a).</label>
             <input type="text" name="nome" class="form-control" id="nome" placeholder="Nome" required>
         </div>

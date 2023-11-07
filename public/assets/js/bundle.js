@@ -46343,7 +46343,7 @@ function _socioEconomic() {
         case 0:
           return _context2.abrupt("return", new Promise( /*#__PURE__*/function () {
             var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(resolve, reject) {
-              var response, htmlContent, screenSocioEconomic, formSocioEconomic;
+              var response, htmlContent, screenSocioEconomic, formSocioEconomic, formEconomic, aprendiz, responsavel, imovel, pessoas;
               return _regeneratorRuntime().wrap(function _callee$(_context) {
                 while (1) switch (_context.prev = _context.next) {
                   case 0:
@@ -46357,9 +46357,57 @@ function _socioEconomic() {
                     htmlContent = _context.sent;
                     screenSocioEconomic = document.querySelector('.screen-socio-economic');
                     screenSocioEconomic.innerHTML = htmlContent;
-                    formSocioEconomic = document.querySelector('.form-socio-economic');
-                    if (formSocioEconomic) {}
-                  case 10:
+                    formSocioEconomic = document.querySelector('.form-economic');
+                    formEconomic = {};
+                    aprendiz = document.getElementById('aprendiz');
+                    aprendiz.addEventListener('input', function (e) {
+                      var valores = e.target.value;
+                      if (valores.length === 0) {
+                        e.preventDefault();
+                        document.getElementById('msg-aprendiz').innerHTML = "<p>Favor preencher o campo!</p>";
+                      } else {
+                        document.getElementById('msg-aprendiz').innerHTML = "";
+                        formEconomic.aprendiz = valores;
+                      }
+                    });
+                    responsavel = document.getElementById('responsavel');
+                    responsavel.addEventListener('input', function (e) {
+                      var valores = e.target.value;
+                      if (valores.length === 0) {
+                        e.preventDefault();
+                        document.getElementById('msg-responsavel').innerHTML = "<p>Favor preencher o Campo!</p>";
+                      } else {
+                        document.getElementById('msg-responsavel').innerHTML = "";
+                        formEconomic.responsavel = valores;
+                      }
+                    });
+                    imovel = document.getElementById('imovel');
+                    imovel.addEventListener('input', function (e) {
+                      var valores = e.target.value;
+                      if (valores.length === 0) {
+                        e.preventDefault();
+                        document.getElementById('msg-imovel').innerHTML = "<p>Favor preencher o Campo!</p>";
+                      } else {
+                        document.getElementById('msg-imovel').innerHTML = "";
+                        formEconomic.imovel = valores;
+                      }
+                    });
+                    pessoas = document.getElementById('pessoas');
+                    pessoas.addEventListener('input', function (e) {
+                      var valores = e.target.value;
+                      console.log(valores);
+                      if (valores.length === 0) {
+                        e.preventDefault();
+                        document.getElementById('msg-pessoas').innerHTML = "<p>Favor preencher o Campo!</p>";
+                      } else {
+                        document.getElementById('msg-pessoas').innerHTML = "";
+                        formEconomic.pessoas = valores;
+                      }
+                    });
+                    if (formSocioEconomic) {
+                      console.log(formEconomic);
+                    }
+                  case 19:
                   case "end":
                     return _context.stop();
                 }

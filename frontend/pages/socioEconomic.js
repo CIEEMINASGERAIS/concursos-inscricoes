@@ -64,8 +64,6 @@ async function socioEconomic() {
         pessoas.addEventListener('input', e => {
             let valores = e.target.value
 
-            console.log(valores)
-
             if (valores.length === 0) {
                 e.preventDefault()
                 document.getElementById('msg-pessoas').innerHTML =
@@ -75,6 +73,23 @@ async function socioEconomic() {
                 formEconomic.pessoas = valores
             }
         })
+
+        const filhos = document.getElementById('filhos')
+
+        filhos.addEventListener('input', e => {
+            let valores = e.target.value
+
+            if (valores.length === 0) {
+                e.preventDefault()
+                document.getElementById('msg-filhos').innerHTML =
+                    "<p>Favor preencher o Campo!</p>"
+            } else {
+                document.getElementById('msg-filhos').innerHTML = ""
+                formEconomic.filhos = valores
+            }
+        })
+
+
 
         if (formSocioEconomic) {
             console.log(formEconomic)

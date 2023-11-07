@@ -46343,7 +46343,7 @@ function _socioEconomic() {
         case 0:
           return _context2.abrupt("return", new Promise( /*#__PURE__*/function () {
             var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(resolve, reject) {
-              var response, htmlContent, screenSocioEconomic, formSocioEconomic, formEconomic, aprendiz, responsavel, imovel, pessoas;
+              var response, htmlContent, screenSocioEconomic, formSocioEconomic, formEconomic, aprendiz, responsavel, imovel, pessoas, filhos;
               return _regeneratorRuntime().wrap(function _callee$(_context) {
                 while (1) switch (_context.prev = _context.next) {
                   case 0:
@@ -46395,7 +46395,6 @@ function _socioEconomic() {
                     pessoas = document.getElementById('pessoas');
                     pessoas.addEventListener('input', function (e) {
                       var valores = e.target.value;
-                      console.log(valores);
                       if (valores.length === 0) {
                         e.preventDefault();
                         document.getElementById('msg-pessoas').innerHTML = "<p>Favor preencher o Campo!</p>";
@@ -46404,10 +46403,21 @@ function _socioEconomic() {
                         formEconomic.pessoas = valores;
                       }
                     });
+                    filhos = document.getElementById('filhos');
+                    filhos.addEventListener('input', function (e) {
+                      var valores = e.target.value;
+                      if (valores.length === 0) {
+                        e.preventDefault();
+                        document.getElementById('msg-filhos').innerHTML = "<p>Favor preencher o Campo!</p>";
+                      } else {
+                        document.getElementById('msg-filhos').innerHTML = "";
+                        formEconomic.filhos = valores;
+                      }
+                    });
                     if (formSocioEconomic) {
                       console.log(formEconomic);
                     }
-                  case 19:
+                  case 21:
                   case "end":
                     return _context.stop();
                 }

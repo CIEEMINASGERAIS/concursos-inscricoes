@@ -1,19 +1,20 @@
-<!-- <form class="form-socio-economic"> -->
 <div class="form-socio-economic">
     <h3>Esta avaliação será analisada pela equipe do Serviço Social para identificação do perfil socio-econômico
     </h3>
     <form class="form-economic">
-
         <div class="div-um">
-            <label for="nome" class="label-um">1. Você já foi aprendiz? Se positivo, qual foi o curso realizado?
+            <label for="aprendiz" class="label-um">1. Você já foi aprendiz? Se positivo, qual foi o curso realizado?
                 (se possível descrever a CBO ou ARCO)</label>
-            <input type="text" name="nome" class="" id="nome" placeholder="Nome" required>
+            <input type="text" name="aprendiz" class="" id="aprendiz" placeholder="Você já foi aprendiz?" required>
+            <span id="msg-aprendiz"></span>
         </div>
 
         <div class="div-dois">
-            <label for="e-mail" class="label-dois">2. Se tem idade menor que 18 anos, possui responsavéis legais que
+            <label for="responsavel" class="label-dois">2. Se tem idade menor que 18 anos, possui responsavéis legais
+                que
                 não sejam seus pais? Se positivo, qual o parentesco ou situação?</label>
-            <input type="text" name="nome" class="" id="nome" placeholder="Nome" required>
+            <input type="text" name="responsavel" class="" id="responsavel" placeholder="Responsável." required>
+            <span id="msg-responsavel"></span>
         </div>
 
         <div class="div-tres">
@@ -48,17 +49,20 @@
         </div>
 
         <div class="div-quatro">
-            <label for="nome" class="">4. Você reside em imóvel alugado, próprio ou outro? Se o imóvel gera
+            <label for="imovel" class="">4. Você reside em imóvel alugado, próprio ou outro? Se o imóvel gera
                 algum custo, como aluguel,
                 financiamento e etc, favor informar o valor mensal pago.
             </label>
-            <input type="text" name="nome" class="" id="nome" placeholder="Nome" required>
+            <input type="text" name="imovel" class="" id="imovel" placeholder="Residência." required>
+            <span id="msg-imovel"></span>
         </div>
 
         <div class="div-cinco">
-            <label for="nome" class="">5. Além de você, quantas pessoas do seu grupo familiar residem na sua
+            <label for="pessoas" class="">5. Além de você, quantas pessoas do seu grupo familiar residem na sua
                 casa?</label>
-            <input type="text" name="nome" class="" id="nome" placeholder="Nome" required>
+            <input type="text" name="pessoas" class="" id="pessoas" placeholder="Quantas pessoas residem na sua
+            casa?" required>
+            <span id="msg-pessoas"></span>
         </div>
 
         <div class="div-seis">
@@ -171,8 +175,3 @@
                 necessários quando solicitados.</label>
     </form>
 </div>
-
-
-
-</div><!--container_form-->
-<!-- </form> -->

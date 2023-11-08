@@ -64,8 +64,6 @@ async function socioEconomic() {
         pessoas.addEventListener('input', e => {
             let valores = e.target.value
 
-            console.log(valores)
-
             if (valores.length === 0) {
                 e.preventDefault()
                 document.getElementById('msg-pessoas').innerHTML =
@@ -76,8 +74,36 @@ async function socioEconomic() {
             }
         })
 
+        const filhos = document.getElementById('filhos')
+
+        filhos.addEventListener('input', e => {
+            let valores = e.target.value
+
+            if (valores.length === 0) {
+                e.preventDefault()
+                document.getElementById('msg-filhos').innerHTML =
+                    "<p>Favor preencher o Campo!</p>"
+            } else {
+                document.getElementById('msg-filhos').innerHTML = ""
+                formEconomic.filhos = valores
+            }
+        })
+
+
+
         if (formSocioEconomic) {
-            console.log(formEconomic)
+            formSocioEconomic.addEventListener('submit', () => {
+                if (formEconomic.aprendiz && formEconomic.responsavel && formEconomic.imovel && formEconomic.pessoas && formEconomic.filhos) {
+                    console.log(formEconomic)
+                } else {
+                    alertEnd.style.display = "block";
+                    console.log('Formulário incompleto!')
+                }
+            })
+
+
+        } else {
+            reject(new Error('O formulário não foi encontrado!'))
         }
 
     })

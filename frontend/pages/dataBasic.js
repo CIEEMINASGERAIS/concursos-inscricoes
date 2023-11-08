@@ -510,7 +510,7 @@ const initDataBasic = async () => {
         }
       })
     } else {
-      reject(new Error('O formulário não foi encontrado'))
+      reject(new Error('O formulário não foi encontrado!'))
     }
   })
 }

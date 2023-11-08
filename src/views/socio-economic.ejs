@@ -1,8 +1,8 @@
 <div class="form-socio-economic">
-    <p>Esta avaliação será analisada pela equipe do Serviço Social para identificação do perfil socio-econômico</p>
+    <p class="label-title">Esta avaliação será analisada pela equipe do Serviço Social para identificação do perfil socio-econômico</p>
     <form class="form-economic">
         <div class="form-group">
-            <label for="aprendiz" class="label-um">1. Você já foi aprendiz? Se positivo, qual foi o curso realizado?
+            <label for="aprendiz" class="label-title">1. Você já foi aprendiz? Se positivo, qual foi o curso realizado?
                 (se possível descrever a CBO ou ARCO)</label>
             <input type="text" name="aprendiz" class="form-control" id="aprendiz" placeholder="Você já foi aprendiz?"
                 required>
@@ -10,7 +10,7 @@
         </div>
 
         <div class="form-group">
-            <label for="responsavel" class="label-dois">2. Se tem idade menor que 18 anos, possui responsavéis legais
+            <label for="responsavel" class="label-title">2. Se tem idade menor que 18 anos, possui responsavéis legais
                 que
                 não sejam seus pais? Se positivo, qual o parentesco ou situação?</label>
             <input type="text" name="responsavel" class="form-control" id="responsavel" placeholder="Responsável."
@@ -19,7 +19,7 @@
         </div>
 
         <div class="form-group">
-            <label class="label-tres">3. Estuda ou estudou em escola da:</label>
+            <label class="label-title">3. Estuda ou estudou em escola da:</label>
 
             <div class="form-check">
                 <input type="radio" class="form-check-input" id="escola-municipal" name="escolas" value="Rede Pública
@@ -42,7 +42,7 @@
             <div class="form-check">
                 <input type="radio" class="form-check-input" id="css3" name="escolas" value="css3">
                 <label for="css3" class="form-check-label"> Escola
-                    Particular com bolsa </label>
+                    Particular sem bolsa </label>
             </div>
             <div class="form-check">
                 <input type="radio" class="form-check-input" id="wordpress" name="escolas" value="wordpress">
@@ -53,15 +53,14 @@
 
         </div>
         <div class="form-group">
-            <label for="imovel" class="">4. Você reside em imóvel alugado, próprio ou outro? Se o imóvel gera algum
-                custo,
+            <label for="nome" class="label-title">4. Você reside em imóvel alugado, próprio ou outro? Se o imóvel gera algum custo,
                 como aluguel, financiamento e etc, favor informar o valor mensal pago.</label>
             <input type="text" name="imovel" class="form-control" id="imovel" placeholder="Residência." required>
             <span id="msg-imovel"></span>
         </div>
 
         <div class="form-group">
-            <label for="pessoas" class="">5. Além de você, quantas pessoas do seu grupo familiar residem na sua casa?
+            <label for="pessoas" class="label-title">5. Além de você, quantas pessoas do seu grupo familiar residem na sua casa?
             </label>
             <input type="text" name="pessoas" class="form-control" id="pessoas"
                 placeholder="Quantas pessoas do seu grupo familiar residem na sua casa?" required>
@@ -69,7 +68,7 @@
         </div>
 
         <div class="form-group">
-            <label for="datanascimento" class="">6. Informe o valor total da renda, formal ou informal, do
+            <label for="datanascimento" class="label-title">6. Informe o valor total da renda, formal ou informal, do
                 seu grupo familiar, incluindo pensão alimentícia
                 ou por falecimento, aposentadoria, benefícios do Governo, como BPC, BEM e outros (estas
                 informações deverão ser comprovadas quando solicitadas):</label>
@@ -100,92 +99,86 @@
             </div>
         </div>
         <div class="form-group">
-            <label for="nome" class="">7. Qual a sua identidade de gênero?</label>
-            <div class="">
-                <input type="radio" class="form-check-input" id="feminino" name="sexo" value="Feminino"
-                    required="required">
-                <label for="feminino" class="form-check-label">Cisgênero: pessoa que se identifica com as
-                    características do
+            <label for="nome" class="label-title">7. Qual a sua identidade de gênero?</label>
+            <div class="form-check">
+                <input type="radio" class="form-check-input" id="feminino" name="sexo" value="Feminino" required="required">
+                <label for="feminino" class="form-check-label">Cisgênero: pessoa que se identifica com as características do
                     sexo designado a ela no nascimento </label>
             </div>
-            <div class="">
-                <input type="radio" class="form-check-input" id="feminino" name="sexo" value="Feminino"
-                    required="required">
-                <label for="feminino" class="form-check-label">Transgênero: pessoa que não se identifica com
-                    ascaracterísticas
+            <div class="form-check">
+                <input type="radio" class="form-check-input" id="feminino" name="sexo" value="Feminino" required="required">
+                <label for="feminino" class="form-check-label">Transgênero: pessoa que não se identifica com ascaracterísticas
                     do sexo designado a elano nascimento</label>
             </div>
         </div>
         <div class="form-group">
-            <label for="nome" class="">8. Como você se declara:</label>
-            <div class="">
-                <input type="radio" class="form-check-input" id="feminino" name="sexo" value="Feminino"
-                    required="required">
+            <label for="nome" class="label-title">8. Como você se declara:</label>
+            <div class="form-check">
+                <input type="radio" class="form-check-input" id="feminino" name="sexo" value="Feminino" required="required">
                 <label for="feminino" class="form-check-label">Negro</label>
             </div>
-            <div class="">
-                <input type="radio" class="form-check-input" id="feminino" name="sexo" value="Feminino"
-                    required="required">
+            <div class="form-check">
+                <input type="radio" class="form-check-input" id="feminino" name="sexo" value="Feminino" required="required">
                 <label for="feminino" class="form-check-label">Branco</label>
             </div>
-            <div class="">
-                <input type="radio" class="form-check-input" id="feminino" name="sexo" value="Feminino"
-                    required="required">
+            <div class="form-check">
+                <input type="radio" class="form-check-input" id="feminino" name="sexo" value="Feminino" required="required">
                 <label for="feminino" class="form-check-label">Pardo </label>
             </div>
-            <div class="">
-                <input type="radio" class="form-check-input" id="feminino" name="sexo" value="Feminino"
-                    required="required">
+            <div class="form-check">
+                <input type="radio" class="form-check-input" id="feminino" name="sexo" value="Feminino" required="required">
                 <label for="feminino" class="form-check-label">Amarelo</label>
             </div>
-            <div class="">
-                <input type="radio" class="form-check-input" id="feminino" name="sexo" value="Feminino"
-                    required="required">
+            <div class="form-check">
+                <input type="radio" class="form-check-input" id="feminino" name="sexo" value="Feminino" required="required">
                 <label for="feminino" class="form-check-label"> Indígena (possui declaração de vínculo com a comunidade
                     indígena pela FUNAI)
                 </label>
             </div>
         </div>
         <div class="form-group">
-            <label for="nome" class="">9. Se você tem filho(s), quantos são e informe se recebe ou paga auxílio
+            <label for="nome" class="label-title">9. Se você tem filho(s), quantos são e informe se recebe ou paga auxílio
                 financeiro para ele(a).</label>
             <input type="text" name="filhos" class="form-control" id="filhos" placeholder="Você tem filho(s)?" required>
             <span id="msg-filhos"></span>
         </div>
         <div class="form-group">
-            <label for="nome" class="">10. Você se enquadra em uma das opções abaixo?</label>
-            <div class="">
-                <input type="radio" class="form-check-input" id="feminino" name="sexo" value="Feminino"
-                    required="required">
-                <label for="feminino" class="form-check-label"> </span>está em acolhimento institucional (abrigo)
-                </label>
+            <label for="nome" class="label-title">10. Você se enquadra em uma das opções abaixo?</label>
+            <div class="form-check">
+                <input type="radio" class="form-check-input" id="feminino" name="sexo" value="Feminino" required="required">
+                <label for="feminino" class="form-check-label"> </span>está em acolhimento institucional (abrigo) </label>
             </div>
-            <div class="">
-                <input type="radio" class="form-check-input" id="feminino" name="sexo" value="Feminino"
-                    required="required">
+            <div class="form-check">
+                <input type="radio" class="form-check-input" id="feminino" name="sexo" value="Feminino" required="required">
                 <label for="feminino" class="form-check-label"> </span> está em medida protetiva</label>
             </div>
-            <div class="">
-                <input type="radio" class="form-check-input" id="feminino" name="sexo" value="Feminino"
-                    required="required">
+            <div class="form-check">
+                <input type="radio" class="form-check-input" id="feminino" name="sexo" value="Feminino" required="required">
                 <label for="feminino" class="form-check-label"> </span> está em cumprindo medida sócioeducativa </label>
             </div>
-            <div class="">
-                <input type="radio" class="form-check-input" id="feminino" name="sexo" value="Feminino"
-                    required="required">
+            <div class="form-check">
+                <input type="radio" class="form-check-input" id="feminino" name="sexo" value="Feminino" required="required">
                 <label for="feminino" class="form-check-label"> </span> está no sistema prisional</label>
             </div>
-            <div class="">
-                <input type="radio" class="form-check-input" id="feminino" name="sexo" value="Feminino"
-                    required="required">
+            <div class="form-check">
+                <input type="radio" class="form-check-input" id="feminino" name="sexo" value="Feminino" required="required">
                 <label for="feminino" class="form-check-label"> </span>não me enquadro em nenhuma das opções</label>
             </div>
         </div>
-        <div class="">
-            <input type="checkbox" class="" id="feminino" name="sexo" value="Feminino" required="required">
-            <label for="feminino" class=""> </span>Declaro que as informações por mim preenchidas são verdadeiras e
+        <div class="form-check">
+            <input type="checkbox" class="form-check-input" id="feminino" name="sexo" value="Feminino" required="required">
+            <label for="feminino" class="form-check-label"> </span>Declaro que as informações por mim preenchidas são verdadeiras e
                 que apresentarei os documentos
                 necessários quando solicitados.</label>
         </div>
+        <div class="div-buttons">
+            <button class="button-back-socio" type="button">Voltar</button>
+            <div class="linha-ou-school">
+              <div class="line-div"></div>
+              <div class="ou">OU</div>
+              <div class="line-div"></div>
+            </div>
+            <button class="button-finish-socio" type="submit">Finalizar</button>
+          </div>
     </form>
 </div>

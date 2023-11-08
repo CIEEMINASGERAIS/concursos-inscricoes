@@ -8,6 +8,8 @@ const {
   isMesFormatura,
   isPeriodo,
   isHorario,
+  changeMains,
+  changeSubMainTitle
 } = require("../utils/util");
 
 const generator = require('generate-password');
@@ -459,7 +461,8 @@ async function createFormSchoolData() {
           const today = new Date();
           dataFormSchool.ano = today.getFullYear();
           dataFormSchool.senha = password
-          // alertEnd.style.display = "block";
+          changeMains('.screen-socio-economic')
+          changeSubMainTitle('Formulário Socioeconômico')
           resolve(dataFormSchool);
         } else {
           document.getElementById("msg-fracasso-school").innerHTML =

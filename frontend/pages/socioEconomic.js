@@ -92,7 +92,18 @@ async function socioEconomic() {
 
 
         if (formSocioEconomic) {
-            console.log(formEconomic)
+            formSocioEconomic.addEventListener('submit', () => {
+                if (formEconomic.aprendiz && formEconomic.responsavel && formEconomic.imovel && formEconomic.pessoas && formEconomic.filhos) {
+                    console.log(formEconomic)
+                } else {
+                    alertEnd.style.display = "block";
+                    console.log('Formulário incompleto!')
+                }
+            })
+
+
+        } else {
+            reject(new Error('O formulário não foi encontrado!'))
         }
 
     })

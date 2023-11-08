@@ -45751,7 +45751,7 @@ var initDataBasic = /*#__PURE__*/function () {
                         }
                       });
                     } else {
-                      reject(new Error('O formulário não foi encontrado'));
+                      reject(new Error('O formulário não foi encontrado!'));
                     }
                   case 44:
                   case "end":
@@ -45825,7 +45825,9 @@ var _require = __webpack_require__(/*! ../utils/util */ "./frontend/utils/util.j
   isSemestre = _require.isSemestre,
   isMesFormatura = _require.isMesFormatura,
   isPeriodo = _require.isPeriodo,
-  isHorario = _require.isHorario;
+  isHorario = _require.isHorario,
+  changeMains = _require.changeMains,
+  changeSubMainTitle = _require.changeSubMainTitle;
 var generator = __webpack_require__(/*! generate-password */ "./node_modules/generate-password/main.js");
 function createFormSchoolData() {
   return _createFormSchoolData.apply(this, arguments);
@@ -46281,7 +46283,8 @@ function _createFormSchoolData() {
                                   today = new Date();
                                   dataFormSchool.ano = today.getFullYear();
                                   dataFormSchool.senha = password;
-                                  // alertEnd.style.display = "block";
+                                  changeMains('.screen-socio-economic');
+                                  changeSubMainTitle('Formulário Socioeconômico');
                                   resolve(dataFormSchool);
                                 } else {
                                   document.getElementById("msg-fracasso-school").innerHTML = "<p>Formulário incompleto!</p>";
@@ -46415,7 +46418,16 @@ function _socioEconomic() {
                       }
                     });
                     if (formSocioEconomic) {
-                      console.log(formEconomic);
+                      formSocioEconomic.addEventListener('submit', function () {
+                        if (formEconomic.aprendiz && formEconomic.responsavel && formEconomic.imovel && formEconomic.pessoas && formEconomic.filhos) {
+                          console.log(formEconomic);
+                        } else {
+                          alertEnd.style.display = "block";
+                          console.log('Formulário incompleto!');
+                        }
+                      });
+                    } else {
+                      reject(new Error('O formulário não foi encontrado!'));
                     }
                   case 21:
                   case "end":

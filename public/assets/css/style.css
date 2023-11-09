@@ -312,17 +312,35 @@
   }
 }
 
-@media screen and (max-height:630px) {
+@media screen and (max-height:700px) {
+  .big-basic-data,
+.big-terms-conditions,
+.big-address,
+.big-school-data,
+.big-socio-economic {
+  padding: 1rem 0.5rem;
+  margin-top: 0rem;
+}
+  
+  .main-side-mobile {
+    padding: 0rem;
+  }
   .main-side-mobile button {
     padding-bottom: 1rem;
+    margin-bottom: 1rem;
   }
-
   .container {
     margin: -1.2rem 0.5rem 0.25rem 1rem;
   }
 }
+@media screen and (max-height:570px) {
+  .main-side-mobile button {
+    padding-bottom: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+}
 
-@media screen and (max-height:500px) {
+@media screen and (max-height:600px) {
   .container {
     margin: -1.2rem 0.5rem 0.25rem 1rem;
   }
@@ -340,7 +358,7 @@
   }
 }
 
-@media screen and (max-height:450px) {
+/* @media screen and (max-height:450px) {
   .container {
     margin: -1.2rem 0.5rem 0.25rem 1rem;
   }
@@ -352,7 +370,7 @@
   .nav-bar {
     overflow: auto;
   }
-}
+} */
 
 @media screen and (max-height:400px) {
   .nav-bar {

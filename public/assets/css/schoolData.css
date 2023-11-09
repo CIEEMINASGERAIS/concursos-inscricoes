@@ -361,12 +361,12 @@
 
 @media screen and (max-width:920px) {
   .screen-school-data {
-    margin: 7rem 16rem 3rem 0rem;
+    margin: 6rem 10rem 0.5rem 0rem;
   }
 
   #form-school-data {
     padding: 2rem 2rem 0rem 2rem;
-    margin: 4rem 0rem 2rem 10rem;
+    margin: 3rem 0rem 1rem 7rem;
     width: 100%;
     background-color: rgba(0, 0, 0, 0.199);
     border-radius: 0.5rem;

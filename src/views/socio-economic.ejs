@@ -47,10 +47,10 @@
                     value="Rede Pública Federal" required>
                 <label for="escola-federal" class="form-check-label"> Rede Pública Federal </label>
             </div>
-
         </div>
+
         <div class="form-group">
-            <label for="nome" class="label-title">4. Você reside em imóvel alugado, próprio ou outro? Se o imóvel gera
+            <label for="imovel" class="label-title">4. Você reside em imóvel alugado, próprio ou outro? Se o imóvel gera
                 algum custo,
                 como aluguel, financiamento e etc, favor informar o valor mensal pago.</label>
             <input type="text" name="imovel" class="form-control" id="imovel" placeholder="Residência." required>
@@ -67,56 +67,56 @@
         </div>
 
         <div class="form-group">
-            <label for="datanascimento" class="label-title">6. Informe o valor total da renda, formal ou informal, do
+            <label class="label-title">6. Informe o valor total da renda, formal ou informal, do
                 seu grupo familiar, incluindo pensão alimentícia
                 ou por falecimento, aposentadoria, benefícios do Governo, como BPC, BEM e outros (estas
                 informações deverão ser comprovadas quando solicitadas):</label>
 
             <div class="form-check">
-                <input type="radio" class="form-check-input" id="masculino" name="rendas" value="Masculino"
-                    required="required">
-                <label for="masculino" class="form-check-label"> </span>Até 1
+                <input type="radio" class="form-check-input" id="1salario" name="rendas" value="Até 1
+                Salário Mínimo" required="required">
+                <label for="1salario" class="form-check-label"> Até 1
                     Salário Mínimo</label>
             </div>
             <div class="form-check">
-                <input type="radio" class="form-check-input" id="feminino" name="rendas" value="Feminino"
+                <input type="radio" class="form-check-input" id="2salarios" name="rendas" value="Até 2 Salários Mínimos"
                     required="required">
-                <label for="feminino" class="form-check-label"> </span> Até 2
+                <label for="2salarios" class="form-check-label"> </span> Até 2
                     Salários Mínimos</label>
             </div>
             <div class="form-check">
-                <input type="radio" class="form-check-input" id="feminino" name="rendas" value="Feminino"
+                <input type="radio" class="form-check-input" id="3salarios" name="rendas" value="Até 3 Salários Mínimos"
                     required="required">
-                <label for="feminino" class="form-check-label"> </span> Até 3
+                <label for="3salarios" class="form-check-label"> </span> Até 3
                     Salários Mínimos</label>
             </div>
             <div class="form-check">
-                <input type="radio" class="form-check-input" id="feminino" name="rendas" value="Feminino"
-                    required="required">
-                <label for="feminino" class="form-check-label"> </span> A partir
+                <input type="radio" class="form-check-input" id="4salarios" name="rendas" value="A partir
+                de 4 Salários Mínimos" required="required">
+                <label for="4salarios" class="form-check-label"> </span> A partir
                     de 4 Salários Mínimos</label>
             </div>
         </div>
 
         <div class="form-group">
-            <label for="nome" class="label-title">7. Qual a sua identidade de gênero?</label>
+            <label class="label-title">7. Qual a sua identidade de gênero?</label>
             <div class="form-check">
-                <input type="radio" class="form-check-input" id="feminino" name="genero" value="Feminino"
+                <input type="radio" class="form-check-input" id="cisgenero" name="genero" value="Cisgênero"
                     required="required">
-                <label for="feminino" class="form-check-label">Cisgênero: pessoa que se identifica com as
+                <label for="cisgenero" class="form-check-label">Cisgênero: pessoa que se identifica com as
                     características do
                     sexo designado a ela no nascimento </label>
             </div>
             <div class="form-check">
-                <input type="radio" class="form-check-input" id="feminino" name="genero" value="Feminino"
+                <input type="radio" class="form-check-input" id="transgenero" name="genero" value="Transgênero"
                     required="required">
-                <label for="feminino" class="form-check-label">Transgênero: pessoa que não se identifica com
+                <label for="transgenero" class="form-check-label">Transgênero: pessoa que não se identifica com
                     ascaracterísticas
                     do sexo designado a elano nascimento</label>
             </div>
         </div>
         <div class="form-group">
-            <label for="titulo" class="label-title">8. Como você se declara:</label>
+            <label class="label-title">8. Como você se declara:</label>
             <div class="form-check">
                 <input type="radio" class="form-check-input" id="negro" name="declaracao" value="Negro"
                     required="required">
@@ -146,14 +146,14 @@
             </div>
         </div>
         <div class="form-group">
-            <label for="nome" class="label-title">9. Se você tem filho(s), quantos são e informe se recebe ou paga
+            <label for="filhos" class="label-title">9. Se você tem filho(s), quantos são e informe se recebe ou paga
                 auxílio
                 financeiro para ele(a).</label>
             <input type="text" name="filhos" class="form-control" id="filhos" placeholder="Você tem filho(s)?" required>
             <span id="msg-filhos"></span>
         </div>
         <div class="form-group">
-            <label for="nome" class="label-title">10. Você se enquadra em uma das opções abaixo?</label>
+            <label class="label-title">10. Você se enquadra em uma das opções abaixo?</label>
             <div class="form-check">
                 <input type="radio" class="form-check-input" id="abrigo" name="opcoesEnquadra"
                     value="Acolhimento institucional" required="required">
@@ -188,9 +188,9 @@
         <div class="div-buttons">
             <button class="button-back-socio" type="button">Voltar</button>
             <div class="linha-ou-socio">
-              <div class="line-div"></div>
-              <div class="ou">OU</div>
-              <div class="line-div"></div>
+                <div class="line-div"></div>
+                <div class="ou">OU</div>
+                <div class="line-div"></div>
             </div>
             <button class="button-finish-socio" type="submit">Finalizar</button>
         </div>

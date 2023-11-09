@@ -9,9 +9,6 @@ module.exports = {
     database: process.env.DB_BASE,
     host: process.env.DB_HOST,
     dialect: process.env.DB_DIALECT,
-    dialectOptions: {
-      useUTC: false, // for reading from database
-    },
     timezone: "-03:00",
   },
   test: {
@@ -20,9 +17,6 @@ module.exports = {
     database: process.env.DB_BASE,
     host: process.env.DB_HOST,
     dialect: process.env.DB_DIALECT,
-    dialectOptions: {
-      useUTC: false, // for reading from database
-    },
     timezone: "-03:00",
   },
   production: {
@@ -31,9 +25,6 @@ module.exports = {
     database: process.env.DB_BASE,
     host: process.env.DB_HOST,
     dialect: process.env.DB_DIALECT,
-    dialectOptions: {
-      useUTC: false, // for reading from database
-    },
     timezone: "-03:00",
   },
 };

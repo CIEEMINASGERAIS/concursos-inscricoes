@@ -8,7 +8,7 @@ const cors = require("cors");
 // Chamar a função express
 const app = express();
 
-const ejs = require("ejs");
+// const ejs = require("ejs");
 
 const path = require("path");
 
@@ -26,6 +26,8 @@ const getCadastrarEscola = require('./src/controllers/getCadastrarEscola')
 const getEscola = require('./src/controllers/renderSchool')
 
 const postCadastro = require('./src/controllers/postCadastrar')
+
+const postSocioEconomic = require('./src/controllers/postSocioEconomic')
 
 // Acessar os renders das páginas
 const index = require('./src/controllers/renderIndex')
@@ -96,8 +98,11 @@ app.get("/address", address.renderAddress)
 // Função responsável por renderizar a quinta página
 app.get("/socio-economic", socialEconomic.renderSocioEconomic)
 
-// Função responsável por enviar as informações para o banco de dados
+// Funções responsáveis por enviar as informações para o banco de dados
 app.post("/cadastrar", postCadastro.postRegister)
+
+
+app.post("/cadastrarsocioeconomic", postSocioEconomic.sendSocioEconomic)
 
 // Iniciar o servidor na porta 8080, criar a função utilizando modelo Arrow function para retornar a mensagem de sucesso
 app.listen(8080, "0.0.0.0", () => {

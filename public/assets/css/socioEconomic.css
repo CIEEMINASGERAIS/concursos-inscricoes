@@ -22,14 +22,35 @@
     font-size: 1.1rem;
 }
 
-#msg-fracasso-socio-economic {
-    background-color: white;
-    color: red;
-    /* margin: 0rem 3rem; */
+.button-end-socio,.button-confirm-socio {
+    background-color: #007bff;
+    margin: 0rem 0rem 0rem 0rem;
     display: flex;
+    flex-direction: column;
     align-items: center;
-}
-
+    justify-content: center;
+    color: #ffffff;
+    box-shadow: 0.413rem 0.413rem 0.6rem rgba(0, 0, 0, 0.336);
+    border: solid #0075f3;
+    font-size: 1rem;
+    padding: 0.5rem 4rem 0.5rem 4rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    width: 10rem;
+    text-decoration:none;
+    
+  }
+  .button-end-socio:hover,
+  .button-confirm-socio:hover {
+    text-decoration:none;
+    color: #ffffff;
+    background-color: #005fc4;
+    order: solid #0063cc;
+  }
+  .button-end-socio:focus,
+  .button-confirm-socio:focus {
+    outline: none;
+  }
 
 @media (max-width: 920px) {
     .form-socio-economic {

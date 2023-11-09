@@ -22,13 +22,18 @@
     font-size: 1.1rem;
 }
 
-.linha-ou-socio{
+.linha-ou-socio {
     display: flex;
     flex-direction: row;
     align-items: center;
     margin-top: 1rem;
     margin-bottom: 1rem;
-  }
+}
+
+.button-back-socio {
+    margin: 2rem 0rem 0rem 0rem;
+}
+
 
 @media (max-width: 920px) {
     .form-socio-economic {

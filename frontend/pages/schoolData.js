@@ -440,8 +440,6 @@ async function createFormSchoolData() {
       });
     });
 
-    const alertEnd = document.querySelector(".end");
-
     if (formSchoolData) {
       formSchoolData.addEventListener("submit", async (e) => {
         e.preventDefault();
@@ -471,8 +469,7 @@ async function createFormSchoolData() {
         }
       });
     } else {
-      console.log("Erro ao enviar os dados para o banco!");
-      reject(error);
+      reject(new Error('O formulário não foi encontrado!'));
     }
   });
 }

@@ -925,6 +925,14 @@ const dateRegister = () => {
   return year + "-" + month + "-" + dayInMonth;
 };
 
+const selecionarNomes = (name) => {
+  for (let i = 0; i < name.length; i++) {
+    if (name[i].checked) {
+      console.log(name[i].value)
+    }
+  }
+}
+
 module.exports = {
   isCpf,
   isNome,
@@ -973,5 +981,6 @@ module.exports = {
   conferirFormBasic,
   conferirFormAddress,
   campoInvalido,
-  conferirFormSchool
+  conferirFormSchool,
+  selecionarNomes
 };

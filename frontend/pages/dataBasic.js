@@ -107,7 +107,6 @@ const initDataBasic = async () => {
           return formDataBasic.nome = false
         }
       })
-
     }
 
     const inputCpf = document.querySelector('.cpf')

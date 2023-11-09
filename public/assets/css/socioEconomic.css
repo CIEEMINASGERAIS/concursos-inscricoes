@@ -37,8 +37,7 @@
     border-radius: 0.5rem;
     cursor: pointer;
     width: 10rem;
-    text-decoration:none;
-    
+    text-decoration:none; 
   }
   .button-end-socio:hover,
   .button-confirm-socio:hover {
@@ -50,6 +49,13 @@
   .button-end-socio:focus,
   .button-confirm-socio:focus {
     outline: none;
+  }
+  .linha-ou-socio {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
   }
 
 @media (max-width: 920px) {

@@ -312,12 +312,11 @@
   box-shadow: 0.413rem 0.413rem 0.6rem rgba(0, 0, 0, 0.336);
   border: solid #0075f3;
   font-size: 1rem;
-  padding: 0.5rem 4rem 0.5rem 4rem;
+  /* padding: 0.5rem 4rem 0.5rem 4rem; */
   border-radius: 0.5rem;
   cursor: pointer;
   width: 10rem;
   text-decoration:none;
-  
 }
 .button-end-school:hover,
 .button-confirm-school:hover {

@@ -1,62 +1,112 @@
 .form-socio-economic {
-    background-color: rgb(13, 13, 13);
-    margin: 5rem 2rem 5rem 14rem;
+  background-color: rgb(13, 13, 13);
+  margin: 5rem 2rem 5rem 14rem;
+  margin: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: rgba(0, 0, 0, 0.199);
+  max-width: 100%;
+  padding: 1.5rem 2rem 3rem 2rem;
+  border-radius: 0.8rem;
+  box-shadow: 0.413rem 0.413rem 0.6rem rgba(0, 0, 0, 0.336);
+  gap: 1rem;
+  color: white;
+}
+
+.form-group {
+  margin-top: 2.5rem;
+}
+
+.label-title {
+  font-size: 1.1rem;
+}
+
+.form-check-label {
+  font-size: 1rem;
+}
+
+.button-end-socio,
+.button-confirm-socio {
+  background-color: #007bff;
+  margin: 0rem 0rem 0rem 0rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  box-shadow: 0.413rem 0.413rem 0.6rem rgba(0, 0, 0, 0.336);
+  border: solid #0075f3;
+  font-size: 1rem;
+  padding: 0.5rem 4rem 0.5rem 4rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  width: 10rem;
+  text-decoration: none;
+}
+
+.button-end-socio:hover,
+.button-confirm-socio:hover {
+  text-decoration: none;
+  color: #ffffff;
+  background-color: #005fc4;
+  order: solid #0063cc;
+}
+
+.button-end-socio:focus,
+.button-confirm-socio:focus {
+  outline: none;
+}
+
+.linha-ou-socio {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+@media (max-width: 920px) {
+  .screen-socio-economic{
+    margin-left:1rem;
+   }
+  .form-socio-economic {
+    margin: 5rem 2rem 5rem 5rem;
     margin: center;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    background-color: rgba(0, 0, 0, 0.199);
     max-width: 100%;
     padding: 1.5rem 2rem 3rem 2rem;
-    border-radius: 0.8rem;
-    box-shadow: 0.413rem 0.413rem 0.6rem rgba(0, 0, 0, 0.336);
-    gap: 1rem;
-    color: white;
+  }
 }
 
-.form-group {
-    margin-bottom: 5rem;
+@media (max-width: 500px) {
+  .screen-socio-economic{
+    margin-left:4rem;
+   }
+  .form-socio-economic {
+    margin: 3rem 1rem 5rem 1rem;
+    padding: 1.5rem 1rem 3rem 1rem;
+  }
 }
 
 .label-title {
     font-size: 1.1rem;
 }
 
-.button-end-socio,.button-confirm-socio {
-    background-color: #007bff;
-    margin: 0rem 0rem 0rem 0rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    color: #ffffff;
-    box-shadow: 0.413rem 0.413rem 0.6rem rgba(0, 0, 0, 0.336);
-    border: solid #0075f3;
-    font-size: 1rem;
-    padding: 0.5rem 4rem 0.5rem 4rem;
-    border-radius: 0.5rem;
-    cursor: pointer;
-    width: 10rem;
-    text-decoration:none; 
-  }
-  .button-end-socio:hover,
-  .button-confirm-socio:hover {
-    text-decoration:none;
-    color: #ffffff;
-    background-color: #005fc4;
-    order: solid #0063cc;
-  }
-  .button-end-socio:focus,
-  .button-confirm-socio:focus {
-    outline: none;
-  }
-  .linha-ou-socio {
+.linha-ou-socio {
     display: flex;
     flex-direction: row;
     align-items: center;
     margin-top: 1rem;
     margin-bottom: 1rem;
-  }
+}
+
+.button-back-socio {
+    margin: 2rem 0rem 0rem 0rem;
+}
+
 
 @media (max-width: 920px) {
     .form-socio-economic {

@@ -928,7 +928,7 @@ const dateRegister = () => {
 const selecionarNomes = (name) => {
   for (let i = 0; i < name.length; i++) {
     if (name[i].checked) {
-      console.log(name[i].value)
+      return name[i].value
     }
   }
 }

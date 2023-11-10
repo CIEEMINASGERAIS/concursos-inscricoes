@@ -46347,7 +46347,7 @@ function _socioEconomic() {
         case 0:
           return _context3.abrupt("return", new Promise( /*#__PURE__*/function () {
             var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2(resolve, reject) {
-              var response, htmlContent, screenSocioEconomic, formSocioEconomic, formEconomic, aprendiz, responsavel, imovel, pessoas, filhos, escolas, rendas, alertEnd;
+              var response, htmlContent, screenSocioEconomic, formSocioEconomic, formEconomic, aprendiz, responsavel, imovel, pessoas, filhos, escolas, rendas, generos, declaracao, situacaoJudicial, alertEnd;
               return _regeneratorRuntime().wrap(function _callee2$(_context2) {
                 while (1) switch (_context2.prev = _context2.next) {
                   case 0:
@@ -46425,6 +46425,9 @@ function _socioEconomic() {
                     });
                     escolas = document.getElementsByName('escolas');
                     rendas = document.getElementsByName('rendas');
+                    generos = document.getElementsByName('genero');
+                    declaracao = document.getElementsByName('declaracao');
+                    situacaoJudicial = document.getElementsByName('situacao-judicial');
                     alertEnd = document.querySelector(".end");
                     if (formSocioEconomic) {
                       formSocioEconomic.addEventListener('submit', /*#__PURE__*/function () {
@@ -46433,20 +46436,16 @@ function _socioEconomic() {
                             while (1) switch (_context.prev = _context.next) {
                               case 0:
                                 e.preventDefault();
-                                if (formEconomic.aprendiz && formEconomic.responsavel && formEconomic.imovel && formEconomic.pessoas && formEconomic.filhos) {
+                                if (formEconomic.aprendiz && formEconomic.responsavel && formEconomic.imovel && formEconomic.pessoas_por_residencia && formEconomic.tem_filhos) {
                                   console.log(formEconomic);
-                                  selecionarNomes(escolas);
-                                  selecionarNomes(rendas);
+                                  formEconomic.escola_estudou = selecionarNomes(escolas);
+                                  formEconomic.renda = selecionarNomes(rendas);
+                                  formEconomic.genero = selecionarNomes(generos);
+                                  formEconomic.etnia = selecionarNomes(declaracao);
+                                  formEconomic.stuacao_judicial = selecionarNomes(situacaoJudicial);
                                   alertEnd.style.display = "block";
                                   resolve(formEconomic);
                                 }
-                                // else {
-                                //     console.log(formEconomic)
-                                //     console.log('Fomulário Incompleto!')
-                                //     document.getElementById("msg-fracasso-socio-economy").innerHTML =
-                                //         "<p>Formulário incompleto!</p>";
-                                //     removerMensagem("msg-fracasso-socio-economy");
-                                // }
                               case 2:
                               case "end":
                                 return _context.stop();
@@ -46460,7 +46459,7 @@ function _socioEconomic() {
                     } else {
                       reject(new Error('O formulário não foi encontrado!'));
                     }
-                  case 24:
+                  case 27:
                   case "end":
                     return _context2.stop();
                 }
@@ -47479,7 +47478,7 @@ var dateRegister = function dateRegister() {
 var selecionarNomes = function selecionarNomes(name) {
   for (var i = 0; i < name.length; i++) {
     if (name[i].checked) {
-      console.log(name[i].value);
+      return name[i].value;
     }
   }
 };

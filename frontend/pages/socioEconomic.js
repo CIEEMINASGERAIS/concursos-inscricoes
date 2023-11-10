@@ -100,6 +100,12 @@ async function socioEconomic() {
 
         const rendas = document.getElementsByName('rendas')
 
+        const generos = document.getElementsByName('genero')
+
+        const declaracao = document.getElementsByName('declaracao')
+
+        const situacaoJudicial = document.getElementsByName('situacao-judicial')
+
         const alertEnd = document.querySelector(".end");
 
         if (formSocioEconomic) {
@@ -109,21 +115,17 @@ async function socioEconomic() {
                     formEconomic.aprendiz &&
                     formEconomic.responsavel &&
                     formEconomic.imovel &&
-                    formEconomic.pessoas &&
-                    formEconomic.filhos) {
+                    formEconomic.pessoas_por_residencia &&
+                    formEconomic.tem_filhos) {
                     console.log(formEconomic)
-                    selecionarNomes(escolas)
-                    selecionarNomes(rendas)
+                    formEconomic.escola_estudou = selecionarNomes(escolas)
+                    formEconomic.renda = selecionarNomes(rendas)
+                    formEconomic.genero = selecionarNomes(generos)
+                    formEconomic.etnia = selecionarNomes(declaracao)
+                    formEconomic.stuacao_judicial = selecionarNomes(situacaoJudicial)
                     alertEnd.style.display = "block";
                     resolve(formEconomic)
                 }
-                // else {
-                //     console.log(formEconomic)
-                //     console.log('Fomulário Incompleto!')
-                //     document.getElementById("msg-fracasso-socio-economy").innerHTML =
-                //         "<p>Formulário incompleto!</p>";
-                //     removerMensagem("msg-fracasso-socio-economy");
-                // }
             })
         } else {
             reject(new Error('O formulário não foi encontrado!'))

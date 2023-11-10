@@ -80,7 +80,7 @@
 }
 
 .button-back-school {
-  margin: 0rem 0rem 2rem 0rem;
+  margin: 0rem 0rem 0rem 0rem;
 }
 
 .line-div {
@@ -109,11 +109,13 @@
   display: flex;
   flex-direction: row;
   align-items: center;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
 }
 
 .button-finish-school {
   background-color: #007bff;
-  margin: 2rem 0rem 2rem 0rem;
+  margin: 0rem 0rem 0rem 0rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -181,6 +183,7 @@
   font-size: 0.9em;
   width: 2rem;
   padding: .5rem 0.5rem 0.4rem 0.5rem;
+  border-radius: 0.5rem;
 }
 
 .escola-search .dropdown-menu,
@@ -361,8 +364,14 @@
 
 @media screen and (max-width:920px) {
   .screen-school-data {
-    margin: 6rem 10rem 0.5rem 0rem;
+    margin: 7rem 16rem 3rem 0rem;
+    
   }
+
+  .button-finish-school {
+    margin: 0rem 0rem 2rem 0rem;
+  }
+  
 
   #form-school-data {
     padding: 2rem 2rem 0rem 2rem;

@@ -152,7 +152,7 @@ input#cep {
   margin-top: 0rem;
 }
 
-.linha-ou {
+.linha-ou-adress {
   display: flex;
   flex-direction: row;
   align-items: center;

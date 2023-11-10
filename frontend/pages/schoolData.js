@@ -444,13 +444,12 @@ async function createFormSchoolData() {
       formSchoolData.addEventListener("submit", async (e) => {
         e.preventDefault();
         if (
-          // dataFormSchool.escola_id &&
-          // dataFormSchool.curso_id &&
-          // dataFormSchool.previsao_semestre &&
-          // dataFormSchool.previsao_ano &&
-          // dataFormSchool.previsao_mes &&
-          // dataFormSchool.horario
-          dataFormSchool
+          dataFormSchool.escola_id &&
+          dataFormSchool.curso_id &&
+          dataFormSchool.previsao_semestre &&
+          dataFormSchool.previsao_ano &&
+          dataFormSchool.previsao_mes &&
+          dataFormSchool.horario
         ) {
           if (!valid) {
             dataFormSchool.periodo = periodoFinal()

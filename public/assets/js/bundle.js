@@ -45324,11 +45324,7 @@ function _initAddress() {
                             while (1) switch (_context3.prev = _context3.next) {
                               case 0:
                                 e.preventDefault();
-                                if (
-                                // formDataAddress.cep && formDataAddress.logradouro && formDataAddress.numero && formDataAddress.uf
-                                // && formDataAddress.bairro && formDataAddress.cidade && formDataAddress.telefone1 && formDataAddress.telefone2
-                                // && formDataAddress.email
-                                formDataAddress) {
+                                if (formDataAddress.cep && formDataAddress.logradouro && formDataAddress.numero && formDataAddress.uf && formDataAddress.bairro && formDataAddress.cidade && formDataAddress.telefone1 && formDataAddress.telefone2 && formDataAddress.email) {
                                   changeMains('.screen-school-data');
                                   changeSubMainTitle('Formulário de Dados Acadêmicos');
                                   resolve(formDataAddress);
@@ -45735,11 +45731,7 @@ var initDataBasic = /*#__PURE__*/function () {
                     if (formData) {
                       formData.addEventListener('submit', function (e) {
                         e.preventDefault();
-                        if (
-                        // formDataBasic.nome && formDataBasic.nomemae && formDataBasic.naturalidade && formDataBasic.nacionalidade && formDataBasic.estadocivil
-                        // && formDataBasic.dt_nascimento && formDataBasic.sexo && formDataBasic.uf_naturalidade && formDataBasic.deficiencia && formDataBasic.rg && formDataBasic.orgaoexpedidor && formDataBasic.idade && formDataBasic.cpf
-                        formDataBasic
-
+                        if (formDataBasic.nome && formDataBasic.nomemae && formDataBasic.naturalidade && formDataBasic.nacionalidade && formDataBasic.estadocivil && formDataBasic.dt_nascimento && formDataBasic.sexo && formDataBasic.uf_naturalidade && formDataBasic.deficiencia && formDataBasic.rg && formDataBasic.orgaoexpedidor && formDataBasic.idade && formDataBasic.cpf
                         // No caso do nomepai e carteira de trabalho não são obrigatorios
                         ) {
                           changeMains('.screen-address');
@@ -46267,14 +46259,7 @@ function _createFormSchoolData() {
                             while (1) switch (_context6.prev = _context6.next) {
                               case 0:
                                 e.preventDefault();
-                                if (
-                                // dataFormSchool.escola_id &&
-                                // dataFormSchool.curso_id &&
-                                // dataFormSchool.previsao_semestre &&
-                                // dataFormSchool.previsao_ano &&
-                                // dataFormSchool.previsao_mes &&
-                                // dataFormSchool.horario
-                                dataFormSchool) {
+                                if (dataFormSchool.escola_id && dataFormSchool.curso_id && dataFormSchool.previsao_semestre && dataFormSchool.previsao_ano && dataFormSchool.previsao_mes && dataFormSchool.horario) {
                                   if (!valid) {
                                     dataFormSchool.periodo = periodoFinal();
                                   }
@@ -46341,24 +46326,24 @@ function socioEconomic() {
   return _socioEconomic.apply(this, arguments);
 }
 function _socioEconomic() {
-  _socioEconomic = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
-    return _regeneratorRuntime().wrap(function _callee3$(_context3) {
-      while (1) switch (_context3.prev = _context3.next) {
+  _socioEconomic = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
+    return _regeneratorRuntime().wrap(function _callee2$(_context2) {
+      while (1) switch (_context2.prev = _context2.next) {
         case 0:
-          return _context3.abrupt("return", new Promise( /*#__PURE__*/function () {
-            var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2(resolve, reject) {
+          return _context2.abrupt("return", new Promise( /*#__PURE__*/function () {
+            var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(resolve, reject) {
               var response, htmlContent, screenSocioEconomic, formSocioEconomic, formEconomic, aprendiz, responsavel, imovel, pessoas, filhos, escolas, rendas, generos, declaracao, situacaoJudicial, alertEnd;
-              return _regeneratorRuntime().wrap(function _callee2$(_context2) {
-                while (1) switch (_context2.prev = _context2.next) {
+              return _regeneratorRuntime().wrap(function _callee$(_context) {
+                while (1) switch (_context.prev = _context.next) {
                   case 0:
-                    _context2.next = 2;
+                    _context.next = 2;
                     return fetch('socio-economic');
                   case 2:
-                    response = _context2.sent;
-                    _context2.next = 5;
+                    response = _context.sent;
+                    _context.next = 5;
                     return response.text();
                   case 5:
-                    htmlContent = _context2.sent;
+                    htmlContent = _context.sent;
                     screenSocioEconomic = document.querySelector('.screen-socio-economic');
                     screenSocioEconomic.innerHTML = htmlContent;
                     formSocioEconomic = document.querySelector('.form-economic');
@@ -46430,40 +46415,27 @@ function _socioEconomic() {
                     situacaoJudicial = document.getElementsByName('situacao-judicial');
                     alertEnd = document.querySelector(".end");
                     if (formSocioEconomic) {
-                      formSocioEconomic.addEventListener('submit', /*#__PURE__*/function () {
-                        var _ref2 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(e) {
-                          return _regeneratorRuntime().wrap(function _callee$(_context) {
-                            while (1) switch (_context.prev = _context.next) {
-                              case 0:
-                                e.preventDefault();
-                                if (formEconomic.aprendiz && formEconomic.responsavel && formEconomic.imovel && formEconomic.pessoas_por_residencia && formEconomic.tem_filhos) {
-                                  console.log(formEconomic);
-                                  formEconomic.escola_estudou = selecionarNomes(escolas);
-                                  formEconomic.renda = selecionarNomes(rendas);
-                                  formEconomic.genero = selecionarNomes(generos);
-                                  formEconomic.etnia = selecionarNomes(declaracao);
-                                  formEconomic.stuacao_judicial = selecionarNomes(situacaoJudicial);
-                                  alertEnd.style.display = "block";
-                                  resolve(formEconomic);
-                                }
-                              case 2:
-                              case "end":
-                                return _context.stop();
-                            }
-                          }, _callee);
-                        }));
-                        return function (_x3) {
-                          return _ref2.apply(this, arguments);
-                        };
-                      }());
+                      formSocioEconomic.addEventListener('submit', function (e) {
+                        e.preventDefault();
+                        if (formEconomic.aprendiz && formEconomic.responsavel && formEconomic.imovel && formEconomic.pessoas_por_residencia && formEconomic.tem_filhos) {
+                          console.log(formEconomic);
+                          formEconomic.escola_estudou = selecionarNomes(escolas);
+                          formEconomic.renda = selecionarNomes(rendas);
+                          formEconomic.genero = selecionarNomes(generos);
+                          formEconomic.etnia = selecionarNomes(declaracao);
+                          formEconomic.stuacao_judicial = selecionarNomes(situacaoJudicial);
+                          alertEnd.style.display = "block";
+                          resolve(formEconomic);
+                        }
+                      });
                     } else {
                       reject(new Error('O formulário não foi encontrado!'));
                     }
                   case 27:
                   case "end":
-                    return _context2.stop();
+                    return _context.stop();
                 }
-              }, _callee2);
+              }, _callee);
             }));
             return function (_x, _x2) {
               return _ref.apply(this, arguments);
@@ -46471,9 +46443,9 @@ function _socioEconomic() {
           }()));
         case 1:
         case "end":
-          return _context3.stop();
+          return _context2.stop();
       }
-    }, _callee3);
+    }, _callee2);
   }));
   return _socioEconomic.apply(this, arguments);
 }
@@ -47686,7 +47658,7 @@ function takeData() {
 }
 function _takeData() {
   _takeData = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
-    var callMain, termsConditions, formData, validateFormBasic, formAddress, validateFormAddress, formSchoolData, validateFormSchool, createSocioEconomic, allData;
+    var callMain, termsConditions, formData, validateFormBasic, formAddress, validateFormAddress, formSchoolData, validateFormSchool, allData;
     return _regeneratorRuntime().wrap(function _callee$(_context) {
       while (1) switch (_context.prev = _context.next) {
         case 0:
@@ -47753,15 +47725,11 @@ function _takeData() {
             }
           });
           _context.next = 18;
-          return socioEconomic();
-        case 18:
-          createSocioEconomic = _context.sent;
-          _context.next = 21;
           return _objectSpread(_objectSpread(_objectSpread(_objectSpread({}, termsConditions), formData), formAddress), formSchoolData);
-        case 21:
+        case 18:
           allData = _context.sent;
           return _context.abrupt("return", allData);
-        case 23:
+        case 20:
         case "end":
           return _context.stop();
       }
@@ -47812,7 +47780,51 @@ function _sendData() {
   }));
   return _sendData.apply(this, arguments);
 }
-sendData();
+function sendDataEconomy() {
+  return _sendDataEconomy.apply(this, arguments);
+}
+function _sendDataEconomy() {
+  _sendDataEconomy = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
+    var dataEconomy, response;
+    return _regeneratorRuntime().wrap(function _callee3$(_context3) {
+      while (1) switch (_context3.prev = _context3.next) {
+        case 0:
+          sendData();
+          _context3.next = 3;
+          return socioEconomic();
+        case 3:
+          dataEconomy = _context3.sent;
+          _context3.prev = 4;
+          _context3.next = 7;
+          return fetch('http://localhost:8080/cadastrarsocioeconomic', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            error: false,
+            mensagem: 'Cadastrado Sócioeconomico com sucesso',
+            body: JSON.stringify(dataEconomy)
+          });
+        case 7:
+          response = _context3.sent;
+          if (response.ok) {} else {
+            console.log(response.status);
+          }
+          _context3.next = 14;
+          break;
+        case 11:
+          _context3.prev = 11;
+          _context3.t0 = _context3["catch"](4);
+          console.log('Erro: ', _context3.t0);
+        case 14:
+        case "end":
+          return _context3.stop();
+      }
+    }, _callee3, null, [[4, 11]]);
+  }));
+  return _sendDataEconomy.apply(this, arguments);
+}
+sendDataEconomy();
 })();
 
 /******/ })()

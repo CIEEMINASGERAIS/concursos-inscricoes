@@ -72,13 +72,13 @@ async function takeData() {
       }
     }
   })
-  const createSocioEconomic = await socioEconomic()
   const allData = await { ...termsConditions, ...formData, ...formAddress, ...formSchoolData }
   return allData
 }
 
 async function sendData() {
   const data = await takeData()
+
   try {
     const response = await fetch('http://localhost:8080/cadastrar', {
       method: 'POST',
@@ -98,4 +98,27 @@ async function sendData() {
   }
 }
 
-sendData()
+async function sendDataEconomy() {
+  sendData()
+  const dataEconomy = await socioEconomic()
+  try {
+    const response = await fetch('http://localhost:8080/cadastrarsocioeconomic', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      error: false,
+      mensagem: 'Cadastrado Sócioeconomico com sucesso',
+      body: JSON.stringify(dataEconomy)
+    })
+    if (response.ok) {
+    } else {
+      console.log(response.status)
+    }
+  } catch (error) {
+    console.log('Erro: ', error)
+  }
+
+}
+
+sendDataEconomy()

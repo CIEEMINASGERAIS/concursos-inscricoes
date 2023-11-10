@@ -7,21 +7,38 @@ const enviandoEmail = require('./enviarEmail')
 // Acessar o models estudante
 const Estudante = require("../db/models/estudante")(sequelize, DataTypes);
 
+const SocioEconomico = require("../db/models/socio_economico")(sequelize, DataTypes);
+
+Estudante.hasOne(SocioEconomico)
+SocioEconomico.belongsTo(Estudante)
+
 // Função responsável por enviar as informações para o banco de dados
 async function postRegister(req, res) {
-    await Estudante.create(req.body)
-        .then(() => {
-            // enviandoEmail.emailASerEnviado(req.body.email, req.body.nome, req.body.senha).catch(console.error)
-            return res.json({
-                mensagem: "Usuário cadastrado com sucesso!",
-            });
 
-        })
-        .catch((err) => {
-            return res.status(400).json({
-                erro: err,
-            });
+    try {
+
+        const novoEstudante = await Estudante.create(req.body)
+
+        await enviandoEmail.emailASerEnviado(req.body.email, req.body.nome, req.body.senha).catch(console.error)
+
+        await SocioEconomico.create({
+            estudante_id: novoEstudante.id,
+            aprendiz: String,
+            responsavel: String,
+            imovel: String,
+            pessoas_por_residencia: String,
+            tem_filhos: String,
+            escola_estudou: String,
+            renda: String
         });
+        return res.json({
+            mensagem: "Usuário cadastrado com sucesso!",
+        });
+    } catch (err) {
+        return res.status(400).json({
+            erro: `Erro ao cadastrar usuário: ${err.message}`
+        });
+    }
 }
 
 module.exports = { postRegister }

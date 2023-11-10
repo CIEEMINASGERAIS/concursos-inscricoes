@@ -98,11 +98,11 @@ app.get("/address", address.renderAddress)
 // Função responsável por renderizar a quinta página
 app.get("/socio-economic", socialEconomic.renderSocioEconomic)
 
-// Funções responsáveis por enviar as informações para o banco de dados
+// Função responsável por enviar as informações para o banco de dados
 app.post("/cadastrar", postCadastro.postRegister)
 
-
-app.post("/cadastrarsocioeconomic", postSocioEconomic.sendSocioEconomic)
+// Função responsável por enviar a avaliação sócioeconomica para o banco de dados
+// app.post("/cadastrarsocioeconomic", postSocioEconomic.sendSocioEconomic)
 
 // Iniciar o servidor na porta 8080, criar a função utilizando modelo Arrow function para retornar a mensagem de sucesso
 app.listen(8080, "0.0.0.0", () => {

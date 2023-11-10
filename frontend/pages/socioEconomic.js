@@ -109,7 +109,7 @@ async function socioEconomic() {
         const alertEnd = document.querySelector(".end");
 
         if (formSocioEconomic) {
-            formSocioEconomic.addEventListener('submit', async e => {
+            formSocioEconomic.addEventListener('submit', e => {
                 e.preventDefault()
                 if (
                     formEconomic.aprendiz &&

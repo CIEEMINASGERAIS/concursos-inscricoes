@@ -1,13 +1,9 @@
 'use strict';
 
-const path = require('path')
-
 const {
   Model
 } = require('sequelize');
-const sequelize = require('.');
 
-// const Estudante = require('./estudante')(sequelize, DataTypes)
 
 module.exports = (sequelize, DataTypes) => {
   class SocioEconomico extends Model {
@@ -130,6 +126,8 @@ module.exports = (sequelize, DataTypes) => {
     modelName: 'socio_economico',
     tableName: 'socio_economico'
   });
+
+  // SocioEconomico.sync({ alter: true })
 
   return SocioEconomico;
 };

@@ -19,18 +19,26 @@ async function postRegister(req, res) {
 
         const novoEstudante = await Estudante.create(req.body)
 
-        await enviandoEmail.emailASerEnviado(req.body.email, req.body.nome, req.body.senha).catch(console.error)
+        // await enviandoEmail.emailASerEnviado(req.body.email, req.body.nome, req.body.senha).catch(console.error)
+
+        console.log(req.body)
 
         await SocioEconomico.create({
             estudante_id: novoEstudante.id,
-            aprendiz: String,
-            responsavel: String,
-            imovel: String,
-            pessoas_por_residencia: String,
-            tem_filhos: String,
-            escola_estudou: String,
-            renda: String
+            aprendiz: req.body.aprendiz,
+            responsavel: req.body.responsavel,
+            imovel: req.body.imovel,
+            pessoas_por_residencia: req.body.pessoas_por_residencia,
+            tem_filhos: req.body.tem_filhos,
+            escola_estudou: req.body.escola_estudou,
+            renda: req.body.renda,
+            genero: req.body.genero,
+            etnia: req.body.etnia,
+            situacao_judicial: req.body.situacao_judicial
         });
+
+
+
         return res.json({
             mensagem: "Usuário cadastrado com sucesso!",
         });

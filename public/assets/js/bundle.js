@@ -45780,15 +45780,19 @@ var _require = __webpack_require__(/*! ../utils/util.js */ "./frontend/utils/uti
   changeMains = _require.changeMains;
 var main = function main() {
   function mainPage() {
-    document.addEventListener('click', function (event) {
+    document.addEventListener("click", function (event) {
       var element = event.target;
-      if (element.classList.contains('button-back-address')) {
-        changeMains('.screen-basic-data1');
-        changeSubMainTitle('Formulário de Dados Básicos');
+      if (element.classList.contains("button-back-address")) {
+        changeMains(".screen-basic-data1");
+        changeSubMainTitle("Formulário de Dados Básicos");
       }
-      if (element.classList.contains('button-back-school')) {
-        changeMains('.screen-address');
-        changeSubMainTitle('Formulário de Endereço');
+      if (element.classList.contains("button-back-school")) {
+        changeMains(".screen-address");
+        changeSubMainTitle("Formulário de Endereço");
+      }
+      if (element.classList.contains("button-back-socio")) {
+        changeMains(".screen-school-data");
+        changeSubMainTitle("Formulário de Dados Acadêmicos");
       }
     });
   }
@@ -46320,8 +46324,7 @@ function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyri
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 var _require = __webpack_require__(/*! ../utils/util */ "./frontend/utils/util.js"),
-  selecionarNomes = _require.selecionarNomes,
-  removerMensagem = _require.removerMensagem;
+  selecionarNomes = _require.selecionarNomes;
 function socioEconomic() {
   return _socioEconomic.apply(this, arguments);
 }
@@ -46337,85 +46340,85 @@ function _socioEconomic() {
                 while (1) switch (_context.prev = _context.next) {
                   case 0:
                     _context.next = 2;
-                    return fetch('socio-economic');
+                    return fetch("socio-economic");
                   case 2:
                     response = _context.sent;
                     _context.next = 5;
                     return response.text();
                   case 5:
                     htmlContent = _context.sent;
-                    screenSocioEconomic = document.querySelector('.screen-socio-economic');
+                    screenSocioEconomic = document.querySelector(".screen-socio-economic");
                     screenSocioEconomic.innerHTML = htmlContent;
-                    formSocioEconomic = document.querySelector('.form-economic');
+                    formSocioEconomic = document.querySelector(".form-economic");
                     formEconomic = {};
-                    aprendiz = document.getElementById('aprendiz');
-                    aprendiz.addEventListener('input', function (e) {
+                    aprendiz = document.getElementById("aprendiz");
+                    aprendiz.addEventListener("input", function (e) {
                       var valores = e.target.value;
                       if (valores.length === 0) {
                         e.preventDefault();
-                        document.getElementById('msg-aprendiz').innerHTML = "<p>Favor preencher o campo!</p>";
+                        document.getElementById("msg-aprendiz").innerHTML = "<p>Favor preencher o campo!</p>";
                         formEconomic.aprendiz = false;
                       } else {
-                        document.getElementById('msg-aprendiz').innerHTML = "";
+                        document.getElementById("msg-aprendiz").innerHTML = "";
                         formEconomic.aprendiz = valores;
                       }
                     });
-                    responsavel = document.getElementById('responsavel');
-                    responsavel.addEventListener('input', function (e) {
+                    responsavel = document.getElementById("responsavel");
+                    responsavel.addEventListener("input", function (e) {
                       var valores = e.target.value;
                       if (valores.length === 0) {
                         e.preventDefault();
-                        document.getElementById('msg-responsavel').innerHTML = "<p>Favor preencher o Campo!</p>";
+                        document.getElementById("msg-responsavel").innerHTML = "<p>Favor preencher o Campo!</p>";
                         formEconomic.responsavel = false;
                       } else {
-                        document.getElementById('msg-responsavel').innerHTML = "";
+                        document.getElementById("msg-responsavel").innerHTML = "";
                         formEconomic.responsavel = valores;
                       }
                     });
-                    imovel = document.getElementById('imovel');
-                    imovel.addEventListener('input', function (e) {
+                    imovel = document.getElementById("imovel");
+                    imovel.addEventListener("input", function (e) {
                       var valores = e.target.value;
                       if (valores.length === 0) {
                         e.preventDefault();
-                        document.getElementById('msg-imovel').innerHTML = "<p>Favor preencher o Campo!</p>";
+                        document.getElementById("msg-imovel").innerHTML = "<p>Favor preencher o Campo!</p>";
                         formEconomic.imovel = false;
                       } else {
-                        document.getElementById('msg-imovel').innerHTML = "";
+                        document.getElementById("msg-imovel").innerHTML = "";
                         formEconomic.imovel = valores;
                       }
                     });
-                    pessoas = document.getElementById('pessoas');
-                    pessoas.addEventListener('input', function (e) {
+                    pessoas = document.getElementById("pessoas");
+                    pessoas.addEventListener("input", function (e) {
                       var valores = e.target.value;
                       if (valores.length === 0) {
                         e.preventDefault();
-                        document.getElementById('msg-pessoas').innerHTML = "<p>Favor preencher o Campo!</p>";
-                        formEconomic.pessoas = false;
+                        document.getElementById("msg-pessoas").innerHTML = "<p>Favor preencher o Campo!</p>";
+                        formEconomic.pessoas_por_residencia = false;
                       } else {
-                        document.getElementById('msg-pessoas').innerHTML = "";
-                        formEconomic.pessoas = valores;
+                        document.getElementById("msg-pessoas").innerHTML = "";
+                        formEconomic.pessoas_por_residencia = valores;
                       }
                     });
-                    filhos = document.getElementById('filhos');
-                    filhos.addEventListener('input', function (e) {
+                    filhos = document.getElementById("filhos");
+                    filhos.addEventListener("input", function (e) {
                       var valores = e.target.value;
                       if (valores.length === 0) {
                         e.preventDefault();
-                        document.getElementById('msg-filhos').innerHTML = "<p>Favor preencher o Campo!</p>";
-                        formEconomic.filhos = false;
+                        document.getElementById("msg-filhos").innerHTML = "<p>Favor preencher o Campo!</p>";
+                        formEconomic.tem_filhos = false;
                       } else {
-                        document.getElementById('msg-filhos').innerHTML = "";
-                        formEconomic.filhos = valores;
+                        document.getElementById("msg-filhos").innerHTML = "";
+                        formEconomic.tem_filhos = valores;
                       }
                     });
-                    escolas = document.getElementsByName('escolas');
-                    rendas = document.getElementsByName('rendas');
-                    generos = document.getElementsByName('genero');
-                    declaracao = document.getElementsByName('declaracao');
-                    situacaoJudicial = document.getElementsByName('situacao-judicial');
+                    escolas = document.getElementsByName("escolas");
+                    rendas = document.getElementsByName("rendas");
+                    generos = document.getElementsByName("genero");
+                    declaracao = document.getElementsByName("declaracao");
+                    situacaoJudicial = document.getElementsByName("situacao-judicial");
                     alertEnd = document.querySelector(".end");
                     if (formSocioEconomic) {
-                      formSocioEconomic.addEventListener('submit', function (e) {
+                      formSocioEconomic.addEventListener("submit", function (e) {
                         e.preventDefault();
                         if (formEconomic.aprendiz && formEconomic.responsavel && formEconomic.imovel && formEconomic.pessoas_por_residencia && formEconomic.tem_filhos) {
                           console.log(formEconomic);
@@ -46423,13 +46426,16 @@ function _socioEconomic() {
                           formEconomic.renda = selecionarNomes(rendas);
                           formEconomic.genero = selecionarNomes(generos);
                           formEconomic.etnia = selecionarNomes(declaracao);
-                          formEconomic.stuacao_judicial = selecionarNomes(situacaoJudicial);
+                          formEconomic.situacao_judicial = selecionarNomes(situacaoJudicial);
                           alertEnd.style.display = "block";
                           resolve(formEconomic);
+                        } else {
+                          console.log("error!");
+                          console.log(formEconomic);
                         }
                       });
                     } else {
-                      reject(new Error('O formulário não foi encontrado!'));
+                      reject(new Error("O formulário não foi encontrado!"));
                     }
                   case 27:
                   case "end":
@@ -47658,7 +47664,7 @@ function takeData() {
 }
 function _takeData() {
   _takeData = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
-    var callMain, termsConditions, formData, validateFormBasic, formAddress, validateFormAddress, formSchoolData, validateFormSchool, allData;
+    var callMain, termsConditions, formData, validateFormBasic, formAddress, validateFormAddress, formSchoolData, validateFormSchool, dataEconomy, allData;
     return _regeneratorRuntime().wrap(function _callee$(_context) {
       while (1) switch (_context.prev = _context.next) {
         case 0:
@@ -47671,17 +47677,17 @@ function _takeData() {
           return initDataBasic();
         case 6:
           formData = _context.sent;
-          document.addEventListener('click', function (event) {
+          document.addEventListener("click", function (event) {
             var element = event.target;
             validateFormBasic = false;
             validateFormBasic = conferirFormBasic(formData);
             if (validateFormBasic) {
-              if (element.classList.contains('big-address') || element.classList.contains('button-address')) {
-                changeMains('.screen-address');
-                changeSubMainTitle('Formulário de Endereço');
+              if (element.classList.contains("big-address") || element.classList.contains("button-address")) {
+                changeMains(".screen-address");
+                changeSubMainTitle("Formulário de Endereço");
               }
             } else {
-              if (element.classList.contains('main')) {
+              if (element.classList.contains("main")) {
                 event.preventDefault();
               }
             }
@@ -47690,17 +47696,17 @@ function _takeData() {
           return initAddress();
         case 10:
           formAddress = _context.sent;
-          document.addEventListener('click', function (event) {
+          document.addEventListener("click", function (event) {
             var element = event.target;
             validateFormAddress = false;
             validateFormAddress = conferirFormAddress(formAddress);
             if (validateFormAddress && validateFormBasic) {
-              if (element.classList.contains('big-school-data') || element.classList.contains('button-school-data')) {
-                changeMains('.screen-school-data');
-                changeSubMainTitle('Formulário de Dados Acadêmicos');
+              if (element.classList.contains("big-school-data") || element.classList.contains("button-school-data")) {
+                changeMains(".screen-school-data");
+                changeSubMainTitle("Formulário de Dados Acadêmicos");
               }
             } else {
-              if (element.classList.contains('main')) {
+              if (element.classList.contains("main")) {
                 event.preventDefault();
               }
             }
@@ -47709,27 +47715,32 @@ function _takeData() {
           return createFormSchoolData();
         case 14:
           formSchoolData = _context.sent;
-          document.addEventListener('click', function (event) {
+          document.addEventListener("click", function (event) {
             var element = event.target;
             validateFormSchool = false;
             validateFormSchool = conferirFormSchool(formSchoolData);
             if (validateFormSchool && validateFormAddress && validateFormBasic) {
-              if (element.classList.contains('big-socio-economic') || element.classList.contains('button-socio-economic')) {
-                changeMains('.screen-socio-economic');
-                changeSubMainTitle('Formulário Socioeconômico');
+              if (element.classList.contains("big-socio-economic") || element.classList.contains("button-socio-economic")) {
+                changeMains(".screen-socio-economic");
+                changeSubMainTitle("Formulário Socioeconômico");
               }
             } else {
-              if (element.classList.contains('main')) {
+              if (element.classList.contains("main")) {
                 event.preventDefault();
               }
             }
           });
           _context.next = 18;
-          return _objectSpread(_objectSpread(_objectSpread(_objectSpread({}, termsConditions), formData), formAddress), formSchoolData);
+          return socioEconomic();
         case 18:
+          dataEconomy = _context.sent;
+          _context.next = 21;
+          return _objectSpread(_objectSpread(_objectSpread(_objectSpread(_objectSpread({}, termsConditions), formData), formAddress), formSchoolData), dataEconomy);
+        case 21:
           allData = _context.sent;
+          console.log(allData);
           return _context.abrupt("return", allData);
-        case 20:
+        case 24:
         case "end":
           return _context.stop();
       }
@@ -47752,13 +47763,13 @@ function _sendData() {
           data = _context2.sent;
           _context2.prev = 3;
           _context2.next = 6;
-          return fetch('http://localhost:8080/cadastrar', {
-            method: 'POST',
+          return fetch("http://localhost:8080/cadastrar", {
+            method: "POST",
             headers: {
-              'Content-Type': 'application/json'
+              "Content-Type": "application/json"
             },
             error: false,
-            mensagem: 'Usuário cadastrado com sucesso',
+            mensagem: "Usuário cadastrado com sucesso",
             body: JSON.stringify(data)
           });
         case 6:
@@ -47771,7 +47782,7 @@ function _sendData() {
         case 10:
           _context2.prev = 10;
           _context2.t0 = _context2["catch"](3);
-          console.log('Erro: ', _context2.t0);
+          console.log("Erro: ", _context2.t0);
         case 13:
         case "end":
           return _context2.stop();
@@ -47780,51 +47791,7 @@ function _sendData() {
   }));
   return _sendData.apply(this, arguments);
 }
-function sendDataEconomy() {
-  return _sendDataEconomy.apply(this, arguments);
-}
-function _sendDataEconomy() {
-  _sendDataEconomy = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
-    var dataEconomy, response;
-    return _regeneratorRuntime().wrap(function _callee3$(_context3) {
-      while (1) switch (_context3.prev = _context3.next) {
-        case 0:
-          sendData();
-          _context3.next = 3;
-          return socioEconomic();
-        case 3:
-          dataEconomy = _context3.sent;
-          _context3.prev = 4;
-          _context3.next = 7;
-          return fetch('http://localhost:8080/cadastrarsocioeconomic', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            error: false,
-            mensagem: 'Cadastrado Sócioeconomico com sucesso',
-            body: JSON.stringify(dataEconomy)
-          });
-        case 7:
-          response = _context3.sent;
-          if (response.ok) {} else {
-            console.log(response.status);
-          }
-          _context3.next = 14;
-          break;
-        case 11:
-          _context3.prev = 11;
-          _context3.t0 = _context3["catch"](4);
-          console.log('Erro: ', _context3.t0);
-        case 14:
-        case "end":
-          return _context3.stop();
-      }
-    }, _callee3, null, [[4, 11]]);
-  }));
-  return _sendDataEconomy.apply(this, arguments);
-}
-sendDataEconomy();
+sendData();
 })();
 
 /******/ })()

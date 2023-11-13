@@ -1,4 +1,4 @@
-const { isNumero, isComplemento, isTelefone, isEmail, changeMains, changeSubMainTitle, removerMensagem, isCep, isNaturalidadeNacionalidade, isUfNaturalidade, emailBd } = require('../utils/util.js')
+const { isNumero, isComplemento, isTelefone, isEmail, changeMains, changeSubMainTitle, removerMensagem, isCep, isNaturalidadeNacionalidade, isUfNaturalidade, emailBd, erroInputAddress } = require('../utils/util.js')
 
 async function initAddress() {
   return new Promise(async (resolve, reject) => {
@@ -443,8 +443,9 @@ async function initAddress() {
           changeSubMainTitle('Formulário de Dados Acadêmicos')
           resolve(formDataAddress)
         } else {
-          document.getElementById('msg-fracasso-address').innerHTML =
-            "<p>Formulário incompleto!</p>"
+          // document.getElementById('msg-fracasso-address').innerHTML =
+          //   "<p>Formulário incompleto!</p>"
+          erroInputAddress(formDataAddress)
           removerMensagem('msg-fracasso-address')
         }
       })

@@ -1002,9 +1002,22 @@ const erroSelect = (select) => {
   }
 };
 
+const erroInputAddress = (object) => {
+  for (let chave in object) {
+    if (object[chave] === false) {
+      document.getElementById(
+        `msg-fracasso-address`
+      ).innerHTML = `<p>Campo ${chave} inválido!</p>`;
+      break
+    }
+  }
+}
+
+
 module.exports = {
   erroSelect,
   erroInput,
+  erroInputAddress,
   isCpf,
   isNome,
   listInputValidate,

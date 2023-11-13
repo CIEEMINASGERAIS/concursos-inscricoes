@@ -894,11 +894,11 @@ const dateTime = () => {
       month: "2-digit",
     })
     .replace(/[/]/g, "-")} ${today.toLocaleTimeString("pt-BR", {
-    hour12: false,
-    hour: "2-digit",
-    minute: "2-digit",
-    second: "2-digit",
-  })}`;
+      hour12: false,
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit",
+    })}`;
 };
 
 const dateRegister = () => {
@@ -934,32 +934,39 @@ const erroInput = (object) => {
         document.getElementById(
           `msg-fracasso`
         ).innerHTML = `<p>Campo nome mãe inválido!</p>`;
+        break
       } else if (chave === "orgaoexpedidor") {
         document.getElementById(
           `msg-fracasso`
         ).innerHTML = `<p>Campo orgão expedidor inválido!</p>`;
+        break
       } else if (chave === "idade") {
         continue;
       } else if (chave === "dt_nascimento") {
         document.getElementById(
           `msg-fracasso`
         ).innerHTML = `<p>Campo data de nascimento inválido!</p>`;
+        break
       } else if (chave === "dt_nascimento") {
         document.getElementById(
           `msg-fracasso`
         ).innerHTML = `<p>Campo data de nascimento inválido!</p>`;
+        break
       } else if (chave === "dt_nascimento") {
         document.getElementById(
           `msg-fracasso`
         ).innerHTML = `<p>Campo data de nascimento inválido!</p>`;
+        break
       } else if (chave === "deficiencia_descricao") {
         document.getElementById(
           `msg-fracasso`
         ).innerHTML = `<p>Campo descreva a deficiência inválido!</p>`;
+        break
       } else {
         document.getElementById(
           `msg-fracasso`
         ).innerHTML = `<p>Campo ${chave} inválido!</p>`;
+        break
       }
     }
   }
@@ -974,18 +981,22 @@ const erroSelect = (select) => {
         document.getElementById(
           `msg-fracasso`
         ).innerHTML = `<p>Selecione o seu estado civil!</p>`;
+        break
       } else if (selects[i].name === "sexos") {
         document.getElementById(
           `msg-fracasso`
         ).innerHTML = `<p>Selecione o sexo!</p>`;
+        break
       } else if (selects[i].name === "ufNaturalidade") {
         document.getElementById(
           `msg-fracasso`
         ).innerHTML = `<p>Selecione o seu uf de naturalidade!</p>`;
+        break
       } else {
         document.getElementById(
           `msg-fracasso`
         ).innerHTML = `<p>Selecione uma opção em "Possui alguma deficiência?"!</p>`;
+        break
       }
     }
   }

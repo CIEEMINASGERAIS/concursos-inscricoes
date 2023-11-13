@@ -38,7 +38,7 @@ async function socioEconomic() {
       if (valores.length === 0) {
         e.preventDefault();
         document.getElementById("msg-responsavel").innerHTML =
-          "<p>Favor preencher o Campo!</p>";
+          "<p>Favor preencher o campo!</p>";
         formEconomic.responsavel = false;
       } else {
         document.getElementById("msg-responsavel").innerHTML = "";
@@ -54,7 +54,7 @@ async function socioEconomic() {
       if (valores.length === 0) {
         e.preventDefault();
         document.getElementById("msg-imovel").innerHTML =
-          "<p>Favor preencher o Campo!</p>";
+          "<p>Favor preencher o campo!</p>";
         formEconomic.imovel = false;
       } else {
         document.getElementById("msg-imovel").innerHTML = "";
@@ -70,7 +70,7 @@ async function socioEconomic() {
       if (valores.length === 0) {
         e.preventDefault();
         document.getElementById("msg-pessoas").innerHTML =
-          "<p>Favor preencher o Campo!</p>";
+          "<p>Favor preencher o campo!</p>";
         formEconomic.pessoas_por_residencia = false;
       } else {
         document.getElementById("msg-pessoas").innerHTML = "";
@@ -86,7 +86,7 @@ async function socioEconomic() {
       if (valores.length === 0) {
         e.preventDefault();
         document.getElementById("msg-filhos").innerHTML =
-          "<p>Favor preencher o Campo!</p>";
+          "<p>Favor preencher o campo!</p>";
         formEconomic.tem_filhos = false;
       } else {
         document.getElementById("msg-filhos").innerHTML = "";

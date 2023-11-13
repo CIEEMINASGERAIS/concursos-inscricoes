@@ -45829,7 +45829,8 @@ var _require = __webpack_require__(/*! ../utils/util */ "./frontend/utils/util.j
   isPeriodo = _require.isPeriodo,
   isHorario = _require.isHorario,
   changeMains = _require.changeMains,
-  changeSubMainTitle = _require.changeSubMainTitle;
+  changeSubMainTitle = _require.changeSubMainTitle,
+  erroSelectSchool = _require.erroSelectSchool;
 var generator = __webpack_require__(/*! generate-password */ "./node_modules/generate-password/main.js");
 function createFormSchoolData() {
   return _createFormSchoolData.apply(this, arguments);
@@ -46280,12 +46281,12 @@ function _createFormSchoolData() {
                                   changeMains(".screen-socio-economic");
                                   changeSubMainTitle("Formulário Socioeconômico");
                                   resolve(dataFormSchool);
+                                } else {
+                                  // document.getElementById("msg-fracasso-school").innerHTML =
+                                  //   "<p>Formulário incompleto!</p>";
+                                  erroSelectSchool(".form-school-data select");
+                                  removerMensagem("msg-fracasso-school");
                                 }
-                                //  else {
-                                //   document.getElementById("msg-fracasso-school").innerHTML =
-                                //     "<p>Formulário incompleto!</p>";
-                                //   removerMensagem("msg-fracasso-school");
-                                // }
                               case 2:
                               case "end":
                                 return _context6.stop();
@@ -46376,7 +46377,7 @@ function _socioEconomic() {
                       var valores = e.target.value;
                       if (valores.length === 0) {
                         e.preventDefault();
-                        document.getElementById("msg-responsavel").innerHTML = "<p>Favor preencher o Campo!</p>";
+                        document.getElementById("msg-responsavel").innerHTML = "<p>Favor preencher o campo!</p>";
                         formEconomic.responsavel = false;
                       } else {
                         document.getElementById("msg-responsavel").innerHTML = "";
@@ -46388,7 +46389,7 @@ function _socioEconomic() {
                       var valores = e.target.value;
                       if (valores.length === 0) {
                         e.preventDefault();
-                        document.getElementById("msg-imovel").innerHTML = "<p>Favor preencher o Campo!</p>";
+                        document.getElementById("msg-imovel").innerHTML = "<p>Favor preencher o campo!</p>";
                         formEconomic.imovel = false;
                       } else {
                         document.getElementById("msg-imovel").innerHTML = "";
@@ -46400,7 +46401,7 @@ function _socioEconomic() {
                       var valores = e.target.value;
                       if (valores.length === 0) {
                         e.preventDefault();
-                        document.getElementById("msg-pessoas").innerHTML = "<p>Favor preencher o Campo!</p>";
+                        document.getElementById("msg-pessoas").innerHTML = "<p>Favor preencher o campo!</p>";
                         formEconomic.pessoas_por_residencia = false;
                       } else {
                         document.getElementById("msg-pessoas").innerHTML = "";
@@ -46412,7 +46413,7 @@ function _socioEconomic() {
                       var valores = e.target.value;
                       if (valores.length === 0) {
                         e.preventDefault();
-                        document.getElementById("msg-filhos").innerHTML = "<p>Favor preencher o Campo!</p>";
+                        document.getElementById("msg-filhos").innerHTML = "<p>Favor preencher o campo!</p>";
                         formEconomic.tem_filhos = false;
                       } else {
                         document.getElementById("msg-filhos").innerHTML = "";
@@ -47531,10 +47532,47 @@ var erroInputAddress = function erroInputAddress(object) {
     }
   }
 };
+var erroSelectSchool = function erroSelectSchool(select) {
+  var selects = document.querySelectorAll(select);
+  for (var i = 0; i < selects.length; i++) {
+    if (selects[i].value === "Selecione") {
+      if (selects[i].name === "escolas") {
+        document.getElementById("msg-fracasso-school").innerHTML = "<p>Campo escola onde estuda ou estudou inv\xE1lido!</p>";
+        break;
+      }
+      // else if (selects[i].name === "cursos") {
+      //   document.getElementById(
+      //     `msg-fracasso-school`
+      //   ).innerHTML = `<p>Campo cursos inválido!</p>`;
+      //   break
+      // } 
+      else if (selects[i].name === "anoFormatura") {
+        document.getElementById("msg-fracasso-school").innerHTML = "<p>Campo ano de formatura inv\xE1lido!</p>";
+        break;
+      } else if (selects[i].name === "semestreFormatura") {
+        document.getElementById("msg-fracasso-school").innerHTML = "<p>Campo semestre de formatura inv\xE1lido!</p>";
+        break;
+      } else if (selects[i].name === "mesFormatura") {
+        document.getElementById("msg-fracasso-school").innerHTML = "<p>Campo M\xEAs de Formatura inv\xE1lido!</p>";
+        break;
+      } else if (selects[i].name === "periodo") {
+        document.getElementById("msg-fracasso-school").innerHTML = "<p>Campo per\xEDodo/ano/ciclo/m\xF3dulo inv\xE1lido!</p>";
+        break;
+      } else if (selects[i].name === "horarioEstudo") {
+        document.getElementById("msg-fracasso-school").innerHTML = "<p>Campo hor\xE1rio de estudo inv\xE1lido!</p>";
+        break;
+      }
+    } else if (selects[i].value === "Selecione o curso") {
+      document.getElementById("msg-fracasso-school").innerHTML = "<p>Campo cursos inv\xE1lido!</p>";
+      break;
+    }
+  }
+};
 module.exports = {
   erroSelect: erroSelect,
   erroInput: erroInput,
   erroInputAddress: erroInputAddress,
+  erroSelectSchool: erroSelectSchool,
   isCpf: isCpf,
   isNome: isNome,
   listInputValidate: listInputValidate,

@@ -10,6 +10,7 @@ const {
   isHorario,
   changeMains,
   changeSubMainTitle,
+  erroSelectSchool
 } = require("../utils/util");
 
 const generator = require("generate-password");
@@ -459,11 +460,12 @@ async function createFormSchoolData() {
           changeSubMainTitle("Formulário Socioeconômico");
           resolve(dataFormSchool);
         }
-        //  else {
-        //   document.getElementById("msg-fracasso-school").innerHTML =
-        //     "<p>Formulário incompleto!</p>";
-        //   removerMensagem("msg-fracasso-school");
-        // }
+        else {
+          // document.getElementById("msg-fracasso-school").innerHTML =
+          //   "<p>Formulário incompleto!</p>";
+          erroSelectSchool(".form-school-data select")
+          removerMensagem("msg-fracasso-school");
+        }
       });
     } else {
       reject(new Error("O formulário não foi encontrado!"));

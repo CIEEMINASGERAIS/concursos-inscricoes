@@ -1025,11 +1025,65 @@ const erroInputAddress = (object) => {
   }
 }
 
+const erroSelectSchool = (select) => {
+  const selects = document.querySelectorAll(select);
+
+  for (let i = 0; i < selects.length; i++) {
+    if (selects[i].value === "Selecione") {
+      if (selects[i].name === "escolas") {
+        document.getElementById(
+          `msg-fracasso-school`
+        ).innerHTML = `<p>Campo escola onde estuda ou estudou inválido!</p>`;
+        break
+      }
+      // else if (selects[i].name === "cursos") {
+      //   document.getElementById(
+      //     `msg-fracasso-school`
+      //   ).innerHTML = `<p>Campo cursos inválido!</p>`;
+      //   break
+      // } 
+      else if (selects[i].name === "anoFormatura") {
+        document.getElementById(
+          `msg-fracasso-school`
+        ).innerHTML = `<p>Campo ano de formatura inválido!</p>`;
+        break
+      } else if (selects[i].name === "semestreFormatura") {
+        document.getElementById(
+          `msg-fracasso-school`
+        ).innerHTML = `<p>Campo semestre de formatura inválido!</p>`;
+        break
+      } else if (selects[i].name === "mesFormatura") {
+        document.getElementById(
+          `msg-fracasso-school`
+        ).innerHTML = `<p>Campo Mês de Formatura inválido!</p>`;
+        break
+      } else if (selects[i].name === "periodo") {
+        document.getElementById(
+          `msg-fracasso-school`
+        ).innerHTML = `<p>Campo período/ano/ciclo/módulo inválido!</p>`;
+        break
+      } else if (selects[i].name === "horarioEstudo") {
+        document.getElementById(
+          `msg-fracasso-school`
+        ).innerHTML = `<p>Campo horário de estudo inválido!</p>`;
+        break
+      }
+    } else if (selects[i].value === "Selecione o curso") {
+      document.getElementById(
+        `msg-fracasso-school`
+      ).innerHTML = `<p>Campo cursos inválido!</p>`;
+      break
+    }
+  }
+
+}
+
 
 module.exports = {
   erroSelect,
   erroInput,
   erroInputAddress,
+  erroSelectSchool,
   isCpf,
   isNome,
   listInputValidate,

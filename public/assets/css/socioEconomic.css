@@ -13,6 +13,24 @@
   gap: 1rem;
   color: white;
 }
+/* #msg-aprendiz, #msg-responsavel, #msg-imovel, #msg-pessoas, #msg-filhos{
+  color: rgb(255, 0, 0);
+  cursor: default;
+  font-weight: bold;
+  margin: 0rem;
+  margin-top: -1.1rem;
+  padding: 0;
+} */
+
+.form-economic span p {
+  color: rgb(255, 0, 0);
+  cursor: default;
+  font-weight: bold;
+  margin: 0rem;
+  margin-top: -1.1rem;
+  padding: 0;
+}
+
 
 .form-group {
   margin-top: 2.5rem;
@@ -82,13 +100,11 @@
 }
 
 @media (max-width: 500px) {
-  .screen-socio-economic{
-    margin-left:4rem;
-   }
-  .form-socio-economic {
-    margin: 3rem 1rem 5rem 1rem;
+
+  /* .form-socio-economic {
+    margin: 4rem 1rem 5rem 1rem;
     padding: 1.5rem 1rem 3rem 1rem;
-  }
+  } */
 }
 
 .label-title {
@@ -107,16 +123,12 @@
     margin: 2rem 0rem 0rem 0rem;
 }
 
+@media (max-width: 470px) {
+.form-economic span p {
+  margin-top: 0rem;
+}
+.screen-socio-economic{
+  margin-left:0rem;
+ }
 
-@media (max-width: 920px) {
-    .form-socio-economic {
-
-        margin: 5rem 2rem 5rem 5rem;
-        margin: center;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        max-width: 100%;
-        padding: 1.5rem 2rem 3rem 2rem;
-    }
 }

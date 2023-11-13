@@ -4,7 +4,7 @@
       <label for="cep">CEP</label>
       <div class="input-group">
         <input type="text" id="cep" class="form-control cep" placeholder="CEP" aria-label="CEP"
-          aria-describedby="button-addon2" maxlength="9">
+          aria-describedby="button-addon2" maxlength="9" required>
         <div class="input-group-append">
           <button class="btn-cep" type="button" id="button-addon2">Procurar</button>
         </div>
@@ -15,7 +15,7 @@
     <div class="div-logradouro">
       <label for="logradouro">Logradouro</label>
       <input type="text" name="logradouro" id="logradouro" class="form-control" placeholder="Logradouro"
-        maxlength="70" />
+        maxlength="70" required/>
       <p class="obrigatorio">Obrigatório</p>
       <span id="msg-logradouro"></span>
     </div>
@@ -23,7 +23,7 @@
   <div class="numero-complemento">
     <div class="div-numero">
       <label for="numero">Número</label>
-      <input type="text" name="numero" id="numero" placeholder="Número" class="numero form-control" maxlength="45" />
+      <input type="text" name="numero" id="numero" placeholder="Número" class="numero form-control" maxlength="45" required/>
       <p class="obrigatorio">Obrigatório</p>
       <span id="msg-numero"></span>
     </div>
@@ -37,13 +37,13 @@
   <div class="uf-bairro">
     <div class="div-uf">
       <label for="uf">UF</label>
-      <input type="text" name="uf" id="uf" placeholder="UF" class="uf form-control" maxlength="2" />
+      <input type="text" name="uf" id="uf" placeholder="UF" class="uf form-control" maxlength="2" required/>
       <p class="obrigatorio">Obrigatório</p>
       <span id="msg-uf"></span>
     </div>
     <div class="div-bairro">
       <label for="bairro">Bairro</label>
-      <input type="text" name="bairro" id="bairro" placeholder="Bairro" class="bairro form-control" maxlength="50" />
+      <input type="text" name="bairro" id="bairro" placeholder="Bairro" class="bairro form-control" maxlength="50" required/>
       <p class="obrigatorio">Obrigatório</p>
       <span id="msg-bairro"></span>
     </div>
@@ -51,14 +51,14 @@
   <div class="cidade-telefone1">
     <div class="div-cidade">
       <label for="cidade">Cidade</label>
-      <input type="text" name="cidade" id="cidade" placeholder="Cidade" class="cidade form-control" maxlength="50" />
+      <input type="text" name="cidade" id="cidade" placeholder="Cidade" class="cidade form-control" maxlength="50" required/>
       <p class="obrigatorio">Obrigatório</p>
       <span id="msg-cidade"></span>
     </div>
     <div class="div-telefone1">
       <label for="telefone1">Telefone1</label>
       <input type="tel" name="telefone1" id="telefone1" placeholder="Telefone 1" class="telefone1 form-control"
-        maxlength="15" />
+        maxlength="15" required/>
       <p class="obrigatorio">Obrigatório</p>
       <span id="msg-telefone1"></span>
     </div>
@@ -67,14 +67,14 @@
     <div class="div-telefone2">
       <label for="telefone2">Telefone2</label>
       <input type="tel" name="telefone2" id="telefone2" placeholder="Telefone 2" class="telefone2 form-control"
-        maxlength="15" />
+        maxlength="15" required/>
       <p class="obrigatorio">Obrigatório</p>
       <span id="msg-telefone2"></span>
     </div>
     <div class="div-email">
       <label for="email">Email</label>
       <input type="email" name="email" id="email" placeholder="Email" class="email form-control" maxlength="45"
-        autocomplete="email">
+        autocomplete="email" required>
       <p class="obrigatorio">Obrigatório</p>
       <span id="msg-email"></span>
     </div>

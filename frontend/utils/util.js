@@ -1004,11 +1004,23 @@ const erroSelect = (select) => {
 
 const erroInputAddress = (object) => {
   for (let chave in object) {
-    if (object[chave] === false) {
-      document.getElementById(
-        `msg-fracasso-address`
-      ).innerHTML = `<p>Campo ${chave} inválido!</p>`;
-      break
+    if (object[chave] === false && chave !== "complemento") {
+      if (chave === "telefone1") {
+        document.getElementById(
+          `msg-fracasso-address`
+        ).innerHTML = `<p>Campo telefone 1 inválido!</p>`;
+        break
+      } else if (chave === "telefone2") {
+        document.getElementById(
+          `msg-fracasso-address`
+        ).innerHTML = `<p>Campo telefone 2 inválido!</p>`;
+        break
+      } else {
+        document.getElementById(
+          `msg-fracasso-address`
+        ).innerHTML = `<p>Campo ${chave} inválido!</p>`;
+        break
+      }
     }
   }
 }

@@ -47517,9 +47517,17 @@ var erroSelect = function erroSelect(select) {
 };
 var erroInputAddress = function erroInputAddress(object) {
   for (var _chave8 in object) {
-    if (object[_chave8] === false) {
-      document.getElementById("msg-fracasso-address").innerHTML = "<p>Campo ".concat(_chave8, " inv\xE1lido!</p>");
-      break;
+    if (object[_chave8] === false && _chave8 !== "complemento") {
+      if (_chave8 === "telefone1") {
+        document.getElementById("msg-fracasso-address").innerHTML = "<p>Campo telefone 1 inv\xE1lido!</p>";
+        break;
+      } else if (_chave8 === "telefone2") {
+        document.getElementById("msg-fracasso-address").innerHTML = "<p>Campo telefone 2 inv\xE1lido!</p>";
+        break;
+      } else {
+        document.getElementById("msg-fracasso-address").innerHTML = "<p>Campo ".concat(_chave8, " inv\xE1lido!</p>");
+        break;
+      }
     }
   }
 };

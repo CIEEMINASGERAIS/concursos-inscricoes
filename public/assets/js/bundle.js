@@ -47467,20 +47467,27 @@ var erroInput = function erroInput(object) {
     if (object[_chave7] === false && _chave7 !== "nomepai" && _chave7 !== "ctps") {
       if (_chave7 === "nomemae") {
         document.getElementById("msg-fracasso").innerHTML = "<p>Campo nome m\xE3e inv\xE1lido!</p>";
+        break;
       } else if (_chave7 === "orgaoexpedidor") {
         document.getElementById("msg-fracasso").innerHTML = "<p>Campo org\xE3o expedidor inv\xE1lido!</p>";
+        break;
       } else if (_chave7 === "idade") {
         continue;
       } else if (_chave7 === "dt_nascimento") {
         document.getElementById("msg-fracasso").innerHTML = "<p>Campo data de nascimento inv\xE1lido!</p>";
+        break;
       } else if (_chave7 === "dt_nascimento") {
         document.getElementById("msg-fracasso").innerHTML = "<p>Campo data de nascimento inv\xE1lido!</p>";
+        break;
       } else if (_chave7 === "dt_nascimento") {
         document.getElementById("msg-fracasso").innerHTML = "<p>Campo data de nascimento inv\xE1lido!</p>";
+        break;
       } else if (_chave7 === "deficiencia_descricao") {
         document.getElementById("msg-fracasso").innerHTML = "<p>Campo descreva a defici\xEAncia inv\xE1lido!</p>";
+        break;
       } else {
         document.getElementById("msg-fracasso").innerHTML = "<p>Campo ".concat(_chave7, " inv\xE1lido!</p>");
+        break;
       }
     }
   }
@@ -47491,12 +47498,16 @@ var erroSelect = function erroSelect(select) {
     if (selects[i].value === "Selecione") {
       if (selects[i].name === "estadoCivil") {
         document.getElementById("msg-fracasso").innerHTML = "<p>Selecione o seu estado civil!</p>";
+        break;
       } else if (selects[i].name === "sexos") {
         document.getElementById("msg-fracasso").innerHTML = "<p>Selecione o sexo!</p>";
+        break;
       } else if (selects[i].name === "ufNaturalidade") {
         document.getElementById("msg-fracasso").innerHTML = "<p>Selecione o seu uf de naturalidade!</p>";
+        break;
       } else {
         document.getElementById("msg-fracasso").innerHTML = "<p>Selecione uma op\xE7\xE3o em \"Possui alguma defici\xEAncia?\"!</p>";
+        break;
       }
     }
   }

@@ -1,11 +1,10 @@
 'use strict';
 
-// const Estudante = require('./estudante')(sequelize, DataTypes)
-
 const {
   Model
 } = require('sequelize');
-const sequelize = require('.');
+
+
 module.exports = (sequelize, DataTypes) => {
   class SocioEconomico extends Model {
     /**
@@ -125,7 +124,10 @@ module.exports = (sequelize, DataTypes) => {
     timestamps: false,
     sequelize,
     modelName: 'socio_economico',
-    tableName: 'socio_economio'
+    tableName: 'socio_economico'
   });
+
+  // SocioEconomico.sync({ alter: true })
+
   return SocioEconomico;
 };

@@ -659,7 +659,6 @@ module.exports = (sequelize, DataTypes) => {
     }
   })
 
-
   return Estudante;
 };
 

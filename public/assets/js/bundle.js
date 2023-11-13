@@ -45324,11 +45324,7 @@ function _initAddress() {
                             while (1) switch (_context3.prev = _context3.next) {
                               case 0:
                                 e.preventDefault();
-                                if (
-                                // formDataAddress.cep && formDataAddress.logradouro && formDataAddress.numero && formDataAddress.uf
-                                // && formDataAddress.bairro && formDataAddress.cidade && formDataAddress.telefone1 && formDataAddress.telefone2
-                                // && formDataAddress.email
-                                formDataAddress) {
+                                if (formDataAddress.cep && formDataAddress.logradouro && formDataAddress.numero && formDataAddress.uf && formDataAddress.bairro && formDataAddress.cidade && formDataAddress.telefone1 && formDataAddress.telefone2 && formDataAddress.email) {
                                   changeMains('.screen-school-data');
                                   changeSubMainTitle('Formulário de Dados Acadêmicos');
                                   resolve(formDataAddress);
@@ -45400,7 +45396,8 @@ var _require = __webpack_require__(/*! ../utils/util.js */ "./frontend/utils/uti
   isComplemento = _require.isComplemento,
   age = _require.age,
   cpfInBd = _require.cpfInBd,
-  campoInvalido = _require.campoInvalido;
+  erroInput = _require.erroInput,
+  erroSelect = _require.erroSelect;
 
 // Função responsável por iniciar as funções e gerar o conteúdo da página
 var initDataBasic = /*#__PURE__*/function () {
@@ -45415,20 +45412,20 @@ var initDataBasic = /*#__PURE__*/function () {
                 while (1) switch (_context2.prev = _context2.next) {
                   case 0:
                     _context2.next = 2;
-                    return fetch('formDataBasic');
+                    return fetch("formDataBasic");
                   case 2:
                     response = _context2.sent;
                     _context2.next = 5;
                     return response.text();
                   case 5:
                     htmlContent = _context2.sent;
-                    dataBasic = document.querySelector('.screen-basic-data1');
+                    dataBasic = document.querySelector(".screen-basic-data1");
                     dataBasic.innerHTML = htmlContent;
-                    formData = document.querySelector('.form-data');
-                    ufNaturalidade = document.getElementById('uf-naturalidade');
-                    ufs = ['RO', 'AC', 'AM', 'RR', 'PA', 'AP', 'TO', 'MA', 'PI', 'CE', 'RN', 'PB', 'PE', 'AL', 'SE', 'BA', 'MG', 'ES', 'RJ', 'SP', 'PR', 'SC', 'RS', 'MS', 'MT', 'GO', 'DF'];
+                    formData = document.querySelector(".form-data");
+                    ufNaturalidade = document.getElementById("uf-naturalidade");
+                    ufs = ["RO", "AC", "AM", "RR", "PA", "AP", "TO", "MA", "PI", "CE", "RN", "PB", "PE", "AL", "SE", "BA", "MG", "ES", "RJ", "SP", "PR", "SC", "RS", "MS", "MT", "GO", "DF"];
                     for (i = 0; i < ufs.length; i++) {
-                      option = document.createElement('option');
+                      option = document.createElement("option");
                       ufNaturalidade.appendChild(option);
                       option.value = ufs[i];
                       option.text = ufs[i];
@@ -45436,56 +45433,56 @@ var initDataBasic = /*#__PURE__*/function () {
                     }
                     listDeficiencias = ["N", "F", "A", "V", "ME", "MU", "TE"];
                     formDataBasic = {};
-                    inputNome = document.querySelector('.name');
+                    inputNome = document.querySelector(".name");
                     if (inputNome) {
-                      inputNome.addEventListener('input', function (e) {
-                        e.target.value = e.target.value.replace(/[0-9]/g, '');
+                      inputNome.addEventListener("input", function (e) {
+                        e.target.value = e.target.value.replace(/[0-9]/g, "");
                         validate = isNome(e.target.value);
                         if (validate) {
-                          document.getElementById('msg-name').innerHTML = '';
+                          document.getElementById("msg-nome").innerHTML = "";
                           return formDataBasic.nome = e.target.value;
                         } else {
                           e.preventDefault();
                           // Enviar para o HTML a mensagem de erro
-                          document.getElementById('msg-name').innerHTML = "<p>Favor preencher o Nome completo!</p>";
+                          document.getElementById("msg-nome").innerHTML = "<p>Favor preencher o Nome completo!</p>";
                           return formDataBasic.nome = false;
                         }
                       });
                     }
-                    inputCpf = document.querySelector('.cpf');
+                    inputCpf = document.querySelector(".cpf");
                     if (inputCpf) {
-                      inputCpf.addEventListener('input', /*#__PURE__*/function () {
+                      inputCpf.addEventListener("input", /*#__PURE__*/function () {
                         var _ref3 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(e) {
                           var validateBd;
                           return _regeneratorRuntime().wrap(function _callee$(_context) {
                             while (1) switch (_context.prev = _context.next) {
                               case 0:
-                                e.target.value = e.target.value.replace(/\D/g, '');
-                                e.target.value = e.target.value.replace(/(\d{3})(\d)/, '$1.$2');
-                                e.target.value = e.target.value.replace(/(\d{3})(\d)/, '$1.$2');
-                                e.target.value = e.target.value.replace(/(\d{3})(\d{1,2})$/, '$1-$2');
+                                e.target.value = e.target.value.replace(/\D/g, "");
+                                e.target.value = e.target.value.replace(/(\d{3})(\d)/, "$1.$2");
+                                e.target.value = e.target.value.replace(/(\d{3})(\d)/, "$1.$2");
+                                e.target.value = e.target.value.replace(/(\d{3})(\d{1,2})$/, "$1-$2");
                                 _validate = isCpf(e.target.value);
                                 if (!_validate) {
                                   _context.next = 13;
                                   break;
                                 }
-                                document.getElementById('msg-cpf').innerHTML = '';
+                                document.getElementById("msg-cpf").innerHTML = "";
                                 _context.next = 9;
                                 return cpfInBd(e.target.value);
                               case 9:
                                 validateBd = _context.sent;
                                 if (validateBd) {
                                   formDataBasic.cpf = e.target.value;
-                                  document.getElementById('msg-cpf').innerHTML = '';
+                                  document.getElementById("msg-cpf").innerHTML = "";
                                 } else {
-                                  document.getElementById('msg-cpf').innerHTML = "<p>CPF já cadastrado!</p>";
+                                  document.getElementById("msg-cpf").innerHTML = "<p>CPF já cadastrado!</p>";
                                 }
                                 _context.next = 16;
                                 break;
                               case 13:
                                 e.preventDefault();
                                 // Enviar para o HTML a mensagem de erro
-                                document.getElementById('msg-cpf').innerHTML = "<p>CPF inválido!</p>";
+                                document.getElementById("msg-cpf").innerHTML = "<p>CPF inválido!</p>";
                                 formDataBasic.cpf = false;
                               case 16:
                               case "end":
@@ -45498,260 +45495,258 @@ var initDataBasic = /*#__PURE__*/function () {
                         };
                       }());
                     }
-                    rg = document.querySelector('.rg');
+                    rg = document.querySelector(".rg");
                     if (rg) {
-                      rg.addEventListener('input', function (e) {
+                      rg.addEventListener("input", function (e) {
                         // Remove tudo, exceto números
-                        e.target.value = e.target.value.replace(/[^\d]/g, '');
+                        e.target.value = e.target.value.replace(/[^\d]/g, "");
                         _validate2 = isRg(e.target.value);
                         if (_validate2) {
-                          document.getElementById('msg-rg').innerHTML = '';
+                          document.getElementById("msg-rg").innerHTML = "";
                           formDataBasic.rg = e.target.value;
                         } else {
                           e.preventDefault();
                           // Enviar para o HTML a mensagem de erro
-                          document.getElementById('msg-rg').innerHTML = "<p>RG inválido!</p>";
+                          document.getElementById("msg-rg").innerHTML = "<p>RG inválido!</p>";
                           formDataBasic.rg = false;
                         }
                       });
                     }
-                    orgaoExpedidor = document.querySelector('.orgao-expedidor');
+                    orgaoExpedidor = document.querySelector(".orgao-expedidor");
                     if (orgaoExpedidor) {
-                      orgaoExpedidor.addEventListener('input', function (e) {
+                      orgaoExpedidor.addEventListener("input", function (e) {
                         _validate3 = isComplemento(e.target.value);
                         if (_validate3) {
-                          document.getElementById('msg-orgao-expedidor').innerHTML = '';
+                          document.getElementById("msg-orgao-expedidor").innerHTML = "";
                           formDataBasic.orgaoexpedidor = e.target.value;
                         } else {
                           e.preventDefault();
                           // Enviar para o HTML a mensagem de erro
-                          document.getElementById('msg-orgao-expedidor').innerHTML = "<p>Orgão Expedidor inválido!</p>";
+                          document.getElementById("msg-orgao-expedidor").innerHTML = "<p>Orgão Expedidor inválido!</p>";
                           formDataBasic.orgaoexpedidor = false;
                         }
                       });
                     }
-                    inputNomeMae = document.querySelector('.nome-mae');
+                    inputNomeMae = document.querySelector(".nome-mae");
                     if (inputNomeMae) {
-                      inputNomeMae.addEventListener('input', function (e) {
-                        e.target.value = e.target.value.replace(/[0-9]/g, '');
+                      inputNomeMae.addEventListener("input", function (e) {
+                        e.target.value = e.target.value.replace(/[0-9]/g, "");
                         _validate4 = isNome(e.target.value);
                         if (_validate4) {
-                          document.getElementById('msg-nome-mae').innerHTML = '';
+                          document.getElementById("msg-nome-mae").innerHTML = "";
                           formDataBasic.nomemae = e.target.value;
                         } else {
                           e.preventDefault();
                           // Enviar para o HTML a mensagem de erro
-                          document.getElementById('msg-nome-mae').innerHTML = "<p>Favor preencher o Nome completo!</p>";
+                          document.getElementById("msg-nome-mae").innerHTML = "<p>Favor preencher o Nome completo!</p>";
                           formDataBasic.nomemae = false;
                         }
                       });
                     }
-                    inputNomePai = document.querySelector('.nome-pai');
+                    inputNomePai = document.querySelector(".nome-pai");
                     if (inputNomePai) {
-                      inputNomePai.addEventListener('input', function (e) {
-                        e.target.value = e.target.value.replace(/[0-9]/g, '');
+                      inputNomePai.addEventListener("input", function (e) {
+                        e.target.value = e.target.value.replace(/[0-9]/g, "");
                         _validate5 = isNome(e.target.value);
                         if (_validate5) {
-                          document.getElementById('msg-nome-pai').innerHTML = '';
+                          document.getElementById("msg-nome-pai").innerHTML = "";
                           return formDataBasic.nomepai = e.target.value;
                         } else {
                           e.preventDefault();
                           // Enviar para o HTML a mensagem de erro
-                          document.getElementById('msg-nome-pai').innerHTML = "<p>Favor preencher o nome completo!</p>";
-                          removerMensagem('msg-nome-pai');
+                          document.getElementById("msg-nome-pai").innerHTML = "<p>Favor preencher o nome completo!</p>";
+                          removerMensagem("msg-nome-pai");
                           return formDataBasic.nomepai = false;
                         }
                       });
                     }
-                    ctps = document.getElementById('carteira-trabalho');
+                    ctps = document.getElementById("carteira-trabalho");
                     if (ctps) {
-                      ctps.addEventListener('input', function (e) {
-                        e.target.value = e.target.value.replace(/[^0-9]/g, '');
+                      ctps.addEventListener("input", function (e) {
+                        e.target.value = e.target.value.replace(/[^0-9]/g, "");
                         _validate6 = isCtps(e.target.value);
                         if (_validate6) {
-                          document.getElementById('msg-carteira-trabalho').innerHTML = '';
+                          document.getElementById("msg-carteira-trabalho").innerHTML = "";
                           return formDataBasic.ctps = e.target.value;
                         } else {
                           e.preventDefault();
                           // Enviar para o HTML a mensagem de erro
-                          document.getElementById('msg-carteira-trabalho').innerHTML = "<p>CTPS inválido!</p>";
-                          removerMensagem('msg-carteira-trabalho');
+                          document.getElementById("msg-carteira-trabalho").innerHTML = "<p>CTPS inválido!</p>";
+                          removerMensagem("msg-carteira-trabalho");
                           return formDataBasic.ctps = false;
                         }
                       });
                     }
-                    naturalidade = document.getElementById('naturalidade');
+                    naturalidade = document.getElementById("naturalidade");
                     if (naturalidade) {
-                      naturalidade.addEventListener('input', function (e) {
-                        e.target.value = e.target.value.replace(/[0-9]/g, '');
+                      naturalidade.addEventListener("input", function (e) {
+                        e.target.value = e.target.value.replace(/[0-9]/g, "");
                         _validate7 = isNaturalidadeNacionalidade(e.target.value);
                         if (_validate7) {
-                          document.getElementById('msg-naturalidade').innerHTML = '';
+                          document.getElementById("msg-naturalidade").innerHTML = "";
                           return formDataBasic.naturalidade = e.target.value;
                         } else {
                           e.preventDefault();
                           // Enviar para o HTML a mensagem de erro
-                          document.getElementById('msg-naturalidade').innerHTML = "<p>Naturalidade inválida!</p>";
+                          document.getElementById("msg-naturalidade").innerHTML = "<p>Naturalidade inválida!</p>";
                           return formDataBasic.naturalidade = false;
                         }
                       });
                     }
-                    nacionalidade = document.getElementById('nacionalidade');
+                    nacionalidade = document.getElementById("nacionalidade");
                     if (nacionalidade) {
-                      nacionalidade.addEventListener('input', function (e) {
-                        e.target.value = e.target.value.replace(/[0-9]/g, '');
+                      nacionalidade.addEventListener("input", function (e) {
+                        e.target.value = e.target.value.replace(/[0-9]/g, "");
                         _validate8 = isNaturalidadeNacionalidade(e.target.value);
                         if (_validate8) {
-                          document.getElementById('msg-nacionalidade').innerHTML = '';
+                          document.getElementById("msg-nacionalidade").innerHTML = "";
                           return formDataBasic.nacionalidade = e.target.value;
                         } else {
                           e.preventDefault();
                           // Enviar para o HTML a mensagem de erro
-                          document.getElementById('msg-nacionalidade').innerHTML = "<p>Caracteres inválidos!</p>";
+                          document.getElementById("msg-nacionalidade").innerHTML = "<p>Caracteres inválidos!</p>";
                           return formDataBasic.nacionalidade = false;
                         }
                       });
                     }
-                    estadoCivil = document.getElementById('estado-civil');
+                    estadoCivil = document.getElementById("estado-civil");
                     if (estadoCivil) {
-                      estadoCivil.addEventListener('input', function (e) {
+                      estadoCivil.addEventListener("input", function (e) {
                         _validate9 = isEstadoCivil(e.target.value);
                         if (_validate9) {
-                          document.getElementById('msg-estado-civil').innerHTML = '';
+                          document.getElementById("msg-estado-civil").innerHTML = "";
                           return formDataBasic.estadocivil = e.target.value;
                         } else {
                           e.preventDefault();
                           // Enviar para o HTML a mensagem de erro
-                          document.getElementById('msg-estado-civil').innerHTML = "<p>Estado civil inválido!</p>";
+                          document.getElementById("msg-estado-civil").innerHTML = "<p>Estado civil inválido!</p>";
                           return formDataBasic.estadocivil = false;
                         }
                       });
                     }
-                    dataNascimento = document.getElementById('data-nascimento');
+                    dataNascimento = document.getElementById("data-nascimento");
                     if (dataNascimento) {
-                      dataNascimento.addEventListener('input', function (e) {
-                        e.target.value = e.target.value.replace(/[^0-9-]/g, '');
+                      dataNascimento.addEventListener("input", function (e) {
+                        e.target.value = e.target.value.replace(/[^0-9-]/g, "");
                         _validate10 = isDate(e.target.value);
                         if (_validate10) {
-                          document.getElementById('msg-data-nascimento').innerHTML = '';
+                          document.getElementById("msg-data-nascimento").innerHTML = "";
                           formDataBasic.dt_nascimento = e.target.value;
                           formDataBasic.idade = age(e.target.value);
                         } else {
                           e.preventDefault();
                           // Enviar para o HTML a mensagem de erro
-                          document.getElementById('msg-data-nascimento').innerHTML = "<p>Cadastro permitido a partir dos 14 anos de idade!</p>";
+                          document.getElementById("msg-data-nascimento").innerHTML = "<p>Cadastro permitido a partir dos 14 anos de idade!</p>";
                           formDataBasic.dt_nascimento = false;
                           formDataBasic.idade = false;
                         }
                       });
                     }
-                    sexo = document.getElementById('sexo');
+                    sexo = document.getElementById("sexo");
                     if (sexo) {
-                      sexo.addEventListener('input', function (e) {
+                      sexo.addEventListener("input", function (e) {
                         _validate11 = isSexo(e.target.value);
                         if (_validate11) {
-                          document.getElementById('msg-sexo').innerHTML = '';
+                          document.getElementById("msg-sexo").innerHTML = "";
                           return formDataBasic.sexo = e.target.value;
                         } else {
                           e.preventDefault();
                           // Enviar para o HTML a mensagem de erro
-                          document.getElementById('msg-sexo').innerHTML = "<p>Opção inválida!</p>";
+                          document.getElementById("msg-sexo").innerHTML = "<p>Opção inválida!</p>";
                           return formDataBasic.sexo = false;
                         }
                       });
                     }
                     if (ufNaturalidade) {
-                      ufNaturalidade.addEventListener('input', function (e) {
+                      ufNaturalidade.addEventListener("input", function (e) {
                         _validate12 = isUfNaturalidade(e.target.value);
                         if (_validate12) {
-                          document.getElementById('msg-uf-naturalidade').innerHTML = '';
+                          document.getElementById("msg-uf-naturalidade").innerHTML = "";
                           return formDataBasic.uf_naturalidade = e.target.value;
                         } else {
                           e.preventDefault();
                           // Enviar para o HTML a mensagem de erro
-                          document.getElementById('msg-uf-naturalidade').innerHTML = "<p>Opção inválida!</p>";
+                          document.getElementById("msg-uf-naturalidade").innerHTML = "<p>Opção inválida!</p>";
                           return formDataBasic.uf_naturalidade = false;
                         }
                       });
                     }
-                    deficiencias = document.getElementById('deficiencias');
-                    descDiv = document.querySelector('.descricao-deficiencia');
+                    deficiencias = document.getElementById("deficiencias");
+                    descDiv = document.querySelector(".descricao-deficiencia");
                     if (deficiencias) {
-                      deficiencias.addEventListener('input', function (e) {
+                      deficiencias.addEventListener("input", function (e) {
                         _validate13 = isDeficiente(listDeficiencias, e.target.value);
                         if (_validate13) {
-                          document.getElementById('msg-deficiencias').innerHTML = '';
+                          document.getElementById("msg-deficiencias").innerHTML = "";
                           formDataBasic.deficiencia = e.target.value;
                         } else {
                           e.preventDefault();
                           // Enviar para o HTML a mensagem de erro
-                          document.getElementById('msg-deficiencias').innerHTML = "<p>Opção inválida!</p>";
+                          document.getElementById("msg-deficiencias").innerHTML = "<p>Opção inválida!</p>";
                           formDataBasic.deficiencia = false;
                         }
                       });
-                      deficiencias.addEventListener('input', function (e) {
-                        if (e.target.value != 'Selecione' && e.target.value != 'N') {
+                      deficiencias.addEventListener("input", function (e) {
+                        if (e.target.value != "Selecione" && e.target.value != "N") {
                           formDataBasic.deficiencia = false;
-                          var descricoesInputs = document.querySelectorAll('.descricoes');
+                          var descricoesInputs = document.querySelectorAll(".descricoes");
                           if (descricoesInputs.length === 0) {
-                            var descLabel = document.createElement('label');
-                            var descInput = document.createElement('input');
+                            var descLabel = document.createElement("label");
+                            var descInput = document.createElement("input");
                             descDiv.appendChild(descLabel);
-                            descLabel.innerText = 'Descreva a deficiência';
-                            descLabel.setAttribute('for', 'descricao');
+                            descLabel.innerText = "Descreva a deficiência";
+                            descLabel.setAttribute("for", "descricao");
                             descDiv.appendChild(descInput);
-                            descInput.setAttribute('id', 'descricao');
-                            descInput.setAttribute('class', 'descricoes input-form-validadate');
-                            descInput.setAttribute('name', 'descricaoDeficiencia');
-                            descInput.setAttribute('maxlength', '255');
-                            var paragrafoObgtr = document.createElement('p');
-                            paragrafoObgtr.setAttribute('class', 'obrigatorio');
-                            paragrafoObgtr.innerText = 'Obrigatório';
+                            descInput.setAttribute("id", "descricao");
+                            descInput.setAttribute("class", "descricoes");
+                            descInput.setAttribute("name", "descricaoDeficiencia");
+                            descInput.setAttribute("maxlength", "255");
+                            var paragrafoObgtr = document.createElement("p");
+                            paragrafoObgtr.setAttribute("class", "obrigatorio");
+                            paragrafoObgtr.innerText = "Obrigatório";
                             descDiv.appendChild(paragrafoObgtr);
                           }
                         } else {
-                          descDiv.innerHTML = '';
-                          document.getElementById('msg-descricao').innerHTML = '';
-                          formDataBasic.deficiencia_descricao = '';
+                          descDiv.innerHTML = "";
+                          document.getElementById("msg-descricao").innerHTML = "";
+                          formDataBasic.deficiencia_descricao = "";
                         }
                       });
                     }
-                    document.addEventListener('input', function (e) {
+                    document.addEventListener("input", function (e) {
                       var element = e.target;
                       var validateDescricoes;
-                      if (element.classList.contains('descricoes')) {
+                      if (element.classList.contains("descricoes")) {
                         validateDescricoes = isDescricao(element.value);
                         if (validateDescricoes) {
                           formDataBasic.deficiencia = deficiencias.value;
                           formDataBasic.deficiencia_descricao = element.value;
-                          document.getElementById('msg-descricao').innerHTML = "";
+                          document.getElementById("msg-descricao").innerHTML = "";
                         } else {
                           formDataBasic.deficiencia = false;
                           formDataBasic.deficiencia_descricao = false;
-                          document.getElementById('msg-descricao').innerHTML = "<p>Favor descrever a deficiência.</p>";
+                          document.getElementById("msg-descricao").innerHTML = "<p>Favor descrever a deficiência.</p>";
                         }
                       }
                     });
                     if (formData) {
-                      formData.addEventListener('submit', function (e) {
+                      formData.addEventListener("submit", function (e) {
                         e.preventDefault();
-                        if (
-                        // formDataBasic.nome && formDataBasic.nomemae && formDataBasic.naturalidade && formDataBasic.nacionalidade && formDataBasic.estadocivil
-                        // && formDataBasic.dt_nascimento && formDataBasic.sexo && formDataBasic.uf_naturalidade && formDataBasic.deficiencia && formDataBasic.rg && formDataBasic.orgaoexpedidor && formDataBasic.idade && formDataBasic.cpf
-                        formDataBasic
-
+                        if (formDataBasic.nome && formDataBasic.nomemae && formDataBasic.naturalidade && formDataBasic.nacionalidade && formDataBasic.estadocivil && formDataBasic.dt_nascimento && formDataBasic.sexo && formDataBasic.uf_naturalidade && formDataBasic.deficiencia && formDataBasic.rg && formDataBasic.orgaoexpedidor && formDataBasic.idade && formDataBasic.cpf
                         // No caso do nomepai e carteira de trabalho não são obrigatorios
                         ) {
-                          changeMains('.screen-address');
-                          changeSubMainTitle('Formulário de Endereço');
+                          changeMains(".screen-address");
+                          changeSubMainTitle("Formulário de Endereço");
                           resolve(formDataBasic);
                         } else {
-                          document.getElementById('msg-fracasso').innerHTML = "<p>Formulário incompleto!</p>";
-                          removerMensagem('msg-fracasso');
+                          document.getElementById("msg-fracasso").innerHTML = "<p>Formulário incompleto!</p>";
+                          erroInput(formDataBasic);
+                          erroSelect(".form-data select");
+                          removerMensagem("msg-fracasso");
                         }
                       });
                     } else {
-                      reject(new Error('O formulário não foi encontrado!'));
+                      reject(new Error("O formulário não foi encontrado!"));
                     }
                   case 44:
                   case "end":
@@ -45788,15 +45783,19 @@ var _require = __webpack_require__(/*! ../utils/util.js */ "./frontend/utils/uti
   changeMains = _require.changeMains;
 var main = function main() {
   function mainPage() {
-    document.addEventListener('click', function (event) {
+    document.addEventListener("click", function (event) {
       var element = event.target;
-      if (element.classList.contains('button-back-address')) {
-        changeMains('.screen-basic-data1');
-        changeSubMainTitle('Formulário de Dados Básicos');
+      if (element.classList.contains("button-back-address")) {
+        changeMains(".screen-basic-data1");
+        changeSubMainTitle("Formulário de Dados Básicos");
       }
-      if (element.classList.contains('button-back-school')) {
-        changeMains('.screen-address');
-        changeSubMainTitle('Formulário de Endereço');
+      if (element.classList.contains("button-back-school")) {
+        changeMains(".screen-address");
+        changeSubMainTitle("Formulário de Endereço");
+      }
+      if (element.classList.contains("button-back-socio")) {
+        changeMains(".screen-school-data");
+        changeSubMainTitle("Formulário de Dados Acadêmicos");
       }
     });
   }
@@ -46267,14 +46266,7 @@ function _createFormSchoolData() {
                             while (1) switch (_context6.prev = _context6.next) {
                               case 0:
                                 e.preventDefault();
-                                if (
-                                // dataFormSchool.escola_id &&
-                                // dataFormSchool.curso_id &&
-                                // dataFormSchool.previsao_semestre &&
-                                // dataFormSchool.previsao_ano &&
-                                // dataFormSchool.previsao_mes &&
-                                // dataFormSchool.horario
-                                dataFormSchool) {
+                                if (dataFormSchool.escola_id && dataFormSchool.curso_id && dataFormSchool.previsao_semestre && dataFormSchool.previsao_ano && dataFormSchool.previsao_mes && dataFormSchool.horario) {
                                   if (!valid) {
                                     dataFormSchool.periodo = periodoFinal();
                                   }
@@ -46282,13 +46274,15 @@ function _createFormSchoolData() {
                                   today = new Date();
                                   dataFormSchool.ano = today.getFullYear();
                                   dataFormSchool.senha = password;
-                                  changeMains('.screen-socio-economic');
-                                  changeSubMainTitle('Formulário Socioeconômico');
+                                  changeMains(".screen-socio-economic");
+                                  changeSubMainTitle("Formulário Socioeconômico");
                                   resolve(dataFormSchool);
-                                } else {
-                                  document.getElementById("msg-fracasso-school").innerHTML = "<p>Formulário incompleto!</p>";
-                                  removerMensagem("msg-fracasso-school");
                                 }
+                                //  else {
+                                //   document.getElementById("msg-fracasso-school").innerHTML =
+                                //     "<p>Formulário incompleto!</p>";
+                                //   removerMensagem("msg-fracasso-school");
+                                // }
                               case 2:
                               case "end":
                                 return _context6.stop();
@@ -46300,7 +46294,7 @@ function _createFormSchoolData() {
                         };
                       }());
                     } else {
-                      reject(new Error('O formulário não foi encontrado!'));
+                      reject(new Error("O formulário não foi encontrado!"));
                     }
                   case 44:
                   case "end":
@@ -46335,135 +46329,121 @@ function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyri
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 var _require = __webpack_require__(/*! ../utils/util */ "./frontend/utils/util.js"),
-  selecionarNomes = _require.selecionarNomes,
-  removerMensagem = _require.removerMensagem;
+  selecionarNomes = _require.selecionarNomes;
 function socioEconomic() {
   return _socioEconomic.apply(this, arguments);
 }
 function _socioEconomic() {
-  _socioEconomic = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
-    return _regeneratorRuntime().wrap(function _callee3$(_context3) {
-      while (1) switch (_context3.prev = _context3.next) {
+  _socioEconomic = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
+    return _regeneratorRuntime().wrap(function _callee2$(_context2) {
+      while (1) switch (_context2.prev = _context2.next) {
         case 0:
-          return _context3.abrupt("return", new Promise( /*#__PURE__*/function () {
-            var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2(resolve, reject) {
+          return _context2.abrupt("return", new Promise( /*#__PURE__*/function () {
+            var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(resolve, reject) {
               var response, htmlContent, screenSocioEconomic, formSocioEconomic, formEconomic, aprendiz, responsavel, imovel, pessoas, filhos, escolas, rendas, generos, declaracao, situacaoJudicial, alertEnd;
-              return _regeneratorRuntime().wrap(function _callee2$(_context2) {
-                while (1) switch (_context2.prev = _context2.next) {
+              return _regeneratorRuntime().wrap(function _callee$(_context) {
+                while (1) switch (_context.prev = _context.next) {
                   case 0:
-                    _context2.next = 2;
-                    return fetch('socio-economic');
+                    _context.next = 2;
+                    return fetch("socio-economic");
                   case 2:
-                    response = _context2.sent;
-                    _context2.next = 5;
+                    response = _context.sent;
+                    _context.next = 5;
                     return response.text();
                   case 5:
-                    htmlContent = _context2.sent;
-                    screenSocioEconomic = document.querySelector('.screen-socio-economic');
+                    htmlContent = _context.sent;
+                    screenSocioEconomic = document.querySelector(".screen-socio-economic");
                     screenSocioEconomic.innerHTML = htmlContent;
-                    formSocioEconomic = document.querySelector('.form-economic');
+                    formSocioEconomic = document.querySelector(".form-economic");
                     formEconomic = {};
-                    aprendiz = document.getElementById('aprendiz');
-                    aprendiz.addEventListener('input', function (e) {
+                    aprendiz = document.getElementById("aprendiz");
+                    aprendiz.addEventListener("input", function (e) {
                       var valores = e.target.value;
                       if (valores.length === 0) {
                         e.preventDefault();
-                        document.getElementById('msg-aprendiz').innerHTML = "<p>Favor preencher o campo!</p>";
+                        document.getElementById("msg-aprendiz").innerHTML = "<p>Favor preencher o campo!</p>";
                         formEconomic.aprendiz = false;
                       } else {
-                        document.getElementById('msg-aprendiz').innerHTML = "";
+                        document.getElementById("msg-aprendiz").innerHTML = "";
                         formEconomic.aprendiz = valores;
                       }
                     });
-                    responsavel = document.getElementById('responsavel');
-                    responsavel.addEventListener('input', function (e) {
+                    responsavel = document.getElementById("responsavel");
+                    responsavel.addEventListener("input", function (e) {
                       var valores = e.target.value;
                       if (valores.length === 0) {
                         e.preventDefault();
-                        document.getElementById('msg-responsavel').innerHTML = "<p>Favor preencher o Campo!</p>";
+                        document.getElementById("msg-responsavel").innerHTML = "<p>Favor preencher o Campo!</p>";
                         formEconomic.responsavel = false;
                       } else {
-                        document.getElementById('msg-responsavel').innerHTML = "";
+                        document.getElementById("msg-responsavel").innerHTML = "";
                         formEconomic.responsavel = valores;
                       }
                     });
-                    imovel = document.getElementById('imovel');
-                    imovel.addEventListener('input', function (e) {
+                    imovel = document.getElementById("imovel");
+                    imovel.addEventListener("input", function (e) {
                       var valores = e.target.value;
                       if (valores.length === 0) {
                         e.preventDefault();
-                        document.getElementById('msg-imovel').innerHTML = "<p>Favor preencher o Campo!</p>";
+                        document.getElementById("msg-imovel").innerHTML = "<p>Favor preencher o Campo!</p>";
                         formEconomic.imovel = false;
                       } else {
-                        document.getElementById('msg-imovel').innerHTML = "";
+                        document.getElementById("msg-imovel").innerHTML = "";
                         formEconomic.imovel = valores;
                       }
                     });
-                    pessoas = document.getElementById('pessoas');
-                    pessoas.addEventListener('input', function (e) {
+                    pessoas = document.getElementById("pessoas");
+                    pessoas.addEventListener("input", function (e) {
                       var valores = e.target.value;
                       if (valores.length === 0) {
                         e.preventDefault();
-                        document.getElementById('msg-pessoas').innerHTML = "<p>Favor preencher o Campo!</p>";
-                        formEconomic.pessoas = false;
+                        document.getElementById("msg-pessoas").innerHTML = "<p>Favor preencher o Campo!</p>";
+                        formEconomic.pessoas_por_residencia = false;
                       } else {
-                        document.getElementById('msg-pessoas').innerHTML = "";
-                        formEconomic.pessoas = valores;
+                        document.getElementById("msg-pessoas").innerHTML = "";
+                        formEconomic.pessoas_por_residencia = valores;
                       }
                     });
-                    filhos = document.getElementById('filhos');
-                    filhos.addEventListener('input', function (e) {
+                    filhos = document.getElementById("filhos");
+                    filhos.addEventListener("input", function (e) {
                       var valores = e.target.value;
                       if (valores.length === 0) {
                         e.preventDefault();
-                        document.getElementById('msg-filhos').innerHTML = "<p>Favor preencher o Campo!</p>";
-                        formEconomic.filhos = false;
+                        document.getElementById("msg-filhos").innerHTML = "<p>Favor preencher o Campo!</p>";
+                        formEconomic.tem_filhos = false;
                       } else {
-                        document.getElementById('msg-filhos').innerHTML = "";
-                        formEconomic.filhos = valores;
+                        document.getElementById("msg-filhos").innerHTML = "";
+                        formEconomic.tem_filhos = valores;
                       }
                     });
-                    escolas = document.getElementsByName('escolas');
-                    rendas = document.getElementsByName('rendas');
-                    generos = document.getElementsByName('genero');
-                    declaracao = document.getElementsByName('declaracao');
-                    situacaoJudicial = document.getElementsByName('situacao-judicial');
+                    escolas = document.getElementsByName("escolas");
+                    rendas = document.getElementsByName("rendas");
+                    generos = document.getElementsByName("genero");
+                    declaracao = document.getElementsByName("declaracao");
+                    situacaoJudicial = document.getElementsByName("situacao-judicial");
                     alertEnd = document.querySelector(".end");
                     if (formSocioEconomic) {
-                      formSocioEconomic.addEventListener('submit', /*#__PURE__*/function () {
-                        var _ref2 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(e) {
-                          return _regeneratorRuntime().wrap(function _callee$(_context) {
-                            while (1) switch (_context.prev = _context.next) {
-                              case 0:
-                                e.preventDefault();
-                                if (formEconomic.aprendiz && formEconomic.responsavel && formEconomic.imovel && formEconomic.pessoas_por_residencia && formEconomic.tem_filhos) {
-                                  console.log(formEconomic);
-                                  formEconomic.escola_estudou = selecionarNomes(escolas);
-                                  formEconomic.renda = selecionarNomes(rendas);
-                                  formEconomic.genero = selecionarNomes(generos);
-                                  formEconomic.etnia = selecionarNomes(declaracao);
-                                  formEconomic.stuacao_judicial = selecionarNomes(situacaoJudicial);
-                                  alertEnd.style.display = "block";
-                                  resolve(formEconomic);
-                                }
-                              case 2:
-                              case "end":
-                                return _context.stop();
-                            }
-                          }, _callee);
-                        }));
-                        return function (_x3) {
-                          return _ref2.apply(this, arguments);
-                        };
-                      }());
+                      formSocioEconomic.addEventListener("submit", function (e) {
+                        e.preventDefault();
+                        if (formEconomic.aprendiz && formEconomic.responsavel && formEconomic.imovel && formEconomic.pessoas_por_residencia && formEconomic.tem_filhos) {
+                          console.log(formEconomic);
+                          formEconomic.escola_estudou = selecionarNomes(escolas);
+                          formEconomic.renda = selecionarNomes(rendas);
+                          formEconomic.genero = selecionarNomes(generos);
+                          formEconomic.etnia = selecionarNomes(declaracao);
+                          formEconomic.situacao_judicial = selecionarNomes(situacaoJudicial);
+                          alertEnd.style.display = "block";
+                          resolve(formEconomic);
+                        }
+                      });
                     } else {
-                      reject(new Error('O formulário não foi encontrado!'));
+                      reject(new Error("O formulário não foi encontrado!"));
                     }
                   case 27:
                   case "end":
-                    return _context2.stop();
+                    return _context.stop();
                 }
-              }, _callee2);
+              }, _callee);
             }));
             return function (_x, _x2) {
               return _ref.apply(this, arguments);
@@ -46471,9 +46451,9 @@ function _socioEconomic() {
           }()));
         case 1:
         case "end":
-          return _context3.stop();
+          return _context2.stop();
       }
-    }, _callee3);
+    }, _callee2);
   }));
   return _socioEconomic.apply(this, arguments);
 }
@@ -46990,7 +46970,7 @@ var isCourse = /*#__PURE__*/function () {
 }();
 var conferirFormBasic = function conferirFormBasic(objeto) {
   for (var _chave in objeto) {
-    if (objeto[_chave] === false && _chave !== 'nomepai' && _chave !== 'ctps') {
+    if (objeto[_chave] === false && _chave !== "nomepai" && _chave !== "ctps") {
       return false;
     }
   }
@@ -46998,7 +46978,7 @@ var conferirFormBasic = function conferirFormBasic(objeto) {
 };
 var conferirFormAddress = function conferirFormAddress(objeto) {
   for (var _chave2 in objeto) {
-    if (objeto[_chave2] === false && _chave2 !== 'complemento') {
+    if (objeto[_chave2] === false && _chave2 !== "complemento") {
       return false;
     }
   }
@@ -47482,7 +47462,48 @@ var selecionarNomes = function selecionarNomes(name) {
     }
   }
 };
+var erroInput = function erroInput(object) {
+  for (var _chave7 in object) {
+    if (object[_chave7] === false && _chave7 !== "nomepai" && _chave7 !== "ctps") {
+      if (_chave7 === "nomemae") {
+        document.getElementById("msg-fracasso").innerHTML = "<p>Campo nome m\xE3e inv\xE1lido!</p>";
+      } else if (_chave7 === "orgaoexpedidor") {
+        document.getElementById("msg-fracasso").innerHTML = "<p>Campo org\xE3o expedidor inv\xE1lido!</p>";
+      } else if (_chave7 === "idade") {
+        continue;
+      } else if (_chave7 === "dt_nascimento") {
+        document.getElementById("msg-fracasso").innerHTML = "<p>Campo data de nascimento inv\xE1lido!</p>";
+      } else if (_chave7 === "dt_nascimento") {
+        document.getElementById("msg-fracasso").innerHTML = "<p>Campo data de nascimento inv\xE1lido!</p>";
+      } else if (_chave7 === "dt_nascimento") {
+        document.getElementById("msg-fracasso").innerHTML = "<p>Campo data de nascimento inv\xE1lido!</p>";
+      } else if (_chave7 === "deficiencia_descricao") {
+        document.getElementById("msg-fracasso").innerHTML = "<p>Campo descreva a defici\xEAncia inv\xE1lido!</p>";
+      } else {
+        document.getElementById("msg-fracasso").innerHTML = "<p>Campo ".concat(_chave7, " inv\xE1lido!</p>");
+      }
+    }
+  }
+};
+var erroSelect = function erroSelect(select) {
+  var selects = document.querySelectorAll(".form-data select");
+  for (var i = 0; i < selects.length; i++) {
+    if (selects[i].value === "Selecione") {
+      if (selects[i].name === "estadoCivil") {
+        document.getElementById("msg-fracasso").innerHTML = "<p>Selecione o seu estado civil!</p>";
+      } else if (selects[i].name === "sexos") {
+        document.getElementById("msg-fracasso").innerHTML = "<p>Selecione o sexo!</p>";
+      } else if (selects[i].name === "ufNaturalidade") {
+        document.getElementById("msg-fracasso").innerHTML = "<p>Selecione o seu uf de naturalidade!</p>";
+      } else {
+        document.getElementById("msg-fracasso").innerHTML = "<p>Selecione uma op\xE7\xE3o em \"Possui alguma defici\xEAncia?\"!</p>";
+      }
+    }
+  }
+};
 module.exports = {
+  erroSelect: erroSelect,
+  erroInput: erroInput,
   isCpf: isCpf,
   isNome: isNome,
   listInputValidate: listInputValidate,
@@ -47686,7 +47707,7 @@ function takeData() {
 }
 function _takeData() {
   _takeData = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
-    var callMain, termsConditions, formData, validateFormBasic, formAddress, validateFormAddress, formSchoolData, validateFormSchool, createSocioEconomic, allData;
+    var callMain, termsConditions, formData, validateFormBasic, formAddress, validateFormAddress, formSchoolData, validateFormSchool, dataEconomy, allData;
     return _regeneratorRuntime().wrap(function _callee$(_context) {
       while (1) switch (_context.prev = _context.next) {
         case 0:
@@ -47699,17 +47720,17 @@ function _takeData() {
           return initDataBasic();
         case 6:
           formData = _context.sent;
-          document.addEventListener('click', function (event) {
+          document.addEventListener("click", function (event) {
             var element = event.target;
             validateFormBasic = false;
             validateFormBasic = conferirFormBasic(formData);
             if (validateFormBasic) {
-              if (element.classList.contains('big-address') || element.classList.contains('button-address')) {
-                changeMains('.screen-address');
-                changeSubMainTitle('Formulário de Endereço');
+              if (element.classList.contains("big-address") || element.classList.contains("button-address")) {
+                changeMains(".screen-address");
+                changeSubMainTitle("Formulário de Endereço");
               }
             } else {
-              if (element.classList.contains('main')) {
+              if (element.classList.contains("main")) {
                 event.preventDefault();
               }
             }
@@ -47718,17 +47739,17 @@ function _takeData() {
           return initAddress();
         case 10:
           formAddress = _context.sent;
-          document.addEventListener('click', function (event) {
+          document.addEventListener("click", function (event) {
             var element = event.target;
             validateFormAddress = false;
             validateFormAddress = conferirFormAddress(formAddress);
             if (validateFormAddress && validateFormBasic) {
-              if (element.classList.contains('big-school-data') || element.classList.contains('button-school-data')) {
-                changeMains('.screen-school-data');
-                changeSubMainTitle('Formulário de Dados Acadêmicos');
+              if (element.classList.contains("big-school-data") || element.classList.contains("button-school-data")) {
+                changeMains(".screen-school-data");
+                changeSubMainTitle("Formulário de Dados Acadêmicos");
               }
             } else {
-              if (element.classList.contains('main')) {
+              if (element.classList.contains("main")) {
                 event.preventDefault();
               }
             }
@@ -47737,17 +47758,17 @@ function _takeData() {
           return createFormSchoolData();
         case 14:
           formSchoolData = _context.sent;
-          document.addEventListener('click', function (event) {
+          document.addEventListener("click", function (event) {
             var element = event.target;
             validateFormSchool = false;
             validateFormSchool = conferirFormSchool(formSchoolData);
             if (validateFormSchool && validateFormAddress && validateFormBasic) {
-              if (element.classList.contains('big-socio-economic') || element.classList.contains('button-socio-economic')) {
-                changeMains('.screen-socio-economic');
-                changeSubMainTitle('Formulário Socioeconômico');
+              if (element.classList.contains("big-socio-economic") || element.classList.contains("button-socio-economic")) {
+                changeMains(".screen-socio-economic");
+                changeSubMainTitle("Formulário Socioeconômico");
               }
             } else {
-              if (element.classList.contains('main')) {
+              if (element.classList.contains("main")) {
                 event.preventDefault();
               }
             }
@@ -47755,13 +47776,14 @@ function _takeData() {
           _context.next = 18;
           return socioEconomic();
         case 18:
-          createSocioEconomic = _context.sent;
+          dataEconomy = _context.sent;
           _context.next = 21;
-          return _objectSpread(_objectSpread(_objectSpread(_objectSpread({}, termsConditions), formData), formAddress), formSchoolData);
+          return _objectSpread(_objectSpread(_objectSpread(_objectSpread(_objectSpread({}, termsConditions), formData), formAddress), formSchoolData), dataEconomy);
         case 21:
           allData = _context.sent;
+          console.log(allData);
           return _context.abrupt("return", allData);
-        case 23:
+        case 24:
         case "end":
           return _context.stop();
       }
@@ -47784,13 +47806,13 @@ function _sendData() {
           data = _context2.sent;
           _context2.prev = 3;
           _context2.next = 6;
-          return fetch('http://localhost:8080/cadastrar', {
-            method: 'POST',
+          return fetch("http://localhost:8080/cadastrar", {
+            method: "POST",
             headers: {
-              'Content-Type': 'application/json'
+              "Content-Type": "application/json"
             },
             error: false,
-            mensagem: 'Usuário cadastrado com sucesso',
+            mensagem: "Usuário cadastrado com sucesso",
             body: JSON.stringify(data)
           });
         case 6:
@@ -47803,7 +47825,7 @@ function _sendData() {
         case 10:
           _context2.prev = 10;
           _context2.t0 = _context2["catch"](3);
-          console.log('Erro: ', _context2.t0);
+          console.log("Erro: ", _context2.t0);
         case 13:
         case "end":
           return _context2.stop();

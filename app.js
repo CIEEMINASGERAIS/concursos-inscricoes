@@ -13,32 +13,30 @@ const app = express();
 const path = require("path");
 
 // Acessar os controllers
-const getEndereco = require('./src/controllers/getEndereco')
+const getEndereco = require("./src/controllers/getEndereco");
 
-const getEmail = require('./src/controllers/getEmail')
+const getEmail = require("./src/controllers/getEmail");
 
-const getCadastraCurso = require('./src/controllers/getCadastraCurso')
+const getCadastraCurso = require("./src/controllers/getCadastraCurso");
 
-const getVerificarEstudante = require('./src/controllers/getVerificarEstudante')
+const getVerificarEstudante = require("./src/controllers/getVerificarEstudante");
 
-const getCadastrarEscola = require('./src/controllers/getCadastrarEscola')
+const getCadastrarEscola = require("./src/controllers/getCadastrarEscola");
 
-const getEscola = require('./src/controllers/renderSchool')
+const getEscola = require("./src/controllers/renderSchool");
 
-const postCadastro = require('./src/controllers/postCadastrar')
-
-const postSocioEconomic = require('./src/controllers/postSocioEconomic')
+const postCadastro = require("./src/controllers/postCadastrar");
 
 // Acessar os renders das páginas
-const index = require('./src/controllers/renderIndex')
+const index = require("./src/controllers/renderIndex");
 
-const termsConditions = require('./src/controllers/renderTermsConditions')
+const termsConditions = require("./src/controllers/renderTermsConditions");
 
-const dataBasic = require('./src/controllers/renderDataBasic')
+const dataBasic = require("./src/controllers/renderDataBasic");
 
-const address = require('./src/controllers/renderAddress')
+const address = require("./src/controllers/renderAddress");
 
-const socialEconomic = require('./src/controllers/renderSocialEconomy')
+const socialEconomic = require("./src/controllers/renderSocialEconomy");
 
 app.use(express.urlencoded({ extended: true }));
 
@@ -66,13 +64,13 @@ app.use((req, res, next) => {
 });
 
 // Rota para renderizar o EJS em HTML da Escola
-app.get("/schoolData", getEscola.renderSchoolData)
+app.get("/schoolData", getEscola.renderSchoolData);
 
 // Rota para buscar escolas
-app.get("/cadastrarEscola", getCadastrarEscola.cadastrarEscola)
+app.get("/cadastrarEscola", getCadastrarEscola.cadastrarEscola);
 
 // Rota para verificar cpf do estudante
-app.get("/verificarEstudante", getVerificarEstudante.verificarEstudante)
+app.get("/verificarEstudante", getVerificarEstudante.verificarEstudante);
 
 // Rota para validar email
 app.get("/verificarEmail", getEmail.verificarEmail);
@@ -81,32 +79,27 @@ app.get("/verificarEmail", getEmail.verificarEmail);
 app.get("/cadastrarEndereco", getEndereco.getCadastrarEndereco);
 
 // Rota para cadastrar curso
-app.get("/cadastrarCurso", getCadastraCurso.cadastrarCurso)
+app.get("/cadastrarCurso", getCadastraCurso.cadastrarCurso);
 
 // Função responsável por renderizar a primeira página
-app.get("/", index.renderIndex)
+app.get("/", index.renderIndex);
 
 // Função responsável por renderizar a segunda página
-app.get("/terms-and-conditions", termsConditions.renderTermsConditions)
+app.get("/terms-and-conditions", termsConditions.renderTermsConditions);
 
 // Função responsável por renderizar a terceira página
-app.get("/formDataBasic", dataBasic.renderDataBasic)
+app.get("/formDataBasic", dataBasic.renderDataBasic);
 
 // Função responsável por renderizar a quarta página
-app.get("/address", address.renderAddress)
+app.get("/address", address.renderAddress);
 
 // Função responsável por renderizar a quinta página
-app.get("/socio-economic", socialEconomic.renderSocioEconomic)
+app.get("/socio-economic", socialEconomic.renderSocioEconomic);
 
-// Funções responsáveis por enviar as informações para o banco de dados
-app.post("/cadastrar", postCadastro.postRegister)
-
-
-app.post("/cadastrarsocioeconomic", postSocioEconomic.sendSocioEconomic)
+// Função responsável por enviar as informações para o banco de dados
+app.post("/cadastrar", postCadastro.postRegister);
 
 // Iniciar o servidor na porta 8080, criar a função utilizando modelo Arrow function para retornar a mensagem de sucesso
 app.listen(8080, "0.0.0.0", () => {
-  console.log(
-    "Servidor iniciado na porta 8080: https://localhost:8080"
-  );
+  console.log("Servidor iniciado na porta 8080: https://localhost:8080");
 });

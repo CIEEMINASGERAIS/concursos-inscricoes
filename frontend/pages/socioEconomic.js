@@ -124,9 +124,6 @@ async function socioEconomic() {
           formEconomic.situacao_judicial = selecionarNomes(situacaoJudicial);
           alertEnd.style.display = "block";
           resolve(formEconomic);
-        } else {
-          console.log("error!");
-          console.log(formEconomic);
         }
       });
     } else {

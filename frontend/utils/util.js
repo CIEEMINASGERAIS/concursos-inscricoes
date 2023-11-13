@@ -133,23 +133,25 @@ const listInputValidate = () => {
     ufNaturalidade: "Necessário preencher o campo UF da Naturalidade!",
     deficiencias: "Necessário preencher o campo Possui alguma deficiência?",
     descricao: "Necessário preencher o campo Descrição?",
-    incompleto: "Formulário Incompleto"
+    incompleto: "Formulário Incompleto",
   };
 
   return listInputValidate;
 };
 
 const campoInvalido = (campo, id) => {
-  let mensagem = listInputValidate()
+  let mensagem = listInputValidate();
 
   if (mensagem[campo]) {
-    return document.getElementById(id).innerHTML =
-      `<p>${mensagem[campo]}</p>`
+    return (document.getElementById(
+      id
+    ).innerHTML = `<p>${mensagem[campo]}</p>`);
   } else {
-    return document.getElementById(id).innerHTML =
-      `<p>Formulário incompleto!</p>`
+    return (document.getElementById(
+      id
+    ).innerHTML = `<p>Formulário incompleto!</p>`);
   }
-}
+};
 
 const isNome = (nome) => {
   nome = nome.trim();
@@ -276,30 +278,30 @@ const isCourse = async (course, codeCourse, idCourse) => {
 
 const conferirFormBasic = (objeto) => {
   for (let chave in objeto) {
-    if (objeto[chave] === false && chave !== 'nomepai' && chave !== 'ctps') {
-      return false
+    if (objeto[chave] === false && chave !== "nomepai" && chave !== "ctps") {
+      return false;
     }
   }
-  return true
-}
+  return true;
+};
 
 const conferirFormAddress = (objeto) => {
   for (let chave in objeto) {
-    if (objeto[chave] === false && chave !== 'complemento') {
-      return false
+    if (objeto[chave] === false && chave !== "complemento") {
+      return false;
     }
   }
-  return true
-}
+  return true;
+};
 
 const conferirFormSchool = (objeto) => {
   for (let chave in objeto) {
     if (objeto[chave] === false) {
-      return false
+      return false;
     }
   }
-  return true
-}
+  return true;
+};
 
 const isNaturalidadeNacionalidade = (naturalidadeNacionalidade) => {
   naturalidadeNacionalidade = naturalidadeNacionalidade.trim();
@@ -375,7 +377,6 @@ const isRg = (valor) => {
 };
 
 const isCpf = (cpf = 0) => {
-
   const regex = new RegExp(/^[0-9]{3}\.[0-9]{3}\.[0-9]{3}\-[0-9]{2}$/);
 
   if (!regex.test(cpf)) {
@@ -450,8 +451,8 @@ const cpfInBd = async (cpf) => {
     return false;
   }
 
-  return true
-}
+  return true;
+};
 
 const isEstadoCivil = (estadoCivil) => {
   const regex = new RegExp(/^[SCADV]$/);
@@ -640,14 +641,7 @@ const isPeriodo = (data) => {
 };
 
 const isHorario = (data) => {
-  const horariosEstudos = [
-    "Manhã",
-    "Tarde",
-    "Noite",
-    "EAD",
-    "EC",
-    "F",
-  ];
+  const horariosEstudos = ["Manhã", "Tarde", "Noite", "EAD", "EC", "F"];
 
   let horario;
 
@@ -863,10 +857,10 @@ const emailBd = async (emailBd) => {
   }
 
   if (email.length > 0) {
-    return false
+    return false;
   }
 
-  return true
+  return true;
 };
 
 const isCep = (cep) => {
@@ -900,11 +894,11 @@ const dateTime = () => {
       month: "2-digit",
     })
     .replace(/[/]/g, "-")} ${today.toLocaleTimeString("pt-BR", {
-      hour12: false,
-      hour: "2-digit",
-      minute: "2-digit",
-      second: "2-digit",
-    })}`;
+    hour12: false,
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+  })}`;
 };
 
 const dateRegister = () => {
@@ -928,12 +922,78 @@ const dateRegister = () => {
 const selecionarNomes = (name) => {
   for (let i = 0; i < name.length; i++) {
     if (name[i].checked) {
-      return name[i].value
+      return name[i].value;
     }
   }
-}
+};
+
+const erroInput = (object) => {
+  for (let chave in object) {
+    if (object[chave] === false && chave !== "nomepai" && chave !== "ctps") {
+      if (chave === "nomemae") {
+        document.getElementById(
+          `msg-fracasso`
+        ).innerHTML = `<p>Campo nome mãe inválido!</p>`;
+      } else if (chave === "orgaoexpedidor") {
+        document.getElementById(
+          `msg-fracasso`
+        ).innerHTML = `<p>Campo orgão expedidor inválido!</p>`;
+      } else if (chave === "idade") {
+        continue;
+      } else if (chave === "dt_nascimento") {
+        document.getElementById(
+          `msg-fracasso`
+        ).innerHTML = `<p>Campo data de nascimento inválido!</p>`;
+      } else if (chave === "dt_nascimento") {
+        document.getElementById(
+          `msg-fracasso`
+        ).innerHTML = `<p>Campo data de nascimento inválido!</p>`;
+      } else if (chave === "dt_nascimento") {
+        document.getElementById(
+          `msg-fracasso`
+        ).innerHTML = `<p>Campo data de nascimento inválido!</p>`;
+      } else if (chave === "deficiencia_descricao") {
+        document.getElementById(
+          `msg-fracasso`
+        ).innerHTML = `<p>Campo descreva a deficiência inválido!</p>`;
+      } else {
+        document.getElementById(
+          `msg-fracasso`
+        ).innerHTML = `<p>Campo ${chave} inválido!</p>`;
+      }
+    }
+  }
+};
+
+const erroSelect = (select) => {
+  const selects = document.querySelectorAll(".form-data select");
+
+  for (let i = 0; i < selects.length; i++) {
+    if (selects[i].value === "Selecione") {
+      if (selects[i].name === "estadoCivil") {
+        document.getElementById(
+          `msg-fracasso`
+        ).innerHTML = `<p>Selecione o seu estado civil!</p>`;
+      } else if (selects[i].name === "sexos") {
+        document.getElementById(
+          `msg-fracasso`
+        ).innerHTML = `<p>Selecione o sexo!</p>`;
+      } else if (selects[i].name === "ufNaturalidade") {
+        document.getElementById(
+          `msg-fracasso`
+        ).innerHTML = `<p>Selecione o seu uf de naturalidade!</p>`;
+      } else {
+        document.getElementById(
+          `msg-fracasso`
+        ).innerHTML = `<p>Selecione uma opção em "Possui alguma deficiência?"!</p>`;
+      }
+    }
+  }
+};
 
 module.exports = {
+  erroSelect,
+  erroInput,
   isCpf,
   isNome,
   listInputValidate,
@@ -982,5 +1042,5 @@ module.exports = {
   conferirFormAddress,
   campoInvalido,
   conferirFormSchool,
-  selecionarNomes
+  selecionarNomes,
 };

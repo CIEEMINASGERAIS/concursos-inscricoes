@@ -9,10 +9,10 @@ const {
   isPeriodo,
   isHorario,
   changeMains,
-  changeSubMainTitle
+  changeSubMainTitle,
 } = require("../utils/util");
 
-const generator = require('generate-password');
+const generator = require("generate-password");
 
 async function createFormSchoolData() {
   return new Promise(async (resolve, reject) => {
@@ -112,8 +112,7 @@ async function createFormSchoolData() {
         option.value = "EC";
       } else if (horariosEstudos[i] === "Formado") {
         option.value = "F";
-      }
-      else {
+      } else {
         option.value = horariosEstudos[i];
       }
       horario.appendChild(option);
@@ -135,8 +134,7 @@ async function createFormSchoolData() {
           option.value = "EC";
         } else if (horariosEstudos[i] === "Formado") {
           option.value = "F";
-        }
-        else {
+        } else {
           option.value = horariosEstudos[i];
         }
         horario.appendChild(option);
@@ -150,9 +148,8 @@ async function createFormSchoolData() {
       numbers: true,
       lowercase: true,
       uppercase: true,
-      excludeSimilarCharacters: true
+      excludeSimilarCharacters: true,
     });
-
 
     const dataFormSchool = {};
 
@@ -220,7 +217,7 @@ async function createFormSchoolData() {
           idcurso: idCurso[i].idcurso,
         };
         if (cursoId.descricao === descricaoCurso) {
-          return idCursoFinal = cursoId.idcurso;
+          return (idCursoFinal = cursoId.idcurso);
         }
       }
     }
@@ -228,20 +225,20 @@ async function createFormSchoolData() {
     const periodoFinal = () => {
       for (let i = 0; i < idCurso.length; i++) {
         if (dataFormSchool.curso_id === idCurso[i].idcurso) {
-          return idCurso[i].duracao
+          return idCurso[i].duracao;
         }
       }
-    }
+    };
 
     const anoIngresso = (formatura) => {
       for (let i = 0; i < idCurso.length; i++) {
         if (dataFormSchool.curso_id === idCurso[i].idcurso) {
-          let tempoCurso = idCurso[i].duracao / 2
-          tempoCurso = Math.ceil(tempoCurso)
-          return dataFormSchool.anoingresso = formatura - tempoCurso
+          let tempoCurso = idCurso[i].duracao / 2;
+          tempoCurso = Math.ceil(tempoCurso);
+          return (dataFormSchool.anoingresso = formatura - tempoCurso);
         }
       }
-    }
+    };
 
     const callCourse = async () => {
       try {
@@ -332,7 +329,7 @@ async function createFormSchoolData() {
         if (validate) {
           document.getElementById("msg-curso").innerHTML = "";
           dataFormSchool.curso_id = idCursoFinal;
-          anoIngresso()
+          anoIngresso();
         } else {
           document.getElementById("msg-curso").innerHTML =
             "<p>Curso inválido!</p>";
@@ -452,23 +449,24 @@ async function createFormSchoolData() {
           dataFormSchool.horario
         ) {
           if (!valid) {
-            dataFormSchool.periodo = periodoFinal()
+            dataFormSchool.periodo = periodoFinal();
           }
-          anoIngresso(dataFormSchool.previsao_ano)
+          anoIngresso(dataFormSchool.previsao_ano);
           const today = new Date();
           dataFormSchool.ano = today.getFullYear();
-          dataFormSchool.senha = password
-          changeMains('.screen-socio-economic')
-          changeSubMainTitle('Formulário Socioeconômico')
+          dataFormSchool.senha = password;
+          changeMains(".screen-socio-economic");
+          changeSubMainTitle("Formulário Socioeconômico");
           resolve(dataFormSchool);
-        } else {
-          document.getElementById("msg-fracasso-school").innerHTML =
-            "<p>Formulário incompleto!</p>";
-          removerMensagem("msg-fracasso-school");
         }
+        //  else {
+        //   document.getElementById("msg-fracasso-school").innerHTML =
+        //     "<p>Formulário incompleto!</p>";
+        //   removerMensagem("msg-fracasso-school");
+        // }
       });
     } else {
-      reject(new Error('O formulário não foi encontrado!'));
+      reject(new Error("O formulário não foi encontrado!"));
     }
   });
 }

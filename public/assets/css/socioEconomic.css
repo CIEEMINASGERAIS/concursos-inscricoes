@@ -83,7 +83,13 @@
   margin-top: 1rem;
   margin-bottom: 1rem;
 }
-
+.data-erro{
+  display: flex;
+  justify-content: flex-end;
+}
+.line-erro{
+  font-size: 1rem;
+}
 @media (max-width: 920px) {
   .screen-socio-economic{
     margin-left:1rem;

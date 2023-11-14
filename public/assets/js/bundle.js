@@ -45905,6 +45905,7 @@ function _createFormSchoolData() {
                       option1.selected = "selected";
                       option1.text = "Selecione";
                       horario.appendChild(option1);
+                      dataFormSchool.horario = false;
                       for (var _i6 = 0; _i6 < horariosEstudos.length; _i6++) {
                         var _option5 = document.createElement("option");
                         _option5.text = horariosEstudos[_i6];
@@ -46274,6 +46275,7 @@ function _createFormSchoolData() {
                                   if (!valid) {
                                     dataFormSchool.periodo = periodoFinal();
                                   }
+                                  console.log(dataFormSchool);
                                   anoIngresso(dataFormSchool.previsao_ano);
                                   today = new Date();
                                   dataFormSchool.ano = today.getFullYear();
@@ -46284,7 +46286,7 @@ function _createFormSchoolData() {
                                 } else {
                                   // document.getElementById("msg-fracasso-school").innerHTML =
                                   //   "<p>Formulário incompleto!</p>";
-                                  erroSelectSchool(".form-school-data select");
+                                  erroSelectSchool(".form-school-data select", dataFormSchool.previsao_ano);
                                   removerMensagem("msg-fracasso-school");
                                 }
                               case 2:
@@ -46438,6 +46440,8 @@ function _socioEconomic() {
                           formEconomic.situacao_judicial = selecionarNomes(situacaoJudicial);
                           alertEnd.style.display = "block";
                           resolve(formEconomic);
+                        } else {
+                          console.log(formEconomic);
                         }
                       });
                     } else {
@@ -47480,10 +47484,13 @@ var erroInput = function erroInput(object) {
       } else if (_chave7 === "dt_nascimento") {
         document.getElementById("msg-fracasso").innerHTML = "<p>Campo data de nascimento inv\xE1lido!</p>";
         break;
-      } else if (_chave7 === "dt_nascimento") {
-        document.getElementById("msg-fracasso").innerHTML = "<p>Campo data de nascimento inv\xE1lido!</p>";
-        break;
-      } else if (_chave7 === "dt_nascimento") {
+      }
+      // else if (chave === "dt_nascimento") {
+      //   document.getElementById(
+      //     `msg-fracasso`
+      //   ).innerHTML = `<p>Campo data de nascimento inválido!</p>`;
+      //   break
+      else if (_chave7 === "dt_nascimento") {
         document.getElementById("msg-fracasso").innerHTML = "<p>Campo data de nascimento inv\xE1lido!</p>";
         break;
       } else if (_chave7 === "deficiencia_descricao") {
@@ -47497,7 +47504,7 @@ var erroInput = function erroInput(object) {
   }
 };
 var erroSelect = function erroSelect(select) {
-  var selects = document.querySelectorAll(".form-data select");
+  var selects = document.querySelectorAll(select);
   for (var i = 0; i < selects.length; i++) {
     if (selects[i].value === "Selecione") {
       if (selects[i].name === "estadoCivil") {
@@ -47532,39 +47539,32 @@ var erroInputAddress = function erroInputAddress(object) {
     }
   }
 };
-var erroSelectSchool = function erroSelectSchool(select) {
-  var selects = document.querySelectorAll(select);
+var erroSelectSchool = function erroSelectSchool(select, ano) {
+  var selects = document.querySelectorAll(select, ano);
   for (var i = 0; i < selects.length; i++) {
-    if (selects[i].value === "Selecione") {
+    if (selects[i].value === "Selecione" || selects[i].value === "") {
       if (selects[i].name === "escolas") {
         document.getElementById("msg-fracasso-school").innerHTML = "<p>Campo escola onde estuda ou estudou inv\xE1lido!</p>";
         break;
-      }
-      // else if (selects[i].name === "cursos") {
-      //   document.getElementById(
-      //     `msg-fracasso-school`
-      //   ).innerHTML = `<p>Campo cursos inválido!</p>`;
-      //   break
-      // } 
-      else if (selects[i].name === "anoFormatura") {
-        document.getElementById("msg-fracasso-school").innerHTML = "<p>Campo ano de formatura inv\xE1lido!</p>";
+      } else if (selects[i].name === "anoFormatura") {
+        document.getElementById("msg-fracasso-school").innerHTML = "<p>Selecione um item da lista ano de formatura.</p>";
         break;
       } else if (selects[i].name === "semestreFormatura") {
-        document.getElementById("msg-fracasso-school").innerHTML = "<p>Campo semestre de formatura inv\xE1lido!</p>";
+        document.getElementById("msg-fracasso-school").innerHTML = "<p>Selecione um item da lista semestre de formatura.</p>";
         break;
       } else if (selects[i].name === "mesFormatura") {
-        document.getElementById("msg-fracasso-school").innerHTML = "<p>Campo M\xEAs de Formatura inv\xE1lido!</p>";
+        document.getElementById("msg-fracasso-school").innerHTML = "<p>Selecione um item da lista M\xEAs de Formatura.</p>";
         break;
-      } else if (selects[i].name === "periodo") {
-        document.getElementById("msg-fracasso-school").innerHTML = "<p>Campo per\xEDodo/ano/ciclo/m\xF3dulo inv\xE1lido!</p>";
+      } else if (selects[i].name === "periodo" && isvalid(ano)) {
+        document.getElementById("msg-fracasso-school").innerHTML = "<p>Selecione um item da lista per\xEDodo/ano/ciclo/m\xF3dulo.</p>";
         break;
       } else if (selects[i].name === "horarioEstudo") {
-        document.getElementById("msg-fracasso-school").innerHTML = "<p>Campo hor\xE1rio de estudo inv\xE1lido!</p>";
+        document.getElementById("msg-fracasso-school").innerHTML = "<p>Selecione um item da lista hor\xE1rio de estudo.</p>";
+        break;
+      } else if (selects[i].name === "cursos") {
+        document.getElementById("msg-fracasso-school").innerHTML = "<p>Selecione um item da lista cursos.</p>";
         break;
       }
-    } else if (selects[i].value === "Selecione o curso") {
-      document.getElementById("msg-fracasso-school").innerHTML = "<p>Campo cursos inv\xE1lido!</p>";
-      break;
     }
   }
 };

@@ -128,6 +128,8 @@ async function createFormSchoolData() {
       option1.text = "Selecione";
       horario.appendChild(option1);
 
+      dataFormSchool.horario = false
+
       for (let i = 0; i < horariosEstudos.length; i++) {
         const option = document.createElement("option");
         option.text = horariosEstudos[i];
@@ -441,6 +443,7 @@ async function createFormSchoolData() {
     if (formSchoolData) {
       formSchoolData.addEventListener("submit", async (e) => {
         e.preventDefault();
+
         if (
           dataFormSchool.escola_id &&
           dataFormSchool.curso_id &&
@@ -449,9 +452,12 @@ async function createFormSchoolData() {
           dataFormSchool.previsao_mes &&
           dataFormSchool.horario
         ) {
+
           if (!valid) {
             dataFormSchool.periodo = periodoFinal();
           }
+
+          console.log(dataFormSchool)
           anoIngresso(dataFormSchool.previsao_ano);
           const today = new Date();
           dataFormSchool.ano = today.getFullYear();
@@ -463,7 +469,7 @@ async function createFormSchoolData() {
         else {
           // document.getElementById("msg-fracasso-school").innerHTML =
           //   "<p>Formulário incompleto!</p>";
-          erroSelectSchool(".form-school-data select")
+          erroSelectSchool(".form-school-data select", dataFormSchool.previsao_ano)
           removerMensagem("msg-fracasso-school");
         }
       });

@@ -89,10 +89,17 @@ async function takeData() {
   });
 
   const dataEconomy = await socioEconomic();
-  document.getElementById("message-end").innerHTML =
-    `<p>Olá ${formData.nome}, parabéns por finalizar a primeira etapa do seu cadastro, fique atento ao seu e-mail,
+  document.querySelector(".alert").innerHTML =
+    `<h1>Cadastro concluído!</h1>
+    <p>Olá ${formData.nome}, parabéns por finalizar a primeira etapa do seu cadastro, fique atento ao seu e-mail,
     enviaremos em
-    até 24 horas os dados para realizar seu primeiro login no nosso portal, para conclusão do seu cadastro.</p >`;
+    até 24 horas os dados para realizar seu primeiro login no nosso portal, para conclusão do seu cadastro.</p>
+    <div class="button-school-end">
+            <a class="button-end-school" href="https://cieemg.org.br/" rel="noopener noreferrer">Confirmar</a>
+    </div>
+    <div class="data-erro">
+      <p>12/02/2067</p>
+    </div>`;
 
   const allData = await {
     ...termsConditions,

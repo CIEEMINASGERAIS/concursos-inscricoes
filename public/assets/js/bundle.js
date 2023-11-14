@@ -47872,7 +47872,7 @@ function _takeData() {
           return socioEconomic();
         case 18:
           dataEconomy = _context.sent;
-          document.getElementById("message-end").innerHTML = "<p>Ol\xE1 ".concat(formData.nome, ", parab\xE9ns por finalizar a primeira etapa do seu cadastro, fique atento ao seu e-mail,\n    enviaremos em\n    at\xE9 24 horas os dados para realizar seu primeiro login no nosso portal, para conclus\xE3o do seu cadastro.</p >");
+          document.querySelector(".alert").innerHTML = "<h1>Cadastro conclu\xEDdo!</h1>\n    <p>Ol\xE1 ".concat(formData.nome, ", parab\xE9ns por finalizar a primeira etapa do seu cadastro, fique atento ao seu e-mail,\n    enviaremos em\n    at\xE9 24 horas os dados para realizar seu primeiro login no nosso portal, para conclus\xE3o do seu cadastro.</p>\n    <div class=\"button-school-end\">\n            <a class=\"button-end-school\" href=\"https://cieemg.org.br/\" rel=\"noopener noreferrer\">Confirmar</a>\n    </div>\n    <div class=\"data-erro\">\n      <p>12/02/2067</p>\n    </div>");
           _context.next = 22;
           return _objectSpread(_objectSpread(_objectSpread(_objectSpread(_objectSpread({}, termsConditions), formData), formAddress), formSchoolData), dataEconomy);
         case 22:

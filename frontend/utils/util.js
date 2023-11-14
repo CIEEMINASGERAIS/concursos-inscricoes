@@ -947,12 +947,13 @@ const erroInput = (object) => {
           `msg-fracasso`
         ).innerHTML = `<p>Campo data de nascimento inválido!</p>`;
         break
-      } else if (chave === "dt_nascimento") {
-        document.getElementById(
-          `msg-fracasso`
-        ).innerHTML = `<p>Campo data de nascimento inválido!</p>`;
-        break
-      } else if (chave === "dt_nascimento") {
+      }
+      // else if (chave === "dt_nascimento") {
+      //   document.getElementById(
+      //     `msg-fracasso`
+      //   ).innerHTML = `<p>Campo data de nascimento inválido!</p>`;
+      //   break
+      else if (chave === "dt_nascimento") {
         document.getElementById(
           `msg-fracasso`
         ).innerHTML = `<p>Campo data de nascimento inválido!</p>`;
@@ -973,7 +974,7 @@ const erroInput = (object) => {
 };
 
 const erroSelect = (select) => {
-  const selects = document.querySelectorAll(".form-data select");
+  const selects = document.querySelectorAll(select);
 
   for (let i = 0; i < selects.length; i++) {
     if (selects[i].value === "Selecione") {
@@ -1025,54 +1026,47 @@ const erroInputAddress = (object) => {
   }
 }
 
-const erroSelectSchool = (select) => {
-  const selects = document.querySelectorAll(select);
+const erroSelectSchool = (select, ano) => {
+  const selects = document.querySelectorAll(select, ano);
 
   for (let i = 0; i < selects.length; i++) {
-    if (selects[i].value === "Selecione") {
+    if (selects[i].value === "Selecione" || selects[i].value === "") {
       if (selects[i].name === "escolas") {
         document.getElementById(
           `msg-fracasso-school`
         ).innerHTML = `<p>Campo escola onde estuda ou estudou inválido!</p>`;
         break
-      }
-      // else if (selects[i].name === "cursos") {
-      //   document.getElementById(
-      //     `msg-fracasso-school`
-      //   ).innerHTML = `<p>Campo cursos inválido!</p>`;
-      //   break
-      // } 
-      else if (selects[i].name === "anoFormatura") {
+      } else if (selects[i].name === "anoFormatura") {
         document.getElementById(
           `msg-fracasso-school`
-        ).innerHTML = `<p>Campo ano de formatura inválido!</p>`;
+        ).innerHTML = `<p>Selecione um item da lista ano de formatura.</p>`;
         break
       } else if (selects[i].name === "semestreFormatura") {
         document.getElementById(
           `msg-fracasso-school`
-        ).innerHTML = `<p>Campo semestre de formatura inválido!</p>`;
+        ).innerHTML = `<p>Selecione um item da lista semestre de formatura.</p>`;
         break
       } else if (selects[i].name === "mesFormatura") {
         document.getElementById(
           `msg-fracasso-school`
-        ).innerHTML = `<p>Campo Mês de Formatura inválido!</p>`;
+        ).innerHTML = `<p>Selecione um item da lista Mês de Formatura.</p>`;
         break
-      } else if (selects[i].name === "periodo") {
+      } else if (selects[i].name === "periodo" && isvalid(ano)) {
         document.getElementById(
           `msg-fracasso-school`
-        ).innerHTML = `<p>Campo período/ano/ciclo/módulo inválido!</p>`;
+        ).innerHTML = `<p>Selecione um item da lista período/ano/ciclo/módulo.</p>`;
         break
       } else if (selects[i].name === "horarioEstudo") {
         document.getElementById(
           `msg-fracasso-school`
-        ).innerHTML = `<p>Campo horário de estudo inválido!</p>`;
+        ).innerHTML = `<p>Selecione um item da lista horário de estudo.</p>`;
+        break
+      } else if (selects[i].name === "cursos") {
+        document.getElementById(
+          `msg-fracasso-school`
+        ).innerHTML = `<p>Selecione um item da lista cursos.</p>`;
         break
       }
-    } else if (selects[i].value === "Selecione o curso") {
-      document.getElementById(
-        `msg-fracasso-school`
-      ).innerHTML = `<p>Campo cursos inválido!</p>`;
-      break
     }
   }
 

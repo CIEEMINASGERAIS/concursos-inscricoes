@@ -2,18 +2,15 @@
   <div class="div-number-1">
     <div class="div-name">
       <label for="name">Nome</label>
-      <input type="text" name="nome" class="name"
-        placeholder="Nome" id="name" maxlength="255"
-        autocomplete="given-name" required />
+      <input type="text" name="nome" class="name" placeholder="Nome" id="name" maxlength="255" autocomplete="given-name"
+        required />
       <p class="obrigatorio">Obrigatório</p>
       <span id="msg-nome"></span>
 
     </div>
     <div class="div-cpf">
       <label for="cpf">CPF</label>
-      <input type="text" name="cpf" autocomplete="off" maxlength="14"
-        class="cpf" id="cpf"
-        placeholder="CPF" required />
+      <input type="text" name="cpf" autocomplete="off" maxlength="14" class="cpf" id="cpf" placeholder="CPF" required />
       <p class="obrigatorio">Obrigatório</p>
       <span id="msg-cpf"></span>
     </div>
@@ -21,15 +18,13 @@
   <div class="div-number-1-5">
     <div class="div-rg">
       <label for="rg">RG</label>
-      <input type="text" name="rg" class="rg"
-        placeholder="RG" id="rg" maxlength="15" required />
+      <input type="text" name="rg" class="rg" placeholder="RG" id="rg" maxlength="15" required />
       <p class="obrigatorio">Obrigatório</p>
       <span id="msg-rg"></span>
     </div>
     <div class="div-orgao-expedidor">
       <label for="orgao-expedidor">Orgão Expedidor</label>
-      <input type="text" name="orgaoExpedidor"
-        class="orgao-expedidor" id="orgao-expedidor"
+      <input type="text" name="orgaoExpedidor" class="orgao-expedidor" id="orgao-expedidor"
         placeholder="Orgão Expedidor" maxlength="45" required />
       <p class="obrigatorio">Obrigatório</p>
       <span id="msg-orgao-expedidor"></span>
@@ -38,49 +33,50 @@
   <div class="div-number-2">
     <div class="div-nome-mae">
       <label for="nome-mae">Nome da Mãe</label>
-      <input type="text" name="nomeDaMae" class="nome-mae"
-        placeholder="Nome da Mãe" id="nome-mae"
-        maxlength="255" required />
+      <input type="text" name="nomeDaMae" class="nome-mae" placeholder="Nome da Mãe" id="nome-mae" maxlength="255"
+        required />
       <p class="obrigatorio">Obrigatório</p>
       <span id="msg-nome-mae"></span>
     </div>
     <div class="div-nome-pai">
       <label for="nome-pai">Nome do Pai</label>
-      <input type="text" name="nomeDoPai" class="nome-pai"
-        placeholder="Nome do Pai" id="nome-pai" maxlength="255" />
+      <input type="text" name="nomeDoPai" class="nome-pai" placeholder="Nome do Pai" id="nome-pai" maxlength="255" />
       <span id="msg-nome-pai"></span>
     </div>
   </div>
   <div class="div-number-3">
     <div class="div-carteira-trabalho">
       <label for="carteira-trabalho">Carteira de Trabalho</label>
-      <input type="text" name="carteiraDeTrabalho" class="carteira-trabalho"
-        id="carteira-trabalho"
+      <input type="text" name="carteiraDeTrabalho" class="carteira-trabalho" id="carteira-trabalho"
         placeholder="Carteira de Trabalho" maxlength="20" />
       <span id="msg-carteira-trabalho"></span>
     </div>
     <div class="div-naturalidade">
       <label for="naturalidade">Naturalidade</label>
-      <input type="text" class="naturalidade"
-        placeholder="Naturalidade" id="naturalidade"
-        maxlength="100" name="naturalidade" required />
+      <input type="text" class="naturalidade" placeholder="Naturalidade" id="naturalidade" maxlength="100"
+        name="naturalidade" required />
       <p class="obrigatorio">Obrigatório</p>
       <span id="msg-naturalidade"></span>
     </div>
     <div class="div-nacionalidade">
       <label for="nacionalidade">Nacionalidade</label>
-      <input type="text" class="nacionalidade"
-        id="nacionalidade" placeholder="Nacionalidade"
-        maxlength="100" name="nacionalidade" required />
+      <input type="text" class="nacionalidade" id="nacionalidade" placeholder="Nacionalidade" maxlength="100"
+        name="nacionalidade" required />
       <p class="obrigatorio">Obrigatório</p>
       <span id="msg-nacionalidade"></span>
     </div>
   </div>
   <div class="div-number-4">
+    <div class="div-data-nascimento">
+      <label for="data-nascimento">Data de Nascimento</label>
+      <input type="date" name="dataDeNascimento" class="data-nascimento" id="data-nascimento" min="1907-01-01"
+        max="3000-12-31" required />
+      <p class="obrigatorio">Obrigatório</p>
+      <span id="msg-data-nascimento"></span>
+    </div>
     <div class="div-estado-civil">
       <label for="estado-civil">Estado Civil</label>
-      <select name="estadoCivil"
-        class="estado-civil" id="estado-civil">
+      <select name="estadoCivil" class="estado-civil" id="estado-civil">
         <option selected disabled>Selecione</option>
         <option value="S" name="solteiro">Solteiro(a)</option>
         <option value="C" name="casado">Casado(a)</option>
@@ -91,19 +87,9 @@
       <p class="obrigatorio">Obrigatório</p>
       <span id="msg-estado-civil"></span>
     </div>
-    <div class="div-data-nascimento">
-      <label for="data-nascimento">Data de Nascimento</label>
-      <input type="date" name="dataDeNascimento"
-        class="data-nascimento" id="data-nascimento"
-        min="1907-01-01" max="3000-12-31" required />
-      <p class="obrigatorio">Obrigatório</p>
-      <span id="msg-data-nascimento"></span>
-    </div>
     <div class="div-sexo">
       <label for="sexo">Sexo</label>
-      <select name="sexos"
-        class="sexo"
-        id="sexo">
+      <select name="sexos" class="sexo" id="sexo">
         <option disabled selected>Selecione</option>
         <option value="M" name="masculino">Masculino</option>
         <option value="F" name="feminino">Feminino</option>
@@ -115,8 +101,7 @@
   <div class="div-number-5">
     <div class="div-naturalidade">
       <label for="uf-naturalidade">UF da Naturalidade</label>
-      <select name="ufNaturalidade"
-        class="uf-naturalidade" id="uf-naturalidade">
+      <select name="ufNaturalidade" class="uf-naturalidade" id="uf-naturalidade">
         <option disabled selected>Selecione</option>
       </select>
       <p class="obrigatorio">Obrigatório</p>
@@ -124,8 +109,7 @@
     </div>
     <div class="div-deficiencias">
       <label for="deficiencias">Possui alguma deficiência?</label>
-      <select name="deficiencias"
-        class="deficiencias" id="deficiencias">
+      <select name="deficiencias" class="deficiencias" id="deficiencias">
         <option disabled selected>Selecione</option>
         <option value="N" name="nao">Não</option>
         <option value="F" name="fisica">Física</option>

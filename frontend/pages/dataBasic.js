@@ -455,19 +455,20 @@ const initDataBasic = async () => {
       formData.addEventListener("submit", (e) => {
         e.preventDefault();
         if (
-          formDataBasic.nome &&
-          formDataBasic.nomemae &&
-          formDataBasic.naturalidade &&
-          formDataBasic.nacionalidade &&
-          formDataBasic.estadocivil &&
-          formDataBasic.dt_nascimento &&
-          formDataBasic.sexo &&
-          formDataBasic.uf_naturalidade &&
-          formDataBasic.deficiencia &&
-          formDataBasic.rg &&
-          formDataBasic.orgaoexpedidor &&
-          formDataBasic.idade &&
-          formDataBasic.cpf
+          // formDataBasic.nome &&
+          // formDataBasic.nomemae &&
+          // formDataBasic.naturalidade &&
+          // formDataBasic.nacionalidade &&
+          // formDataBasic.estadocivil &&
+          // formDataBasic.dt_nascimento &&
+          // formDataBasic.sexo &&
+          // formDataBasic.uf_naturalidade &&
+          // formDataBasic.deficiencia &&
+          // formDataBasic.rg &&
+          // formDataBasic.orgaoexpedidor &&
+          // formDataBasic.idade &&
+          // formDataBasic.cpf
+          formDataBasic
           // No caso do nomepai e carteira de trabalho não são obrigatorios
         ) {
           changeMains(".screen-address");

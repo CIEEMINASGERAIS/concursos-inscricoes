@@ -45325,7 +45325,11 @@ function _initAddress() {
                             while (1) switch (_context3.prev = _context3.next) {
                               case 0:
                                 e.preventDefault();
-                                if (formDataAddress.cep && formDataAddress.logradouro && formDataAddress.numero && formDataAddress.uf && formDataAddress.bairro && formDataAddress.cidade && formDataAddress.telefone1 && formDataAddress.telefone2 && formDataAddress.email) {
+                                if (
+                                // formDataAddress.cep && formDataAddress.logradouro && formDataAddress.numero && formDataAddress.uf
+                                // && formDataAddress.bairro && formDataAddress.cidade && formDataAddress.telefone1 && formDataAddress.telefone2
+                                // && formDataAddress.email
+                                formDataAddress) {
                                   changeMains('.screen-school-data');
                                   changeSubMainTitle('Formulário de Dados Acadêmicos');
                                   resolve(formDataAddress);
@@ -45735,7 +45739,21 @@ var initDataBasic = /*#__PURE__*/function () {
                     if (formData) {
                       formData.addEventListener("submit", function (e) {
                         e.preventDefault();
-                        if (formDataBasic.nome && formDataBasic.nomemae && formDataBasic.naturalidade && formDataBasic.nacionalidade && formDataBasic.estadocivil && formDataBasic.dt_nascimento && formDataBasic.sexo && formDataBasic.uf_naturalidade && formDataBasic.deficiencia && formDataBasic.rg && formDataBasic.orgaoexpedidor && formDataBasic.idade && formDataBasic.cpf
+                        if (
+                        // formDataBasic.nome &&
+                        // formDataBasic.nomemae &&
+                        // formDataBasic.naturalidade &&
+                        // formDataBasic.nacionalidade &&
+                        // formDataBasic.estadocivil &&
+                        // formDataBasic.dt_nascimento &&
+                        // formDataBasic.sexo &&
+                        // formDataBasic.uf_naturalidade &&
+                        // formDataBasic.deficiencia &&
+                        // formDataBasic.rg &&
+                        // formDataBasic.orgaoexpedidor &&
+                        // formDataBasic.idade &&
+                        // formDataBasic.cpf
+                        formDataBasic
                         // No caso do nomepai e carteira de trabalho não são obrigatorios
                         ) {
                           changeMains(".screen-address");
@@ -45830,7 +45848,8 @@ var _require = __webpack_require__(/*! ../utils/util */ "./frontend/utils/util.j
   isHorario = _require.isHorario,
   changeMains = _require.changeMains,
   changeSubMainTitle = _require.changeSubMainTitle,
-  erroSelectSchool = _require.erroSelectSchool;
+  erroSelectSchool = _require.erroSelectSchool,
+  dateTime = _require.dateTime;
 var generator = __webpack_require__(/*! generate-password */ "./node_modules/generate-password/main.js");
 function createFormSchoolData() {
   return _createFormSchoolData.apply(this, arguments);
@@ -46271,11 +46290,17 @@ function _createFormSchoolData() {
                             while (1) switch (_context6.prev = _context6.next) {
                               case 0:
                                 e.preventDefault();
-                                if (dataFormSchool.escola_id && dataFormSchool.curso_id && dataFormSchool.previsao_semestre && dataFormSchool.previsao_ano && dataFormSchool.previsao_mes && dataFormSchool.horario) {
+                                if (
+                                // dataFormSchool.escola_id &&
+                                // dataFormSchool.curso_id &&
+                                // dataFormSchool.previsao_semestre &&
+                                // dataFormSchool.previsao_ano &&
+                                // dataFormSchool.previsao_mes &&
+                                // dataFormSchool.horario
+                                dataFormSchool) {
                                   if (!valid) {
                                     dataFormSchool.periodo = periodoFinal();
                                   }
-                                  console.log(dataFormSchool);
                                   anoIngresso(dataFormSchool.previsao_ano);
                                   today = new Date();
                                   dataFormSchool.ano = today.getFullYear();
@@ -46335,7 +46360,8 @@ function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyri
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 var _require = __webpack_require__(/*! ../utils/util */ "./frontend/utils/util.js"),
-  selecionarNomes = _require.selecionarNomes;
+  selecionarNomes = _require.selecionarNomes,
+  dateTime = _require.dateTime;
 function socioEconomic() {
   return _socioEconomic.apply(this, arguments);
 }
@@ -46431,7 +46457,14 @@ function _socioEconomic() {
                     if (formSocioEconomic) {
                       formSocioEconomic.addEventListener("submit", function (e) {
                         e.preventDefault();
-                        if (formEconomic.aprendiz && formEconomic.responsavel && formEconomic.imovel && formEconomic.pessoas_por_residencia && formEconomic.tem_filhos) {
+                        if (
+                        // formEconomic.aprendiz &&
+                        // formEconomic.responsavel &&
+                        // formEconomic.imovel &&
+                        // formEconomic.pessoas_por_residencia &&
+                        // formEconomic.tem_filhos
+                        formEconomic) {
+                          console.log(dateTime());
                           console.log(formEconomic);
                           formEconomic.escola_estudou = selecionarNomes(escolas);
                           formEconomic.renda = selecionarNomes(rendas);
@@ -46482,7 +46515,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 var _require = __webpack_require__(/*! ../utils/util */ "./frontend/utils/util.js"),
   changeMains = _require.changeMains,
   changeSubMainTitle = _require.changeSubMainTitle,
-  dateTime = _require.dateTime,
   dateRegister = _require.dateRegister;
 function termsAndConditions() {
   return _termsAndConditions.apply(this, arguments);
@@ -47484,13 +47516,7 @@ var erroInput = function erroInput(object) {
       } else if (_chave7 === "dt_nascimento") {
         document.getElementById("msg-fracasso").innerHTML = "<p>Campo data de nascimento inv\xE1lido!</p>";
         break;
-      }
-      // else if (chave === "dt_nascimento") {
-      //   document.getElementById(
-      //     `msg-fracasso`
-      //   ).innerHTML = `<p>Campo data de nascimento inválido!</p>`;
-      //   break
-      else if (_chave7 === "dt_nascimento") {
+      } else if (_chave7 === "dt_nascimento") {
         document.getElementById("msg-fracasso").innerHTML = "<p>Campo data de nascimento inv\xE1lido!</p>";
         break;
       } else if (_chave7 === "deficiencia_descricao") {
@@ -47846,12 +47872,14 @@ function _takeData() {
           return socioEconomic();
         case 18:
           dataEconomy = _context.sent;
-          _context.next = 21;
+          document.getElementById("message-end").innerHTML = "<p>Ol\xE1 ".concat(formData.nome, ", parab\xE9ns por finalizar a primeira etapa do seu cadastro, fique atento ao seu e-mail,\n    enviaremos em\n    at\xE9 24 horas os dados para realizar seu primeiro login no nosso portal, para conclus\xE3o do seu cadastro.</p >");
+          _context.next = 22;
           return _objectSpread(_objectSpread(_objectSpread(_objectSpread(_objectSpread({}, termsConditions), formData), formAddress), formSchoolData), dataEconomy);
-        case 21:
+        case 22:
           allData = _context.sent;
           console.log(allData);
-          return _context.abrupt("return", allData);
+
+          // return allData;
         case 24:
         case "end":
           return _context.stop();

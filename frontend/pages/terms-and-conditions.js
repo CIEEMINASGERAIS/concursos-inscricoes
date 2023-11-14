@@ -1,7 +1,6 @@
 const {
   changeMains,
   changeSubMainTitle,
-  dateTime,
   dateRegister,
 } = require("../utils/util");
 

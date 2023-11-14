@@ -10,7 +10,8 @@ const {
   isHorario,
   changeMains,
   changeSubMainTitle,
-  erroSelectSchool
+  erroSelectSchool,
+  dateTime
 } = require("../utils/util");
 
 const generator = require("generate-password");
@@ -445,19 +446,17 @@ async function createFormSchoolData() {
         e.preventDefault();
 
         if (
-          dataFormSchool.escola_id &&
-          dataFormSchool.curso_id &&
-          dataFormSchool.previsao_semestre &&
-          dataFormSchool.previsao_ano &&
-          dataFormSchool.previsao_mes &&
-          dataFormSchool.horario
+          // dataFormSchool.escola_id &&
+          // dataFormSchool.curso_id &&
+          // dataFormSchool.previsao_semestre &&
+          // dataFormSchool.previsao_ano &&
+          // dataFormSchool.previsao_mes &&
+          // dataFormSchool.horario
+          dataFormSchool
         ) {
-
           if (!valid) {
             dataFormSchool.periodo = periodoFinal();
           }
-
-          console.log(dataFormSchool)
           anoIngresso(dataFormSchool.previsao_ano);
           const today = new Date();
           dataFormSchool.ano = today.getFullYear();
@@ -465,8 +464,7 @@ async function createFormSchoolData() {
           changeMains(".screen-socio-economic");
           changeSubMainTitle("Formulário Socioeconômico");
           resolve(dataFormSchool);
-        }
-        else {
+        } else {
           // document.getElementById("msg-fracasso-school").innerHTML =
           //   "<p>Formulário incompleto!</p>";
           erroSelectSchool(".form-school-data select", dataFormSchool.previsao_ano)

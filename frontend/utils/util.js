@@ -948,11 +948,6 @@ const erroInput = (object) => {
         ).innerHTML = `<p>Campo data de nascimento inválido!</p>`;
         break
       }
-      // else if (chave === "dt_nascimento") {
-      //   document.getElementById(
-      //     `msg-fracasso`
-      //   ).innerHTML = `<p>Campo data de nascimento inválido!</p>`;
-      //   break
       else if (chave === "dt_nascimento") {
         document.getElementById(
           `msg-fracasso`

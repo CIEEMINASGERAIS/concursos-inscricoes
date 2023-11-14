@@ -87,7 +87,12 @@ async function takeData() {
       }
     }
   });
+
   const dataEconomy = await socioEconomic();
+  document.getElementById("message-end").innerHTML =
+    `<p>Olá ${formData.nome}, parabéns por finalizar a primeira etapa do seu cadastro, fique atento ao seu e-mail,
+    enviaremos em
+    até 24 horas os dados para realizar seu primeiro login no nosso portal, para conclusão do seu cadastro.</p >`;
 
   const allData = await {
     ...termsConditions,
@@ -99,7 +104,7 @@ async function takeData() {
 
   console.log(allData);
 
-  return allData;
+  // return allData;
 }
 
 async function sendData() {

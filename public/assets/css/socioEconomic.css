@@ -14,6 +14,15 @@
   color: white;
 }
 
+/* #msg-aprendiz, #msg-responsavel, #msg-imovel, #msg-pessoas, #msg-filhos{
+  color: rgb(255, 0, 0);
+  cursor: default;
+  font-weight: bold;
+  margin: 0rem;
+  margin-top: -1.1rem;
+  padding: 0;
+} */
+
 .form-economic span p {
   color: rgb(255, 0, 0);
   cursor: default;
@@ -86,11 +95,14 @@
 
 .data-erro {
   display: flex;
-  justify-content: flex-end;
+  align-self: self-end;
 }
 
 .line-erro {
   font-size: 1rem;
+
+.data-erro p {
+  font-size: 0.5em;
 }
 
 @media (max-width: 920px) {
@@ -106,6 +118,10 @@
     justify-content: space-between;
     max-width: 100%;
     padding: 1.5rem 2rem 3rem 2rem;
+  }
+
+  .data-erro {
+    margin-left: 25rem;
   }
 }
 
@@ -124,6 +140,12 @@
 .button-back-socio {
   margin: 2rem 0rem 0rem 0rem;
 }
+}
+@media (max-width: 700px) {
+  .obrigatorio{
+    margin-top: 0rem;
+  }
+}
 
 @media (max-width: 700px) {
   .obrigatorio{
@@ -140,6 +162,13 @@
     margin-right: 1rem;
   }
 }
+  .form-economic span p {
+    margin-top: 0rem;
+  }
+
+  .screen-socio-economic {
+    margin-left: 0rem;
+  }
 
 @media (max-width: 400px) {
   .form-socio-economic {

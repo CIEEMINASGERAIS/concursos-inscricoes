@@ -438,6 +438,7 @@ async function initAddress() {
           formDataAddress.cep && formDataAddress.logradouro && formDataAddress.numero && formDataAddress.uf
           && formDataAddress.bairro && formDataAddress.cidade && formDataAddress.telefone1 && formDataAddress.telefone2
           && formDataAddress.email
+          // formDataAddress
         ) {
           changeMains('.screen-school-data')
           changeSubMainTitle('Formulário de Dados Acadêmicos')

@@ -1,4 +1,4 @@
-const { selecionarNomes } = require("../utils/util");
+const { selecionarNomes, dateTime } = require("../utils/util");
 
 async function socioEconomic() {
   return new Promise(async (resolve, reject) => {
@@ -19,6 +19,8 @@ async function socioEconomic() {
     aprendiz.addEventListener("input", (e) => {
       let valores = e.target.value;
 
+      valores = valores.trim()
+
       if (valores.length === 0) {
         e.preventDefault();
         document.getElementById("msg-aprendiz").innerHTML =
@@ -34,6 +36,8 @@ async function socioEconomic() {
 
     responsavel.addEventListener("input", (e) => {
       let valores = e.target.value;
+
+      valores = valores.trim()
 
       if (valores.length === 0) {
         e.preventDefault();
@@ -51,6 +55,8 @@ async function socioEconomic() {
     imovel.addEventListener("input", (e) => {
       let valores = e.target.value;
 
+      valores = valores.trim()
+
       if (valores.length === 0) {
         e.preventDefault();
         document.getElementById("msg-imovel").innerHTML =
@@ -67,6 +73,8 @@ async function socioEconomic() {
     pessoas.addEventListener("input", (e) => {
       let valores = e.target.value;
 
+      valores = valores.trim()
+
       if (valores.length === 0) {
         e.preventDefault();
         document.getElementById("msg-pessoas").innerHTML =
@@ -82,6 +90,8 @@ async function socioEconomic() {
 
     filhos.addEventListener("input", (e) => {
       let valores = e.target.value;
+
+      valores = valores.trim()
 
       if (valores.length === 0) {
         e.preventDefault();
@@ -116,6 +126,7 @@ async function socioEconomic() {
           formEconomic.pessoas_por_residencia &&
           formEconomic.tem_filhos
         ) {
+          console.log(dateTime())
           console.log(formEconomic);
           formEconomic.escola_estudou = selecionarNomes(escolas);
           formEconomic.renda = selecionarNomes(rendas);

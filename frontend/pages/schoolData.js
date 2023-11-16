@@ -10,7 +10,8 @@ const {
   isHorario,
   changeMains,
   changeSubMainTitle,
-  erroSelectSchool
+  erroSelectSchool,
+  dateTime
 } = require("../utils/util");
 
 const generator = require("generate-password");
@@ -126,6 +127,7 @@ async function createFormSchoolData() {
       option1.disabled = "disabled";
       option1.selected = "selected";
       option1.text = "Selecione";
+      // option1.value = "";
       horario.appendChild(option1);
 
       dataFormSchool.horario = false
@@ -170,6 +172,7 @@ async function createFormSchoolData() {
       option1.disabled = "disabled";
       option1.selected = "selected";
       option1.text = "Selecione";
+      // option1.value = "";
       escolas.appendChild(option1);
 
       for (let i = 0; i < opcoes.length; i++) {
@@ -189,6 +192,7 @@ async function createFormSchoolData() {
       option1.disabled = "disabled";
       option1.selected = "selected";
       option1.text = "Selecione";
+      // option1.value = "";
       cursos.appendChild(option1);
 
       for (let i = 0; i < opcoes.length; i++) {
@@ -451,13 +455,11 @@ async function createFormSchoolData() {
           dataFormSchool.previsao_ano &&
           dataFormSchool.previsao_mes &&
           dataFormSchool.horario
+          // dataFormSchool
         ) {
-
           if (!valid) {
             dataFormSchool.periodo = periodoFinal();
           }
-
-          console.log(dataFormSchool)
           anoIngresso(dataFormSchool.previsao_ano);
           const today = new Date();
           dataFormSchool.ano = today.getFullYear();

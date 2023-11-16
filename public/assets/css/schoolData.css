@@ -133,10 +133,11 @@
 .button-back-school:hover,
 .button-finish-school:hover {
   background-color: #0056b3;
-  border:solid #0056b3;
+  border: solid #0056b3;
 }
+
 .button-back-school:focus,
- .button-finish-school:focus{
+.button-finish-school:focus {
   outline: none;
 }
 
@@ -204,13 +205,14 @@
   align-items: center;
   flex-direction: column;
 }
-.obg{
+
+.obg {
   margin-top: -1rem;
   padding: 0;
   display: flex;
   justify-content: flex-end;
   font-size: 0.7rem;
-  margin: 0 0.5rem 0 0  ;
+  margin: 0 0.5rem 0 0;
   padding: 0;
   color: #ffffff;
 }
@@ -282,13 +284,7 @@
   display: flex;
 }
 
-/* .alert-school button {
-  background-color: white;
-  cursor: pointer;
-  font-size: 0.9em;
-  font-weight: 700;
-  padding: 0.5rem 1rem;
-} */
+
 
 .alert-school {
   margin: 3rem auto;
@@ -304,7 +300,8 @@
 
 }
 
-.button-end-school,.button-confirm-school {
+.button-end-school,
+.button-confirm-school {
   background-color: #007bff;
   margin: 0rem 0rem 0rem 0rem;
   display: flex;
@@ -319,15 +316,17 @@
   border-radius: 0.5rem;
   cursor: pointer;
   width: 10rem;
-  text-decoration:none;
+  text-decoration: none;
 }
+
 .button-end-school:hover,
 .button-confirm-school:hover {
-  text-decoration:none;
+  text-decoration: none;
   color: #ffffff;
   background-color: #005fc4;
   order: solid #0063cc;
 }
+
 .button-end-school:focus,
 .button-confirm-school:focus {
   outline: none;
@@ -360,27 +359,12 @@
     margin: 1rem 0rem 0rem 0rem;
     width: 100%;
   }
+
+  .alert p {
+    font-size: 1em;
+  }
+
 }
-
-/* @media screen and (max-width:920px) {
-  .screen-school-data {
-    margin: 7rem 16rem 3rem 0rem;
-    
-  }
-
-  .button-finish-school {
-    margin: 0rem 0rem 2rem 0rem;
-  }
-  
-
-  #form-school-data {
-    padding: 2rem 2rem 0rem 2rem;
-    margin: 3rem 0rem 1rem 7rem;
-    width: 100%;
-    background-color: rgba(0, 0, 0, 0.199);
-    border-radius: 0.5rem;
-  }
-} */
 
 @media screen and (max-width: 920px) {
   .screen-school-data {
@@ -394,6 +378,10 @@
     background-color: rgba(0, 0, 0, 0.199);
     border-radius: 0.5rem;
   }
+  .alert p {
+    font-size: 0.8em;
+  }
+ }
 
   @media screen and (max-width: 430px) {
     .screen-school-data  {
@@ -404,6 +392,9 @@
       margin: 4rem 0rem 1rem 5rem;
       width: 100%;
       padding: 1rem 1rem 1rem 1rem;
+    }
+    .alert p {
+      font-size: 0.7em;
     }
   }
   @media screen and (max-width: 300px) {
@@ -416,5 +407,7 @@
       width: 100%;
       padding: 1.5rem 0.5rem 4rem 0.5rem;
     }
+    .alert p {
+      font-size: 0.6em;
+    }
   }
-}

@@ -1,6 +1,6 @@
 .form-socio-economic {
   background-color: rgb(13, 13, 13);
-  margin: 5rem 2rem 5rem 14rem;
+  margin: 5rem 2rem 2rem 14rem;
   margin: center;
   display: flex;
   flex-direction: column;
@@ -14,15 +14,6 @@
   color: white;
 }
 
-/* #msg-aprendiz, #msg-responsavel, #msg-imovel, #msg-pessoas, #msg-filhos{
-  color: rgb(255, 0, 0);
-  cursor: default;
-  font-weight: bold;
-  margin: 0rem;
-  margin-top: -1.1rem;
-  padding: 0;
-} */
-
 .form-economic span p {
   color: rgb(255, 0, 0);
   cursor: default;
@@ -31,15 +22,6 @@
   margin-top: -1.1rem;
   padding: 0;
 }
-.obrigatorio{
-  display: flex;
-  justify-content: flex-end;
-  font-size: 0.7rem;
-  margin: 0 0.5rem 0 0;
-  padding: 0;
-  margin-top: -0.9rem;
-}
-
 
 .form-group {
   margin-top: 2.5rem;
@@ -52,6 +34,11 @@
 .form-check-label {
   font-size: 1rem;
 }
+.span-obrigatorio{
+  margin-left: 0.2rem;
+  color: #ffffff;
+  font-size:0.7rem;
+  }
 
 .button-end-socio,
 .button-confirm-socio {
@@ -111,7 +98,7 @@
   }
 
   .form-socio-economic {
-    margin: 5rem 2rem 5rem 5rem;
+    margin: 5rem 2rem 2rem 6rem;
     margin: center;
     display: flex;
     flex-direction: column;
@@ -122,8 +109,7 @@
 
   .data-erro {
     margin-left: 25rem;
-  }
-}
+  }}
 
 .label-title {
   font-size: 1.1rem;
@@ -139,29 +125,16 @@
 
 .button-back-socio {
   margin: 2rem 0rem 0rem 0rem;
-}
-}
-@media (max-width: 700px) {
-  .obrigatorio{
-    margin-top: 0rem;
-  }
-}
+}}
 
-@media (max-width: 700px) {
-  .obrigatorio{
-    margin-top: 0rem;
+@media (max-width: 430px) {
+  
+  .form-socio-economic {
+    margin: 4rem 1rem 2rem 5rem;
   }
-}
-@media (max-width: 470px) {
   .form-economic span p {
     margin-top: 0rem;
-  }
-
-  .form-socio-economic {
-    margin-left: 4rem;
-    margin-right: 1rem;
-  }
-}
+  }}
   .form-economic span p {
     margin-top: 0rem;
   }
@@ -173,5 +146,4 @@
 @media (max-width: 400px) {
   .form-socio-economic {
     padding: 1rem;
-  }
-}
+   }}

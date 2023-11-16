@@ -46374,6 +46374,7 @@ function _socioEconomic() {
                     aprendiz = document.getElementById("aprendiz");
                     aprendiz.addEventListener("input", function (e) {
                       var valores = e.target.value;
+                      valores = valores.trim();
                       if (valores.length === 0) {
                         e.preventDefault();
                         document.getElementById("msg-aprendiz").innerHTML = "<p>Favor preencher o campo!</p>";
@@ -46386,6 +46387,7 @@ function _socioEconomic() {
                     responsavel = document.getElementById("responsavel");
                     responsavel.addEventListener("input", function (e) {
                       var valores = e.target.value;
+                      valores = valores.trim();
                       if (valores.length === 0) {
                         e.preventDefault();
                         document.getElementById("msg-responsavel").innerHTML = "<p>Favor preencher o campo!</p>";
@@ -46398,6 +46400,7 @@ function _socioEconomic() {
                     imovel = document.getElementById("imovel");
                     imovel.addEventListener("input", function (e) {
                       var valores = e.target.value;
+                      valores = valores.trim();
                       if (valores.length === 0) {
                         e.preventDefault();
                         document.getElementById("msg-imovel").innerHTML = "<p>Favor preencher o campo!</p>";
@@ -46410,6 +46413,7 @@ function _socioEconomic() {
                     pessoas = document.getElementById("pessoas");
                     pessoas.addEventListener("input", function (e) {
                       var valores = e.target.value;
+                      valores = valores.trim();
                       if (valores.length === 0) {
                         e.preventDefault();
                         document.getElementById("msg-pessoas").innerHTML = "<p>Favor preencher o campo!</p>";
@@ -46422,6 +46426,7 @@ function _socioEconomic() {
                     filhos = document.getElementById("filhos");
                     filhos.addEventListener("input", function (e) {
                       var valores = e.target.value;
+                      valores = valores.trim();
                       if (valores.length === 0) {
                         e.preventDefault();
                         document.getElementById("msg-filhos").innerHTML = "<p>Favor preencher o campo!</p>";
@@ -46440,9 +46445,7 @@ function _socioEconomic() {
                     if (formSocioEconomic) {
                       formSocioEconomic.addEventListener("submit", function (e) {
                         e.preventDefault();
-                        if (formEconomic.aprendiz && formEconomic.responsavel && formEconomic.imovel && formEconomic.pessoas_por_residencia && formEconomic.tem_filhos
-                        // formEconomic
-                        ) {
+                        if (formEconomic.aprendiz && formEconomic.responsavel && formEconomic.imovel && formEconomic.pessoas_por_residencia && formEconomic.tem_filhos) {
                           console.log(dateTime());
                           console.log(formEconomic);
                           formEconomic.escola_estudou = selecionarNomes(escolas);

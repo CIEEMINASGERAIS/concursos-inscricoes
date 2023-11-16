@@ -19,6 +19,8 @@ async function socioEconomic() {
     aprendiz.addEventListener("input", (e) => {
       let valores = e.target.value;
 
+      valores = valores.trim()
+
       if (valores.length === 0) {
         e.preventDefault();
         document.getElementById("msg-aprendiz").innerHTML =
@@ -34,6 +36,8 @@ async function socioEconomic() {
 
     responsavel.addEventListener("input", (e) => {
       let valores = e.target.value;
+
+      valores = valores.trim()
 
       if (valores.length === 0) {
         e.preventDefault();
@@ -51,6 +55,8 @@ async function socioEconomic() {
     imovel.addEventListener("input", (e) => {
       let valores = e.target.value;
 
+      valores = valores.trim()
+
       if (valores.length === 0) {
         e.preventDefault();
         document.getElementById("msg-imovel").innerHTML =
@@ -67,6 +73,8 @@ async function socioEconomic() {
     pessoas.addEventListener("input", (e) => {
       let valores = e.target.value;
 
+      valores = valores.trim()
+
       if (valores.length === 0) {
         e.preventDefault();
         document.getElementById("msg-pessoas").innerHTML =
@@ -82,6 +90,8 @@ async function socioEconomic() {
 
     filhos.addEventListener("input", (e) => {
       let valores = e.target.value;
+
+      valores = valores.trim()
 
       if (valores.length === 0) {
         e.preventDefault();
@@ -115,7 +125,6 @@ async function socioEconomic() {
           formEconomic.imovel &&
           formEconomic.pessoas_por_residencia &&
           formEconomic.tem_filhos
-          // formEconomic
         ) {
           console.log(dateTime())
           console.log(formEconomic);

@@ -1067,8 +1067,6 @@ const erroSelectSchool = (select, ano) => {
   }
 }
 
-
-
 module.exports = {
   erroSelect,
   erroInput,

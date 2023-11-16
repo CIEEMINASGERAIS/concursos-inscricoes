@@ -45833,8 +45833,7 @@ var _require = __webpack_require__(/*! ../utils/util */ "./frontend/utils/util.j
   isHorario = _require.isHorario,
   changeMains = _require.changeMains,
   changeSubMainTitle = _require.changeSubMainTitle,
-  erroSelectSchool = _require.erroSelectSchool,
-  dateTime = _require.dateTime;
+  erroSelectSchool = _require.erroSelectSchool;
 var generator = __webpack_require__(/*! generate-password */ "./node_modules/generate-password/main.js");
 function createFormSchoolData() {
   return _createFormSchoolData.apply(this, arguments);
@@ -46278,9 +46277,7 @@ function _createFormSchoolData() {
                             while (1) switch (_context6.prev = _context6.next) {
                               case 0:
                                 e.preventDefault();
-                                if (dataFormSchool.escola_id && dataFormSchool.curso_id && dataFormSchool.previsao_semestre && dataFormSchool.previsao_ano && dataFormSchool.previsao_mes && dataFormSchool.horario
-                                // dataFormSchool
-                                ) {
+                                if (dataFormSchool.escola_id && dataFormSchool.curso_id && dataFormSchool.previsao_semestre && dataFormSchool.previsao_ano && dataFormSchool.previsao_mes && dataFormSchool.horario) {
                                   if (!valid) {
                                     dataFormSchool.periodo = periodoFinal();
                                   }
@@ -46292,8 +46289,6 @@ function _createFormSchoolData() {
                                   changeSubMainTitle("Formulário Socioeconômico");
                                   resolve(dataFormSchool);
                                 } else {
-                                  // document.getElementById("msg-fracasso-school").innerHTML =
-                                  //   "<p>Formulário incompleto!</p>";
                                   erroSelectSchool(".form-school-data select", dataFormSchool.previsao_ano);
                                   removerMensagem("msg-fracasso-school");
                                 }
@@ -46446,8 +46441,6 @@ function _socioEconomic() {
                       formSocioEconomic.addEventListener("submit", function (e) {
                         e.preventDefault();
                         if (formEconomic.aprendiz && formEconomic.responsavel && formEconomic.imovel && formEconomic.pessoas_por_residencia && formEconomic.tem_filhos) {
-                          console.log(dateTime());
-                          console.log(formEconomic);
                           formEconomic.escola_estudou = selecionarNomes(escolas);
                           formEconomic.renda = selecionarNomes(rendas);
                           formEconomic.genero = selecionarNomes(generos);
@@ -47861,9 +47854,7 @@ function _takeData() {
           return _objectSpread(_objectSpread(_objectSpread(_objectSpread(_objectSpread({}, termsConditions), formData), formAddress), formSchoolData), dataEconomy);
         case 23:
           allData = _context.sent;
-          console.log(allData);
-
-          // return allData;
+          return _context.abrupt("return", allData);
         case 25:
         case "end":
           return _context.stop();

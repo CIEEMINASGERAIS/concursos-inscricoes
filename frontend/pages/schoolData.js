@@ -11,7 +11,6 @@ const {
   changeMains,
   changeSubMainTitle,
   erroSelectSchool,
-  dateTime
 } = require("../utils/util");
 
 const generator = require("generate-password");
@@ -455,7 +454,6 @@ async function createFormSchoolData() {
           dataFormSchool.previsao_ano &&
           dataFormSchool.previsao_mes &&
           dataFormSchool.horario
-          // dataFormSchool
         ) {
           if (!valid) {
             dataFormSchool.periodo = periodoFinal();
@@ -469,8 +467,6 @@ async function createFormSchoolData() {
           resolve(dataFormSchool);
         }
         else {
-          // document.getElementById("msg-fracasso-school").innerHTML =
-          //   "<p>Formulário incompleto!</p>";
           erroSelectSchool(".form-school-data select", dataFormSchool.previsao_ano)
           removerMensagem("msg-fracasso-school");
         }

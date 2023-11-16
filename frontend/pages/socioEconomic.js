@@ -126,8 +126,6 @@ async function socioEconomic() {
           formEconomic.pessoas_por_residencia &&
           formEconomic.tem_filhos
         ) {
-          console.log(dateTime())
-          console.log(formEconomic);
           formEconomic.escola_estudou = selecionarNomes(escolas);
           formEconomic.renda = selecionarNomes(rendas);
           formEconomic.genero = selecionarNomes(generos);

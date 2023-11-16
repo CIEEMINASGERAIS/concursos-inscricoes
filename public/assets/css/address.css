@@ -247,7 +247,7 @@ input#cep {
 
 @media screen and (max-width:920px) {
   .screen-address {
-    margin: 7rem 8rem 0rem 0rem;
+    margin: 5rem 8rem 0rem 0rem;
   }
 
   .form-address {
@@ -258,7 +258,7 @@ input#cep {
 
 @media screen and (max-width:800px) {
   .screen-address {
-    margin: 4.5rem 8rem 0rem 0rem;
+    margin: 5rem 8rem 0rem 0rem;
   }
 
   /* .form-address {
@@ -302,7 +302,7 @@ input#cep {
 @media screen and (max-width: 450px) {
 
   .screen-address {
-    margin: 6rem 5rem 0rem 0rem;
+    margin: 5rem 6rem 0rem 1.5rem;
   }
 
   .form-address {
@@ -320,7 +320,7 @@ input#cep {
 @media screen and (max-width: 390px) {
 
   .screen-address {
-    margin: 6rem 5rem 0rem 0rem;
+    margin: 5rem 6rem 0rem 1.5rem;
   }
 
   .form-address {

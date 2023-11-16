@@ -45325,11 +45325,9 @@ function _initAddress() {
                             while (1) switch (_context3.prev = _context3.next) {
                               case 0:
                                 e.preventDefault();
-                                if (
-                                // formDataAddress.cep && formDataAddress.logradouro && formDataAddress.numero && formDataAddress.uf
-                                // && formDataAddress.bairro && formDataAddress.cidade && formDataAddress.telefone1 && formDataAddress.telefone2
-                                // && formDataAddress.email
-                                formDataAddress) {
+                                if (formDataAddress.cep && formDataAddress.logradouro && formDataAddress.numero && formDataAddress.uf && formDataAddress.bairro && formDataAddress.cidade && formDataAddress.telefone1 && formDataAddress.telefone2 && formDataAddress.email
+                                // formDataAddress
+                                ) {
                                   changeMains('.screen-school-data');
                                   changeSubMainTitle('Formulário de Dados Acadêmicos');
                                   resolve(formDataAddress);
@@ -45739,21 +45737,8 @@ var initDataBasic = /*#__PURE__*/function () {
                     if (formData) {
                       formData.addEventListener("submit", function (e) {
                         e.preventDefault();
-                        if (
-                        // formDataBasic.nome &&
-                        // formDataBasic.nomemae &&
-                        // formDataBasic.naturalidade &&
-                        // formDataBasic.nacionalidade &&
-                        // formDataBasic.estadocivil &&
-                        // formDataBasic.dt_nascimento &&
-                        // formDataBasic.sexo &&
-                        // formDataBasic.uf_naturalidade &&
-                        // formDataBasic.deficiencia &&
-                        // formDataBasic.rg &&
-                        // formDataBasic.orgaoexpedidor &&
-                        // formDataBasic.idade &&
-                        // formDataBasic.cpf
-                        formDataBasic
+                        if (formDataBasic.nome && formDataBasic.nomemae && formDataBasic.naturalidade && formDataBasic.nacionalidade && formDataBasic.estadocivil && formDataBasic.dt_nascimento && formDataBasic.sexo && formDataBasic.uf_naturalidade && formDataBasic.deficiencia && formDataBasic.rg && formDataBasic.orgaoexpedidor && formDataBasic.idade && formDataBasic.cpf
+                        // formDataBasic
                         // No caso do nomepai e carteira de trabalho não são obrigatorios
                         ) {
                           changeMains(".screen-address");
@@ -45893,6 +45878,7 @@ function _createFormSchoolData() {
                       option1.disabled = "disabled";
                       option1.selected = "selected";
                       option1.text = "Selecione";
+                      // option1.value = "";
                       cursos.appendChild(option1);
                       for (var _i8 = 0; _i8 < opcoes.length; _i8++) {
                         var _option7 = document.createElement("option");
@@ -45908,6 +45894,7 @@ function _createFormSchoolData() {
                       option1.disabled = "disabled";
                       option1.selected = "selected";
                       option1.text = "Selecione";
+                      // option1.value = "";
                       escolas.appendChild(option1);
                       for (var _i7 = 0; _i7 < opcoes.length; _i7++) {
                         var _option6 = document.createElement("option");
@@ -45923,6 +45910,7 @@ function _createFormSchoolData() {
                       option1.disabled = "disabled";
                       option1.selected = "selected";
                       option1.text = "Selecione";
+                      // option1.value = "";
                       horario.appendChild(option1);
                       dataFormSchool.horario = false;
                       for (var _i6 = 0; _i6 < horariosEstudos.length; _i6++) {
@@ -46290,14 +46278,9 @@ function _createFormSchoolData() {
                             while (1) switch (_context6.prev = _context6.next) {
                               case 0:
                                 e.preventDefault();
-                                if (
-                                // dataFormSchool.escola_id &&
-                                // dataFormSchool.curso_id &&
-                                // dataFormSchool.previsao_semestre &&
-                                // dataFormSchool.previsao_ano &&
-                                // dataFormSchool.previsao_mes &&
-                                // dataFormSchool.horario
-                                dataFormSchool) {
+                                if (dataFormSchool.escola_id && dataFormSchool.curso_id && dataFormSchool.previsao_semestre && dataFormSchool.previsao_ano && dataFormSchool.previsao_mes && dataFormSchool.horario
+                                // dataFormSchool
+                                ) {
                                   if (!valid) {
                                     dataFormSchool.periodo = periodoFinal();
                                   }
@@ -46457,13 +46440,9 @@ function _socioEconomic() {
                     if (formSocioEconomic) {
                       formSocioEconomic.addEventListener("submit", function (e) {
                         e.preventDefault();
-                        if (
-                        // formEconomic.aprendiz &&
-                        // formEconomic.responsavel &&
-                        // formEconomic.imovel &&
-                        // formEconomic.pessoas_por_residencia &&
-                        // formEconomic.tem_filhos
-                        formEconomic) {
+                        if (formEconomic.aprendiz && formEconomic.responsavel && formEconomic.imovel && formEconomic.pessoas_por_residencia && formEconomic.tem_filhos
+                        // formEconomic
+                        ) {
                           console.log(dateTime());
                           console.log(formEconomic);
                           formEconomic.escola_estudou = selecionarNomes(escolas);
@@ -47572,6 +47551,9 @@ var erroSelectSchool = function erroSelectSchool(select, ano) {
       if (selects[i].name === "escolas") {
         document.getElementById("msg-fracasso-school").innerHTML = "<p>Campo escola onde estuda ou estudou inv\xE1lido!</p>";
         break;
+      } else if (selects[i].name === "cursos") {
+        document.getElementById("msg-fracasso-school").innerHTML = "<p>Selecione um item da lista cursos.</p>";
+        break;
       } else if (selects[i].name === "anoFormatura") {
         document.getElementById("msg-fracasso-school").innerHTML = "<p>Selecione um item da lista ano de formatura.</p>";
         break;
@@ -47586,9 +47568,6 @@ var erroSelectSchool = function erroSelectSchool(select, ano) {
         break;
       } else if (selects[i].name === "horarioEstudo") {
         document.getElementById("msg-fracasso-school").innerHTML = "<p>Selecione um item da lista hor\xE1rio de estudo.</p>";
-        break;
-      } else if (selects[i].name === "cursos") {
-        document.getElementById("msg-fracasso-school").innerHTML = "<p>Selecione um item da lista cursos.</p>";
         break;
       }
     }
@@ -47796,24 +47775,26 @@ var _require = __webpack_require__(/*! ../utils/util.js */ "./frontend/utils/uti
   conferirFormBasic = _require.conferirFormBasic,
   changeMains = _require.changeMains,
   changeSubMainTitle = _require.changeSubMainTitle,
-  conferirFormSchool = _require.conferirFormSchool;
+  conferirFormSchool = _require.conferirFormSchool,
+  dateTime = _require.dateTime;
 function takeData() {
   return _takeData.apply(this, arguments);
 }
 function _takeData() {
   _takeData = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
-    var callMain, termsConditions, formData, validateFormBasic, formAddress, validateFormAddress, formSchoolData, validateFormSchool, dataEconomy, allData;
+    var date, callMain, termsConditions, formData, validateFormBasic, formAddress, validateFormAddress, formSchoolData, validateFormSchool, dataEconomy, allData;
     return _regeneratorRuntime().wrap(function _callee$(_context) {
       while (1) switch (_context.prev = _context.next) {
         case 0:
+          date = dateTime();
           callMain = main();
-          _context.next = 3;
+          _context.next = 4;
           return termsAndConditions();
-        case 3:
+        case 4:
           termsConditions = _context.sent;
-          _context.next = 6;
+          _context.next = 7;
           return initDataBasic();
-        case 6:
+        case 7:
           formData = _context.sent;
           document.addEventListener("click", function (event) {
             var element = event.target;
@@ -47830,9 +47811,9 @@ function _takeData() {
               }
             }
           });
-          _context.next = 10;
+          _context.next = 11;
           return initAddress();
-        case 10:
+        case 11:
           formAddress = _context.sent;
           document.addEventListener("click", function (event) {
             var element = event.target;
@@ -47849,9 +47830,9 @@ function _takeData() {
               }
             }
           });
-          _context.next = 14;
+          _context.next = 15;
           return createFormSchoolData();
-        case 14:
+        case 15:
           formSchoolData = _context.sent;
           document.addEventListener("click", function (event) {
             var element = event.target;
@@ -47868,19 +47849,19 @@ function _takeData() {
               }
             }
           });
-          _context.next = 18;
+          _context.next = 19;
           return socioEconomic();
-        case 18:
+        case 19:
           dataEconomy = _context.sent;
-          document.querySelector(".alert").innerHTML = "<h1>Cadastro conclu\xEDdo!</h1>\n    <p>Ol\xE1 ".concat(formData.nome, ", parab\xE9ns por finalizar a primeira etapa do seu cadastro, fique atento ao seu e-mail,\n    enviaremos em\n    at\xE9 24 horas os dados para realizar seu primeiro login no nosso portal, para conclus\xE3o do seu cadastro.</p>\n    <div class=\"button-school-end\">\n            <a class=\"button-end-school\" href=\"https://cieemg.org.br/\" rel=\"noopener noreferrer\">Confirmar</a>\n    </div>\n    <div class=\"data-erro\">\n      <p>12/02/2067</p>\n    </div>");
-          _context.next = 22;
+          document.querySelector(".alert").innerHTML = "<h1>Cadastro conclu\xEDdo!</h1>\n    <p>Ol\xE1 ".concat(formData.nome, ", parab\xE9ns por finalizar a primeira etapa do seu cadastro, fique atento ao seu e-mail,\n    enviaremos em\n    at\xE9 24 horas os dados para realizar seu primeiro login no nosso portal, para conclus\xE3o do seu cadastro.</p>\n    <div class=\"button-school-end\">\n            <a class=\"button-end-school\" href=\"https://cieemg.org.br/\" rel=\"noopener noreferrer\">Confirmar</a>\n    </div>\n    <div class=\"data-erro\">\n      <p>").concat(date, "</p>\n    </div>");
+          _context.next = 23;
           return _objectSpread(_objectSpread(_objectSpread(_objectSpread(_objectSpread({}, termsConditions), formData), formAddress), formSchoolData), dataEconomy);
-        case 22:
+        case 23:
           allData = _context.sent;
           console.log(allData);
 
           // return allData;
-        case 24:
+        case 25:
         case "end":
           return _context.stop();
       }

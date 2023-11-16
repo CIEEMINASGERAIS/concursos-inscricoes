@@ -110,12 +110,12 @@ async function socioEconomic() {
       formSocioEconomic.addEventListener("submit", (e) => {
         e.preventDefault();
         if (
-          // formEconomic.aprendiz &&
-          // formEconomic.responsavel &&
-          // formEconomic.imovel &&
-          // formEconomic.pessoas_por_residencia &&
-          // formEconomic.tem_filhos
-          formEconomic
+          formEconomic.aprendiz &&
+          formEconomic.responsavel &&
+          formEconomic.imovel &&
+          formEconomic.pessoas_por_residencia &&
+          formEconomic.tem_filhos
+          // formEconomic
         ) {
           console.log(dateTime())
           console.log(formEconomic);

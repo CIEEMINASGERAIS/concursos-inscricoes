@@ -86,11 +86,12 @@
 }
 
 .data-erro {
-  margin-left: 50rem;
+  display: flex;
+  align-self: self-end;
 }
 
 .data-erro p {
-  font-size: 0.8em;
+  font-size: 0.5em;
 }
 
 @media (max-width: 920px) {

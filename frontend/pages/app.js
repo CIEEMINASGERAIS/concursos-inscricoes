@@ -10,9 +10,11 @@ const {
   changeMains,
   changeSubMainTitle,
   conferirFormSchool,
+  dateTime
 } = require("../utils/util.js");
 
 async function takeData() {
+  const date = dateTime()
   const callMain = main();
   const termsConditions = await termsAndConditions();
 
@@ -98,7 +100,7 @@ async function takeData() {
             <a class="button-end-school" href="https://cieemg.org.br/" rel="noopener noreferrer">Confirmar</a>
     </div>
     <div class="data-erro">
-      <p>12/02/2067</p>
+      <p>${date}</p>
     </div>`;
 
   const allData = await {

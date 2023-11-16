@@ -127,6 +127,7 @@ async function createFormSchoolData() {
       option1.disabled = "disabled";
       option1.selected = "selected";
       option1.text = "Selecione";
+      // option1.value = "";
       horario.appendChild(option1);
 
       dataFormSchool.horario = false
@@ -171,6 +172,7 @@ async function createFormSchoolData() {
       option1.disabled = "disabled";
       option1.selected = "selected";
       option1.text = "Selecione";
+      // option1.value = "";
       escolas.appendChild(option1);
 
       for (let i = 0; i < opcoes.length; i++) {
@@ -190,6 +192,7 @@ async function createFormSchoolData() {
       option1.disabled = "disabled";
       option1.selected = "selected";
       option1.text = "Selecione";
+      // option1.value = "";
       cursos.appendChild(option1);
 
       for (let i = 0; i < opcoes.length; i++) {
@@ -446,13 +449,13 @@ async function createFormSchoolData() {
         e.preventDefault();
 
         if (
-          // dataFormSchool.escola_id &&
-          // dataFormSchool.curso_id &&
-          // dataFormSchool.previsao_semestre &&
-          // dataFormSchool.previsao_ano &&
-          // dataFormSchool.previsao_mes &&
-          // dataFormSchool.horario
-          dataFormSchool
+          dataFormSchool.escola_id &&
+          dataFormSchool.curso_id &&
+          dataFormSchool.previsao_semestre &&
+          dataFormSchool.previsao_ano &&
+          dataFormSchool.previsao_mes &&
+          dataFormSchool.horario
+          // dataFormSchool
         ) {
           if (!valid) {
             dataFormSchool.periodo = periodoFinal();
@@ -464,7 +467,8 @@ async function createFormSchoolData() {
           changeMains(".screen-socio-economic");
           changeSubMainTitle("Formulário Socioeconômico");
           resolve(dataFormSchool);
-        } else {
+        }
+        else {
           // document.getElementById("msg-fracasso-school").innerHTML =
           //   "<p>Formulário incompleto!</p>";
           erroSelectSchool(".form-school-data select", dataFormSchool.previsao_ano)

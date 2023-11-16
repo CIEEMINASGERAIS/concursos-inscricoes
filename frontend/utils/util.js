@@ -1031,7 +1031,13 @@ const erroSelectSchool = (select, ano) => {
           `msg-fracasso-school`
         ).innerHTML = `<p>Campo escola onde estuda ou estudou inválido!</p>`;
         break
-      } else if (selects[i].name === "anoFormatura") {
+      } else if (selects[i].name === "cursos") {
+        document.getElementById(
+          `msg-fracasso-school`
+        ).innerHTML = `<p>Selecione um item da lista cursos.</p>`;
+        break
+      }
+      else if (selects[i].name === "anoFormatura") {
         document.getElementById(
           `msg-fracasso-school`
         ).innerHTML = `<p>Selecione um item da lista ano de formatura.</p>`;
@@ -1056,16 +1062,11 @@ const erroSelectSchool = (select, ano) => {
           `msg-fracasso-school`
         ).innerHTML = `<p>Selecione um item da lista horário de estudo.</p>`;
         break
-      } else if (selects[i].name === "cursos") {
-        document.getElementById(
-          `msg-fracasso-school`
-        ).innerHTML = `<p>Selecione um item da lista cursos.</p>`;
-        break
       }
     }
   }
-
 }
+
 
 
 module.exports = {

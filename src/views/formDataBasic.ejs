@@ -76,8 +76,8 @@
     </div>
     <div class="div-estado-civil">
       <label for="estado-civil">Estado Civil</label>
-      <select name="estadoCivil" class="estado-civil" id="estado-civil">
-        <option selected disabled>Selecione</option>
+      <select name="estadoCivil" class="estado-civil" id="estado-civil" required>
+        <option value="" selected disabled>Selecione</option>
         <option value="S" name="solteiro">Solteiro(a)</option>
         <option value="C" name="casado">Casado(a)</option>
         <option value="A" name="amaziado">Amaziado(a)</option>
@@ -89,8 +89,8 @@
     </div>
     <div class="div-sexo">
       <label for="sexo">Sexo</label>
-      <select name="sexos" class="sexo" id="sexo">
-        <option disabled selected>Selecione</option>
+      <select name="sexos" class="sexo" id="sexo" required>
+        <option value="" disabled selected>Selecione</option>
         <option value="M" name="masculino">Masculino</option>
         <option value="F" name="feminino">Feminino</option>
       </select>
@@ -101,16 +101,16 @@
   <div class="div-number-5">
     <div class="div-naturalidade">
       <label for="uf-naturalidade">UF da Naturalidade</label>
-      <select name="ufNaturalidade" class="uf-naturalidade" id="uf-naturalidade">
-        <option disabled selected>Selecione</option>
+      <select name="ufNaturalidade" class="uf-naturalidade" id="uf-naturalidade" required>
+        <option value="" disabled selected>Selecione</option>
       </select>
       <p class="obrigatorio">Obrigatório</p>
       <span id="msg-uf-naturalidade"></span>
     </div>
     <div class="div-deficiencias">
       <label for="deficiencias">Possui alguma deficiência?</label>
-      <select name="deficiencias" class="deficiencias" id="deficiencias">
-        <option disabled selected>Selecione</option>
+      <select name="deficiencias" class="deficiencias" id="deficiencias" required>
+        <option value="" disabled selected>Selecione</option>
         <option value="N" name="nao">Não</option>
         <option value="F" name="fisica">Física</option>
         <option value="A" name="auditiva">Auditiva</option>

@@ -1,4 +1,4 @@
-const { selecionarNomes } = require("../utils/util");
+const { selecionarNomes, dateTime } = require("../utils/util");
 
 async function socioEconomic() {
   return new Promise(async (resolve, reject) => {
@@ -115,7 +115,9 @@ async function socioEconomic() {
           formEconomic.imovel &&
           formEconomic.pessoas_por_residencia &&
           formEconomic.tem_filhos
+          // formEconomic
         ) {
+          console.log(dateTime())
           console.log(formEconomic);
           formEconomic.escola_estudou = selecionarNomes(escolas);
           formEconomic.renda = selecionarNomes(rendas);

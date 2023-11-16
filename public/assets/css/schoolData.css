@@ -362,7 +362,7 @@
   }
 }
 
-@media screen and (max-width:920px) {
+/* @media screen and (max-width:920px) {
   .screen-school-data {
     margin: 7rem 16rem 3rem 0rem;
     
@@ -380,36 +380,41 @@
     background-color: rgba(0, 0, 0, 0.199);
     border-radius: 0.5rem;
   }
-}
+} */
 
-@media screen and (max-width: 700px) {
+@media screen and (max-width: 920px) {
   .screen-school-data {
-    margin: 6rem 6rem 3rem 0rem;
+    margin: 7rem 8rem 0rem 0rem;
   }
 
   #form-school-data {
-    padding: 2rem 2rem 0rem 2rem;
-    margin: 3rem 0rem 2rem 5rem;
+    padding: 2rem 2rem 2rem 2rem;
+    margin: -2rem 0rem 2rem 6rem;
     width: 100%;
     background-color: rgba(0, 0, 0, 0.199);
     border-radius: 0.5rem;
   }
 
-  @media screen and (max-width: 340px) {
-    .screen-school-data {
-      margin: 6rem 5rem 3rem 0rem;
+  @media screen and (max-width: 430px) {
+    .screen-school-data  {
+      margin: 1rem 6rem 0.5rem 0rem;
     }
-
+  
     #form-school-data {
-      padding: 2rem 0.5rem 0rem 0.5rem;
-      margin: 3rem 0rem 2rem 4.5rem;
+      margin: 4rem 0rem 1rem 5rem;
       width: 100%;
-      background-color: rgba(0, 0, 0, 0.199);
-      border-radius: 0.5rem;
+      padding: 1rem 1rem 1rem 1rem;
     }
-
-    .label-periodo {
-      font-size: 0.9rem;
+  }
+  @media screen and (max-width: 300px) {
+    .screen-school-data  {
+      margin: 3.5rem 5rem 0.5rem 0rem;
+    }
+  
+    #form-school-data {
+      margin: 3rem 0rem 1rem 4.5rem;
+      width: 100%;
+      padding: 1.5rem 0.5rem 4rem 0.5rem;
     }
   }
 }

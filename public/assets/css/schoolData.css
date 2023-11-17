@@ -319,6 +319,10 @@
   text-decoration: none;
 }
 
+.button-end-school {
+  margin-bottom:1rem ;
+}
+
 .button-end-school:hover,
 .button-confirm-school:hover {
   text-decoration: none;
@@ -381,6 +385,9 @@
   .alert p {
     font-size: 0.8em;
   }
+  .alert h1 {
+    font-size: 1.3em;
+  }
  }
 
   @media screen and (max-width: 430px) {
@@ -409,5 +416,8 @@
     }
     .alert p {
       font-size: 0.6em;
+    }
+    .alert h1 {
+      font-size: 1em;
     }
   }

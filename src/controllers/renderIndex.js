@@ -1,5 +1,5 @@
 async function renderIndex(req, res) {
-    res.render("index");
+    res.render("manuntecao");
 }
 
 module.exports = { renderIndex }

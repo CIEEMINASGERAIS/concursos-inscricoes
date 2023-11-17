@@ -106,6 +106,11 @@ async function initAddress() {
           bairro.value = ''
           cidade.value = ''
 
+          formDataAddress.logradouro = false
+          formDataAddress.uf = false
+          formDataAddress.bairro = false
+          formDataAddress.cidade = false
+
           cepFound.style.display = 'block'
 
           if (cepFound.style.display === 'block') {
@@ -438,7 +443,6 @@ async function initAddress() {
           formDataAddress.cep && formDataAddress.logradouro && formDataAddress.numero && formDataAddress.uf
           && formDataAddress.bairro && formDataAddress.cidade && formDataAddress.telefone1 && formDataAddress.telefone2
           && formDataAddress.email
-          // formDataAddress
         ) {
           changeMains('.screen-school-data')
           changeSubMainTitle('Formulário de Dados Acadêmicos')

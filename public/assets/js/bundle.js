@@ -45059,6 +45059,10 @@ function _initAddress() {
                           uf.value = '';
                           bairro.value = '';
                           cidade.value = '';
+                          formDataAddress.logradouro = false;
+                          formDataAddress.uf = false;
+                          formDataAddress.bairro = false;
+                          formDataAddress.cidade = false;
                           cepFound.style.display = 'block';
                           if (cepFound.style.display === 'block') {
                             document.addEventListener('click', function (e) {
@@ -45325,9 +45329,7 @@ function _initAddress() {
                             while (1) switch (_context3.prev = _context3.next) {
                               case 0:
                                 e.preventDefault();
-                                if (formDataAddress.cep && formDataAddress.logradouro && formDataAddress.numero && formDataAddress.uf && formDataAddress.bairro && formDataAddress.cidade && formDataAddress.telefone1 && formDataAddress.telefone2 && formDataAddress.email
-                                // formDataAddress
-                                ) {
+                                if (formDataAddress.cep && formDataAddress.logradouro && formDataAddress.numero && formDataAddress.uf && formDataAddress.bairro && formDataAddress.cidade && formDataAddress.telefone1 && formDataAddress.telefone2 && formDataAddress.email) {
                                   changeMains('.screen-school-data');
                                   changeSubMainTitle('Formulário de Dados Acadêmicos');
                                   resolve(formDataAddress);

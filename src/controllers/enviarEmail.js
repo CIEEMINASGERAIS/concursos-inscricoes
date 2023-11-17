@@ -1,12 +1,12 @@
 const nodemailer = require("nodemailer")
 
 const tranposter = nodemailer.createTransport({
-    host: '192.168.0.11',
+    host: 'smtp.office365.com',
     port: 587,
     secure: false, // true para 465, false para as outras
     auth: {
-        user: "nao_responda@cieeminas.org.br",
-        pass: "documentos#123",
+        user: "validacao.cadastro@cieeminas.com.br",
+        pass: "CadCAO#482@validDE$6910",
     },
     tls: {
         // do not fail on invalid certs
@@ -17,7 +17,7 @@ const tranposter = nodemailer.createTransport({
 async function emailASerEnviado(to, user, pass) {
 
     const info = await tranposter.sendMail({
-        from: 'noreply@cieemg.org.br',
+        from: 'validacao.cadastro@cieeminas.com.br',
         to: `${to}`,
         subject: 'Senha para acesso do Portal Estudante',
         html: ` 

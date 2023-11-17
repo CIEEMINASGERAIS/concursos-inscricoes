@@ -60,6 +60,7 @@
   text-decoration: none;
 }
 
+
 .button-end-socio:hover,
 .button-confirm-socio:hover {
   text-decoration: none;
@@ -92,6 +93,10 @@
 
 .data-erro p {
   font-size: 0.5em;
+  display:flex;
+  flex-direction:row;
+  width:5rem;
+  margin: 0rem;
 }
 
 @media (max-width: 920px) {
@@ -101,18 +106,11 @@
 
   .form-socio-economic {
     margin: 5rem 2rem 2rem 6rem;
-    margin: center;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    max-width: 100%;
-    padding: 1.5rem 2rem 3rem 2rem;
   }
 
   .data-erro {
     margin-left: 25rem;
   }
-
 
   .label-title {
     font-size: 1.1rem;

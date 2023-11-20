@@ -35,8 +35,6 @@ async function postRegister(req, res) {
             situacao_judicial: req.body.situacao_judicial
         });
 
-
-
         return res.json({
             mensagem: "Usuário cadastrado com sucesso!",
         });

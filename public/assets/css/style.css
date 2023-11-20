@@ -82,7 +82,7 @@
 .big-terms-conditions,
 .big-address,
 .big-school-data,
-.big-socio-economic, .big-specialProcess {
+.big-socio-economic {
   background-color: white;
   border-radius: 10px;
   padding: 1rem 0.5rem;
@@ -104,8 +104,7 @@
 .big-terms-conditions img,
 .big-address img,
 .big-school-data img,
-.big-socio-economic img,
-.big-specialProcess img {
+.big-socio-economic img {
   margin-right: 1rem;
 }
 
@@ -117,8 +116,7 @@
 .big-terms-conditions:hover,
 .big-address:hover,
 .big-school-data:hover,
-.big-socio-economic:hover,
-.big-specialProcess:hover {
+.big-socio-economic:hover{
   background-color: rgba(88, 84, 84, 0.3);
 }
 
@@ -126,8 +124,7 @@
 .big-terms-conditions:focus,
 .big-address:focus,
 .big-school-data:focus,
-.big-socio-economic:focus,
-.big-specialProcess:hover {
+.big-socio-economic:focus {
   outline: none;
 }
 
@@ -300,8 +297,7 @@
   .button-terms-conditions:hover,
   .button-address:hover,
   .button-school-data:hover,
-  .button-socio-economic:hover,
-  .button-specialProcess:hover {
+  .button-socio-economic:hover {
     background-color: rgba(88, 84, 84, 0.3);
   }
 }

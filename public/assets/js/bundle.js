@@ -45076,61 +45076,65 @@ function _initAddress() {
                       };
                       cep.addEventListener('input', /*#__PURE__*/function () {
                         var _ref2 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(e) {
-                          var dadosCep, validate, cepSemPonto, _response, opcoes;
+                          var campoDisabled, dadosCep, validate, cepSemPonto, _response, opcoes;
                           return _regeneratorRuntime().wrap(function _callee$(_context) {
                             while (1) switch (_context.prev = _context.next) {
                               case 0:
+                                campoDisabled = document.getElementById("logradouro").getAttribute("disabled");
+                                if (campoDisabled) {
+                                  document.getElementById("msg-logradouro").innerHTML = "<p>Clique em procurar no campo CEP para liberar os campos bloqueados.</p>";
+                                }
                                 cepSemPonto = e.target.value.replace(/[^0-9]/g, '');
                                 e.target.value = e.target.value.replace(/\D/g, '');
                                 e.target.value = e.target.value.replace(/(\d{5})(\d)/, '$1-$2');
                                 e.target.value = e.target.value.replace(/(-\d{3})\d+?$/, '$1');
-                                _context.prev = 4;
-                                _context.next = 7;
+                                _context.prev = 6;
+                                _context.next = 9;
                                 return fetch("https://appcadastro.cieemg.org.br/cadastrarEndereco?termo=".concat(cepSemPonto));
-                              case 7:
+                              case 9:
                                 _response = _context.sent;
                                 if (!_response.ok) {
-                                  _context.next = 16;
+                                  _context.next = 18;
                                   break;
                                 }
-                                _context.next = 11;
+                                _context.next = 13;
                                 return _response.json();
-                              case 11:
+                              case 13:
                                 opcoes = _context.sent;
                                 endereco = opcoes;
                                 dadosCep = endereco.map(function (cep) {
                                   return cep.cep;
                                 });
-                                _context.next = 17;
+                                _context.next = 19;
                                 break;
-                              case 16:
+                              case 18:
                                 console.log('Erro na solicitação:', _response.statusText);
-                              case 17:
-                                _context.next = 22;
-                                break;
                               case 19:
-                                _context.prev = 19;
-                                _context.t0 = _context["catch"](4);
+                                _context.next = 24;
+                                break;
+                              case 21:
+                                _context.prev = 21;
+                                _context.t0 = _context["catch"](6);
                                 console.error('Erro:', _context.t0);
-                              case 22:
+                              case 24:
                                 validate = isCep(e.target.value);
                                 if (!(validate && dadosCep[0])) {
-                                  _context.next = 28;
+                                  _context.next = 30;
                                   break;
                                 }
                                 formDataAddress.cep = e.target.value;
                                 document.getElementById("msg-cep").innerHTML = "";
-                                _context.next = 31;
+                                _context.next = 33;
                                 break;
-                              case 28:
+                              case 30:
                                 e.preventDefault();
                                 document.getElementById("msg-cep").innerHTML = "<p>CEP inválido!</p>";
                                 return _context.abrupt("return", formDataAddress.cep = false);
-                              case 31:
+                              case 33:
                               case "end":
                                 return _context.stop();
                             }
-                          }, _callee, null, [[4, 19]]);
+                          }, _callee, null, [[6, 21]]);
                         }));
                         return function (_x3) {
                           return _ref2.apply(this, arguments);

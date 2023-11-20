@@ -82,7 +82,7 @@
 .big-terms-conditions,
 .big-address,
 .big-school-data,
-.big-socio-economic {
+.big-socio-economic, .big-specialProcess {
   background-color: white;
   border-radius: 10px;
   padding: 1rem 0.5rem;
@@ -104,7 +104,8 @@
 .big-terms-conditions img,
 .big-address img,
 .big-school-data img,
-.big-socio-economic img {
+.big-socio-economic img,
+.big-specialProcess img {
   margin-right: 1rem;
 }
 
@@ -116,7 +117,8 @@
 .big-terms-conditions:hover,
 .big-address:hover,
 .big-school-data:hover,
-.big-socio-economic:hover {
+.big-socio-economic:hover,
+.big-specialProcess:hover {
   background-color: rgba(88, 84, 84, 0.3);
 }
 
@@ -124,7 +126,8 @@
 .big-terms-conditions:focus,
 .big-address:focus,
 .big-school-data:focus,
-.big-socio-economic:focus {
+.big-socio-economic:focus,
+.big-specialProcess:hover {
   outline: none;
 }
 
@@ -297,7 +300,8 @@
   .button-terms-conditions:hover,
   .button-address:hover,
   .button-school-data:hover,
-  .button-socio-economic:hover {
+  .button-socio-economic:hover,
+  .button-specialProcess:hover {
     background-color: rgba(88, 84, 84, 0.3);
   }
 }
@@ -311,6 +315,17 @@
 @media screen and (max-height:700px) {
 
   .big-basic-data,
+<<<<<<< HEAD
+.big-terms-conditions,
+.big-address,
+.big-school-data,
+.big-socio-economic,
+.big-specialProcess {
+  padding: 1rem 0.5rem;
+  margin-top: 0rem;
+}
+  
+=======
   .big-terms-conditions,
   .big-address,
   .big-school-data,
@@ -319,6 +334,7 @@
     margin-top: 0rem;
   }
 
+>>>>>>> ce2dcdbca009267f406d29806346377281ab1bf3
   .main-side-mobile {
     padding: 0rem;
   }
@@ -354,7 +370,10 @@
   }
 }
 
+<<<<<<< HEAD
+=======
 
+>>>>>>> ce2dcdbca009267f406d29806346377281ab1bf3
 @media screen and (max-height:400px) {
   .nav-bar {
     overflow: auto;

@@ -10,9 +10,11 @@ const {
   changeMains,
   changeSubMainTitle,
   conferirFormSchool,
+  dateTime
 } = require("../utils/util.js");
 
 async function takeData() {
+  const date = dateTime()
   const callMain = main();
   const termsConditions = await termsAndConditions();
 
@@ -87,7 +89,19 @@ async function takeData() {
       }
     }
   });
+
   const dataEconomy = await socioEconomic();
+  document.querySelector(".alert").innerHTML =
+    `<h1>Cadastro concluído!</h1>
+    <p>Olá ${formData.nome}, parabéns por finalizar a primeira etapa do seu cadastro, fique atento ao seu e-mail,
+    enviaremos em
+    até 24 horas os dados para realizar seu primeiro login no nosso portal, para conclusão do seu cadastro.</p>
+    <div class="button-school-end">
+            <a class="button-end-school" href="https://cieemg.org.br/" rel="noopener noreferrer">Confirmar</a>
+    </div>
+    <div class="data-erro">
+      <p>${date}</p>
+    </div>`;
 
   const allData = await {
     ...termsConditions,
@@ -97,8 +111,6 @@ async function takeData() {
     ...dataEconomy,
   };
 
-  console.log(allData);
-
   return allData;
 }
 
@@ -106,7 +118,7 @@ async function sendData() {
   const data = await takeData();
 
   try {
-    const response = await fetch("http://localhost:8080/cadastrar", {
+    const response = await fetch("https://appcadastro.cieemg.org.br/cadastrar", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

@@ -22,7 +22,7 @@
         </div>
 
         <div class="form-group">
-            <h4 class="label-title">3. Estuda ou estudou em escola da:</h4>
+            <h4 class="label-title">3. Estuda ou estudou em escola da: <span class="span-obrigatorio">Obrigatório</span></h4>
 
             <div class="form-check">
                 <input type="radio" class="form-check-input" id="escola-municipal" name="escolas" value="0" required>
@@ -61,7 +61,7 @@
             </label>
             <input type="text" name="pessoas" class="form-control" id="pessoas"
                 placeholder="Quantas pessoas do seu grupo familiar residem na sua casa?" required>
-            <p class="obg">Obrigatório</p>    
+            <p class="obg">Obrigatório</p>
             <span id="msg-pessoas"></span>
         </div>
 
@@ -69,7 +69,7 @@
             <h4 class="label-title">6. Informe o valor total da renda, formal ou informal, do
                 seu grupo familiar, incluindo pensão alimentícia
                 ou por falecimento, aposentadoria, benefícios do Governo, como BPC, BEM e outros (estas
-                informações deverão ser comprovadas quando solicitadas):</h4>
+                informações deverão ser comprovadas quando solicitadas): <span class="span-obrigatorio">Obrigatório</span></h4>
 
             <div class="form-check">
                 <input type="radio" class="form-check-input" id="1salario" name="rendas" required value="1">
@@ -92,7 +92,7 @@
         </div>
 
         <div class="form-group">
-            <h4 class="label-title">7. Qual a sua identidade de gênero?</h4>
+            <h4 class="label-title">7. Qual a sua identidade de gênero? <span class="span-obrigatorio">Obrigatório</span></h4>
             <div class="form-check">
                 <input type="radio" class="form-check-input" id="cisgenero" name="genero" value="C" required>
                 <label for="cisgenero" class="form-check-label">Cisgênero: pessoa que se identifica com as
@@ -100,8 +100,7 @@
                     sexo designado a ela no nascimento </label>
             </div>
             <div class="form-check">
-                <input type="radio" class="form-check-input" id="transgenero" name="genero" value="T"
-                    required>
+                <input type="radio" class="form-check-input" id="transgenero" name="genero" value="T" required>
                 <label for="transgenero" class="form-check-label">Transgênero: pessoa que não se identifica com
                     ascaracterísticas
                     do sexo designado a elano nascimento</label>
@@ -109,14 +108,13 @@
         </div>
 
         <div class="form-group">
-            <h4 class="label-title">8. Como você se declara:</h4>
+            <h4 class="label-title">8. Como você se declara: <span class="span-obrigatorio">Obrigatório</span></h4>
             <div class="form-check">
                 <input type="radio" class="form-check-input" id="negro" name="declaracao" value="N" required>
                 <label for="negro" class="form-check-label">Negro</label>
             </div>
             <div class="form-check">
-                <input type="radio" class="form-check-input" id="branco" name="declaracao" value="B"
-                    required>
+                <input type="radio" class="form-check-input" id="branco" name="declaracao" value="B" required>
                 <label for="branco" class="form-check-label">Branco</label>
             </div>
             <div class="form-check">
@@ -124,13 +122,11 @@
                 <label for="pardo" class="form-check-label">Pardo</label>
             </div>
             <div class="form-check">
-                <input type="radio" class="form-check-input" id="amarelo" name="declaracao" value="A"
-                    required>
+                <input type="radio" class="form-check-input" id="amarelo" name="declaracao" value="A" required>
                 <label for="amarelo" class="form-check-label">Amarelo</label>
             </div>
             <div class="form-check">
-                <input type="radio" class="form-check-input" id="indigena" name="declaracao" value="I"
-                    required>
+                <input type="radio" class="form-check-input" id="indigena" name="declaracao" value="I" required>
                 <label for="indigena" class="form-check-label"> Indígena (possui declaração de vínculo com a comunidade
                     indígena pela FUNAI)
                 </label>
@@ -146,10 +142,9 @@
         </div>
 
         <div class="form-group">
-            <h4 class="label-title">10. Você se enquadra em uma das opções abaixo?</h4>
+            <h4 class="label-title">10. Você se enquadra em uma das opções abaixo? <span class="span-obrigatorio">Obrigatório</span></h4>
             <div class="form-check">
-                <input type="radio" class="form-check-input" id="abrigo" name="situacao-judicial" value="A"
-                    required>
+                <input type="radio" class="form-check-input" id="abrigo" name="situacao-judicial" value="A" required>
                 <label for="abrigo" class="form-check-label"> está em acolhimento institucional (abrigo)
                 </label>
             </div>
@@ -170,8 +165,7 @@
                 <label for="sistema-prisional" class="form-check-label"> está no sistema prisional</label>
             </div>
             <div class="form-check">
-                <input type="radio" class="form-check-input" id="nenhuma" name="situacao-judicial" value="N"
-                    required>
+                <input type="radio" class="form-check-input" id="nenhuma" name="situacao-judicial" value="N" required>
                 <label for="nenhuma" class="form-check-label"> não me enquadro em nenhuma das opções</label>
             </div>
         </div>
@@ -182,9 +176,9 @@
         <div class="div-buttons">
             <button class="button-back-socio" type="button">Voltar</button>
             <div class="linha-ou-socio">
-              <div class="line-div"></div>
-              <div class="ou">OU</div>
-              <div class="line-div"></div>
+                <div class="line-div"></div>
+                <div class="ou">OU</div>
+                <div class="line-div"></div>
             </div>
             <button class="button-finish-socio" type="submit">Finalizar</button>
         </div>
@@ -192,12 +186,5 @@
 </div>
 <div class="end">
     <div class="alert">
-        <h1>Cadastro concluído!</h1>
-        <p>Olá estudante, parabéns por finalizar a primeira etapa do seu cadastro, fique atento ao seu e-mail,
-            enviaremos em
-            até 24 horas os dados para realizar seu primeiro login no nosso portal, para conclusão do seu cadastro.</p>
-        <div class="button-school-end">
-            <a class="button-end-school" href="https://cieemg.org.br/" rel="noopener noreferrer">Confirmar</a>
-        </div>
     </div>
 </div>

@@ -106,6 +106,11 @@ async function initAddress() {
           bairro.value = ''
           cidade.value = ''
 
+          formDataAddress.logradouro = false
+          formDataAddress.uf = false
+          formDataAddress.bairro = false
+          formDataAddress.cidade = false
+
           cepFound.style.display = 'block'
 
           if (cepFound.style.display === 'block') {

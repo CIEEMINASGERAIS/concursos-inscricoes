@@ -10,7 +10,7 @@ const {
   isHorario,
   changeMains,
   changeSubMainTitle,
-  erroSelectSchool
+  erroSelectSchool,
 } = require("../utils/util");
 
 const generator = require("generate-password");
@@ -126,7 +126,10 @@ async function createFormSchoolData() {
       option1.disabled = "disabled";
       option1.selected = "selected";
       option1.text = "Selecione";
+      // option1.value = "";
       horario.appendChild(option1);
+
+      dataFormSchool.horario = false
 
       for (let i = 0; i < horariosEstudos.length; i++) {
         const option = document.createElement("option");
@@ -168,6 +171,7 @@ async function createFormSchoolData() {
       option1.disabled = "disabled";
       option1.selected = "selected";
       option1.text = "Selecione";
+      // option1.value = "";
       escolas.appendChild(option1);
 
       for (let i = 0; i < opcoes.length; i++) {
@@ -187,6 +191,7 @@ async function createFormSchoolData() {
       option1.disabled = "disabled";
       option1.selected = "selected";
       option1.text = "Selecione";
+      // option1.value = "";
       cursos.appendChild(option1);
 
       for (let i = 0; i < opcoes.length; i++) {
@@ -441,6 +446,7 @@ async function createFormSchoolData() {
     if (formSchoolData) {
       formSchoolData.addEventListener("submit", async (e) => {
         e.preventDefault();
+
         if (
           dataFormSchool.escola_id &&
           dataFormSchool.curso_id &&
@@ -461,9 +467,7 @@ async function createFormSchoolData() {
           resolve(dataFormSchool);
         }
         else {
-          // document.getElementById("msg-fracasso-school").innerHTML =
-          //   "<p>Formulário incompleto!</p>";
-          erroSelectSchool(".form-school-data select")
+          erroSelectSchool(".form-school-data select", dataFormSchool.previsao_ano)
           removerMensagem("msg-fracasso-school");
         }
       });

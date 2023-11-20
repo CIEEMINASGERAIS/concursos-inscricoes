@@ -468,6 +468,7 @@ const initDataBasic = async () => {
           formDataBasic.orgaoexpedidor &&
           formDataBasic.idade &&
           formDataBasic.cpf
+          // formDataBasic
           // No caso do nomepai e carteira de trabalho não são obrigatorios
         ) {
           changeMains(".screen-address");

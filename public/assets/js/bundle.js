@@ -45074,6 +45074,10 @@ function _initAddress() {
                           uf.value = '';
                           bairro.value = '';
                           cidade.value = '';
+                          formDataAddress.logradouro = false;
+                          formDataAddress.uf = false;
+                          formDataAddress.bairro = false;
+                          formDataAddress.cidade = false;
                           cepFound.style.display = 'block';
                           if (cepFound.style.display === 'block') {
                             document.addEventListener('click', function (e) {
@@ -45751,6 +45755,7 @@ var initDataBasic = /*#__PURE__*/function () {
                       formData.addEventListener("submit", function (e) {
                         e.preventDefault();
                         if (formDataBasic.nome && formDataBasic.nomemae && formDataBasic.naturalidade && formDataBasic.nacionalidade && formDataBasic.estadocivil && formDataBasic.dt_nascimento && formDataBasic.sexo && formDataBasic.uf_naturalidade && formDataBasic.deficiencia && formDataBasic.rg && formDataBasic.orgaoexpedidor && formDataBasic.idade && formDataBasic.cpf
+                        // formDataBasic
                         // No caso do nomepai e carteira de trabalho não são obrigatorios
                         ) {
                           changeMains(".screen-address");
@@ -45889,6 +45894,7 @@ function _createFormSchoolData() {
                       option1.disabled = "disabled";
                       option1.selected = "selected";
                       option1.text = "Selecione";
+                      // option1.value = "";
                       cursos.appendChild(option1);
                       for (var _i8 = 0; _i8 < opcoes.length; _i8++) {
                         var _option7 = document.createElement("option");
@@ -45904,6 +45910,7 @@ function _createFormSchoolData() {
                       option1.disabled = "disabled";
                       option1.selected = "selected";
                       option1.text = "Selecione";
+                      // option1.value = "";
                       escolas.appendChild(option1);
                       for (var _i7 = 0; _i7 < opcoes.length; _i7++) {
                         var _option6 = document.createElement("option");
@@ -45919,7 +45926,9 @@ function _createFormSchoolData() {
                       option1.disabled = "disabled";
                       option1.selected = "selected";
                       option1.text = "Selecione";
+                      // option1.value = "";
                       horario.appendChild(option1);
+                      dataFormSchool.horario = false;
                       for (var _i6 = 0; _i6 < horariosEstudos.length; _i6++) {
                         var _option5 = document.createElement("option");
                         _option5.text = horariosEstudos[_i6];
@@ -46297,9 +46306,7 @@ function _createFormSchoolData() {
                                   changeSubMainTitle("Formulário Socioeconômico");
                                   resolve(dataFormSchool);
                                 } else {
-                                  // document.getElementById("msg-fracasso-school").innerHTML =
-                                  //   "<p>Formulário incompleto!</p>";
-                                  erroSelectSchool(".form-school-data select");
+                                  erroSelectSchool(".form-school-data select", dataFormSchool.previsao_ano);
                                   removerMensagem("msg-fracasso-school");
                                 }
                               case 2:
@@ -46348,7 +46355,8 @@ function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyri
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 var _require = __webpack_require__(/*! ../utils/util */ "./frontend/utils/util.js"),
-  selecionarNomes = _require.selecionarNomes;
+  selecionarNomes = _require.selecionarNomes,
+  dateTime = _require.dateTime;
 function socioEconomic() {
   return _socioEconomic.apply(this, arguments);
 }
@@ -46378,6 +46386,7 @@ function _socioEconomic() {
                     aprendiz = document.getElementById("aprendiz");
                     aprendiz.addEventListener("input", function (e) {
                       var valores = e.target.value;
+                      valores = valores.trim();
                       if (valores.length === 0) {
                         e.preventDefault();
                         document.getElementById("msg-aprendiz").innerHTML = "<p>Favor preencher o campo!</p>";
@@ -46390,6 +46399,7 @@ function _socioEconomic() {
                     responsavel = document.getElementById("responsavel");
                     responsavel.addEventListener("input", function (e) {
                       var valores = e.target.value;
+                      valores = valores.trim();
                       if (valores.length === 0) {
                         e.preventDefault();
                         document.getElementById("msg-responsavel").innerHTML = "<p>Favor preencher o campo!</p>";
@@ -46402,6 +46412,7 @@ function _socioEconomic() {
                     imovel = document.getElementById("imovel");
                     imovel.addEventListener("input", function (e) {
                       var valores = e.target.value;
+                      valores = valores.trim();
                       if (valores.length === 0) {
                         e.preventDefault();
                         document.getElementById("msg-imovel").innerHTML = "<p>Favor preencher o campo!</p>";
@@ -46414,6 +46425,7 @@ function _socioEconomic() {
                     pessoas = document.getElementById("pessoas");
                     pessoas.addEventListener("input", function (e) {
                       var valores = e.target.value;
+                      valores = valores.trim();
                       if (valores.length === 0) {
                         e.preventDefault();
                         document.getElementById("msg-pessoas").innerHTML = "<p>Favor preencher o campo!</p>";
@@ -46426,6 +46438,7 @@ function _socioEconomic() {
                     filhos = document.getElementById("filhos");
                     filhos.addEventListener("input", function (e) {
                       var valores = e.target.value;
+                      valores = valores.trim();
                       if (valores.length === 0) {
                         e.preventDefault();
                         document.getElementById("msg-filhos").innerHTML = "<p>Favor preencher o campo!</p>";
@@ -46445,7 +46458,6 @@ function _socioEconomic() {
                       formSocioEconomic.addEventListener("submit", function (e) {
                         e.preventDefault();
                         if (formEconomic.aprendiz && formEconomic.responsavel && formEconomic.imovel && formEconomic.pessoas_por_residencia && formEconomic.tem_filhos) {
-                          console.log(formEconomic);
                           formEconomic.escola_estudou = selecionarNomes(escolas);
                           formEconomic.renda = selecionarNomes(rendas);
                           formEconomic.genero = selecionarNomes(generos);
@@ -46453,6 +46465,8 @@ function _socioEconomic() {
                           formEconomic.situacao_judicial = selecionarNomes(situacaoJudicial);
                           alertEnd.style.display = "block";
                           resolve(formEconomic);
+                        } else {
+                          console.log(formEconomic);
                         }
                       });
                     } else {
@@ -46493,7 +46507,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 var _require = __webpack_require__(/*! ../utils/util */ "./frontend/utils/util.js"),
   changeMains = _require.changeMains,
   changeSubMainTitle = _require.changeSubMainTitle,
-  dateTime = _require.dateTime,
   dateRegister = _require.dateRegister;
 function termsAndConditions() {
   return _termsAndConditions.apply(this, arguments);
@@ -47498,9 +47511,6 @@ var erroInput = function erroInput(object) {
       } else if (_chave7 === "dt_nascimento") {
         document.getElementById("msg-fracasso").innerHTML = "<p>Campo data de nascimento inv\xE1lido!</p>";
         break;
-      } else if (_chave7 === "dt_nascimento") {
-        document.getElementById("msg-fracasso").innerHTML = "<p>Campo data de nascimento inv\xE1lido!</p>";
-        break;
       } else if (_chave7 === "deficiencia_descricao") {
         document.getElementById("msg-fracasso").innerHTML = "<p>Campo descreva a defici\xEAncia inv\xE1lido!</p>";
         break;
@@ -47512,7 +47522,7 @@ var erroInput = function erroInput(object) {
   }
 };
 var erroSelect = function erroSelect(select) {
-  var selects = document.querySelectorAll(".form-data select");
+  var selects = document.querySelectorAll(select);
   for (var i = 0; i < selects.length; i++) {
     if (selects[i].value === "Selecione") {
       if (selects[i].name === "estadoCivil") {
@@ -47547,39 +47557,32 @@ var erroInputAddress = function erroInputAddress(object) {
     }
   }
 };
-var erroSelectSchool = function erroSelectSchool(select) {
-  var selects = document.querySelectorAll(select);
+var erroSelectSchool = function erroSelectSchool(select, ano) {
+  var selects = document.querySelectorAll(select, ano);
   for (var i = 0; i < selects.length; i++) {
-    if (selects[i].value === "Selecione") {
+    if (selects[i].value === "Selecione" || selects[i].value === "") {
       if (selects[i].name === "escolas") {
         document.getElementById("msg-fracasso-school").innerHTML = "<p>Campo escola onde estuda ou estudou inv\xE1lido!</p>";
         break;
-      }
-      // else if (selects[i].name === "cursos") {
-      //   document.getElementById(
-      //     `msg-fracasso-school`
-      //   ).innerHTML = `<p>Campo cursos inválido!</p>`;
-      //   break
-      // } 
-      else if (selects[i].name === "anoFormatura") {
-        document.getElementById("msg-fracasso-school").innerHTML = "<p>Campo ano de formatura inv\xE1lido!</p>";
+      } else if (selects[i].name === "cursos") {
+        document.getElementById("msg-fracasso-school").innerHTML = "<p>Selecione um item da lista cursos.</p>";
+        break;
+      } else if (selects[i].name === "anoFormatura") {
+        document.getElementById("msg-fracasso-school").innerHTML = "<p>Selecione um item da lista ano de formatura.</p>";
         break;
       } else if (selects[i].name === "semestreFormatura") {
-        document.getElementById("msg-fracasso-school").innerHTML = "<p>Campo semestre de formatura inv\xE1lido!</p>";
+        document.getElementById("msg-fracasso-school").innerHTML = "<p>Selecione um item da lista semestre de formatura.</p>";
         break;
       } else if (selects[i].name === "mesFormatura") {
-        document.getElementById("msg-fracasso-school").innerHTML = "<p>Campo M\xEAs de Formatura inv\xE1lido!</p>";
+        document.getElementById("msg-fracasso-school").innerHTML = "<p>Selecione um item da lista M\xEAs de Formatura.</p>";
         break;
-      } else if (selects[i].name === "periodo") {
-        document.getElementById("msg-fracasso-school").innerHTML = "<p>Campo per\xEDodo/ano/ciclo/m\xF3dulo inv\xE1lido!</p>";
+      } else if (selects[i].name === "periodo" && isvalid(ano)) {
+        document.getElementById("msg-fracasso-school").innerHTML = "<p>Selecione um item da lista per\xEDodo/ano/ciclo/m\xF3dulo.</p>";
         break;
       } else if (selects[i].name === "horarioEstudo") {
-        document.getElementById("msg-fracasso-school").innerHTML = "<p>Campo hor\xE1rio de estudo inv\xE1lido!</p>";
+        document.getElementById("msg-fracasso-school").innerHTML = "<p>Selecione um item da lista hor\xE1rio de estudo.</p>";
         break;
       }
-    } else if (selects[i].value === "Selecione o curso") {
-      document.getElementById("msg-fracasso-school").innerHTML = "<p>Campo cursos inv\xE1lido!</p>";
-      break;
     }
   }
 };
@@ -47785,24 +47788,26 @@ var _require = __webpack_require__(/*! ../utils/util.js */ "./frontend/utils/uti
   conferirFormBasic = _require.conferirFormBasic,
   changeMains = _require.changeMains,
   changeSubMainTitle = _require.changeSubMainTitle,
-  conferirFormSchool = _require.conferirFormSchool;
+  conferirFormSchool = _require.conferirFormSchool,
+  dateTime = _require.dateTime;
 function takeData() {
   return _takeData.apply(this, arguments);
 }
 function _takeData() {
   _takeData = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
-    var callMain, termsConditions, formData, validateFormBasic, formAddress, validateFormAddress, formSchoolData, validateFormSchool, dataEconomy, allData;
+    var date, callMain, termsConditions, formData, validateFormBasic, formAddress, validateFormAddress, formSchoolData, validateFormSchool, dataEconomy, allData;
     return _regeneratorRuntime().wrap(function _callee$(_context) {
       while (1) switch (_context.prev = _context.next) {
         case 0:
+          date = dateTime();
           callMain = main();
-          _context.next = 3;
+          _context.next = 4;
           return termsAndConditions();
-        case 3:
+        case 4:
           termsConditions = _context.sent;
-          _context.next = 6;
+          _context.next = 7;
           return initDataBasic();
-        case 6:
+        case 7:
           formData = _context.sent;
           document.addEventListener("click", function (event) {
             var element = event.target;
@@ -47819,9 +47824,9 @@ function _takeData() {
               }
             }
           });
-          _context.next = 10;
+          _context.next = 11;
           return initAddress();
-        case 10:
+        case 11:
           formAddress = _context.sent;
           document.addEventListener("click", function (event) {
             var element = event.target;
@@ -47838,9 +47843,9 @@ function _takeData() {
               }
             }
           });
-          _context.next = 14;
+          _context.next = 15;
           return createFormSchoolData();
-        case 14:
+        case 15:
           formSchoolData = _context.sent;
           document.addEventListener("click", function (event) {
             var element = event.target;
@@ -47857,17 +47862,17 @@ function _takeData() {
               }
             }
           });
-          _context.next = 18;
+          _context.next = 19;
           return socioEconomic();
-        case 18:
+        case 19:
           dataEconomy = _context.sent;
-          _context.next = 21;
+          document.querySelector(".alert").innerHTML = "<h1>Cadastro conclu\xEDdo!</h1>\n    <p>Ol\xE1 ".concat(formData.nome, ", parab\xE9ns por finalizar a primeira etapa do seu cadastro, fique atento ao seu e-mail,\n    enviaremos em\n    at\xE9 24 horas os dados para realizar seu primeiro login no nosso portal, para conclus\xE3o do seu cadastro.</p>\n    <div class=\"button-school-end\">\n            <a class=\"button-end-school\" href=\"https://cieemg.org.br/\" rel=\"noopener noreferrer\">Confirmar</a>\n    </div>\n    <div class=\"data-erro\">\n      <p>").concat(date, "</p>\n    </div>");
+          _context.next = 23;
           return _objectSpread(_objectSpread(_objectSpread(_objectSpread(_objectSpread({}, termsConditions), formData), formAddress), formSchoolData), dataEconomy);
-        case 21:
+        case 23:
           allData = _context.sent;
-          console.log(allData);
           return _context.abrupt("return", allData);
-        case 24:
+        case 25:
         case "end":
           return _context.stop();
       }
@@ -47890,7 +47895,7 @@ function _sendData() {
           data = _context2.sent;
           _context2.prev = 3;
           _context2.next = 6;
-          return fetch("http://localhost:8080/cadastrar", {
+          return fetch("https://appcadastro.cieemg.org.br/cadastrar", {
             method: "POST",
             headers: {
               "Content-Type": "application/json"

@@ -19,9 +19,7 @@ async function postRegister(req, res) {
 
         const novoEstudante = await Estudante.create(req.body)
 
-        // await enviandoEmail.emailASerEnviado(req.body.email, req.body.nome, req.body.senha).catch(console.error)
-
-        console.log(req.body)
+        await enviandoEmail.emailASerEnviado(req.body.email, req.body.nome, req.body.senha).catch(console.error)
 
         await SocioEconomico.create({
             estudante_id: novoEstudante.id,

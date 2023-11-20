@@ -1,6 +1,6 @@
 .form-socio-economic {
   background-color: rgb(13, 13, 13);
-  margin: 5rem 2rem 5rem 14rem;
+  margin: 5rem 2rem 2rem 14rem;
   margin: center;
   display: flex;
   flex-direction: column;
@@ -13,14 +13,6 @@
   gap: 1rem;
   color: white;
 }
-/* #msg-aprendiz, #msg-responsavel, #msg-imovel, #msg-pessoas, #msg-filhos{
-  color: rgb(255, 0, 0);
-  cursor: default;
-  font-weight: bold;
-  margin: 0rem;
-  margin-top: -1.1rem;
-  padding: 0;
-} */
 
 .form-economic span p {
   color: rgb(255, 0, 0);
@@ -30,7 +22,6 @@
   margin-top: -1.1rem;
   padding: 0;
 }
-
 
 .form-group {
   margin-top: 2.5rem;
@@ -42,6 +33,12 @@
 
 .form-check-label {
   font-size: 1rem;
+}
+
+.span-obrigatorio {
+  margin-left: 0.2rem;
+  color: #ffffff;
+  font-size: 0.7rem;
 }
 
 .button-end-socio,
@@ -62,6 +59,7 @@
   width: 10rem;
   text-decoration: none;
 }
+
 
 .button-end-socio:hover,
 .button-confirm-socio:hover {
@@ -84,51 +82,74 @@
   margin-bottom: 1rem;
 }
 
+.data-erro {
+  display: flex;
+  align-self: self-end;
+}
+
+.line-erro {
+  font-size: 1rem;
+}
+
+.data-erro p {
+  font-size: 0.5em;
+  display:flex;
+  flex-direction:row;
+  width:5rem;
+  margin: 0rem;
+}
+
 @media (max-width: 920px) {
-  .screen-socio-economic{
-    margin-left:1rem;
-   }
-  .form-socio-economic {
-    margin: 5rem 2rem 5rem 5rem;
-    margin: center;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    max-width: 100%;
-    padding: 1.5rem 2rem 3rem 2rem;
+  .screen-socio-economic {
+    margin-left: 1rem;
   }
-}
 
-@media (max-width: 500px) {
+  .form-socio-economic {
+    margin: 5rem 2rem 2rem 6rem;
+  }
 
-  /* .form-socio-economic {
-    margin: 4rem 1rem 5rem 1rem;
-    padding: 1.5rem 1rem 3rem 1rem;
-  } */
-}
+  .data-erro {
+    margin-left: 25rem;
+  }
 
-.label-title {
+  .label-title {
     font-size: 1.1rem;
-}
+  }
 
-.linha-ou-socio {
+  .linha-ou-socio {
     display: flex;
     flex-direction: row;
     align-items: center;
     margin-top: 1rem;
     margin-bottom: 1rem;
-}
+  }
 
-.button-back-socio {
+  .button-back-socio {
     margin: 2rem 0rem 0rem 0rem;
+  }
 }
 
-@media (max-width: 470px) {
+@media (max-width: 430px) {
+
+  .form-socio-economic {
+    margin: 4rem 1rem 2rem 5rem;
+  }
+
+  .form-economic span p {
+    margin-top: 0rem;
+  }
+}
+
 .form-economic span p {
   margin-top: 0rem;
 }
-.screen-socio-economic{
-  margin-left:0rem;
- }
 
+.screen-socio-economic {
+  margin-left: 0rem;
+}
+
+@media (max-width: 400px) {
+  .form-socio-economic {
+    padding: 1rem;
+  }
 }

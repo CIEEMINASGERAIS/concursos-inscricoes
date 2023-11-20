@@ -315,17 +315,6 @@
 @media screen and (max-height:700px) {
 
   .big-basic-data,
-<<<<<<< HEAD
-.big-terms-conditions,
-.big-address,
-.big-school-data,
-.big-socio-economic,
-.big-specialProcess {
-  padding: 1rem 0.5rem;
-  margin-top: 0rem;
-}
-  
-=======
   .big-terms-conditions,
   .big-address,
   .big-school-data,
@@ -334,7 +323,6 @@
     margin-top: 0rem;
   }
 
->>>>>>> ce2dcdbca009267f406d29806346377281ab1bf3
   .main-side-mobile {
     padding: 0rem;
   }
@@ -370,10 +358,6 @@
   }
 }
 
-<<<<<<< HEAD
-=======
-
->>>>>>> ce2dcdbca009267f406d29806346377281ab1bf3
 @media screen and (max-height:400px) {
   .nav-bar {
     overflow: auto;

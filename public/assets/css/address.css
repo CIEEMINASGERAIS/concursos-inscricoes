@@ -92,7 +92,7 @@ input#cep {
   margin:0;
   padding: 0rem 0rem 0rem 0.5rem;
   border-radius: 0.5rem;
-  max-width: 100%;
+  max-width: 78%;
   font-size: 1rem;
   margin-top: -1.1rem;
 }
@@ -244,7 +244,6 @@ input#cep {
   outline: none;
 }
 
-
 @media screen and (max-width:920px) {
   .screen-address {
     margin: 5rem 8rem 0rem 0rem;
@@ -293,7 +292,12 @@ input#cep {
     margin-top: 0rem;
   }
 }
-
+@media screen and (max-width: 560px) {
+  .form-address span p{
+  max-width: 100%;
+  margin-top: 0rem;
+}
+}
 @media screen and (max-width: 430px) {
 
   .screen-address {

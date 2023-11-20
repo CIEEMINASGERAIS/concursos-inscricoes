@@ -129,6 +129,12 @@ async function initAddress() {
 
       cep.addEventListener('input', async e => {
 
+        const campoDisabled = document.getElementById("logradouro").getAttribute("disabled")
+
+        if (campoDisabled) {
+          document.getElementById("msg-logradouro").innerHTML = "<p>Clique em procurar no campo CEP para liberar os campos bloqueados.</p>"
+        }
+
         let dadosCep
 
         let validate

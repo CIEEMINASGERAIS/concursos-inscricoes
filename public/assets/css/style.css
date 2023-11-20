@@ -116,7 +116,7 @@
 .big-terms-conditions:hover,
 .big-address:hover,
 .big-school-data:hover,
-.big-socio-economic:hover {
+.big-socio-economic:hover{
   background-color: rgba(88, 84, 84, 0.3);
 }
 
@@ -353,7 +353,6 @@
     overflow: auto;
   }
 }
-
 
 @media screen and (max-height:400px) {
   .nav-bar {

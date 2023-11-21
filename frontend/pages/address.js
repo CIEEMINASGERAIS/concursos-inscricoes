@@ -197,7 +197,6 @@ async function initAddress() {
           validationAddress(validateCep)
         })
       }
-
     }
 
     if (logradouro) {
@@ -237,7 +236,6 @@ async function initAddress() {
             "<p>UF inválido!</p>"
           formDataAddress.uf = false
         }
-
       })
     }
 
@@ -276,7 +274,6 @@ async function initAddress() {
             "<p>Cidade inválido!</p>"
           formDataAddress.cidade = false
         }
-
       })
     }
 
@@ -305,7 +302,6 @@ async function initAddress() {
         }
 
       })
-
     }
 
     const complemento = document.getElementById('complemento')
@@ -329,7 +325,6 @@ async function initAddress() {
             "<p>Valor inválido!</p>"
           return formDataAddress.complemento = " "
         }
-
       })
     }
 
@@ -454,8 +449,6 @@ async function initAddress() {
           changeSubMainTitle('Formulário de Dados Acadêmicos')
           resolve(formDataAddress)
         } else {
-          // document.getElementById('msg-fracasso-address').innerHTML =
-          //   "<p>Formulário incompleto!</p>"
           erroInputAddress(formDataAddress)
           removerMensagem('msg-fracasso-address')
         }

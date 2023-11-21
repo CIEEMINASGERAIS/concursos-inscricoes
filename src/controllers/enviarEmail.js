@@ -64,7 +64,6 @@ async function emailASerEnviado(to, user, pass) {
             filename: "CIEE-2023-atualizado.png",
             path: "public/assets/images/CIEE-2023-atualizado.png",
             cid: "logociee"
-
         }],
         text: `
         Prezado(a) ${user},        
@@ -79,6 +78,5 @@ async function emailASerEnviado(to, user, pass) {
 
     console.log('Message sent: %s', info.messageId)
 }
-
 
 module.exports = { emailASerEnviado }

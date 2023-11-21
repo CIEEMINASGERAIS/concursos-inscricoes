@@ -1029,12 +1029,12 @@ const erroSelectSchool = (select, ano) => {
       if (selects[i].name === "escolas") {
         document.getElementById(
           `msg-fracasso-school`
-        ).innerHTML = `<p>Campo escola onde estuda ou estudou inválido!</p>`;
+        ).innerHTML = `<p>Selecione um item da lista de escolas.</p>`;
         break
       } else if (selects[i].name === "cursos") {
         document.getElementById(
           `msg-fracasso-school`
-        ).innerHTML = `<p>Selecione um item da lista cursos.</p>`;
+        ).innerHTML = `<p>Selecione um item da lista de cursos.</p>`;
         break
       }
       else if (selects[i].name === "anoFormatura") {

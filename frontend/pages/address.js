@@ -447,10 +447,8 @@ async function initAddress() {
         ) {
           changeMains('.screen-school-data')
           changeSubMainTitle('Formulário de Dados Acadêmicos')
-          console.log(formDataAddress)
           resolve(formDataAddress)
         } else {
-          console.log(formDataAddress)
           erroInputAddress(formDataAddress)
           removerMensagem('msg-fracasso-address')
         }

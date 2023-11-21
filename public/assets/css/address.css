@@ -162,6 +162,7 @@ input#cep {
 
 #msg-fracasso-address {
   margin: 1rem 0rem 0rem 0rem;
+  max-width: 100%;
 }
 
 #msg-fracasso-address p {
@@ -175,6 +176,7 @@ input#cep {
   align-items: center;
   justify-content: center;
   border-radius: 0.5rem;
+  max-width: 100%;
 }
 
 .cep-found {

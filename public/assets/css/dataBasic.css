@@ -92,7 +92,9 @@
   justify-content: space-between;
   margin-bottom: 1rem;
 }
-
+.div-number-5{
+  margin-bottom: 2rem;
+}
 .div-name {
   width: 46rem;
   margin-right: 2rem;
@@ -199,17 +201,15 @@
 
 #msg-fracasso p {
   font-size: 1em;
-  /* margin: 0rem 0rem 0rem 27.5rem; */
   padding: 1rem 0.5rem 0rem 0.5rem;
-  /* background-color: rgba(255, 255, 255, 0.336); */
   color: rgb(255, 0, 0);
   border-radius: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  /* outline: 0.1rem solid rgb(255, 0, 0); */
   border-radius: 0.5rem;
   width: 100%;
+  margin-bottom:1rem ;
 }
 
 /* inicio correção de mensagem erro, todas as alteraçoes realizadas aqui, são para style das mensagem erro. */
@@ -341,9 +341,7 @@
     padding: 0;
   }
 
-  #msg-fracasso p {
-    margin: 0rem 0rem 0rem 0rem;
-  }
+
 }
 
 @media screen and (max-width:540px) {

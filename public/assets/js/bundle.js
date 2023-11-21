@@ -45336,8 +45336,10 @@ function _initAddress() {
                                 if (formDataAddress.cep && formDataAddress.logradouro && formDataAddress.numero && formDataAddress.uf && formDataAddress.bairro && formDataAddress.cidade && formDataAddress.telefone1 && formDataAddress.telefone2 && formDataAddress.email) {
                                   changeMains('.screen-school-data');
                                   changeSubMainTitle('Formulário de Dados Acadêmicos');
+                                  console.log(formDataAddress);
                                   resolve(formDataAddress);
                                 } else {
+                                  console.log(formDataAddress);
                                   erroInputAddress(formDataAddress);
                                   removerMensagem('msg-fracasso-address');
                                 }
@@ -45580,7 +45582,7 @@ var initDataBasic = /*#__PURE__*/function () {
                         } else {
                           e.preventDefault();
                           // Enviar para o HTML a mensagem de erro
-                          document.getElementById("msg-carteira-trabalho").innerHTML = "<p>CTPS inválido!</p>";
+                          document.getElementById("msg-carteira-trabalho").innerHTML = "<p>Somente números!</p>";
                           removerMensagem("msg-carteira-trabalho");
                           return formDataBasic.ctps = false;
                         }
@@ -47031,7 +47033,7 @@ var isCtps = function isCtps(valor) {
     return false;
   }
   var valorSemEspaco = valor.replace(" ", "");
-  if (valor.length === 0 || valor != valorSemEspaco || valorSemEspaco.length === 0 || valorSemEspaco.length < 7) {
+  if (valor.length === 0 || valor != valorSemEspaco || valorSemEspaco.length === 0) {
     return false;
   }
   valor = parseInt(valor);

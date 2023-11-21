@@ -505,9 +505,6 @@ module.exports = (sequelize, DataTypes) => {
       ctps: {
         type: DataTypes.STRING(20),
         allowNull: true,
-        validate: {
-          is: /^\d+$/,
-        },
       },
       // *************************** VERIFICAR ***************************
       candidato_selecionado: {

@@ -241,9 +241,9 @@ const initDataBasic = async () => {
           e.preventDefault();
           // Enviar para o HTML a mensagem de erro
           document.getElementById("msg-carteira-trabalho").innerHTML =
-            "<p>Somente números!</p>";
+            "<p>CTPS inválido!</p>";
           removerMensagem("msg-carteira-trabalho");
-          return (formDataBasic.ctps = false);
+          return (formDataBasic.ctps = "");
         }
       });
     }

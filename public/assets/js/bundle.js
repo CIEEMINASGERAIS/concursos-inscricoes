@@ -45580,9 +45580,9 @@ var initDataBasic = /*#__PURE__*/function () {
                         } else {
                           e.preventDefault();
                           // Enviar para o HTML a mensagem de erro
-                          document.getElementById("msg-carteira-trabalho").innerHTML = "<p>Somente números!</p>";
+                          document.getElementById("msg-carteira-trabalho").innerHTML = "<p>CTPS inválido!</p>";
                           removerMensagem("msg-carteira-trabalho");
-                          return formDataBasic.ctps = false;
+                          return formDataBasic.ctps = "";
                         }
                       });
                     }
@@ -47880,7 +47880,7 @@ function _sendData() {
           data = _context2.sent;
           _context2.prev = 3;
           _context2.next = 6;
-          return fetch("https://appcadastro.cieemg.org.br/cadastrar", {
+          return fetch("https://localhost:8080/cadastrar", {
             method: "POST",
             headers: {
               "Content-Type": "application/json"

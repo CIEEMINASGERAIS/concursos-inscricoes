@@ -100,7 +100,7 @@ async function takeData() {
             <a class="button-end-school" href="https://cieemg.org.br/" rel="noopener noreferrer">Confirmar</a>
     </div>
     <div class="data-erro">
-      <p>${date}</p>
+      <p>${date} v - 1.1.0</p>
     </div>`;
 
   const allData = await {

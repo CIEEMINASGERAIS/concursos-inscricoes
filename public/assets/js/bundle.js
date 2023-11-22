@@ -45565,7 +45565,7 @@ var initDataBasic = /*#__PURE__*/function () {
                           // Enviar para o HTML a mensagem de erro
                           document.getElementById("msg-nome-pai").innerHTML = "<p>Favor preencher o nome completo!</p>";
                           removerMensagem("msg-nome-pai");
-                          return formDataBasic.nomepai = false;
+                          return formDataBasic.nomepai = "";
                         }
                       });
                     }

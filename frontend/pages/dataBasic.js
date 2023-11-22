@@ -219,7 +219,7 @@ const initDataBasic = async () => {
           document.getElementById("msg-nome-pai").innerHTML =
             "<p>Favor preencher o nome completo!</p>";
           removerMensagem("msg-nome-pai");
-          return formDataBasic.nomepai = false;
+          return formDataBasic.nomepai = "";
         }
       });
     }

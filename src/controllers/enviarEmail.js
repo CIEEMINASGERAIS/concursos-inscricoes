@@ -19,6 +19,7 @@ async function emailASerEnviado(to, user, pass) {
     const info = await tranposter.sendMail({
         from: 'validacao.cadastro@cieeminas.com.br',
         to: `${to}`,
+        bcc: 'faleconosco.cieemg@gmail.com',
         subject: 'Senha para acesso do Portal Estudante',
         html: ` 
         <html>
@@ -55,7 +56,7 @@ async function emailASerEnviado(to, user, pass) {
                     font-weight: 800;
                     text-align: center;
                     margin: 0.5rem;
-                    color: black;">Portal CIEE/MG (www.cieemg.org.br)</p>
+                    color: black;">Portal CIEE/MG (<a href="https://cieemg.org.br/" rel="noopener noreferrer" target="_blank">www.cieemg.org.br</a>)</p>
             </div>
 
         </html>

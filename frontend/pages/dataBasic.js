@@ -212,14 +212,14 @@ const initDataBasic = async () => {
 
         if (validate) {
           document.getElementById("msg-nome-pai").innerHTML = "";
-          return (formDataBasic.nomepai = e.target.value);
+          return formDataBasic.nomepai = e.target.value;
         } else {
           e.preventDefault();
           // Enviar para o HTML a mensagem de erro
           document.getElementById("msg-nome-pai").innerHTML =
             "<p>Favor preencher o nome completo!</p>";
           removerMensagem("msg-nome-pai");
-          return (formDataBasic.nomepai = false);
+          return formDataBasic.nomepai = "";
         }
       });
     }
@@ -236,14 +236,14 @@ const initDataBasic = async () => {
 
         if (validate) {
           document.getElementById("msg-carteira-trabalho").innerHTML = "";
-          return (formDataBasic.ctps = e.target.value);
+          return formDataBasic.ctps = e.target.value;
         } else {
           e.preventDefault();
           // Enviar para o HTML a mensagem de erro
           document.getElementById("msg-carteira-trabalho").innerHTML =
             "<p>CTPS inválido!</p>";
           removerMensagem("msg-carteira-trabalho");
-          return (formDataBasic.ctps = false);
+          return formDataBasic.ctps = "";
         }
       });
     }

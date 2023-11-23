@@ -505,16 +505,6 @@ module.exports = (sequelize, DataTypes) => {
       ctps: {
         type: DataTypes.STRING(20),
         allowNull: true,
-        validate: {
-          notEmpty: {
-            msg: "Esse campo não pode ser vazio.",
-          },
-          is: /^\d+$/,
-          len: {
-            args: [7, 20],
-            msg: "Esse campo deve ter 7 e 20 caracteres.",
-          },
-        },
       },
       // *************************** VERIFICAR ***************************
       candidato_selecionado: {

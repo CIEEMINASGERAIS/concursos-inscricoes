@@ -339,8 +339,7 @@ const isCtps = (valor) => {
   if (
     valor.length === 0 ||
     valor != valorSemEspaco ||
-    valorSemEspaco.length === 0 ||
-    valorSemEspaco.length < 7
+    valorSemEspaco.length === 0
   ) {
     return false;
   }

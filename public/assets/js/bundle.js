@@ -46452,6 +46452,8 @@ function _socioEconomic() {
                           formEconomic.situacao_judicial = selecionarNomes(situacaoJudicial);
                           alertEnd.style.display = "block";
                           resolve(formEconomic);
+                        } else {
+                          erroInputSocioEconomic(formEconomic);
                         }
                       });
                     } else {
@@ -47542,6 +47544,22 @@ var erroInputAddress = function erroInputAddress(object) {
     }
   }
 };
+var erroInputSocioEconomic = function erroInputSocioEconomic(object) {
+  for (var _chave9 in object) {
+    if (object[_chave9] === false) {
+      if (_chave9 === "pessoas_por_residencia") {
+        document.getElementById("msg-fracasso-socio-economy").innerHTML = "<p>Campo pessoas por resid\xEAncia inv\xE1lido!</p>";
+        break;
+      } else if (_chave9 === "tem_filhos") {
+        document.getElementById("msg-fracasso-socio-economy").innerHTML = "<p>Campo tem filhos inv\xE1lido!</p>";
+        break;
+      } else {
+        document.getElementById("msg-fracasso-socio-economy").innerHTML = "<p>Campo ".concat(_chave9, " inv\xE1lido!</p>");
+        break;
+      }
+    }
+  }
+};
 var erroSelectSchool = function erroSelectSchool(select, ano) {
   var selects = document.querySelectorAll(select, ano);
   for (var i = 0; i < selects.length; i++) {
@@ -47572,6 +47590,7 @@ var erroSelectSchool = function erroSelectSchool(select, ano) {
   }
 };
 module.exports = {
+  erroInputSocioEconomic: erroInputSocioEconomic,
   erroSelect: erroSelect,
   erroInput: erroInput,
   erroInputAddress: erroInputAddress,

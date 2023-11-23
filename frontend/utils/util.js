@@ -1020,6 +1020,29 @@ const erroInputAddress = (object) => {
   }
 }
 
+const erroInputSocioEconomic = (object) => {
+  for (let chave in object) {
+    if (object[chave] === false) {
+      if (chave === "pessoas_por_residencia") {
+        document.getElementById(
+          `msg-fracasso-socio-economy`
+        ).innerHTML = `<p>Campo pessoas por residência inválido!</p>`;
+        break
+      } else if (chave === "tem_filhos") {
+        document.getElementById(
+          `msg-fracasso-socio-economy`
+        ).innerHTML = `<p>Campo tem filhos inválido!</p>`;
+        break
+      } else {
+        document.getElementById(
+          `msg-fracasso-socio-economy`
+        ).innerHTML = `<p>Campo ${chave} inválido!</p>`;
+        break
+      }
+    }
+  }
+}
+
 const erroSelectSchool = (select, ano) => {
   const selects = document.querySelectorAll(select, ano);
 
@@ -1067,6 +1090,7 @@ const erroSelectSchool = (select, ano) => {
 }
 
 module.exports = {
+  erroInputSocioEconomic,
   erroSelect,
   erroInput,
   erroInputAddress,

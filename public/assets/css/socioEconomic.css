@@ -40,39 +40,17 @@
   color: #ffffff;
   font-size: 0.7rem;
 }
-
-.button-end-socio,
-.button-confirm-socio {
-  background-color: #007bff;
-  margin: 0rem 0rem 0rem 0rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  color: #ffffff;
-  box-shadow: 0.413rem 0.413rem 0.6rem rgba(0, 0, 0, 0.336);
-  border: solid #0075f3;
-  font-size: 1rem;
-  padding: 0.5rem 4rem 0.5rem 4rem;
-  border-radius: 0.5rem;
-  cursor: pointer;
-  width: 10rem;
-  text-decoration: none;
-}
-
-
-.button-end-socio:hover,
-.button-confirm-socio:hover {
-  text-decoration: none;
-  color: #ffffff;
+/* 
+.button-back-socio:hover,
+.button-finish-socio:hover{
   background-color: #005fc4;
   order: solid #0063cc;
 }
 
-.button-end-socio:focus,
-.button-confirm-socio:focus {
+.button-back-socio:focus,
+.button-finish-socio:focus {
   outline: none;
-}
+} */
 
 .linha-ou-socio {
   display: flex;

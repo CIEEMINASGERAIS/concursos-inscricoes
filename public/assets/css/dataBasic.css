@@ -194,8 +194,8 @@
   border: solid #0056b3;
 }
 
-.button-advanced-data-basic :focus {
-  border: solid #0056b3;
+.button-advanced-data-basic:focus {
+  outline: none;
 }
 
 

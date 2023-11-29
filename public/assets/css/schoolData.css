@@ -14,7 +14,7 @@
 
 #form-school-data {
   padding: 2rem 2rem 4rem 2rem;
-  margin: 4rem 0rem 2rem 14rem;
+  margin: 4rem 0rem 5rem 14rem;
   width: 100%;
   background-color: rgba(0, 0, 0, 0.199);
   border-radius: 0.5rem;
@@ -377,7 +377,7 @@
 
   #form-school-data {
     padding: 2rem 2rem 2rem 2rem;
-    margin: -2rem 0rem 2rem 6rem;
+    margin: -2rem 0rem 5rem 6rem;
     width: 100%;
     background-color: rgba(0, 0, 0, 0.199);
     border-radius: 0.5rem;
@@ -398,7 +398,7 @@
   }
 
   #form-school-data {
-    margin: 4rem 0rem 1rem 5rem;
+    margin: 4rem 0rem 5rem 5rem;
     width: 100%;
     padding: 1rem 1rem 1rem 1rem;
   }
@@ -414,7 +414,7 @@
   }
 
   #form-school-data {
-    margin: 3rem 0rem 1rem 4.5rem;
+    margin: 3rem 0rem 5rem 4.5rem;
     width: 100%;
     padding: 1.5rem 0.5rem 4rem 0.5rem;
   }

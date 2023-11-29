@@ -1,6 +1,6 @@
 .form-socio-economic {
   background-color: rgb(13, 13, 13);
-  margin: 5rem 2rem 2rem 14rem;
+  margin: 5rem 2rem 5rem 14rem;
   margin: center;
   display: flex;
   flex-direction: column;
@@ -40,7 +40,7 @@
   color: #ffffff;
   font-size: 0.7rem;
 }
-/* 
+
 .button-back-socio:hover,
 .button-finish-socio:hover{
   background-color: #005fc4;
@@ -50,7 +50,7 @@
 .button-back-socio:focus,
 .button-finish-socio:focus {
   outline: none;
-} */
+}
 
 .linha-ou-socio {
   display: flex;
@@ -83,7 +83,7 @@
   }
 
   .form-socio-economic {
-    margin: 5rem 2rem 2rem 6rem;
+    margin: 5rem 2rem 5rem 6rem;
   }
 
   .data-erro {
@@ -110,7 +110,7 @@
 @media (max-width: 430px) {
 
   .form-socio-economic {
-    margin: 4rem 1rem 2rem 5rem;
+    margin: 4rem 1rem 5rem 5rem;
   }
 
   .form-economic span p {
@@ -129,5 +129,6 @@
 @media (max-width: 400px) {
   .form-socio-economic {
     padding: 1rem;
+    margin-bottom: 5rem;
   }
 }

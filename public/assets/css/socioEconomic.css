@@ -44,7 +44,7 @@
 .button-back-socio:hover,
 .button-finish-socio:hover{
   background-color: #005fc4;
-  order: solid #0063cc;
+  border: solid #0063cc;
 }
 
 .button-back-socio:focus,

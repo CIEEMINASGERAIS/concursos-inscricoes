@@ -1,4 +1,4 @@
-const { selecionarNomes, dateTime } = require("../utils/util");
+const { selecionarNomes, erroInputSocioEconomic } = require("../utils/util");
 
 async function socioEconomic() {
   return new Promise(async (resolve, reject) => {

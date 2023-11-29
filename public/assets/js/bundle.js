@@ -47549,12 +47549,15 @@ var erroInputSocioEconomic = function erroInputSocioEconomic(object) {
     if (object[_chave9] === false) {
       if (_chave9 === "pessoas_por_residencia") {
         document.getElementById("msg-fracasso-socio-economy").innerHTML = "<p>Campo pessoas por resid\xEAncia inv\xE1lido!</p>";
+        removerMensagem("msg-fracasso-socio-economy");
         break;
       } else if (_chave9 === "tem_filhos") {
         document.getElementById("msg-fracasso-socio-economy").innerHTML = "<p>Campo tem filhos inv\xE1lido!</p>";
+        removerMensagem("msg-fracasso-socio-economy");
         break;
       } else {
         document.getElementById("msg-fracasso-socio-economy").innerHTML = "<p>Campo ".concat(_chave9, " inv\xE1lido!</p>");
+        removerMensagem("msg-fracasso-socio-economy");
         break;
       }
     }

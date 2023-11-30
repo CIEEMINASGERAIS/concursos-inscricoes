@@ -19,6 +19,7 @@
   background-color: rgba(0, 0, 0, 0.199);
   border-radius: 0.5rem;
   font-size: 1.2rem;
+  box-shadow: 0.5rem 0.5rem 0.6rem rgba(0, 0, 0, 0.336);
 }
 
 .form-address input {

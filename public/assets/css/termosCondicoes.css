@@ -42,6 +42,7 @@ body {
   font-size: 1rem;
   border-radius: 0.8rem;
   max-width: 103rem;
+  box-shadow: 0.5rem 0.5rem 0.6rem rgba(0, 0, 0, 0.336);
 }
 
 .class-p {

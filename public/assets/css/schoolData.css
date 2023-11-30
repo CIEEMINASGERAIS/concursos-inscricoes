@@ -18,6 +18,7 @@
   width: 100%;
   background-color: rgba(0, 0, 0, 0.199);
   border-radius: 0.5rem;
+  box-shadow: 0.5rem 0.5rem 0.6rem rgba(0, 0, 0, 0.336);
 }
 
 .form-school-data label {

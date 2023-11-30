@@ -9,7 +9,7 @@
   max-width: 100%;
   padding: 1.5rem 2rem 3rem 2rem;
   border-radius: 0.8rem;
-  box-shadow: 0.413rem 0.413rem 0.6rem rgba(0, 0, 0, 0.336);
+  box-shadow: 0.5rem 0.5rem 0.6rem rgba(0, 0, 0, 0.336);
   gap: 1rem;
   color: white;
 }
@@ -22,6 +22,20 @@
   margin-top: -1.1rem;
   padding: 0;
 }
+
+  #msg-fracasso-socio-economy{
+    color: rgb(255, 0, 0);
+    display: flex;
+    justify-content: center;
+    cursor: default;
+    font-weight: bold;
+    margin: 0rem;
+    margin-top: 2rem;
+    padding: 0;
+  }
+  #msg-fracasso-socio-economy p{
+    margin-top: 1rem;
+  }
 
 .form-group {
   margin-top: 2.5rem;
@@ -103,11 +117,11 @@
   }
 
   .button-back-socio {
-    margin: 2rem 0rem 0rem 0rem;
+    margin: 0rem 0rem 0rem 0rem;
   }
 }
 
-@media (max-width: 430px) {
+@media (max-width: 500px) {
 
   .form-socio-economic {
     margin: 4rem 1rem 5rem 5rem;
@@ -115,11 +129,6 @@
 
   .form-economic span p {
     margin-top: 0rem;
-  
-}
-
-.form-economic span p {
-  margin-top: 0rem;
 }
 
 .screen-socio-economic {
@@ -129,6 +138,18 @@
 @media (max-width: 400px) {
   .form-socio-economic {
     padding: 1rem;
-    margin-bottom: 5rem;
+    
+  }
+  .form-socio-economic {
+    margin: 4rem 1rem 5rem 5rem;
+  }
+}
+@media (max-width: 300px) {
+  .form-socio-economic {
+    padding: 1rem;
+    
+  }
+  .form-socio-economic {
+    margin: 3rem 0.5rem 5rem 4.5rem;
   }
 }

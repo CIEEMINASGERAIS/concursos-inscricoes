@@ -1,102 +1,3 @@
-// Cria o elemento label para o nome, seta os atributos e preenche a label
-const createLabel = (forAttribute, text) => {
-  const label = document.createElement("label");
-  label.setAttribute("for", forAttribute);
-  label.innerText = text;
-  return label;
-};
-
-// Cria um campo de entrada de texto para o nome e seta os atributos para colocar o parametro conforme necessário ao input
-const createInput = (type, name, id, placeholder, classe) => {
-  const input = document.createElement("input");
-  input.setAttribute("type", type);
-  input.setAttribute("name", name);
-  input.setAttribute("id", id);
-  input.setAttribute("placeholder", placeholder);
-  input.setAttribute("class", classe);
-  return input;
-};
-
-// Cria o elemento <form>
-const createForm = (classe) => {
-  const form = document.createElement("form");
-  form.setAttribute("class", classe);
-  return form;
-};
-
-// Cria o elemento link
-const createLink = (rel, href) => {
-  const cssLink = document.createElement("link");
-  cssLink.setAttribute("rel", rel);
-  cssLink.setAttribute("href", href);
-  return cssLink;
-};
-
-const createButton = (text, classe, type) => {
-  const button = document.createElement("button");
-  button.setAttribute("class", classe);
-  button.setAttribute("type", type);
-  button.innerText = text;
-  return button;
-};
-
-const createDiv = (classe, text) => {
-  const div = document.createElement("div");
-  div.setAttribute("class", classe);
-  div.innerText = text;
-  return div;
-};
-
-const createSelect = (id, name) => {
-  const select = document.createElement("select");
-  select.setAttribute("id", id);
-  select.setAttribute("name", name);
-  return select;
-};
-
-const createOption = (value, text, name) => {
-  const options = document.createElement("option");
-  if (options.text === "Estágio Curricular") {
-    options.value = "esc";
-  } else {
-    options.value = value;
-  }
-
-  options.text = text;
-  options.name = name;
-  return options;
-};
-
-const putOption = (list) => {
-  const placeholderOption = document.createElement("option");
-  placeholderOption.disabled = true;
-  placeholderOption.selected = true;
-  placeholderOption.text = "Selecione";
-
-  const options = [placeholderOption];
-  for (let i = 0; i < list.length; i++) {
-    const option = createOption(list[i], list[i], list[i]);
-
-    options.push(option);
-  }
-  return options;
-};
-
-const carregarPaginaHtml = async (url) => {
-  try {
-    const resposta = await fetch(url);
-    const conteudoHtml = await resposta.text();
-    return conteudoHtml;
-  } catch (erro) {
-    console.error("Erro ao carregar a página:", erro);
-  }
-};
-
-const adicionarPaginaHtml = async (url, elemento) => {
-  const conteudoHtml = await carregarPaginaHtml(url);
-  return (elemento.innerHTML = conteudoHtml);
-};
-
 const changeSubMainTitle = (text) => {
   const subTitle = document.querySelector(".sub-main-title h1");
 
@@ -112,44 +13,6 @@ const changeMains = (nameClass) => {
   const screen = document.querySelector(nameClass);
   if (screen) {
     screen.style.display = "block";
-  }
-};
-
-// Função com a lista de erros
-const listInputValidate = () => {
-  const listInputValidate = {
-    nome: "Necessário preencher o campo Nome!",
-    cpf: "Necessário preencher o campo CPF!",
-    rg: "Necessário preencher o campo RG!",
-    orgaoExpedidor: "Necessário preencher o campo Orgão Expedidor!",
-    nomeMae: "Necessário preencher o campo Nome da Mãe!",
-    nomePai: "Necessário preencher o campo Nome do Pai!",
-    carteiraTrabalho: "Necessário preencher o campo Carteira de Trabalho!",
-    naturalidade: "Necessário preencher o campo Naturalidade!",
-    nacionalidade: "Necessário preencher o campo Nacionalidade!",
-    estadoCivil: "Necessário preencher o campo Estado Civil!",
-    dataNascimento: "Necessário preencher o campo da Data de Nascimento!",
-    sexo: "Necessário preencher o campo sexo!",
-    ufNaturalidade: "Necessário preencher o campo UF da Naturalidade!",
-    deficiencias: "Necessário preencher o campo Possui alguma deficiência?",
-    descricao: "Necessário preencher o campo Descrição?",
-    incompleto: "Formulário Incompleto",
-  };
-
-  return listInputValidate;
-};
-
-const campoInvalido = (campo, id) => {
-  let mensagem = listInputValidate();
-
-  if (mensagem[campo]) {
-    return (document.getElementById(
-      id
-    ).innerHTML = `<p>${mensagem[campo]}</p>`);
-  } else {
-    return (document.getElementById(
-      id
-    ).innerHTML = `<p>Formulário incompleto!</p>`);
   }
 };
 
@@ -1100,20 +963,8 @@ module.exports = {
   erroSelectSchool,
   isCpf,
   isNome,
-  listInputValidate,
   changeMains,
   changeSubMainTitle,
-  adicionarPaginaHtml,
-  carregarPaginaHtml,
-  putOption,
-  createOption,
-  createSelect,
-  createDiv,
-  createButton,
-  createLink,
-  createForm,
-  createInput,
-  createLabel,
   isCtps,
   isNaturalidadeNacionalidade,
   isEstadoCivil,
@@ -1144,7 +995,6 @@ module.exports = {
   cpfInBd,
   conferirFormBasic,
   conferirFormAddress,
-  campoInvalido,
   conferirFormSchool,
   selecionarNomes,
 };

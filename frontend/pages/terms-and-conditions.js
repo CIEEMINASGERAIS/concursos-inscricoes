@@ -10,17 +10,13 @@ async function termsAndConditions() {
 
     const contetHtml = await response.text();
 
-    const termsCondtions = document.querySelector(".terms-and-conditions");
-
-    const menuSide = document.querySelector(".nav-bar");
-
-    const termoBox = document.querySelector(".termos-box");
-
-    const title = document.querySelector(".sub-main-title");
+    const termsConditions = document.querySelector(".screen-terms-conditions");
 
     let schoolData = {};
 
-    termsCondtions.innerHTML = contetHtml;
+    termsConditions.innerHTML = contetHtml;
+
+    const readTerms = document.querySelector('.div-terms-and-conditions');
 
     document.addEventListener("click", async (e) => {
       element = e.target;
@@ -42,15 +38,9 @@ async function termsAndConditions() {
         element.classList.contains("button-terms-a-d") ||
         element.classList.contains("terms-input-label")
       ) {
-        termsCondtions.style.display = "block";
-        menuSide.style.visibility = "hidden";
-        termoBox.style.display = "none";
-        title.style.visibility = "hidden";
+        readTerms.style.display = "flex";
       } else {
-        termsCondtions.style.display = "none";
-        menuSide.style.visibility = "visible";
-        termoBox.style.display = "flex";
-        title.style.visibility = "visible";
+        readTerms.style.display = "none";
       }
 
       if (element.classList.contains("button-decline")) {

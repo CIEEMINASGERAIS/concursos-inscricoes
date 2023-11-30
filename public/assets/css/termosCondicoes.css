@@ -16,6 +16,17 @@ body {
   margin: 5rem 0rem 9.5rem 11rem;
 }
 
+.div-terms-and-conditions {
+  width: 100%;
+  height: 100%;
+  display: none;
+  backdrop-filter: blur(10px);
+  position: absolute;
+  z-index: 5;
+  top: 0;
+  left: 0;
+}
+
 .termos-box {
   margin: 5rem 2rem 9.8rem 3rem;
   color: black;
@@ -56,7 +67,8 @@ body {
 .button-termo:hover {
   background-color: #0056b3;
 }
-.button-termo:focus{
+
+.button-termo:focus {
   outline: none;
 }
 
@@ -73,10 +85,10 @@ body {
 }
 
 .terms-and-conditions {
-  margin: 1rem 1rem 0rem 1rem;
+  margin: 1rem 1rem 2rem 1rem;
   padding: 1rem;
   background-color: white;
-  display: none;
+  outline: solid 0.1px rgb(185, 185, 185);
 }
 
 .terms-and-conditions .title-terms {
@@ -153,7 +165,7 @@ body {
 }
 
 .button-terms-a-d {
-  margin-top: 1rem;
+  margin-top: 0.5rem;
   display: flex;
   justify-content: center;
   gap: 1rem;
@@ -206,9 +218,9 @@ body {
     font-size: 1rem;
   }
 
-  .terms-and-conditions {
+  /* .terms-and-conditions {
     margin-top: -1.5rem;
-  }
+  } */
 }
 
 @media screen and (max-width: 600px) {

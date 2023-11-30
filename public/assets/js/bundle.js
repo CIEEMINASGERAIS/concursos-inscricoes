@@ -46505,7 +46505,7 @@ function _termsAndConditions() {
         case 0:
           return _context3.abrupt("return", new Promise( /*#__PURE__*/function () {
             var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2(resolve, reject) {
-              var response, contetHtml, termsCondtions, menuSide, termoBox, title, schoolData;
+              var response, contetHtml, termsConditions, schoolData, readTerms;
               return _regeneratorRuntime().wrap(function _callee2$(_context2) {
                 while (1) switch (_context2.prev = _context2.next) {
                   case 0:
@@ -46517,12 +46517,10 @@ function _termsAndConditions() {
                     return response.text();
                   case 5:
                     contetHtml = _context2.sent;
-                    termsCondtions = document.querySelector(".terms-and-conditions");
-                    menuSide = document.querySelector(".nav-bar");
-                    termoBox = document.querySelector(".termos-box");
-                    title = document.querySelector(".sub-main-title");
+                    termsConditions = document.querySelector(".screen-terms-conditions");
                     schoolData = {};
-                    termsCondtions.innerHTML = contetHtml;
+                    termsConditions.innerHTML = contetHtml;
+                    readTerms = document.querySelector('.div-terms-and-conditions');
                     document.addEventListener("click", /*#__PURE__*/function () {
                       var _ref2 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(e) {
                         var checkbox;
@@ -46531,15 +46529,9 @@ function _termsAndConditions() {
                             case 0:
                               element = e.target;
                               if (element.classList.contains("button-termo") || element.classList.contains("terms-and-conditions") || element.classList.contains("p-t-c") || element.classList.contains("h1-t-c") || element.classList.contains("h2-t-c") || element.classList.contains("s-t-c") || element.classList.contains("a-t-c") || element.classList.contains("check-term") || element.classList.contains("label-li") || element.classList.contains("input-li") || element.classList.contains("checkbox") || element.classList.contains("text-terms-conditions") || element.classList.contains("title-terms") || element.classList.contains("button-terms-a-d") || element.classList.contains("terms-input-label")) {
-                                termsCondtions.style.display = "block";
-                                menuSide.style.visibility = "hidden";
-                                termoBox.style.display = "none";
-                                title.style.visibility = "hidden";
+                                readTerms.style.display = "flex";
                               } else {
-                                termsCondtions.style.display = "none";
-                                menuSide.style.visibility = "visible";
-                                termoBox.style.display = "flex";
-                                title.style.visibility = "visible";
+                                readTerms.style.display = "none";
                               }
                               if (element.classList.contains("button-decline")) {
                                 e.preventDefault();
@@ -46596,7 +46588,7 @@ function _termsAndConditions() {
                         });
                       }
                     });
-                  case 14:
+                  case 12:
                   case "end":
                     return _context2.stop();
                 }

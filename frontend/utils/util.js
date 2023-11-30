@@ -1027,16 +1027,19 @@ const erroInputSocioEconomic = (object) => {
         document.getElementById(
           `msg-fracasso-socio-economy`
         ).innerHTML = `<p>Campo pessoas por residência inválido!</p>`;
+        removerMensagem(`msg-fracasso-socio-economy`)
         break
       } else if (chave === "tem_filhos") {
         document.getElementById(
           `msg-fracasso-socio-economy`
         ).innerHTML = `<p>Campo tem filhos inválido!</p>`;
+        removerMensagem(`msg-fracasso-socio-economy`)
         break
       } else {
         document.getElementById(
           `msg-fracasso-socio-economy`
         ).innerHTML = `<p>Campo ${chave} inválido!</p>`;
+        removerMensagem(`msg-fracasso-socio-economy`)
         break
       }
     }

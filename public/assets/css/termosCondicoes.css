@@ -99,7 +99,8 @@ body {
   background-color: rgb(245, 245, 245);
   outline: 0.5px solid rgb(99, 99, 99);
   height: 25rem;
-  overflow: scroll;
+  overflow: auto;
+  padding: 1rem 0rem 5rem 0rem;
 }
 
 .terms-and-conditions .text-terms-conditions p {
@@ -298,7 +299,6 @@ body {
   @media screen and (max-height: 970px) {
     .terms-and-conditions {
       height: 100%;
-      overflow: hidden;
       padding-bottom: 10rem;
     }
   }

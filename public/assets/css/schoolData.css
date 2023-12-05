@@ -237,6 +237,7 @@
   border-radius: 0.8rem;
   backdrop-filter: blur(10px);
   width: 100%;
+  overflow: auto;
 }
 
 .alert h1 {

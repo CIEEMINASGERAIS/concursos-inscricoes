@@ -25,6 +25,7 @@ body {
   z-index: 5;
   top: 0;
   left: 0;
+  margin-bottom: 10rem;
 }
 
 .termos-box {
@@ -85,13 +86,6 @@ body {
   align-items: center;
 }
 
-.terms-and-conditions {
-  margin: 1rem 1rem 2rem 1rem;
-  padding: 1rem;
-  background-color: white;
-  outline: solid 0.1px rgb(185, 185, 185);
-}
-
 .terms-and-conditions .title-terms {
   font-size: 1.4em;
   font-weight: 700;
@@ -105,7 +99,8 @@ body {
   background-color: rgb(245, 245, 245);
   outline: 0.5px solid rgb(99, 99, 99);
   height: 25rem;
-  overflow: scroll;
+  overflow: auto;
+  padding: 1rem 0rem 5rem 0rem;
 }
 
 .terms-and-conditions .text-terms-conditions p {
@@ -173,7 +168,12 @@ body {
 }
 
 .terms-and-conditions {
+  margin: 1rem 1rem 2rem 1rem;
+  padding: 1rem;
+  background-color: white;
+  outline: solid 0.1px rgb(185, 185, 185);
   border-radius: 0.8rem;
+  height: 70%;
 }
 
 .text-terms-conditions {
@@ -219,9 +219,6 @@ body {
     font-size: 1rem;
   }
 
-  /* .terms-and-conditions {
-    margin-top: -1.5rem;
-  } */
 }
 
 @media screen and (max-width: 600px) {
@@ -291,10 +288,18 @@ body {
     padding: 0rem;
     height: 2rem;
   }
-
+}
   @media screen and (max-width: 300px) {
     .terms-and-conditions {
-      margin: -2rem 0.5rem 0rem 0.5rem;
+      margin: 2rem 0.5rem 0rem 0.5rem;
+      height: 25rem;
     }
   }
-}
+
+  @media screen and (max-height: 970px) {
+    .terms-and-conditions {
+      height: 40rem;
+      padding-bottom: 10rem;
+    }
+  }
+

@@ -16,17 +16,9 @@ body {
   margin: 5rem 0rem 9.5rem 11rem;
 }
 
-.div-terms-and-conditions {
-  width: 100%;
-  height: 100%;
-  display: none;
-  backdrop-filter: blur(10px);
-  position: absolute;
-  z-index: 5;
-  top: 0;
-  left: 0;
-  margin-bottom: 10rem;
-}
+/* .screen-main .screen-terms-conditions{
+  height:100vh;
+} */
 
 .termos-box {
   margin: 5rem 2rem 9.8rem 3rem;
@@ -43,7 +35,6 @@ body {
   font-size: 1rem;
   border-radius: 0.8rem;
   max-width: 103rem;
-  box-shadow: 0.5rem 0.5rem 0.6rem rgba(0, 0, 0, 0.336);
 }
 
 .class-p {
@@ -81,12 +72,45 @@ body {
   font-size: 5px;
 }
 
-.title-terms {
+#title-terms-h1{
+  margin-right: 13rem;
+  font-size: 1.4em;
+  font-weight: 700;
+  color: black;
+  text-align: left;
+  margin: 0 0 0.5rem 0;
+}
+.back-color-terms{
+  background: #0056b3;
+  background-color: black;
+}
+
+.div-terms-and-conditions {
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(10px);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 4;
+  display: none;
+  border-radius: 0.8rem;
+  margin: 0rem auto;
+}
+
+.terms-and-conditions {
+  margin: 2rem 2rem 2rem 2rem;
+  padding: 1rem;
+  border-radius: 10px;
+  background-color: white;
+  width: 95%;
+  height: 90%;
   display: flex;
+  flex-direction: column;
   align-items: center;
 }
 
-.terms-and-conditions .title-terms {
+.title-terms {
   font-size: 1.4em;
   font-weight: 700;
   color: black;
@@ -98,16 +122,15 @@ body {
   padding: 0.5rem;
   background-color: rgb(245, 245, 245);
   outline: 0.5px solid rgb(99, 99, 99);
-  height: 25rem;
-  overflow: auto;
-  padding: 1rem 0rem 5rem 0rem;
+  height: 100%;
+  overflow: scroll;
 }
 
-.terms-and-conditions .text-terms-conditions p {
+.text-terms-conditions p {
   font-size: 0.8em;
 }
 
-.terms-and-conditions .text-terms-conditions h1 {
+.text-terms-conditions h1 {
   display: flex;
   margin: 0.5rem auto;
   text-align: start;
@@ -115,7 +138,7 @@ body {
   font-weight: 700;
 }
 
-.terms-and-conditions .text-terms-conditions h2 {
+.text-terms-conditions h2 {
   font-size: 0.9em;
   font-weight: 600;
 }
@@ -161,20 +184,15 @@ body {
 }
 
 .button-terms-a-d {
-  margin-top: 0.5rem;
+  margin-top: 1rem;
   display: flex;
   justify-content: center;
   gap: 1rem;
 }
 
-.terms-and-conditions {
-  margin: 1rem 1rem 2rem 1rem;
-  padding: 1rem;
-  background-color: white;
-  outline: solid 0.1px rgb(185, 185, 185);
+/* .terms-and-conditions {
   border-radius: 0.8rem;
-  height: 70%;
-}
+} */
 
 .text-terms-conditions {
   border-radius: 0.8rem;
@@ -219,6 +237,9 @@ body {
     font-size: 1rem;
   }
 
+  .terms-and-conditions {
+    margin-top: 2rem;
+  }
 }
 
 @media screen and (max-width: 600px) {
@@ -232,12 +253,25 @@ body {
     padding: 1rem;
     font-size: 1rem;
   }
+
+  .terms-and-conditions {
+    margin: 1rem;
+    padding: 2rem;
+  }
+  .text-terms-conditions {
+    padding: 0.5rem;
+    height: 100%;
+  }
 }
 
 @media screen and (max-width: 400px) {
 
   .screen-terms-conditions {
     margin: 5.6rem 0rem 0rem 3rem;
+  }
+  .terms-and-conditions {
+    margin: 1rem;
+    padding: 1rem;
   }
 
   .termos-box {
@@ -289,17 +323,4 @@ body {
     height: 2rem;
   }
 }
-  @media screen and (max-width: 300px) {
-    .terms-and-conditions {
-      margin: 2rem 0.5rem 0rem 0.5rem;
-      height: 25rem;
-    }
-  }
-
-  @media screen and (max-height: 970px) {
-    .terms-and-conditions {
-      height: 40rem;
-      padding-bottom: 10rem;
-    }
-  }
 

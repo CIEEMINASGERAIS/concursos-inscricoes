@@ -628,6 +628,21 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         defaultValue: 1,
       },
+      nome_social: {
+        type: DataTypes.STRING(255),
+        allowNull: false,
+        validate: {
+          notEmpty: {
+            msg: "Esse campo não pode ser vazio.",
+          },
+          notNull: { msg: "O campo nome precisa ser preenchido" },
+          len: {
+            args: [3, 255],
+            msg: "Esse campo deve ter 3 e 255 caracteres.",
+          },
+          is: /^[^0-9]*$/,
+        },
+      },
     },
     {
       timestamps: false,

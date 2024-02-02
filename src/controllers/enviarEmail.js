@@ -1,12 +1,14 @@
 const nodemailer = require("nodemailer")
 
+require("dotenv").config();
+
 const tranposter = nodemailer.createTransport({
     host: 'smtp.office365.com',
     port: 587,
     secure: false, // true para 465, false para as outras
     auth: {
         user: "validacao.cadastro@cieeminas.com.br",
-        pass: "CadCAO#482@validDE$6910",
+        pass: process.env.EMAIL_PASS,
     },
     tls: {
         // do not fail on invalid certs

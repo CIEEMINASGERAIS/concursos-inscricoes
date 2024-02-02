@@ -54,6 +54,10 @@
 #msg-nome-pai p {
   margin-top: 0rem;
 }
+.social{
+  width: 2.3rem;
+  padding: 10rem;
+}
 
 .obrigatorio {
   display: flex;

@@ -955,7 +955,44 @@ const erroSelectSchool = (select, ano) => {
   }
 }
 
+class CreateInputLabel {
+
+  constructor(tagAnterior, textLabel, idClass) {
+    this.tagAnterior = tagAnterior;
+    this.textLabel = textLabel;
+    this.idClass = idClass;
+
+    this.doLabelInput();
+  }
+
+  doLabelInput() {
+    this.createInputLabel()
+    this.createError()
+  }
+
+  createInputLabel() {
+    const div = document.createElement('div');
+    const input = document.createElement('input');
+    const label = document.createElement('label');
+    this.tagAnterior.insertAdjacentElement("afterend", div);
+    div.appendChild(label);
+    label.for = this.idClass;
+    label.innerText = this.textLabel;
+    label.insertAdjacentElement("afterend", input);
+    input.className = this.idClass;
+    input.id = this.idClass;
+  }
+
+  createError() {
+    
+  }
+
+}
+
+// const create = new CreateInputLabel()
+
 module.exports = {
+  CreateInputLabel,
   erroInputSocioEconomic,
   erroSelect,
   erroInput,

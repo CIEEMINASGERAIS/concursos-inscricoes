@@ -18,6 +18,7 @@ const {
   cpfInBd,
   erroInput,
   erroSelect,
+  CreateInputLabel
 } = require("../utils/util.js");
 
 // Função responsável por iniciar as funções e gerar o conteúdo da página
@@ -100,6 +101,65 @@ const initDataBasic = async () => {
         }
       });
     }
+
+    const checkNomeSocial = document.getElementById('social')
+
+    const divNomeSocial = document.querySelector(".div-social")
+
+    document.addEventListener("click", function () {
+      if (checkNomeSocial.checked) {
+        const checkboxSocial = document.querySelector(".label-nome-social")
+        if (!document.querySelector('.nome-social')) {
+          const inputSocial = new CreateInputLabel(divNomeSocial, "Nome Social", 'nome-social')
+        }
+      }
+    })
+
+    // if (nomeSocial) {
+    //   let validate;
+
+    //   deficiencias.addEventListener("input", (e) => {
+    //     validate = isDeficiente(listDeficiencias, e.target.value);
+
+    //     if (validate) {
+    //       document.getElementById("msg-deficiencias").innerHTML = "";
+    //       formDataBasic.deficiencia = e.target.value;
+    //     } else {
+    //       e.preventDefault();
+    //       // Enviar para o HTML a mensagem de erro
+    //       document.getElementById("msg-deficiencias").innerHTML =
+    //         "<p>Opção inválida!</p>";
+    //       formDataBasic.deficiencia = false;
+    //     }
+    //   });
+
+    // deficiencias.addEventListener("input", (e) => {
+    //   if (e.target.value != "Selecione" && e.target.value != "N") {
+    //     formDataBasic.deficiencia = false;
+    //     const descricoesInputs = document.querySelectorAll(".descricoes");
+    //     if (descricoesInputs.length === 0) {
+    //       const descLabel = document.createElement("label");
+    //       const descInput = document.createElement("input");
+    //       descDiv.appendChild(descLabel);
+    //       descLabel.innerText = "Descreva a deficiência";
+    //       descLabel.setAttribute("for", "descricao");
+    //       descDiv.appendChild(descInput);
+    //       descInput.setAttribute("id", "descricao");
+    //       descInput.setAttribute("class", "descricoes");
+    //       descInput.setAttribute("name", "descricaoDeficiencia");
+    //       descInput.setAttribute("maxlength", "255");
+    //       const paragrafoObgtr = document.createElement("p");
+    //       paragrafoObgtr.setAttribute("class", "obrigatorio");
+    //       paragrafoObgtr.innerText = "Obrigatório";
+    //       descDiv.appendChild(paragrafoObgtr);
+    //     }
+    //   } else {
+    //     descDiv.innerHTML = "";
+    //     document.getElementById("msg-descricao").innerHTML = "";
+    //     formDataBasic.deficiencia_descricao = "";
+    //   }
+    // });
+    // }
 
     const inputCpf = document.querySelector(".cpf");
 

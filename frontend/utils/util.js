@@ -967,7 +967,6 @@ class CreateInputLabel {
 
   doLabelInput() {
     this.createInputLabel()
-    this.createError()
   }
 
   createInputLabel() {
@@ -981,12 +980,8 @@ class CreateInputLabel {
     label.insertAdjacentElement("afterend", input);
     input.className = this.idClass;
     input.id = this.idClass;
+    input.required = true;
   }
-
-  createError() {
-    
-  }
-
 }
 
 // const create = new CreateInputLabel()

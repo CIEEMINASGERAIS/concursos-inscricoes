@@ -45417,7 +45417,7 @@ var initDataBasic = /*#__PURE__*/function () {
         case 0:
           return _context3.abrupt("return", new Promise( /*#__PURE__*/function () {
             var _ref2 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2(resolve, reject) {
-              var response, htmlContent, dataBasic, formData, ufNaturalidade, ufs, i, option, listDeficiencias, formDataBasic, inputNome, validate, checkNomeSocial, divNomeSocial, inputCpf, _validate, rg, _validate2, orgaoExpedidor, _validate3, inputNomeMae, _validate4, inputNomePai, _validate5, ctps, _validate6, naturalidade, _validate7, nacionalidade, _validate8, estadoCivil, _validate9, dataNascimento, _validate10, sexo, _validate11, _validate12, deficiencias, descDiv, _validate13;
+              var response, htmlContent, dataBasic, formData, ufNaturalidade, ufs, i, option, listDeficiencias, formDataBasic, inputNome, _validate, checkNomeSocial, divNomeSocial, validate, inputCpf, _validate2, rg, _validate3, orgaoExpedidor, _validate4, inputNomeMae, _validate5, inputNomePai, _validate6, ctps, _validate7, naturalidade, _validate8, nacionalidade, _validate9, estadoCivil, _validate10, dataNascimento, _validate11, sexo, _validate12, _validate13, deficiencias, descDiv, _validate14;
               return _regeneratorRuntime().wrap(function _callee2$(_context2) {
                 while (1) switch (_context2.prev = _context2.next) {
                   case 0:
@@ -45447,8 +45447,8 @@ var initDataBasic = /*#__PURE__*/function () {
                     if (inputNome) {
                       inputNome.addEventListener("input", function (e) {
                         e.target.value = e.target.value.replace(/[0-9]/g, "");
-                        validate = isNome(e.target.value);
-                        if (validate) {
+                        _validate = isNome(e.target.value);
+                        if (_validate) {
                           document.getElementById("msg-nome").innerHTML = "";
                           return formDataBasic.nome = e.target.value;
                         } else {
@@ -45463,58 +45463,27 @@ var initDataBasic = /*#__PURE__*/function () {
                     divNomeSocial = document.querySelector(".div-social");
                     document.addEventListener("click", function () {
                       if (checkNomeSocial.checked) {
-                        var checkboxSocial = document.querySelector(".label-nome-social");
                         if (!document.querySelector('.nome-social')) {
-                          var inputSocial = new CreateInputLabel(divNomeSocial, "Nome Social", 'nome-social');
+                          var inputSocial = new CreateInputLabel(divNomeSocial, "Nome Social", "nome-social");
+                        }
+                      } else {}
+                    });
+                    document.addEventListener("input", function (e) {
+                      var element = e.target;
+                      if (element.classList.contains("nome-social")) {
+                        element.value = element.value.replace(/[0-9]/g, "");
+                        validate = isNome(element.value);
+                        if (validate) {
+                          document.getElementById("msg-nome-social").innerHTML = "";
+                          return formDataBasic.nome_social = element.value;
+                        } else {
+                          e.preventDefault();
+                          // Enviar para o HTML a mensagem de erro
+                          document.getElementById("msg-nome-social").innerHTML = "<p>Favor preencher o Nome Social completo!</p>";
+                          return formDataBasic.nome_social = false;
                         }
                       }
                     });
-
-                    // if (nomeSocial) {
-                    //   let validate;
-
-                    //   deficiencias.addEventListener("input", (e) => {
-                    //     validate = isDeficiente(listDeficiencias, e.target.value);
-
-                    //     if (validate) {
-                    //       document.getElementById("msg-deficiencias").innerHTML = "";
-                    //       formDataBasic.deficiencia = e.target.value;
-                    //     } else {
-                    //       e.preventDefault();
-                    //       // Enviar para o HTML a mensagem de erro
-                    //       document.getElementById("msg-deficiencias").innerHTML =
-                    //         "<p>Opção inválida!</p>";
-                    //       formDataBasic.deficiencia = false;
-                    //     }
-                    //   });
-
-                    // deficiencias.addEventListener("input", (e) => {
-                    //   if (e.target.value != "Selecione" && e.target.value != "N") {
-                    //     formDataBasic.deficiencia = false;
-                    //     const descricoesInputs = document.querySelectorAll(".descricoes");
-                    //     if (descricoesInputs.length === 0) {
-                    //       const descLabel = document.createElement("label");
-                    //       const descInput = document.createElement("input");
-                    //       descDiv.appendChild(descLabel);
-                    //       descLabel.innerText = "Descreva a deficiência";
-                    //       descLabel.setAttribute("for", "descricao");
-                    //       descDiv.appendChild(descInput);
-                    //       descInput.setAttribute("id", "descricao");
-                    //       descInput.setAttribute("class", "descricoes");
-                    //       descInput.setAttribute("name", "descricaoDeficiencia");
-                    //       descInput.setAttribute("maxlength", "255");
-                    //       const paragrafoObgtr = document.createElement("p");
-                    //       paragrafoObgtr.setAttribute("class", "obrigatorio");
-                    //       paragrafoObgtr.innerText = "Obrigatório";
-                    //       descDiv.appendChild(paragrafoObgtr);
-                    //     }
-                    //   } else {
-                    //     descDiv.innerHTML = "";
-                    //     document.getElementById("msg-descricao").innerHTML = "";
-                    //     formDataBasic.deficiencia_descricao = "";
-                    //   }
-                    // });
-                    // }
                     inputCpf = document.querySelector(".cpf");
                     if (inputCpf) {
                       inputCpf.addEventListener("input", /*#__PURE__*/function () {
@@ -45527,8 +45496,8 @@ var initDataBasic = /*#__PURE__*/function () {
                                 e.target.value = e.target.value.replace(/(\d{3})(\d)/, "$1.$2");
                                 e.target.value = e.target.value.replace(/(\d{3})(\d)/, "$1.$2");
                                 e.target.value = e.target.value.replace(/(\d{3})(\d{1,2})$/, "$1-$2");
-                                _validate = isCpf(e.target.value);
-                                if (!_validate) {
+                                _validate2 = isCpf(e.target.value);
+                                if (!_validate2) {
                                   _context.next = 13;
                                   break;
                                 }
@@ -45566,8 +45535,8 @@ var initDataBasic = /*#__PURE__*/function () {
                       rg.addEventListener("input", function (e) {
                         // Remove tudo, exceto números
                         e.target.value = e.target.value.replace(/[^\d]/g, "");
-                        _validate2 = isRg(e.target.value);
-                        if (_validate2) {
+                        _validate3 = isRg(e.target.value);
+                        if (_validate3) {
                           document.getElementById("msg-rg").innerHTML = "";
                           formDataBasic.rg = e.target.value;
                         } else {
@@ -45581,8 +45550,8 @@ var initDataBasic = /*#__PURE__*/function () {
                     orgaoExpedidor = document.querySelector(".orgao-expedidor");
                     if (orgaoExpedidor) {
                       orgaoExpedidor.addEventListener("input", function (e) {
-                        _validate3 = isComplemento(e.target.value);
-                        if (_validate3) {
+                        _validate4 = isComplemento(e.target.value);
+                        if (_validate4) {
                           document.getElementById("msg-orgao-expedidor").innerHTML = "";
                           formDataBasic.orgaoexpedidor = e.target.value;
                         } else {
@@ -45597,8 +45566,8 @@ var initDataBasic = /*#__PURE__*/function () {
                     if (inputNomeMae) {
                       inputNomeMae.addEventListener("input", function (e) {
                         e.target.value = e.target.value.replace(/[0-9]/g, "");
-                        _validate4 = isNome(e.target.value);
-                        if (_validate4) {
+                        _validate5 = isNome(e.target.value);
+                        if (_validate5) {
                           document.getElementById("msg-nome-mae").innerHTML = "";
                           formDataBasic.nomemae = e.target.value;
                         } else {
@@ -45613,8 +45582,8 @@ var initDataBasic = /*#__PURE__*/function () {
                     if (inputNomePai) {
                       inputNomePai.addEventListener("input", function (e) {
                         e.target.value = e.target.value.replace(/[0-9]/g, "");
-                        _validate5 = isNome(e.target.value);
-                        if (_validate5) {
+                        _validate6 = isNome(e.target.value);
+                        if (_validate6) {
                           document.getElementById("msg-nome-pai").innerHTML = "";
                           return formDataBasic.nomepai = e.target.value;
                         } else {
@@ -45630,8 +45599,8 @@ var initDataBasic = /*#__PURE__*/function () {
                     if (ctps) {
                       ctps.addEventListener("input", function (e) {
                         e.target.value = e.target.value.replace(/[^0-9]/g, "");
-                        _validate6 = isCtps(e.target.value);
-                        if (_validate6) {
+                        _validate7 = isCtps(e.target.value);
+                        if (_validate7) {
                           document.getElementById("msg-carteira-trabalho").innerHTML = "";
                           return formDataBasic.ctps = e.target.value;
                         } else {
@@ -45647,8 +45616,8 @@ var initDataBasic = /*#__PURE__*/function () {
                     if (naturalidade) {
                       naturalidade.addEventListener("input", function (e) {
                         e.target.value = e.target.value.replace(/[0-9]/g, "");
-                        _validate7 = isNaturalidadeNacionalidade(e.target.value);
-                        if (_validate7) {
+                        _validate8 = isNaturalidadeNacionalidade(e.target.value);
+                        if (_validate8) {
                           document.getElementById("msg-naturalidade").innerHTML = "";
                           return formDataBasic.naturalidade = e.target.value;
                         } else {
@@ -45663,8 +45632,8 @@ var initDataBasic = /*#__PURE__*/function () {
                     if (nacionalidade) {
                       nacionalidade.addEventListener("input", function (e) {
                         e.target.value = e.target.value.replace(/[0-9]/g, "");
-                        _validate8 = isNaturalidadeNacionalidade(e.target.value);
-                        if (_validate8) {
+                        _validate9 = isNaturalidadeNacionalidade(e.target.value);
+                        if (_validate9) {
                           document.getElementById("msg-nacionalidade").innerHTML = "";
                           return formDataBasic.nacionalidade = e.target.value;
                         } else {
@@ -45678,8 +45647,8 @@ var initDataBasic = /*#__PURE__*/function () {
                     estadoCivil = document.getElementById("estado-civil");
                     if (estadoCivil) {
                       estadoCivil.addEventListener("input", function (e) {
-                        _validate9 = isEstadoCivil(e.target.value);
-                        if (_validate9) {
+                        _validate10 = isEstadoCivil(e.target.value);
+                        if (_validate10) {
                           document.getElementById("msg-estado-civil").innerHTML = "";
                           return formDataBasic.estadocivil = e.target.value;
                         } else {
@@ -45694,8 +45663,8 @@ var initDataBasic = /*#__PURE__*/function () {
                     if (dataNascimento) {
                       dataNascimento.addEventListener("input", function (e) {
                         e.target.value = e.target.value.replace(/[^0-9-]/g, "");
-                        _validate10 = isDate(e.target.value);
-                        if (_validate10) {
+                        _validate11 = isDate(e.target.value);
+                        if (_validate11) {
                           document.getElementById("msg-data-nascimento").innerHTML = "";
                           formDataBasic.dt_nascimento = e.target.value;
                           formDataBasic.idade = age(e.target.value);
@@ -45711,8 +45680,8 @@ var initDataBasic = /*#__PURE__*/function () {
                     sexo = document.getElementById("sexo");
                     if (sexo) {
                       sexo.addEventListener("input", function (e) {
-                        _validate11 = isSexo(e.target.value);
-                        if (_validate11) {
+                        _validate12 = isSexo(e.target.value);
+                        if (_validate12) {
                           document.getElementById("msg-sexo").innerHTML = "";
                           return formDataBasic.sexo = e.target.value;
                         } else {
@@ -45725,8 +45694,8 @@ var initDataBasic = /*#__PURE__*/function () {
                     }
                     if (ufNaturalidade) {
                       ufNaturalidade.addEventListener("input", function (e) {
-                        _validate12 = isUfNaturalidade(e.target.value);
-                        if (_validate12) {
+                        _validate13 = isUfNaturalidade(e.target.value);
+                        if (_validate13) {
                           document.getElementById("msg-uf-naturalidade").innerHTML = "";
                           return formDataBasic.uf_naturalidade = e.target.value;
                         } else {
@@ -45741,8 +45710,8 @@ var initDataBasic = /*#__PURE__*/function () {
                     descDiv = document.querySelector(".descricao-deficiencia");
                     if (deficiencias) {
                       deficiencias.addEventListener("input", function (e) {
-                        _validate13 = isDeficiente(listDeficiencias, e.target.value);
-                        if (_validate13) {
+                        _validate14 = isDeficiente(listDeficiencias, e.target.value);
+                        if (_validate14) {
                           document.getElementById("msg-deficiencias").innerHTML = "";
                           formDataBasic.deficiencia = e.target.value;
                         } else {
@@ -45815,7 +45784,7 @@ var initDataBasic = /*#__PURE__*/function () {
                     } else {
                       reject(new Error("O formulário não foi encontrado!"));
                     }
-                  case 47:
+                  case 48:
                   case "end":
                     return _context2.stop();
                 }
@@ -47501,7 +47470,6 @@ var CreateInputLabel = /*#__PURE__*/function () {
     key: "doLabelInput",
     value: function doLabelInput() {
       this.createInputLabel();
-      this.createError();
     }
   }, {
     key: "createInputLabel",
@@ -47516,10 +47484,8 @@ var CreateInputLabel = /*#__PURE__*/function () {
       label.insertAdjacentElement("afterend", input);
       input.className = this.idClass;
       input.id = this.idClass;
+      input.required = true;
     }
-  }, {
-    key: "createError",
-    value: function createError() {}
   }]);
   return CreateInputLabel;
 }(); // const create = new CreateInputLabel()

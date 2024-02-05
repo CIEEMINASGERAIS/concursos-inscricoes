@@ -517,6 +517,7 @@ const initDataBasic = async () => {
           // formDataBasic
           // No caso do nomepai e carteira de trabalho não são obrigatorios
         ) {
+          console.log(formDataBasic)
           changeMains(".screen-address");
           changeSubMainTitle("Formulário de Endereço");
           resolve(formDataBasic);

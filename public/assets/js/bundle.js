@@ -45778,6 +45778,7 @@ var initDataBasic = /*#__PURE__*/function () {
                         // formDataBasic
                         // No caso do nomepai e carteira de trabalho não são obrigatorios
                         ) {
+                          console.log(formDataBasic);
                           changeMains(".screen-address");
                           changeSubMainTitle("Formulário de Endereço");
                           resolve(formDataBasic);
@@ -47802,7 +47803,7 @@ function _sendData() {
           data = _context2.sent;
           _context2.prev = 3;
           _context2.next = 6;
-          return fetch("https://appcadastro.cieemg.org.br/cadastrar", {
+          return fetch("http://localhost:8080/cadastrar", {
             method: "POST",
             headers: {
               "Content-Type": "application/json"

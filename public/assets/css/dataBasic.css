@@ -54,10 +54,11 @@
 #msg-nome-pai p {
   margin-top: 0rem;
 }
-.social{
+#social{
   width: 2.3rem;
-  padding: 10rem;
+  padding: 0rem;
 }
+
 
 .obrigatorio {
   display: flex;
@@ -67,7 +68,10 @@
   padding: 0;
 }
 
+
+
 .name,
+#nome-social,
 .cpf,
 .rg,
 .orgao-expedidor,
@@ -85,6 +89,7 @@
 }
 
 .div-number-1,
+.div-number-1-1,
 .div-number-1-5,
 .div-number-2,
 .div-number-3,
@@ -104,9 +109,21 @@
   order: 1;
 }
 
+#div-nome-social{
+  width: 100%;
+  width: 44rem;
+}
+
+.div-social{
+  width: 46rem;
+  display: flex;
+  align-items: center;
+
+}
+
 .div-cpf {
   width: 46rem;
-  order: 2;
+  order: 3;
 }
 
 .div-rg {
@@ -245,8 +262,15 @@
     margin-right: 2rem;
     order: 1;
   }
+  #div-nome-social{
+    width: 100%;
+  }
+  
   .div-social{
-    order:2 ;
+    width: 46rem;
+    display: flex;
+    align-items: center;
+  
   }
   
   .div-cpf {
@@ -281,6 +305,7 @@
   }
 
   .div-number-1,
+  .div-number-1-1,
   .div-number-1-5,
   .div-number-2,
   .div-number-3,
@@ -294,6 +319,7 @@
   }
 
   .name,
+  .social,
   .cpf,
   .rg,
   .orgao-expedidor,
@@ -311,6 +337,7 @@
   }
 
   .div-name,
+  .div-social,
   .div-cpf,
   .div-rg,
   .div-orgao-expedidor,

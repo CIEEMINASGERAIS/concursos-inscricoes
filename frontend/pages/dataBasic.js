@@ -106,13 +106,19 @@ const initDataBasic = async () => {
 
     const divNomeSocial = document.querySelector(".div-social")
 
-    document.addEventListener("click", function () {
-      if (checkNomeSocial.checked) {
-        if (!document.querySelector('.nome-social')) {
-          const inputSocial = new CreateInputLabel(divNomeSocial, "Nome Social", "nome-social")
-        }
-      } else {
+    document.addEventListener("click", function (e) {
+      const element = e.target;
 
+      if (element.classList.contains("social")) {
+        if (checkNomeSocial.checked) {
+          if (!document.querySelector('.nome-social')) {
+            const inputSocial = new CreateInputLabel(divNomeSocial, "Nome Social", "nome-social")
+          }
+        } else {
+          const div = document.querySelector("#div-nome-social")
+          div.remove()
+          formDataBasic.nome_social = ""
+        }
       }
     })
 
@@ -129,15 +135,14 @@ const initDataBasic = async () => {
 
         if (validate) {
           document.getElementById("msg-nome-social").innerHTML = "";
-          return (formDataBasic.nome_social = element.value);
+          formDataBasic.nome_social = element.value
         } else {
           e.preventDefault();
           // Enviar para o HTML a mensagem de erro
           document.getElementById("msg-nome-social").innerHTML =
             "<p>Favor preencher o Nome Social completo!</p>";
-          return (formDataBasic.nome_social = false);
+          formDataBasic.nome_social = false
         }
-
       }
     })
 

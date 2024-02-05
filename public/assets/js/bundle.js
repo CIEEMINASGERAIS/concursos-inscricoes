@@ -45461,12 +45461,19 @@ var initDataBasic = /*#__PURE__*/function () {
                     }
                     checkNomeSocial = document.getElementById('social');
                     divNomeSocial = document.querySelector(".div-social");
-                    document.addEventListener("click", function () {
-                      if (checkNomeSocial.checked) {
-                        if (!document.querySelector('.nome-social')) {
-                          var inputSocial = new CreateInputLabel(divNomeSocial, "Nome Social", "nome-social");
+                    document.addEventListener("click", function (e) {
+                      var element = e.target;
+                      if (element.classList.contains("social")) {
+                        if (checkNomeSocial.checked) {
+                          if (!document.querySelector('.nome-social')) {
+                            var inputSocial = new CreateInputLabel(divNomeSocial, "Nome Social", "nome-social");
+                          }
+                        } else {
+                          var div = document.querySelector("#div-nome-social");
+                          div.remove();
+                          formDataBasic.nome_social = "";
                         }
-                      } else {}
+                      }
                     });
                     document.addEventListener("input", function (e) {
                       var element = e.target;
@@ -45475,12 +45482,12 @@ var initDataBasic = /*#__PURE__*/function () {
                         validate = isNome(element.value);
                         if (validate) {
                           document.getElementById("msg-nome-social").innerHTML = "";
-                          return formDataBasic.nome_social = element.value;
+                          formDataBasic.nome_social = element.value;
                         } else {
                           e.preventDefault();
                           // Enviar para o HTML a mensagem de erro
                           document.getElementById("msg-nome-social").innerHTML = "<p>Favor preencher o Nome Social completo!</p>";
-                          return formDataBasic.nome_social = false;
+                          formDataBasic.nome_social = false;
                         }
                       }
                     });
@@ -47477,14 +47484,22 @@ var CreateInputLabel = /*#__PURE__*/function () {
       var div = document.createElement('div');
       var input = document.createElement('input');
       var label = document.createElement('label');
+      var p = document.createElement('p');
+      var span = document.createElement("span");
       this.tagAnterior.insertAdjacentElement("afterend", div);
       div.appendChild(label);
-      label["for"] = this.idClass;
+      div.id = "div-".concat(this.idClass);
       label.innerText = this.textLabel;
+      label.htmlFor = this.idClass;
       label.insertAdjacentElement("afterend", input);
       input.className = this.idClass;
       input.id = this.idClass;
       input.required = true;
+      p.className = "obrigatorio";
+      p.innerText = "Obrigatório";
+      span.id = "msg-".concat(this.idClass);
+      input.insertAdjacentElement("afterend", p);
+      p.insertAdjacentElement("afterend", span);
     }
   }]);
   return CreateInputLabel;

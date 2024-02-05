@@ -635,7 +635,7 @@ module.exports = (sequelize, DataTypes) => {
           notEmpty: {
             msg: "Esse campo não pode ser vazio.",
           },
-          notNull: { msg: "O campo nome precisa ser preenchido" },
+          notNull: { msg: "O campo nome social precisa ser preenchido" },
           len: {
             args: [3, 255],
             msg: "Esse campo deve ter 3 e 255 caracteres.",

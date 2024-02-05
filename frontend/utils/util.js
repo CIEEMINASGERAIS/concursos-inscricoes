@@ -955,7 +955,47 @@ const erroSelectSchool = (select, ano) => {
   }
 }
 
+class CreateInputLabel {
+
+  constructor(tagAnterior, textLabel, idClass) {
+    this.tagAnterior = tagAnterior;
+    this.textLabel = textLabel;
+    this.idClass = idClass;
+
+    this.doLabelInput();
+  }
+
+  doLabelInput() {
+    this.createInputLabel()
+  }
+
+  createInputLabel() {
+    const div = document.createElement('div');
+    const input = document.createElement('input');
+    const label = document.createElement('label');
+    const p = document.createElement('p')
+    const span = document.createElement("span")
+    this.tagAnterior.insertAdjacentElement("afterend", div);
+    div.appendChild(label);
+    div.id = `div-${this.idClass}`
+    label.innerText = this.textLabel;
+    label.htmlFor = this.idClass
+    label.insertAdjacentElement("afterend", input);
+    input.className = this.idClass;
+    input.id = this.idClass;
+    input.required = true;
+    p.className = "obrigatorio"
+    p.innerText = "Obrigatório"
+    span.id = `msg-${this.idClass}`
+    input.insertAdjacentElement("afterend", p)
+    p.insertAdjacentElement("afterend", span)
+  }
+}
+
+// const create = new CreateInputLabel()
+
 module.exports = {
+  CreateInputLabel,
   erroInputSocioEconomic,
   erroSelect,
   erroInput,

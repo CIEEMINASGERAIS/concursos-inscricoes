@@ -126,7 +126,6 @@ async function createFormSchoolData() {
       option1.disabled = "disabled";
       option1.selected = "selected";
       option1.text = "Selecione";
-      // option1.value = "";
       horario.appendChild(option1);
 
       dataFormSchool.horario = false
@@ -171,7 +170,6 @@ async function createFormSchoolData() {
       option1.disabled = "disabled";
       option1.selected = "selected";
       option1.text = "Selecione";
-      // option1.value = "";
       escolas.appendChild(option1);
 
       for (let i = 0; i < opcoes.length; i++) {
@@ -191,7 +189,6 @@ async function createFormSchoolData() {
       option1.disabled = "disabled";
       option1.selected = "selected";
       option1.text = "Selecione";
-      // option1.value = "";
       cursos.appendChild(option1);
 
       for (let i = 0; i < opcoes.length; i++) {
@@ -361,6 +358,7 @@ async function createFormSchoolData() {
             mostrarOpcoesAutocompleteHorario(horarioIncompleto);
             document.getElementById("div-periodo").style.display = "none";
             document.getElementById("periodo").style.display = true;
+            dataFormSchool.periodo = periodoFinal();
           } else {
             document.getElementById("div-periodo").style.display = "block";
             document.getElementById("periodo").style.display = false;
@@ -453,11 +451,9 @@ async function createFormSchoolData() {
           dataFormSchool.previsao_semestre &&
           dataFormSchool.previsao_ano &&
           dataFormSchool.previsao_mes &&
-          dataFormSchool.horario
+          dataFormSchool.horario &&
+          dataFormSchool.periodo
         ) {
-          if (!valid) {
-            dataFormSchool.periodo = periodoFinal();
-          }
           anoIngresso(dataFormSchool.previsao_ano);
           const today = new Date();
           dataFormSchool.ano = today.getFullYear();
@@ -465,8 +461,7 @@ async function createFormSchoolData() {
           changeMains(".screen-socio-economic");
           changeSubMainTitle("Formulário Socioeconômico");
           resolve(dataFormSchool);
-        }
-        else {
+        } else {
           erroSelectSchool(".form-school-data select", dataFormSchool.previsao_ano)
           removerMensagem("msg-fracasso-school");
         }

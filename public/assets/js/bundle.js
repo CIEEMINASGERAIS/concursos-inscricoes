@@ -47770,8 +47770,9 @@ function _takeData() {
           return _objectSpread(_objectSpread(_objectSpread(_objectSpread(_objectSpread({}, termsConditions), formData), formAddress), formSchoolData), dataEconomy);
         case 23:
           allData = _context.sent;
+          console.log(allData);
           return _context.abrupt("return", allData);
-        case 25:
+        case 26:
         case "end":
           return _context.stop();
       }
@@ -47794,7 +47795,7 @@ function _sendData() {
           data = _context2.sent;
           _context2.prev = 3;
           _context2.next = 6;
-          return fetch("http://localhost:8080/cadastrar", {
+          return fetch("https://appcadastro.cieemg.org.br/cadastrar", {
             method: "POST",
             headers: {
               "Content-Type": "application/json"

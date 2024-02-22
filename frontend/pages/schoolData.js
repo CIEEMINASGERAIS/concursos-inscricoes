@@ -33,6 +33,7 @@ async function createFormSchoolData() {
     const fim = 2030;
 
     const anosFormaturas = [];
+
     for (let i = inicio; i <= fim; i++) {
       anosFormaturas.push(i);
     }

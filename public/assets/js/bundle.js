@@ -47770,9 +47770,8 @@ function _takeData() {
           return _objectSpread(_objectSpread(_objectSpread(_objectSpread(_objectSpread({}, termsConditions), formData), formAddress), formSchoolData), dataEconomy);
         case 23:
           allData = _context.sent;
-          console.log(allData);
           return _context.abrupt("return", allData);
-        case 26:
+        case 25:
         case "end":
           return _context.stop();
       }

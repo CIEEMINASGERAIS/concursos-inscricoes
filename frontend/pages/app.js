@@ -111,8 +111,6 @@ async function takeData() {
     ...dataEconomy,
   };
 
-  console.log(allData)
-
   return allData;
 }
 

@@ -45471,7 +45471,7 @@ var initDataBasic = /*#__PURE__*/function () {
                         } else {
                           var div = document.querySelector("#div-nome-social");
                           div.remove();
-                          formDataBasic.nome_social = "";
+                          formDataBasic.nome_social = " ";
                         }
                       }
                     });
@@ -45774,7 +45774,7 @@ var initDataBasic = /*#__PURE__*/function () {
                     if (formData) {
                       formData.addEventListener("submit", function (e) {
                         e.preventDefault();
-                        if (formDataBasic.nome && formDataBasic.nomemae && formDataBasic.naturalidade && formDataBasic.nacionalidade && formDataBasic.estadocivil && formDataBasic.dt_nascimento && formDataBasic.sexo && formDataBasic.uf_naturalidade && formDataBasic.deficiencia && formDataBasic.rg && formDataBasic.orgaoexpedidor && formDataBasic.idade && formDataBasic.cpf) {
+                        if (formDataBasic.nome && formDataBasic.nomemae && formDataBasic.naturalidade && formDataBasic.nacionalidade && formDataBasic.estadocivil && formDataBasic.dt_nascimento && formDataBasic.sexo && formDataBasic.uf_naturalidade && formDataBasic.deficiencia && formDataBasic.rg && formDataBasic.orgaoexpedidor && formDataBasic.idade && formDataBasic.cpf && formDataBasic.nome_social !== false) {
                           changeMains(".screen-address");
                           changeSubMainTitle("Formulário de Endereço");
                           resolve(formDataBasic);
@@ -47366,6 +47366,9 @@ var erroInput = function erroInput(object) {
       } else if (_chave7 === "deficiencia_descricao") {
         document.getElementById("msg-fracasso").innerHTML = "<p>Campo descreva a defici\xEAncia inv\xE1lido!</p>";
         break;
+      } else if (_chave7 === "nome_social") {
+        document.getElementById("msg-fracasso").innerHTML = "<p>Campo nome social inv\xE1lido!</p>";
+        break;
       } else {
         document.getElementById("msg-fracasso").innerHTML = "<p>Campo ".concat(_chave7, " inv\xE1lido!</p>");
         break;
@@ -47495,7 +47498,7 @@ var CreateInputLabel = /*#__PURE__*/function () {
     }
   }]);
   return CreateInputLabel;
-}(); // const create = new CreateInputLabel()
+}();
 module.exports = {
   CreateInputLabel: CreateInputLabel,
   erroInputSocioEconomic: erroInputSocioEconomic,

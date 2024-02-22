@@ -820,6 +820,11 @@ const erroInput = (object) => {
           `msg-fracasso`
         ).innerHTML = `<p>Campo descreva a deficiência inválido!</p>`;
         break
+      } else if (chave === "nome_social") {
+        document.getElementById(
+          `msg-fracasso`
+        ).innerHTML = `<p>Campo nome social inválido!</p>`;
+        break
       } else {
         document.getElementById(
           `msg-fracasso`
@@ -991,8 +996,6 @@ class CreateInputLabel {
     p.insertAdjacentElement("afterend", span)
   }
 }
-
-// const create = new CreateInputLabel()
 
 module.exports = {
   CreateInputLabel,

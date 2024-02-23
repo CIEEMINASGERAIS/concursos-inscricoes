@@ -117,7 +117,7 @@ const initDataBasic = async () => {
         } else {
           const div = document.querySelector("#div-nome-social")
           div.remove()
-          formDataBasic.nome_social = " "
+          formDataBasic.nome_social = ""
         }
       }
     })
@@ -514,7 +514,7 @@ const initDataBasic = async () => {
           formDataBasic.orgaoexpedidor &&
           formDataBasic.idade &&
           formDataBasic.cpf &&
-          formDataBasic.nome_social !== false          
+          formDataBasic.nome_social !== false
         ) {
           changeMains(".screen-address");
           changeSubMainTitle("Formulário de Endereço");

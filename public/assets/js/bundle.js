@@ -45471,7 +45471,7 @@ var initDataBasic = /*#__PURE__*/function () {
                         } else {
                           var div = document.querySelector("#div-nome-social");
                           div.remove();
-                          formDataBasic.nome_social = " ";
+                          formDataBasic.nome_social = "";
                         }
                       }
                     });
@@ -47797,7 +47797,7 @@ function _sendData() {
           data = _context2.sent;
           _context2.prev = 3;
           _context2.next = 6;
-          return fetch("https://appcadastro.cieemg.org.br/cadastrar", {
+          return fetch("http://localhost:8080/cadastrar", {
             method: "POST",
             headers: {
               "Content-Type": "application/json"

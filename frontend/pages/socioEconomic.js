@@ -1,4 +1,4 @@
-const { selecionarNomes, erroInputSocioEconomic } = require("../utils/util");
+const { selecionarNomes, erroInputSocioEconomic, changeMains, changeSubMainTitle } = require("../utils/util");
 
 async function socioEconomic() {
   return new Promise(async (resolve, reject) => {
@@ -120,18 +120,21 @@ async function socioEconomic() {
       formSocioEconomic.addEventListener("submit", (e) => {
         e.preventDefault();
         if (
-          formEconomic.aprendiz &&
-          formEconomic.responsavel &&
-          formEconomic.imovel &&
-          formEconomic.pessoas_por_residencia &&
-          formEconomic.tem_filhos
+          // formEconomic.aprendiz &&
+          // formEconomic.responsavel &&
+          // formEconomic.imovel &&
+          // formEconomic.pessoas_por_residencia &&
+          // formEconomic.tem_filhos
+          formEconomic
         ) {
           formEconomic.escola_estudou = selecionarNomes(escolas);
           formEconomic.renda = selecionarNomes(rendas);
           formEconomic.genero = selecionarNomes(generos);
           formEconomic.etnia = selecionarNomes(declaracao);
           formEconomic.situacao_judicial = selecionarNomes(situacaoJudicial);
-          alertEnd.style.display = "block";
+          changeMains(".screen-programas-cursos")
+          changeSubMainTitle("Programas Em Curso");
+          // alertEnd.style.display = "block";
           resolve(formEconomic);
         } else {
           erroInputSocioEconomic(formEconomic)

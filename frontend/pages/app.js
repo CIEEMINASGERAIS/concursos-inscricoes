@@ -4,6 +4,7 @@ const initAddress = require("./address.js");
 const initDataBasic = require("./dataBasic.js");
 const createFormSchoolData = require("./schoolData.js");
 const socioEconomic = require("./socioEconomic.js");
+const programasEmCurso = require("./programasEmCurso.js")
 const {
   conferirFormAddress,
   conferirFormBasic,
@@ -89,6 +90,8 @@ async function takeData() {
       }
     }
   });
+
+  const formSocioEconomic = await socioEconomic()
 
   const dataEconomy = await socioEconomic();
   document.querySelector(".alert").innerHTML =

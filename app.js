@@ -38,6 +38,8 @@ const address = require("./src/controllers/renderAddress");
 
 const socialEconomic = require("./src/controllers/renderSocialEconomy");
 
+const programaEmCurso = require("./src/controllers/renderProgramasEmCurso");
+
 app.use(express.urlencoded({ extended: true }));
 
 app.use(express.static(path.resolve(__dirname, "public", "assets")));
@@ -95,6 +97,9 @@ app.get("/address", address.renderAddress);
 
 // Função responsável por renderizar a quinta página
 app.get("/socio-economic", socialEconomic.renderSocioEconomic);
+
+// Função responsável por renderizar a sexta página
+app.get("/programa-curso", programaEmCurso.renderProgramaCurso);
 
 // Função responsável por enviar as informações para o banco de dados
 app.post("/cadastrar", postCadastro.postRegister);

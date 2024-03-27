@@ -447,13 +447,14 @@ async function createFormSchoolData() {
         e.preventDefault();
 
         if (
-          dataFormSchool.escola_id &&
-          dataFormSchool.curso_id &&
-          dataFormSchool.previsao_semestre &&
-          dataFormSchool.previsao_ano &&
-          dataFormSchool.previsao_mes &&
-          dataFormSchool.horario &&
-          dataFormSchool.periodo
+          // dataFormSchool.escola_id &&
+          // dataFormSchool.curso_id &&
+          // dataFormSchool.previsao_semestre &&
+          // dataFormSchool.previsao_ano &&
+          // dataFormSchool.previsao_mes &&
+          // dataFormSchool.horario &&
+          // dataFormSchool.periodo
+          dataFormSchool
         ) {
           anoIngresso(dataFormSchool.previsao_ano);
           const today = new Date();

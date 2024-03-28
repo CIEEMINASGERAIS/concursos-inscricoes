@@ -3,7 +3,7 @@ async function programasEmCurso() {
 
     const htmlContent = await response.text()
 
-    const screenProgramasCurso = document.querySelector(".screen-programas-cursos")
+    const screenProgramasCurso = document.querySelector(".screen-programa-curso")
 
     screenProgramasCurso.innerHTML = htmlContent
 }

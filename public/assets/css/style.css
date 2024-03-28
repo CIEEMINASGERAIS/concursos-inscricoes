@@ -116,7 +116,7 @@
 .big-terms-conditions:hover,
 .big-address:hover,
 .big-school-data:hover,
-.big-socio-economic:hover{
+.big-socio-economic:hover {
   background-color: rgba(88, 84, 84, 0.3);
 }
 
@@ -168,6 +168,14 @@
 }
 
 .screen-school-data {
+  display: none;
+}
+
+.screen-socio-economic {
+  display: none;
+}
+
+.screen-programa-curso {
   display: none;
 }
 

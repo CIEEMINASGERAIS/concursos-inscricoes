@@ -45906,7 +45906,7 @@ function _programasEmCurso() {
           return response.text();
         case 5:
           htmlContent = _context.sent;
-          screenProgramasCurso = document.querySelector(".screen-programas-cursos");
+          screenProgramasCurso = document.querySelector(".screen-programa-curso");
           screenProgramasCurso.innerHTML = htmlContent;
         case 8:
         case "end":
@@ -46568,7 +46568,7 @@ function _socioEconomic() {
                           formEconomic.genero = selecionarNomes(generos);
                           formEconomic.etnia = selecionarNomes(declaracao);
                           formEconomic.situacao_judicial = selecionarNomes(situacaoJudicial);
-                          changeMains(".screen-programas-cursos");
+                          changeMains(".screen-programa-curso");
                           changeSubMainTitle("Programas Em Curso");
                           // alertEnd.style.display = "block";
                           resolve(formEconomic);
@@ -47780,20 +47780,21 @@ var initAddress = __webpack_require__(/*! ./address.js */ "./frontend/pages/addr
 var initDataBasic = __webpack_require__(/*! ./dataBasic.js */ "./frontend/pages/dataBasic.js");
 var createFormSchoolData = __webpack_require__(/*! ./schoolData.js */ "./frontend/pages/schoolData.js");
 var socioEconomic = __webpack_require__(/*! ./socioEconomic.js */ "./frontend/pages/socioEconomic.js");
-var programasEmCurso = __webpack_require__(/*! ./programasEmCurso.js */ "./frontend/pages/programasEmCurso.js");
-var _require = __webpack_require__(/*! ../utils/util.js */ "./frontend/utils/util.js"),
-  conferirFormAddress = _require.conferirFormAddress,
-  conferirFormBasic = _require.conferirFormBasic,
-  changeMains = _require.changeMains,
-  changeSubMainTitle = _require.changeSubMainTitle,
-  conferirFormSchool = _require.conferirFormSchool,
-  dateTime = _require.dateTime;
+var _require = __webpack_require__(/*! ./programasEmCurso.js */ "./frontend/pages/programasEmCurso.js"),
+  programasEmCurso = _require.programasEmCurso;
+var _require2 = __webpack_require__(/*! ../utils/util.js */ "./frontend/utils/util.js"),
+  conferirFormAddress = _require2.conferirFormAddress,
+  conferirFormBasic = _require2.conferirFormBasic,
+  changeMains = _require2.changeMains,
+  changeSubMainTitle = _require2.changeSubMainTitle,
+  conferirFormSchool = _require2.conferirFormSchool,
+  dateTime = _require2.dateTime;
 function takeData() {
   return _takeData.apply(this, arguments);
 }
 function _takeData() {
   _takeData = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
-    var date, callMain, termsConditions, formData, validateFormBasic, formAddress, validateFormAddress, formSchoolData, validateFormSchool, formSocioEconomic, dataEconomy, allData;
+    var date, callMain, termsConditions, formData, validateFormBasic, formAddress, validateFormAddress, formSchoolData, validateFormSchool, dataEconomy, programaCurso, allData;
     return _regeneratorRuntime().wrap(function _callee$(_context) {
       while (1) switch (_context.prev = _context.next) {
         case 0:
@@ -47863,11 +47864,11 @@ function _takeData() {
           _context.next = 19;
           return socioEconomic();
         case 19:
-          formSocioEconomic = _context.sent;
-          _context.next = 22;
-          return socioEconomic();
-        case 22:
           dataEconomy = _context.sent;
+          _context.next = 22;
+          return programasEmCurso();
+        case 22:
+          programaCurso = _context.sent;
           document.querySelector(".alert").innerHTML = "<h1>Cadastro conclu\xEDdo!</h1>\n    <p>Ol\xE1 ".concat(formData.nome, ", parab\xE9ns por finalizar a primeira etapa do seu cadastro, fique atento ao seu e-mail,\n    enviaremos em\n    at\xE9 24 horas os dados para realizar seu primeiro login no nosso portal, para conclus\xE3o do seu cadastro.</p>\n    <div class=\"button-school-end\">\n            <a class=\"button-end-school\" href=\"https://cieemg.org.br/\" rel=\"noopener noreferrer\">Confirmar</a>\n    </div>\n    <div class=\"data-erro\">\n      <p>").concat(date, " v - 1.1.0</p>\n    </div>");
           _context.next = 26;
           return _objectSpread(_objectSpread(_objectSpread(_objectSpread(_objectSpread({}, termsConditions), formData), formAddress), formSchoolData), dataEconomy);
@@ -47882,50 +47883,31 @@ function _takeData() {
   }));
   return _takeData.apply(this, arguments);
 }
-function sendData() {
-  return _sendData.apply(this, arguments);
-}
-function _sendData() {
-  _sendData = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
-    var data, response;
-    return _regeneratorRuntime().wrap(function _callee2$(_context2) {
-      while (1) switch (_context2.prev = _context2.next) {
-        case 0:
-          _context2.next = 2;
-          return takeData();
-        case 2:
-          data = _context2.sent;
-          _context2.prev = 3;
-          _context2.next = 6;
-          return fetch("http://localhost:8080/cadastrar", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json"
-            },
-            error: false,
-            mensagem: "Usuário cadastrado com sucesso",
-            body: JSON.stringify(data)
-          });
-        case 6:
-          response = _context2.sent;
-          if (response.ok) {} else {
-            console.log(response.status);
-          }
-          _context2.next = 13;
-          break;
-        case 10:
-          _context2.prev = 10;
-          _context2.t0 = _context2["catch"](3);
-          console.log("Erro: ", _context2.t0);
-        case 13:
-        case "end":
-          return _context2.stop();
-      }
-    }, _callee2, null, [[3, 10]]);
-  }));
-  return _sendData.apply(this, arguments);
-}
-sendData();
+var data = takeData();
+
+// async function sendData() {
+//   const data = await takeData();
+
+//   try {
+//     const response = await fetch("http://localhost:8080/cadastrar", {
+//       method: "POST",
+//       headers: {
+//         "Content-Type": "application/json",
+//       },
+//       error: false,
+//       mensagem: "Usuário cadastrado com sucesso",
+//       body: JSON.stringify(data),
+//     });
+//     if (response.ok) {
+//     } else {
+//       console.log(response.status);
+//     }
+//   } catch (error) {
+//     console.log("Erro: ", error);
+//   }
+// }
+
+// sendData();
 })();
 
 /******/ })()

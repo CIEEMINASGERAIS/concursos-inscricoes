@@ -132,7 +132,7 @@ async function socioEconomic() {
           formEconomic.genero = selecionarNomes(generos);
           formEconomic.etnia = selecionarNomes(declaracao);
           formEconomic.situacao_judicial = selecionarNomes(situacaoJudicial);
-          changeMains(".screen-programas-cursos")
+          changeMains(".screen-programa-curso")
           changeSubMainTitle("Programas Em Curso");
           // alertEnd.style.display = "block";
           resolve(formEconomic);

@@ -1,4 +1,4 @@
-const selecionarNomes = require("../utils/util")
+const { selecionarNomes } = require("../utils/util")
 
 async function programasEmCurso() {
     const response = await fetch("programa-curso")
@@ -9,17 +9,31 @@ async function programasEmCurso() {
 
     screenProgramasCurso.innerHTML = htmlContent
 
-    const programasEmCurso = document.getElementsByTagName("programas-curso")
+    // const programasEmCurso = document.getElementsByTagName("programas-curso")
 
-    const selectProgramaCurso = document.createElement("select")
+    const divProgramas = document.querySelector(".programas-cursos")
 
-    const divProgramas = document.querySelector(".form-group-programas")
+    const simProgramasCurso = document.getElementById("s-p-c")
 
-    divProgramas.insertAdjacentElement("afterend", selectProgramaCurso)
-
-    if (selecionarNomes(programasEmCurso) === "Sim") {
-        CreateInputLabel
-    }
+    simProgramasCurso.addEventListener("change", function (e) {
+        if (e.target.value === "S") {
+            const labelProgramasCursos = document.createElement("label")
+            labelProgramasCursos.innerHTML = "Programa em curso"
+            labelProgramasCursos.htmlFor = "programas-cursos"
+            divProgramas.insertAdjacentElement("afterbegin", labelProgramasCursos)
+            const selectProgramaCurso = document.createElement("select")
+            selectProgramaCurso.value = "Desafio"
+            selectProgramaCurso.innerText = "Desafio"
+            selectProgramaCurso.id = "programas-cursos"
+            labelProgramasCursos.insertAdjacentElement("afterend", selectProgramaCurso)
+            const optionProgramaCurso = document.createElement("option")
+            selectProgramaCurso.appendChild(optionProgramaCurso)
+            optionProgramaCurso.value = "Desaio"
+            const p = document.createElement("p")
+            p.className = "obrigatorio"
+            selectProgramaCurso.insertAdjacentElement("afterend", p)
+        }
+    })
 
 }
 

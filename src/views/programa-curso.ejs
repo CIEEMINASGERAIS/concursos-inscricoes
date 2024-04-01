@@ -1,6 +1,7 @@
 <form class="form-programa-cursos">
     <div class="form-group">
-        <h4 class="label-title">Programas e cursos disponiveis, deseja participar?<span class="span-obrigatorio">Obrigatório</span>
+        <h4 class="label-title">Programas e cursos disponiveis, deseja participar?<span
+                class="span-obrigatorio">Obrigatório</span>
         </h4>
         <div class="form-check">
             <input type="radio" class="form-check-input" id="escola-municipal" name="escolas" value="0" required>
@@ -11,24 +12,23 @@
             <label for="escola-bolsista" class="form-check-label">Não</label>
         </div>
     </div>
-
-    <div id="div-cursos" class="curso-search">
-        <label for="cursos">Cursos</label>
-        <select name="cursos" data-live-search="true" class="w-100" id="cursos" title="Selecione o curso.">
-          <option value="" disabled selected>Selecione</option>
-          <option value="1" selected>teste1</option>
-          <option value="2" selected>teste2</option>
-          <option value="300" selected>teste3</option>
+    <div id="div-programas" class="programas-cursos">
+        <label for="cursos">Programas</label>
+        <select name="cursos" data-live-search="true" class="select-programa" id="cursos" title="Selecione o curso.">
+            <option value="" disabled selected>Selecione</option>
+            <option value="1" selected>teste1</option>
+            <option value="2" selected>teste2</option>
+            <option value="300" selected>teste3</option>
         </select>
         <p class="obrigatorio">Obrigatório</p>
         <span id="msg-curso"></span>
-      </div>
-
+    </div>
     <div class="form-group">
-        <h4 class="label-title">1. Como você ficou sabendo deste desafio?<span class="span-obrigatorio">Obrigatório</span>
+        <h4 class="label-title">1. Como você ficou sabendo deste desafio?<span
+                class="span-obrigatorio">Obrigatório</span>
         </h4>
         <div class="form-check">
-            <input type="radio" class="form-check-input"  name="comoEncontrou" value="0" required>
+            <input type="radio" class="form-check-input" name="comoEncontrou" value="0" required>
             <label for="escola-municipal" class="label-desafio-encontro"> Pelo jornal Diário do Comércio </label>
         </div>
         <div class="form-check">
@@ -36,23 +36,30 @@
             <label for="escola-bolsista" class="label-desafio-encontro"> Pelo site do CIEE/MG </label>
         </div>
         <div class="form-check">
-            <input type="radio" class="form-check-input"  name="comoEncontrou" value="2" required>
+            <input type="radio" class="form-check-input" name="comoEncontrou" value="2" required>
             <label for="escola-estadual" class="label-desafio-encontro"> Pelas redes sociais do CIEE/MG </label>
         </div>
         <div class="form-check">
-            <input type="radio" class="form-check-input"  name="comoEncontrou" value="3" required>
+            <input type="radio" class="form-check-input" name="comoEncontrou" value="3" required>
             <label for="escola-particular" class="label-desafio-encontro"> Pelo site do Diário do Comércio </label>
         </div>
         <div class="form-check">
-            <input type="radio" class="form-check-input"  name="comoEncontrou" value="4" required>
-            <label for="escola-federal" class="label-desafio-encontro"> Pelas redes sociais do Diário do Comércio </label>
+            <input type="radio" class="form-check-input" name="comoEncontrou" value="4" required>
+            <label for="escola-federal" class="label-desafio-encontro"> Pelas redes sociais do Diário do Comércio
+            </label>
+        </div>
+        <div class="form-check">
+            <input type="radio" class="form-check-input" name="comoEncontrou" value="5" required>
+            <label for="escola-federal" class="label-desafio-encontro"> Outros
+            </label>
         </div>
         <div>
             <input type="text" name="imovel" class="form-control" id="imovel" placeholder="Outros" required>
         </div>
     </div>
     <div class="form-group">
-        <h4 class="label-title">2. O que mais te chamou a atenção neste desafio? <span class="span-obrigatorio">Obrigatório</span></h4>
+        <h4 class="label-title">2. O que mais te chamou a atenção neste desafio? <span
+                class="span-obrigatorio">Obrigatório</span></h4>
         <div class="form-check">
             <input type="radio" class="form-check-input" id="pergunta1" name="rendas" required value="1">
             <label for="1salario" class="form-check-label"> A possibilidade de expressar a minha opinião</label>
@@ -69,6 +76,10 @@
         <div class="form-check">
             <input type="radio" class="form-check-input" id="pergunta1" name="rendas" value="4" required>
             <label for="4salarios" class="form-check-label"> Gostaria de receber uma mentoria</label>
+        </div>
+        <div class="form-check">
+            <input type="radio" class="form-check-input" id="pergunta1" name="comoEncontrou" value="5" required>
+            <label for="escola-federal" class="label-desafio-encontro"> Outros</label>
         </div>
         <div>
             <input type="text" name="imovel" class="form-control" id="imovel" placeholder="Outros" required>

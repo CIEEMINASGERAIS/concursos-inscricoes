@@ -1,5 +1,4 @@
-
-.form-programa-cursos{
+.form-programa-cursos {
     background-color: rgb(13, 13, 13);
     margin: 5rem 2rem 5rem 14rem;
     margin: center;
@@ -15,4 +14,14 @@
     color: white;
 }
 
-  
+.select-programa {
+    width: 100%;
+    padding: .5rem 0.5rem 0.4rem 0.5rem;
+    font-size: 1rem;
+    border-radius: 0.25rem;
+}
+@media screen and (max-width: 920px) {
+    .form-programa-cursos {
+        margin: 5rem 2rem 5rem 6rem;
+    }
+}

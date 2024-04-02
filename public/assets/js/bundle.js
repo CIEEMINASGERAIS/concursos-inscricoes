@@ -45915,22 +45915,33 @@ function _programasEmCurso() {
           divProgramas = document.querySelector(".programas-cursos");
           simProgramasCurso = document.getElementById("s-p-c");
           simProgramasCurso.addEventListener("change", function (e) {
-            if (e.target.value === "S") {
-              var labelProgramasCursos = document.createElement("label");
-              labelProgramasCursos.innerHTML = "Programa em curso";
-              labelProgramasCursos.htmlFor = "programas-cursos";
-              divProgramas.insertAdjacentElement("afterbegin", labelProgramasCursos);
-              var selectProgramaCurso = document.createElement("select");
-              selectProgramaCurso.value = "Desafio";
-              selectProgramaCurso.innerText = "Desafio";
-              selectProgramaCurso.id = "programas-cursos";
-              labelProgramasCursos.insertAdjacentElement("afterend", selectProgramaCurso);
-              var optionProgramaCurso = document.createElement("option");
-              selectProgramaCurso.appendChild(optionProgramaCurso);
-              optionProgramaCurso.value = "Desaio";
-              var p = document.createElement("p");
-              p.className = "obrigatorio";
-              selectProgramaCurso.insertAdjacentElement("afterend", p);
+            var element = e.target;
+            if (element.classList.contains("spc")) {
+              if (!document.getElementById("select-desafio")) {
+                var div = document.createElement("div");
+                div.id = "select-desafio";
+                divProgramas.insertAdjacentElement("afterbegin", div);
+                var labelProgramasCursos = document.createElement("label");
+                labelProgramasCursos.innerHTML = "Programa em curso";
+                labelProgramasCursos.htmlFor = "programas-cursos";
+                div.insertAdjacentElement("afterbegin", labelProgramasCursos);
+                var selectProgramaCurso = document.createElement("select");
+                selectProgramaCurso.id = "programas-cursos";
+                labelProgramasCursos.insertAdjacentElement("afterend", selectProgramaCurso);
+                var optionProgramaCurso = document.createElement("option");
+                optionProgramaCurso.innerText = "Desafio";
+                optionProgramaCurso.value = "Desafio";
+                selectProgramaCurso.appendChild(optionProgramaCurso);
+                var p = document.createElement("p");
+                p.innerText = "Obrigatório";
+                p.className = "obrigatorio";
+                selectProgramaCurso.insertAdjacentElement("afterend", p);
+              }
+            }
+            if (element.classList.contains("npc")) {
+              if (document.getElementById("select-desafio") > 0) {
+                document.getElementById("select-desafio").remove();
+              }
             }
           });
         case 11:

@@ -13,9 +13,7 @@ async function programasEmCurso() {
 
     const divProgramas = document.querySelector(".programas-cursos")
 
-    const simProgramasCurso = document.getElementById("s-p-c")
-
-    simProgramasCurso.addEventListener("change", function (e) {
+    document.addEventListener("click", function (e) {
         const element = e.target
 
         if (element.classList.contains("spc")) {
@@ -42,8 +40,8 @@ async function programasEmCurso() {
         }
 
         if (element.classList.contains("npc")) {
-            if (document.getElementById("select-desafio") > 0) {
-                document.getElementById("select-desafio").remove()
+            if (document.querySelector("#select-desafio")) {
+                document.querySelector("#select-desafio").remove()
             }
         }
 

@@ -45890,13 +45890,14 @@ function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyri
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 var _require = __webpack_require__(/*! ../utils/util */ "./frontend/utils/util.js"),
-  selecionarNomes = _require.selecionarNomes;
+  selecionarNomes = _require.selecionarNomes,
+  CreateRadius = _require.CreateRadius;
 function programasEmCurso() {
   return _programasEmCurso.apply(this, arguments);
 }
 function _programasEmCurso() {
   _programasEmCurso = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
-    var response, htmlContent, screenProgramasCurso, divProgramas;
+    var response, htmlContent, screenProgramasCurso, divProgramas, listaEncontrou, listaProgramas;
     return _regeneratorRuntime().wrap(function _callee$(_context) {
       while (1) switch (_context.prev = _context.next) {
         case 0:
@@ -45913,7 +45914,9 @@ function _programasEmCurso() {
 
           // const programasEmCurso = document.getElementsByTagName("programas-curso")
           divProgramas = document.querySelector(".programas-cursos");
-          document.addEventListener("click", function (e) {
+          listaEncontrou = ["Pelo jornal Diário do Comércio", "Pelo site do CIEE/MG", "Pelas redes sociais do CIEE/MG", "Pelo site do Diário do Comércio", "Pelas redes sociais do Diário do Comércio", "Outros"];
+          listaProgramas = ["Desafio"];
+          document.addEventListener("change", function (e) {
             var element = e.target;
             if (element.classList.contains("spc")) {
               if (!document.getElementById("select-desafio")) {
@@ -45926,11 +45929,19 @@ function _programasEmCurso() {
                 div.insertAdjacentElement("afterbegin", labelProgramasCursos);
                 var selectProgramaCurso = document.createElement("select");
                 selectProgramaCurso.id = "programas-cursos";
+                selectProgramaCurso.className = "select-programas";
                 labelProgramasCursos.insertAdjacentElement("afterend", selectProgramaCurso);
-                var optionProgramaCurso = document.createElement("option");
-                optionProgramaCurso.innerText = "Desafio";
-                optionProgramaCurso.value = "Desafio";
-                selectProgramaCurso.appendChild(optionProgramaCurso);
+                var optionDisabledProgramaCurso = document.createElement("option");
+                optionDisabledProgramaCurso.innerText = "Selecione";
+                optionDisabledProgramaCurso.disabled = true;
+                optionDisabledProgramaCurso.selected = true;
+                selectProgramaCurso.appendChild(optionDisabledProgramaCurso);
+                for (var i = 0; i < listaProgramas.length; i++) {
+                  var optionProgramaCurso = document.createElement("option");
+                  optionProgramaCurso.innerText = listaProgramas[i];
+                  optionProgramaCurso.value = listaProgramas[i];
+                  selectProgramaCurso.appendChild(optionProgramaCurso);
+                }
                 var p = document.createElement("p");
                 p.innerText = "Obrigatório";
                 p.className = "obrigatorio";
@@ -45942,8 +45953,17 @@ function _programasEmCurso() {
                 document.querySelector("#select-desafio").remove();
               }
             }
+            if (element.classList.contains("encontrou")) {
+              var comoEncontrou = document.getElementsByName("comoEncontrou");
+              console.log(selecionarNomes(comoEncontrou));
+            }
+            if (element.classList.contains("select-programas")) {
+              if (element.value === "Desafio") {
+                var radiusProgramas = new CreateRadius(document.querySelector(".div-desafio"), "comoEncontrou", "form-check-input", listaEncontrou, "label-desafio-encontro", "1. Como você ficou sabendo deste desafio?", "label-title", "form-check", "csd", "poe");
+              }
+            }
           });
-        case 10:
+        case 12:
         case "end":
           return _context.stop();
       }
@@ -47629,8 +47649,59 @@ var CreateInputLabel = /*#__PURE__*/function () {
   }]);
   return CreateInputLabel;
 }();
+var CreateRadius = /*#__PURE__*/function () {
+  function CreateRadius(tagAnterior, nameRadiu, inputClass, label, labelClass, title, titleNameClass, divNameClass, sgTitleGeral, sgAsk) {
+    _classCallCheck(this, CreateRadius);
+    this.tagAnterior = tagAnterior;
+    this.label = label;
+    this.title = title;
+    this.titleNameClass = titleNameClass;
+    this.divNameClass = divNameClass;
+    this.sgTitleGeral = sgTitleGeral;
+    this.sgAsk = sgAsk;
+    this.labelClass = labelClass;
+    this.nameRadiu = nameRadiu;
+    this.inputClass = inputClass;
+    this.createRadius();
+  }
+  _createClass(CreateRadius, [{
+    key: "createRadius",
+    value: function createRadius() {
+      for (var i = 0; i < this.label.length; i++) {
+        var div = document.createElement('div');
+        div.className = this.divNameClass;
+        div.id = "{".concat(this.sgTitleGeral).concat(i, "}");
+        if (i === 0) {
+          var h4 = document.createElement("h4");
+          h4.innerText = this.title;
+          h4.className = this.titleNameClass;
+          this.tagAnterior.insertAdjacentElement("afterbegin", h4);
+          h4.insertAdjacentElement("afterend", div);
+        }
+        if (i !== 0) {
+          document.getElementById("{".concat(this.sgTitleGeral).concat(i - 1, "}")).insertAdjacentElement("afterend", div);
+        }
+        var input = document.createElement('input');
+        var label = document.createElement('label');
+        label.htmlFor = "".concat(this.sgAsk).concat(i);
+        label.innerText = this.label[i];
+        label.className = this.labelClass;
+        input.id = "".concat(this.sgAsk).concat(i);
+        input.value = i;
+        input.type = "radio";
+        input.required = true;
+        input.name = this.nameRadiu;
+        input.className = this.inputClass;
+        div.insertAdjacentElement("afterbegin", input);
+        input.insertAdjacentElement("afterend", label);
+      }
+    }
+  }]);
+  return CreateRadius;
+}();
 module.exports = {
   CreateInputLabel: CreateInputLabel,
+  CreateRadius: CreateRadius,
   erroInputSocioEconomic: erroInputSocioEconomic,
   erroSelect: erroSelect,
   erroInput: erroInput,

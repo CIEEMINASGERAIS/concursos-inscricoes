@@ -1,4 +1,4 @@
-const { selecionarNomes } = require("../utils/util")
+const { selecionarNomes, CreateRadius } = require("../utils/util")
 
 async function programasEmCurso() {
     const response = await fetch("programa-curso")
@@ -13,7 +13,11 @@ async function programasEmCurso() {
 
     const divProgramas = document.querySelector(".programas-cursos")
 
-    document.addEventListener("click", function (e) {
+    const listaEncontrou = ["Pelo jornal Diário do Comércio", "Pelo site do CIEE/MG", "Pelas redes sociais do CIEE/MG", "Pelo site do Diário do Comércio", "Pelas redes sociais do Diário do Comércio", "Outros"]
+
+    const listaProgramas = ["Desafio"]
+
+    document.addEventListener("change", function (e) {
         const element = e.target
 
         if (element.classList.contains("spc")) {
@@ -27,11 +31,19 @@ async function programasEmCurso() {
                 div.insertAdjacentElement("afterbegin", labelProgramasCursos)
                 const selectProgramaCurso = document.createElement("select")
                 selectProgramaCurso.id = "programas-cursos"
+                selectProgramaCurso.className = "select-programas"
                 labelProgramasCursos.insertAdjacentElement("afterend", selectProgramaCurso)
-                const optionProgramaCurso = document.createElement("option")
-                optionProgramaCurso.innerText = "Desafio"
-                optionProgramaCurso.value = "Desafio"
-                selectProgramaCurso.appendChild(optionProgramaCurso)
+                const optionDisabledProgramaCurso = document.createElement("option")
+                optionDisabledProgramaCurso.innerText = "Selecione"
+                optionDisabledProgramaCurso.disabled = true
+                optionDisabledProgramaCurso.selected = true
+                selectProgramaCurso.appendChild(optionDisabledProgramaCurso)
+                for (let i = 0; i < listaProgramas.length; i++) {
+                    let optionProgramaCurso = document.createElement("option")
+                    optionProgramaCurso.innerText = listaProgramas[i]
+                    optionProgramaCurso.value = listaProgramas[i]
+                    selectProgramaCurso.appendChild(optionProgramaCurso)
+                }
                 const p = document.createElement("p")
                 p.innerText = "Obrigatório"
                 p.className = "obrigatorio"
@@ -44,6 +56,20 @@ async function programasEmCurso() {
                 document.querySelector("#select-desafio").remove()
             }
         }
+
+
+
+        if (element.classList.contains("encontrou")) {
+            const comoEncontrou = document.getElementsByName("comoEncontrou")
+            console.log(selecionarNomes(comoEncontrou))
+        }
+
+        if (element.classList.contains("select-programas")) {
+            if (element.value === "Desafio") {
+                const radiusProgramas = new CreateRadius(document.querySelector(".div-desafio"), "comoEncontrou", "form-check-input", listaEncontrou, "label-desafio-encontro", "1. Como você ficou sabendo deste desafio?", "label-title", "form-check", "csd", "poe")
+            }
+        }
+
 
     })
 

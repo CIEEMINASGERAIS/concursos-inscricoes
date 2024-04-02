@@ -997,8 +997,57 @@ class CreateInputLabel {
   }
 }
 
+class CreateRadius {
+  constructor(tagAnterior, nameRadiu, inputClass, label, labelClass, title, titleNameClass, divNameClass, sgTitleGeral, sgAsk) {
+    this.tagAnterior = tagAnterior;
+    this.label = label;
+    this.title = title;
+    this.titleNameClass = titleNameClass;
+    this.divNameClass = divNameClass;
+    this.sgTitleGeral = sgTitleGeral;
+    this.sgAsk = sgAsk;
+    this.labelClass = labelClass;
+    this.nameRadiu = nameRadiu;
+    this.inputClass = inputClass;
+
+    this.createRadius()
+  }
+
+  createRadius() {
+    for (let i = 0; i < this.label.length; i++) {
+      let div = document.createElement('div');
+      div.className = this.divNameClass;
+      div.id = `{${this.sgTitleGeral}${i}}`;
+      if (i === 0) {
+        const h4 = document.createElement("h4");
+        h4.innerText = this.title;
+        h4.className = this.titleNameClass;
+        this.tagAnterior.insertAdjacentElement("afterbegin", h4);
+        h4.insertAdjacentElement("afterend", div);
+      }
+      if (i !== 0) {
+        document.getElementById(`{${this.sgTitleGeral}${i - 1}}`).insertAdjacentElement("afterend", div);
+      }
+      let input = document.createElement('input');
+      let label = document.createElement('label');
+      label.htmlFor = `${this.sgAsk}${i}`
+      label.innerText = this.label[i]
+      label.className = this.labelClass
+      input.id = `${this.sgAsk}${i}`
+      input.value = i
+      input.type = "radio"
+      input.required = true;
+      input.name = this.nameRadiu;
+      input.className = this.inputClass;
+      div.insertAdjacentElement("afterbegin", input);
+      input.insertAdjacentElement("afterend", label);
+    }
+  }
+}
+
 module.exports = {
   CreateInputLabel,
+  CreateRadius,
   erroInputSocioEconomic,
   erroSelect,
   erroInput,

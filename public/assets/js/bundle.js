@@ -45896,7 +45896,7 @@ function programasEmCurso() {
 }
 function _programasEmCurso() {
   _programasEmCurso = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
-    var response, htmlContent, screenProgramasCurso, divProgramas, simProgramasCurso;
+    var response, htmlContent, screenProgramasCurso, divProgramas;
     return _regeneratorRuntime().wrap(function _callee$(_context) {
       while (1) switch (_context.prev = _context.next) {
         case 0:
@@ -45913,27 +45913,37 @@ function _programasEmCurso() {
 
           // const programasEmCurso = document.getElementsByTagName("programas-curso")
           divProgramas = document.querySelector(".programas-cursos");
-          simProgramasCurso = document.getElementById("s-p-c");
-          simProgramasCurso.addEventListener("change", function (e) {
-            if (e.target.value === "S") {
-              var labelProgramasCursos = document.createElement("label");
-              labelProgramasCursos.innerHTML = "Programa em curso";
-              labelProgramasCursos.htmlFor = "programas-cursos";
-              divProgramas.insertAdjacentElement("afterbegin", labelProgramasCursos);
-              var selectProgramaCurso = document.createElement("select");
-              selectProgramaCurso.value = "Desafio";
-              selectProgramaCurso.innerText = "Desafio";
-              selectProgramaCurso.id = "programas-cursos";
-              labelProgramasCursos.insertAdjacentElement("afterend", selectProgramaCurso);
-              var optionProgramaCurso = document.createElement("option");
-              selectProgramaCurso.appendChild(optionProgramaCurso);
-              optionProgramaCurso.value = "Desaio";
-              var p = document.createElement("p");
-              p.className = "obrigatorio";
-              selectProgramaCurso.insertAdjacentElement("afterend", p);
+          document.addEventListener("click", function (e) {
+            var element = e.target;
+            if (element.classList.contains("spc")) {
+              if (!document.getElementById("select-desafio")) {
+                var div = document.createElement("div");
+                div.id = "select-desafio";
+                divProgramas.insertAdjacentElement("afterbegin", div);
+                var labelProgramasCursos = document.createElement("label");
+                labelProgramasCursos.innerHTML = "Programa em curso";
+                labelProgramasCursos.htmlFor = "programas-cursos";
+                div.insertAdjacentElement("afterbegin", labelProgramasCursos);
+                var selectProgramaCurso = document.createElement("select");
+                selectProgramaCurso.id = "programas-cursos";
+                labelProgramasCursos.insertAdjacentElement("afterend", selectProgramaCurso);
+                var optionProgramaCurso = document.createElement("option");
+                optionProgramaCurso.innerText = "Desafio";
+                optionProgramaCurso.value = "Desafio";
+                selectProgramaCurso.appendChild(optionProgramaCurso);
+                var p = document.createElement("p");
+                p.innerText = "Obrigatório";
+                p.className = "obrigatorio";
+                selectProgramaCurso.insertAdjacentElement("afterend", p);
+              }
+            }
+            if (element.classList.contains("npc")) {
+              if (document.querySelector("#select-desafio")) {
+                document.querySelector("#select-desafio").remove();
+              }
             }
           });
-        case 11:
+        case 10:
         case "end":
           return _context.stop();
       }

@@ -13,26 +13,38 @@ async function programasEmCurso() {
 
     const divProgramas = document.querySelector(".programas-cursos")
 
-    const simProgramasCurso = document.getElementById("s-p-c")
+    document.addEventListener("click", function (e) {
+        const element = e.target
 
-    simProgramasCurso.addEventListener("change", function (e) {
-        if (e.target.value === "S") {
-            const labelProgramasCursos = document.createElement("label")
-            labelProgramasCursos.innerHTML = "Programa em curso"
-            labelProgramasCursos.htmlFor = "programas-cursos"
-            divProgramas.insertAdjacentElement("afterbegin", labelProgramasCursos)
-            const selectProgramaCurso = document.createElement("select")
-            selectProgramaCurso.value = "Desafio"
-            selectProgramaCurso.innerText = "Desafio"
-            selectProgramaCurso.id = "programas-cursos"
-            labelProgramasCursos.insertAdjacentElement("afterend", selectProgramaCurso)
-            const optionProgramaCurso = document.createElement("option")
-            selectProgramaCurso.appendChild(optionProgramaCurso)
-            optionProgramaCurso.value = "Desaio"
-            const p = document.createElement("p")
-            p.className = "obrigatorio"
-            selectProgramaCurso.insertAdjacentElement("afterend", p)
+        if (element.classList.contains("spc")) {
+            if (!document.getElementById("select-desafio")) {
+                const div = document.createElement("div")
+                div.id = "select-desafio"
+                divProgramas.insertAdjacentElement("afterbegin", div)
+                const labelProgramasCursos = document.createElement("label")
+                labelProgramasCursos.innerHTML = "Programa em curso"
+                labelProgramasCursos.htmlFor = "programas-cursos"
+                div.insertAdjacentElement("afterbegin", labelProgramasCursos)
+                const selectProgramaCurso = document.createElement("select")
+                selectProgramaCurso.id = "programas-cursos"
+                labelProgramasCursos.insertAdjacentElement("afterend", selectProgramaCurso)
+                const optionProgramaCurso = document.createElement("option")
+                optionProgramaCurso.innerText = "Desafio"
+                optionProgramaCurso.value = "Desafio"
+                selectProgramaCurso.appendChild(optionProgramaCurso)
+                const p = document.createElement("p")
+                p.innerText = "Obrigatório"
+                p.className = "obrigatorio"
+                selectProgramaCurso.insertAdjacentElement("afterend", p)
+            }
         }
+
+        if (element.classList.contains("npc")) {
+            if (document.querySelector("#select-desafio")) {
+                document.querySelector("#select-desafio").remove()
+            }
+        }
+
     })
 
 }

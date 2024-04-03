@@ -15,6 +15,9 @@ async function programasEmCurso() {
 
     const listaEncontrou = ["Pelo jornal Diário do Comércio", "Pelo site do CIEE/MG", "Pelas redes sociais do CIEE/MG", "Pelo site do Diário do Comércio", "Pelas redes sociais do Diário do Comércio", "Outros"]
 
+    const listaChamouDesafio = ["A possibilidade de expressar a minha opinião", "Até 2 A oportunidade de dar visibilidade a um trabalho meu",
+        "Tenho interesse em uma bolsa de estudos", "Gostaria de receber uma mentoria", "Outros"]
+
     const listaProgramas = ["Desafio"]
 
     document.addEventListener("change", function (e) {
@@ -54,9 +57,18 @@ async function programasEmCurso() {
         if (element.classList.contains("npc")) {
             if (document.querySelector("#select-desafio")) {
                 document.querySelector("#select-desafio").remove()
-                if (document.querySelector(".div-geral-csd")) {
-                    document.querySelector(".div-geral-csd").remove()
-                }
+            }
+            if (document.querySelector(".div-geral-csd")) {
+                document.querySelector(".div-geral-csd").remove()
+            }
+            if (document.querySelector(".div-geral-mca")) {
+                document.querySelector(".div-geral-mca").remove()
+            }
+            if (document.querySelector("#div-input-outros-como-encontrou")) {
+                document.querySelector("#div-input-outros-como-encontrou").remove()
+            }
+            if (document.querySelector("#div-input-como-atencao")) {
+                document.querySelector("#div-input-como-atencao").remove()
             }
         }
 
@@ -75,14 +87,22 @@ async function programasEmCurso() {
 
         if (element.classList.contains("select-programas")) {
             if (element.value === "Desafio" && !document.querySelector(".div-geral-csd")) {
-                const radiusProgramas = new CreateRadius(document.querySelector(".div-desafio"), "como-encontrou", "form-check-input encontrou-como", listaEncontrou, "label-desafio-encontro", "1. Como você ficou sabendo deste desafio?", "label-title", "form-check", "csd", "poe", "div-geral-csd")
+                const radiusSoubeDesafios = new CreateRadius(document.querySelector(".div-desafio"), "como-encontrou", "form-check-input encontrou-como", listaEncontrou, "label-desafio-encontro", "1. Como você ficou sabendo deste desafio?", "label-title", "form-check", "csd", "poe", "div-geral-csd")
+                const radiusAtencaoDesafio = new CreateRadius(document.querySelector(".div-chamou-desafio"), "atencao-desafio", "form-check-input chamou-atencao", listaChamouDesafio, "label-desafio-encontro", "2. O que mais te chamou a atenção neste desafio?", "label-title", "form-check", "mca", "oca", "div-geral-mca")
             }
         }
 
-        // if (element.classList.contains("select-programas")) {
-        //     {
-        //         // selecionarNomes()
-        //     }
+        if (element.classList.contains("chamou-atencao")) {
+            const comoAtencao = document.getElementsByName("atencao-desafio")
+            if (selecionarNomes(comoAtencao) === "4" && !document.querySelector(".div-input-como-atencao")) {
+                const inputComoAtencao = new CreateInputLabel(document.querySelector(".div-geral-mca"), "", "input-como-atencao")
+            } else {
+                if (document.querySelector("#div-input-como-atencao")) {
+                    document.querySelector("#div-input-como-atencao").remove()
+                }
+            }
+        }
+
 
     })
 

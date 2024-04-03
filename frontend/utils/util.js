@@ -1028,6 +1028,10 @@ class CreateRadius {
         this.tagAnterior.insertAdjacentElement("afterbegin", divTemp);
         divTemp.insertAdjacentElement("afterbegin", h4);
         h4.insertAdjacentElement("afterend", div);
+        const span = document.createElement("span")
+        span.className = "span-obrigatorio"
+        span.innerText = "Obrigatório"
+        h4.insertAdjacentElement("beforeend", span);
       }
       if (i !== 0) {
         document.getElementById(`{${this.sgTitleGeral}${i - 1}}`).insertAdjacentElement("afterend", div);

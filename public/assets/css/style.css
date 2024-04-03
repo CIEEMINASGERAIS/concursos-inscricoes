@@ -63,7 +63,7 @@
 }
 
 .container img {
-  width: 11.5rem;
+  width: 8rem;
   margin-right: 1rem;
 }
 
@@ -92,15 +92,16 @@
   display: flex;
   align-items: center;
   border: none;
-  font-size: 1.2rem;
-  font-weight: 600;
-  color: black;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #2f2f2f;
   cursor: pointer;
-  outline: none;
-  margin-top: 1rem;
+  /* outline: none; */
+  margin-top: 0.5rem;
   margin-left: 0.5rem;
-  margin-right: 0.5rem;
   text-align: left;
+  transition: background 0.6s;
+  width: 92%;
 }
 
 .big-basic-data img,
@@ -110,6 +111,7 @@
 .big-socio-economic img,
 .big-programa-curso img {
   margin-right: 1rem;
+  width: 1.3rem;
 }
 
 .big-address {
@@ -122,7 +124,7 @@
 .big-school-data:hover,
 .big-socio-economic:hover,
 .big-programa-curso:hover {
-  background-color: rgba(88, 84, 84, 0.3);
+  background-color: rgba(86, 88, 94, 0.3);
 }
 
 .big-basic-data:focus,
@@ -130,7 +132,7 @@
 .big-address:focus,
 .big-school-data:focus,
 .big-socio-economic:focus,
-.big-programa-curso:focus{
+.big-programa-curso:focus {
   outline: none;
 }
 
@@ -153,7 +155,7 @@
 }
 
 .h1-sub-title {
-  font-size: 1.850rem;
+  font-size: 1.5rem;
 }
 
 .main-side-mobile {
@@ -162,28 +164,33 @@
 
 }
 
-.button-menu-mobile {
-  display: none;
-}
-
-.screen-basic-data1 {
-  display: none;
-}
-
-.screen-address {
-  display: none;
-}
-
-.screen-school-data {
-  display: none;
-}
-
-.screen-socio-economic {
-  display: none;
-}
-
+.button-menu-mobile,
+.screen-basic-data1,
+.screen-address,
+.screen-school-data,
+.screen-socio-economic,
 .screen-programa-curso {
   display: none;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #224aff;
 }
 
 @media screen and (max-width: 920px) {
@@ -225,7 +232,6 @@
   .screen-main h1 {
     margin-left: 4.7rem;
     color: black;
-
   }
 
   .screen-main .sub-main-title {
@@ -285,10 +291,20 @@
   .container img {
     margin-top: 0.5rem;
     margin-left: 0.5rem;
-    width: 3rem;
+    width: 4rem;
     padding-left: 0.2rem;
     margin-bottom: 0rem;
   }
+
+.big-basic-data img,
+.big-terms-conditions img,
+.big-address img,
+.big-school-data img,
+.big-socio-economic img,
+.big-programa-curso img {
+  margin-right: 1rem;
+  width: 1rem;
+}
 
   .main-side-mobile {
     display: block;
@@ -304,7 +320,8 @@
   }
 
   .main-side-mobile img {
-    padding: 1rem;
+    padding: 0.5rem;
+    width: 2.6rem;
   }
 
   .main-side-mobile button:focus {

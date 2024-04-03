@@ -1,4 +1,4 @@
-const { selecionarNomes, CreateRadius } = require("../utils/util")
+const { selecionarNomes, CreateRadius, CreateInputLabel } = require("../utils/util")
 
 async function programasEmCurso() {
     const response = await fetch("programa-curso")
@@ -54,22 +54,35 @@ async function programasEmCurso() {
         if (element.classList.contains("npc")) {
             if (document.querySelector("#select-desafio")) {
                 document.querySelector("#select-desafio").remove()
+                if (document.querySelector(".div-geral-csd")) {
+                    document.querySelector(".div-geral-csd").remove()
+                }
             }
         }
 
 
 
-        if (element.classList.contains("encontrou")) {
-            const comoEncontrou = document.getElementsByName("comoEncontrou")
-            console.log(selecionarNomes(comoEncontrou))
+        if (element.classList.contains("encontrou-como")) {
+            const comoEncontrou = document.getElementsByName("como-encontrou")
+            if (selecionarNomes(comoEncontrou) === "5" && !document.querySelector(".div-input-outros-como-encontrou")) {
+                const inputOutrosComoEncontrou = new CreateInputLabel(document.querySelector(".div-geral-csd"), "", "input-outros-como-encontrou")
+            } else {
+                if (document.querySelector("#div-input-outros-como-encontrou")) {
+                    document.querySelector("#div-input-outros-como-encontrou").remove()
+                }
+            }
         }
 
         if (element.classList.contains("select-programas")) {
-            if (element.value === "Desafio") {
-                const radiusProgramas = new CreateRadius(document.querySelector(".div-desafio"), "comoEncontrou", "form-check-input", listaEncontrou, "label-desafio-encontro", "1. Como você ficou sabendo deste desafio?", "label-title", "form-check", "csd", "poe")
+            if (element.value === "Desafio" && !document.querySelector(".div-geral-csd")) {
+                const radiusProgramas = new CreateRadius(document.querySelector(".div-desafio"), "como-encontrou", "form-check-input encontrou-como", listaEncontrou, "label-desafio-encontro", "1. Como você ficou sabendo deste desafio?", "label-title", "form-check", "csd", "poe", "div-geral-csd")
             }
         }
 
+        // if (element.classList.contains("select-programas")) {
+        //     {
+        //         // selecionarNomes()
+        //     }
 
     })
 

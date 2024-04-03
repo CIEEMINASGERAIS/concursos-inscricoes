@@ -45891,7 +45891,8 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 var _require = __webpack_require__(/*! ../utils/util */ "./frontend/utils/util.js"),
   selecionarNomes = _require.selecionarNomes,
-  CreateRadius = _require.CreateRadius;
+  CreateRadius = _require.CreateRadius,
+  CreateInputLabel = _require.CreateInputLabel;
 function programasEmCurso() {
   return _programasEmCurso.apply(this, arguments);
 }
@@ -45951,17 +45952,31 @@ function _programasEmCurso() {
             if (element.classList.contains("npc")) {
               if (document.querySelector("#select-desafio")) {
                 document.querySelector("#select-desafio").remove();
+                if (document.querySelector(".div-geral-csd")) {
+                  document.querySelector(".div-geral-csd").remove();
+                }
               }
             }
-            if (element.classList.contains("encontrou")) {
-              var comoEncontrou = document.getElementsByName("comoEncontrou");
-              console.log(selecionarNomes(comoEncontrou));
+            if (element.classList.contains("encontrou-como")) {
+              var comoEncontrou = document.getElementsByName("como-encontrou");
+              if (selecionarNomes(comoEncontrou) === "5" && !document.querySelector(".div-input-outros-como-encontrou")) {
+                var inputOutrosComoEncontrou = new CreateInputLabel(document.querySelector(".div-geral-csd"), "", "input-outros-como-encontrou");
+              } else {
+                if (document.querySelector("#div-input-outros-como-encontrou")) {
+                  document.querySelector("#div-input-outros-como-encontrou").remove();
+                }
+              }
             }
             if (element.classList.contains("select-programas")) {
-              if (element.value === "Desafio") {
-                var radiusProgramas = new CreateRadius(document.querySelector(".div-desafio"), "comoEncontrou", "form-check-input", listaEncontrou, "label-desafio-encontro", "1. Como você ficou sabendo deste desafio?", "label-title", "form-check", "csd", "poe");
+              if (element.value === "Desafio" && !document.querySelector(".div-geral-csd")) {
+                var radiusProgramas = new CreateRadius(document.querySelector(".div-desafio"), "como-encontrou", "form-check-input encontrou-como", listaEncontrou, "label-desafio-encontro", "1. Como você ficou sabendo deste desafio?", "label-title", "form-check", "csd", "poe", "div-geral-csd");
               }
             }
+
+            // if (element.classList.contains("select-programas")) {
+            //     {
+            //         // selecionarNomes()
+            //     }
           });
         case 12:
         case "end":
@@ -47650,9 +47665,10 @@ var CreateInputLabel = /*#__PURE__*/function () {
   return CreateInputLabel;
 }();
 var CreateRadius = /*#__PURE__*/function () {
-  function CreateRadius(tagAnterior, nameRadiu, inputClass, label, labelClass, title, titleNameClass, divNameClass, sgTitleGeral, sgAsk) {
+  function CreateRadius(tagAnterior, nameRadiu, inputClass, label, labelClass, title, titleNameClass, divNameClass, sgTitleGeral, sgAsk, divGeral) {
     _classCallCheck(this, CreateRadius);
     this.tagAnterior = tagAnterior;
+    this.divGeral = divGeral;
     this.label = label;
     this.title = title;
     this.titleNameClass = titleNameClass;
@@ -47667,6 +47683,8 @@ var CreateRadius = /*#__PURE__*/function () {
   _createClass(CreateRadius, [{
     key: "createRadius",
     value: function createRadius() {
+      var divTemp = document.createElement('div');
+      divTemp.className = this.divGeral;
       for (var i = 0; i < this.label.length; i++) {
         var div = document.createElement('div');
         div.className = this.divNameClass;
@@ -47675,7 +47693,8 @@ var CreateRadius = /*#__PURE__*/function () {
           var h4 = document.createElement("h4");
           h4.innerText = this.title;
           h4.className = this.titleNameClass;
-          this.tagAnterior.insertAdjacentElement("afterbegin", h4);
+          this.tagAnterior.insertAdjacentElement("afterbegin", divTemp);
+          divTemp.insertAdjacentElement("afterbegin", h4);
           h4.insertAdjacentElement("afterend", div);
         }
         if (i !== 0) {

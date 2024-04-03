@@ -998,8 +998,9 @@ class CreateInputLabel {
 }
 
 class CreateRadius {
-  constructor(tagAnterior, nameRadiu, inputClass, label, labelClass, title, titleNameClass, divNameClass, sgTitleGeral, sgAsk) {
+  constructor(tagAnterior, nameRadiu, inputClass, label, labelClass, title, titleNameClass, divNameClass, sgTitleGeral, sgAsk, divGeral) {
     this.tagAnterior = tagAnterior;
+    this.divGeral = divGeral;
     this.label = label;
     this.title = title;
     this.titleNameClass = titleNameClass;
@@ -1014,6 +1015,8 @@ class CreateRadius {
   }
 
   createRadius() {
+    const divTemp = document.createElement('div');
+    divTemp.className = this.divGeral
     for (let i = 0; i < this.label.length; i++) {
       let div = document.createElement('div');
       div.className = this.divNameClass;
@@ -1022,7 +1025,8 @@ class CreateRadius {
         const h4 = document.createElement("h4");
         h4.innerText = this.title;
         h4.className = this.titleNameClass;
-        this.tagAnterior.insertAdjacentElement("afterbegin", h4);
+        this.tagAnterior.insertAdjacentElement("afterbegin", divTemp);
+        divTemp.insertAdjacentElement("afterbegin", h4);
         h4.insertAdjacentElement("afterend", div);
       }
       if (i !== 0) {

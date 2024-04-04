@@ -64,7 +64,10 @@
 
 .container img {
   width: 8rem;
+  margin: 1rem 1rem 1rem 0rem;
   margin-right: 1rem;
+  margin-top: 1rem;
+  gap: 2rem;
 }
 
 .container-mobile {
@@ -175,7 +178,7 @@
 
 /* width */
 ::-webkit-scrollbar {
-  width: 10px;
+  width: 1px;
 }
 
 /* Track */
@@ -185,12 +188,12 @@
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: #888;
+  background: #f1f1f1;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: #224aff;
+  background: #f1f1f1;
 }
 
 @media screen and (max-width: 920px) {

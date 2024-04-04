@@ -45924,7 +45924,7 @@ function _programasEmCurso() {
           formProgramasEmCurso = new Object();
           listaEncontrou = ["Pelo jornal Diário do Comércio", "Pelo site do CIEE/MG", "Pelas redes sociais do CIEE/MG", "Pelo site do Diário do Comércio", "Pelas redes sociais do Diário do Comércio", "Outros"];
           listaChamouDesafio = ["A possibilidade de expressar a minha opinião", "A oportunidade de dar visibilidade a um trabalho meu", "Tenho interesse em uma bolsa de estudos", "Gostaria de receber uma mentoria", "Outros"];
-          listaProgramas = ["Desafio A voz do Jovem"];
+          listaProgramas = ["Desafio a voz do jovem"];
           document.addEventListener("change", function (e) {
             var element = e.target;
             if (element.classList.contains("spc")) {

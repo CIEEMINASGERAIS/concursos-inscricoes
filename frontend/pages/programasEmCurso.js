@@ -18,7 +18,7 @@ async function programasEmCurso() {
     const listaChamouDesafio = ["A possibilidade de expressar a minha opinião", "A oportunidade de dar visibilidade a um trabalho meu",
         "Tenho interesse em uma bolsa de estudos", "Gostaria de receber uma mentoria", "Outros"]
 
-    const listaProgramas = ["Desafio A voz do Jovem"]
+    const listaProgramas = ["Desafio a voz do jovem"]
 
     document.addEventListener("change", function (e) {
         const element = e.target
@@ -110,7 +110,7 @@ async function programasEmCurso() {
         const element = e.target
 
         if (element.classList.contains("input-outros-como-encontrou")) {
-            const validateSubmitProgramas = isComplemento(element.value.trim())            
+            const validateSubmitProgramas = isComplemento(element.value.trim())
 
             if (validateSubmitProgramas) {
                 document.getElementById("msg-input-outros-como-encontrou").innerHTML = "";
@@ -124,7 +124,7 @@ async function programasEmCurso() {
         }
 
         if (element.classList.contains("input-como-atencao")) {
-            const validateSubmitProgramas = isComplemento(element.value.trim())            
+            const validateSubmitProgramas = isComplemento(element.value.trim())
 
             if (validateSubmitProgramas) {
                 document.getElementById("msg-input-como-atencao").innerHTML = "";

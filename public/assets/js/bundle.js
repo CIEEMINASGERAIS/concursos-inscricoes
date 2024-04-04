@@ -45871,6 +45871,10 @@ var main = function main() {
         changeMains(".screen-school-data");
         changeSubMainTitle("Formulário de Dados Acadêmicos");
       }
+      if (element.classList.contains("button-back-programa")) {
+        changeMains(".screen-socio-economic");
+        changeSubMainTitle("Formulário Socioeconômico");
+      }
     });
   }
   mainPage();
@@ -45898,7 +45902,7 @@ function programasEmCurso() {
 }
 function _programasEmCurso() {
   _programasEmCurso = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
-    var response, htmlContent, screenProgramasCurso, divProgramas, listaEncontrou, listaProgramas;
+    var response, htmlContent, screenProgramasCurso, divProgramas, listaEncontrou, listaChamouDesafio, listaProgramas;
     return _regeneratorRuntime().wrap(function _callee$(_context) {
       while (1) switch (_context.prev = _context.next) {
         case 0:
@@ -45916,6 +45920,7 @@ function _programasEmCurso() {
           // const programasEmCurso = document.getElementsByTagName("programas-curso")
           divProgramas = document.querySelector(".programas-cursos");
           listaEncontrou = ["Pelo jornal Diário do Comércio", "Pelo site do CIEE/MG", "Pelas redes sociais do CIEE/MG", "Pelo site do Diário do Comércio", "Pelas redes sociais do Diário do Comércio", "Outros"];
+          listaChamouDesafio = ["A possibilidade de expressar a minha opinião", "Até 2 A oportunidade de dar visibilidade a um trabalho meu", "Tenho interesse em uma bolsa de estudos", "Gostaria de receber uma mentoria", "Outros"];
           listaProgramas = ["Desafio"];
           document.addEventListener("change", function (e) {
             var element = e.target;
@@ -45952,9 +45957,18 @@ function _programasEmCurso() {
             if (element.classList.contains("npc")) {
               if (document.querySelector("#select-desafio")) {
                 document.querySelector("#select-desafio").remove();
-                if (document.querySelector(".div-geral-csd")) {
-                  document.querySelector(".div-geral-csd").remove();
-                }
+              }
+              if (document.querySelector(".div-geral-csd")) {
+                document.querySelector(".div-geral-csd").remove();
+              }
+              if (document.querySelector(".div-geral-mca")) {
+                document.querySelector(".div-geral-mca").remove();
+              }
+              if (document.querySelector("#div-input-outros-como-encontrou")) {
+                document.querySelector("#div-input-outros-como-encontrou").remove();
+              }
+              if (document.querySelector("#div-input-como-atencao")) {
+                document.querySelector("#div-input-como-atencao").remove();
               }
             }
             if (element.classList.contains("encontrou-como")) {
@@ -45969,16 +45983,22 @@ function _programasEmCurso() {
             }
             if (element.classList.contains("select-programas")) {
               if (element.value === "Desafio" && !document.querySelector(".div-geral-csd")) {
-                var radiusProgramas = new CreateRadius(document.querySelector(".div-desafio"), "como-encontrou", "form-check-input encontrou-como", listaEncontrou, "label-desafio-encontro", "1. Como você ficou sabendo deste desafio?", "label-title", "form-check", "csd", "poe", "div-geral-csd");
+                var radiusSoubeDesafios = new CreateRadius(document.querySelector(".div-desafio"), "como-encontrou", "form-check-input encontrou-como", listaEncontrou, "label-desafio-encontro", "1. Como você ficou sabendo deste desafio?", "label-title", "form-check", "csd", "poe", "div-geral-csd");
+                var radiusAtencaoDesafio = new CreateRadius(document.querySelector(".div-chamou-desafio"), "atencao-desafio", "form-check-input chamou-atencao", listaChamouDesafio, "label-desafio-encontro", "2. O que mais te chamou a atenção neste desafio?", "label-title", "form-check", "mca", "oca", "div-geral-mca");
               }
             }
-
-            // if (element.classList.contains("select-programas")) {
-            //     {
-            //         // selecionarNomes()
-            //     }
+            if (element.classList.contains("chamou-atencao")) {
+              var comoAtencao = document.getElementsByName("atencao-desafio");
+              if (selecionarNomes(comoAtencao) === "4" && !document.querySelector(".div-input-como-atencao")) {
+                var inputComoAtencao = new CreateInputLabel(document.querySelector(".div-geral-mca"), "", "input-como-atencao");
+              } else {
+                if (document.querySelector("#div-input-como-atencao")) {
+                  document.querySelector("#div-input-como-atencao").remove();
+                }
+              }
+            }
           });
-        case 12:
+        case 13:
         case "end":
           return _context.stop();
       }
@@ -47696,6 +47716,10 @@ var CreateRadius = /*#__PURE__*/function () {
           this.tagAnterior.insertAdjacentElement("afterbegin", divTemp);
           divTemp.insertAdjacentElement("afterbegin", h4);
           h4.insertAdjacentElement("afterend", div);
+          var span = document.createElement("span");
+          span.className = "span-obrigatorio";
+          span.innerText = "Obrigatório";
+          h4.insertAdjacentElement("beforeend", span);
         }
         if (i !== 0) {
           document.getElementById("{".concat(this.sgTitleGeral).concat(i - 1, "}")).insertAdjacentElement("afterend", div);

@@ -16,6 +16,10 @@ const main = () => {
         changeMains(".screen-school-data");
         changeSubMainTitle("Formulário de Dados Acadêmicos");
       }
+      if (element.classList.contains("button-back-programa")) {
+        changeMains(".screen-socio-economic");
+        changeSubMainTitle("Formulário Socioeconômico");
+      }
     });
   }
 

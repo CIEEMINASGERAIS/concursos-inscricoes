@@ -1,4 +1,4 @@
-const { selecionarNomes, CreateRadius, CreateInputLabel } = require("../utils/util")
+const { selecionarNomes, CreateRadius, CreateInputLabel, isComplemento } = require("../utils/util")
 
 async function programasEmCurso() {
     const response = await fetch("programa-curso")
@@ -9,16 +9,16 @@ async function programasEmCurso() {
 
     screenProgramasCurso.innerHTML = htmlContent
 
-    // const programasEmCurso = document.getElementsByTagName("programas-curso")
-
     const divProgramas = document.querySelector(".programas-cursos")
+
+    const formProgramasEmCurso = new Object()
 
     const listaEncontrou = ["Pelo jornal Diário do Comércio", "Pelo site do CIEE/MG", "Pelas redes sociais do CIEE/MG", "Pelo site do Diário do Comércio", "Pelas redes sociais do Diário do Comércio", "Outros"]
 
-    const listaChamouDesafio = ["A possibilidade de expressar a minha opinião", "Até 2 A oportunidade de dar visibilidade a um trabalho meu",
+    const listaChamouDesafio = ["A possibilidade de expressar a minha opinião", "A oportunidade de dar visibilidade a um trabalho meu",
         "Tenho interesse em uma bolsa de estudos", "Gostaria de receber uma mentoria", "Outros"]
 
-    const listaProgramas = ["Desafio"]
+    const listaProgramas = ["Desafio A voz do Jovem"]
 
     document.addEventListener("change", function (e) {
         const element = e.target
@@ -44,7 +44,7 @@ async function programasEmCurso() {
                 for (let i = 0; i < listaProgramas.length; i++) {
                     let optionProgramaCurso = document.createElement("option")
                     optionProgramaCurso.innerText = listaProgramas[i]
-                    optionProgramaCurso.value = listaProgramas[i]
+                    optionProgramaCurso.value = listaProgramas[i][0]
                     selectProgramaCurso.appendChild(optionProgramaCurso)
                 }
                 const p = document.createElement("p")
@@ -76,6 +76,7 @@ async function programasEmCurso() {
 
         if (element.classList.contains("encontrou-como")) {
             const comoEncontrou = document.getElementsByName("como-encontrou")
+            formProgramasEmCurso.indicacao = selecionarNomes(comoEncontrou)
             if (selecionarNomes(comoEncontrou) === "5" && !document.querySelector(".div-input-outros-como-encontrou")) {
                 const inputOutrosComoEncontrou = new CreateInputLabel(document.querySelector(".div-geral-csd"), "", "input-outros-como-encontrou")
             } else {
@@ -86,7 +87,7 @@ async function programasEmCurso() {
         }
 
         if (element.classList.contains("select-programas")) {
-            if (element.value === "Desafio" && !document.querySelector(".div-geral-csd")) {
+            if (element.value === "D" && !document.querySelector(".div-geral-csd")) {
                 const radiusSoubeDesafios = new CreateRadius(document.querySelector(".div-desafio"), "como-encontrou", "form-check-input encontrou-como", listaEncontrou, "label-desafio-encontro", "1. Como você ficou sabendo deste desafio?", "label-title", "form-check", "csd", "poe", "div-geral-csd")
                 const radiusAtencaoDesafio = new CreateRadius(document.querySelector(".div-chamou-desafio"), "atencao-desafio", "form-check-input chamou-atencao", listaChamouDesafio, "label-desafio-encontro", "2. O que mais te chamou a atenção neste desafio?", "label-title", "form-check", "mca", "oca", "div-geral-mca")
             }
@@ -94,6 +95,7 @@ async function programasEmCurso() {
 
         if (element.classList.contains("chamou-atencao")) {
             const comoAtencao = document.getElementsByName("atencao-desafio")
+            formProgramasEmCurso.indicacao = selecionarNomes(comoAtencao)
             if (selecionarNomes(comoAtencao) === "4" && !document.querySelector(".div-input-como-atencao")) {
                 const inputComoAtencao = new CreateInputLabel(document.querySelector(".div-geral-mca"), "", "input-como-atencao")
             } else {
@@ -102,9 +104,47 @@ async function programasEmCurso() {
                 }
             }
         }
+    })
 
+    document.addEventListener("input", (e) => {
+        const element = e.target
+
+        if (element.classList.contains("input-outros-como-encontrou")) {
+            const validateSubmitProgramas = isComplemento(element.value.trim())            
+
+            if (validateSubmitProgramas) {
+                document.getElementById("msg-input-outros-como-encontrou").innerHTML = "";
+                formProgramasEmCurso.descricao_indicacao = element.value.trim();
+            } else {
+                e.preventDefault();
+                // Enviar para o HTML a mensagem de erro
+                document.getElementById("msg-input-outros-como-encontrou").innerHTML = "<p>Campo outros inválido!</p>";
+                formProgramasEmCurso.descricao_indicacao = false;
+            }
+        }
+
+        if (element.classList.contains("input-como-atencao")) {
+            const validateSubmitProgramas = isComplemento(element.value.trim())            
+
+            if (validateSubmitProgramas) {
+                document.getElementById("msg-input-como-atencao").innerHTML = "";
+                formProgramasEmCurso.descricao_chamou_atencao = element.value.trim();
+            } else {
+                e.preventDefault();
+                // Enviar para o HTML a mensagem de erro
+                document.getElementById("msg-input-como-atencao").innerHTML = "<p>Campo outros inválido!</p>";
+                formProgramasEmCurso.descricao_chamou_atencao = false;
+            }
+        }
 
     })
+
+    function handleSubmit(e) {
+        e.preventDefault()
+
+
+
+    }
 
 }
 

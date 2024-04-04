@@ -29,6 +29,15 @@
     transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
 }
 
+.form-programa-cursos span p {
+    color: rgb(255, 0, 0);
+    cursor: default;
+    font-weight: bold;
+    margin: 0rem;
+    margin-top: -1.1rem;
+    padding: 0;
+}
+
 #programas-cursos {
     width: 100%;
     padding: .5rem 0.5rem 0.4rem 0.5rem;
@@ -41,7 +50,11 @@
         margin: 5rem 2rem 5rem 6rem;
     }
 }
-
+@media (max-width: 500px){
+.form-programa-cursos span p {
+    margin-top: 0rem;
+}
+}
 @media screen and (max-width: 430px) {
 
     .form-programa-cursos {

@@ -45896,32 +45896,35 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 var _require = __webpack_require__(/*! ../utils/util */ "./frontend/utils/util.js"),
   selecionarNomes = _require.selecionarNomes,
   CreateRadius = _require.CreateRadius,
-  CreateInputLabel = _require.CreateInputLabel;
+  CreateInputLabel = _require.CreateInputLabel,
+  isComplemento = _require.isComplemento;
 function programasEmCurso() {
   return _programasEmCurso.apply(this, arguments);
 }
 function _programasEmCurso() {
   _programasEmCurso = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
-    var response, htmlContent, screenProgramasCurso, divProgramas, listaEncontrou, listaChamouDesafio, listaProgramas;
+    var response, htmlContent, screenProgramasCurso, divProgramas, formProgramasEmCurso, listaEncontrou, listaChamouDesafio, listaProgramas, handleSubmit;
     return _regeneratorRuntime().wrap(function _callee$(_context) {
       while (1) switch (_context.prev = _context.next) {
         case 0:
-          _context.next = 2;
+          handleSubmit = function _handleSubmit(e) {
+            e.preventDefault();
+          };
+          _context.next = 3;
           return fetch("programa-curso");
-        case 2:
+        case 3:
           response = _context.sent;
-          _context.next = 5;
+          _context.next = 6;
           return response.text();
-        case 5:
+        case 6:
           htmlContent = _context.sent;
           screenProgramasCurso = document.querySelector(".screen-programa-curso");
           screenProgramasCurso.innerHTML = htmlContent;
-
-          // const programasEmCurso = document.getElementsByTagName("programas-curso")
           divProgramas = document.querySelector(".programas-cursos");
+          formProgramasEmCurso = new Object();
           listaEncontrou = ["Pelo jornal Diário do Comércio", "Pelo site do CIEE/MG", "Pelas redes sociais do CIEE/MG", "Pelo site do Diário do Comércio", "Pelas redes sociais do Diário do Comércio", "Outros"];
-          listaChamouDesafio = ["A possibilidade de expressar a minha opinião", "Até 2 A oportunidade de dar visibilidade a um trabalho meu", "Tenho interesse em uma bolsa de estudos", "Gostaria de receber uma mentoria", "Outros"];
-          listaProgramas = ["Desafio"];
+          listaChamouDesafio = ["A possibilidade de expressar a minha opinião", "A oportunidade de dar visibilidade a um trabalho meu", "Tenho interesse em uma bolsa de estudos", "Gostaria de receber uma mentoria", "Outros"];
+          listaProgramas = ["Desafio A voz do Jovem"];
           document.addEventListener("change", function (e) {
             var element = e.target;
             if (element.classList.contains("spc")) {
@@ -45945,7 +45948,7 @@ function _programasEmCurso() {
                 for (var i = 0; i < listaProgramas.length; i++) {
                   var optionProgramaCurso = document.createElement("option");
                   optionProgramaCurso.innerText = listaProgramas[i];
-                  optionProgramaCurso.value = listaProgramas[i];
+                  optionProgramaCurso.value = listaProgramas[i][0];
                   selectProgramaCurso.appendChild(optionProgramaCurso);
                 }
                 var p = document.createElement("p");
@@ -45973,6 +45976,7 @@ function _programasEmCurso() {
             }
             if (element.classList.contains("encontrou-como")) {
               var comoEncontrou = document.getElementsByName("como-encontrou");
+              formProgramasEmCurso.indicacao = selecionarNomes(comoEncontrou);
               if (selecionarNomes(comoEncontrou) === "5" && !document.querySelector(".div-input-outros-como-encontrou")) {
                 var inputOutrosComoEncontrou = new CreateInputLabel(document.querySelector(".div-geral-csd"), "", "input-outros-como-encontrou");
               } else {
@@ -45982,13 +45986,14 @@ function _programasEmCurso() {
               }
             }
             if (element.classList.contains("select-programas")) {
-              if (element.value === "Desafio" && !document.querySelector(".div-geral-csd")) {
+              if (element.value === "D" && !document.querySelector(".div-geral-csd")) {
                 var radiusSoubeDesafios = new CreateRadius(document.querySelector(".div-desafio"), "como-encontrou", "form-check-input encontrou-como", listaEncontrou, "label-desafio-encontro", "1. Como você ficou sabendo deste desafio?", "label-title", "form-check", "csd", "poe", "div-geral-csd");
                 var radiusAtencaoDesafio = new CreateRadius(document.querySelector(".div-chamou-desafio"), "atencao-desafio", "form-check-input chamou-atencao", listaChamouDesafio, "label-desafio-encontro", "2. O que mais te chamou a atenção neste desafio?", "label-title", "form-check", "mca", "oca", "div-geral-mca");
               }
             }
             if (element.classList.contains("chamou-atencao")) {
               var comoAtencao = document.getElementsByName("atencao-desafio");
+              formProgramasEmCurso.indicacao = selecionarNomes(comoAtencao);
               if (selecionarNomes(comoAtencao) === "4" && !document.querySelector(".div-input-como-atencao")) {
                 var inputComoAtencao = new CreateInputLabel(document.querySelector(".div-geral-mca"), "", "input-como-atencao");
               } else {
@@ -45998,7 +46003,34 @@ function _programasEmCurso() {
               }
             }
           });
-        case 13:
+          document.addEventListener("input", function (e) {
+            var element = e.target;
+            if (element.classList.contains("input-outros-como-encontrou")) {
+              var validateSubmitProgramas = isComplemento(element.value.trim());
+              if (validateSubmitProgramas) {
+                document.getElementById("msg-input-outros-como-encontrou").innerHTML = "";
+                formProgramasEmCurso.descricao_indicacao = element.value.trim();
+              } else {
+                e.preventDefault();
+                // Enviar para o HTML a mensagem de erro
+                document.getElementById("msg-input-outros-como-encontrou").innerHTML = "<p>Campo outros inválido!</p>";
+                formProgramasEmCurso.descricao_indicacao = false;
+              }
+            }
+            if (element.classList.contains("input-como-atencao")) {
+              var _validateSubmitProgramas = isComplemento(element.value.trim());
+              if (_validateSubmitProgramas) {
+                document.getElementById("msg-input-como-atencao").innerHTML = "";
+                formProgramasEmCurso.descricao_chamou_atencao = element.value.trim();
+              } else {
+                e.preventDefault();
+                // Enviar para o HTML a mensagem de erro
+                document.getElementById("msg-input-como-atencao").innerHTML = "<p>Campo outros inválido!</p>";
+                formProgramasEmCurso.descricao_chamou_atencao = false;
+              }
+            }
+          });
+        case 16:
         case "end":
           return _context.stop();
       }

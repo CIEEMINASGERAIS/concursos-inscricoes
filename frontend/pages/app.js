@@ -4,7 +4,7 @@ const initAddress = require("./address.js");
 const initDataBasic = require("./dataBasic.js");
 const createFormSchoolData = require("./schoolData.js");
 const socioEconomic = require("./socioEconomic.js");
-const { programasEmCurso } = require("./programasEmCurso.js")
+const { ProgramasEmCurso } = require("./programasEmCurso.js")
 const {
   conferirFormAddress,
   conferirFormBasic,
@@ -116,7 +116,7 @@ async function takeData() {
   //   }
   // });
 
-  const programaCurso = await programasEmCurso()
+  const programaCurso = new ProgramasEmCurso()
 
   document.querySelector(".alert").innerHTML =
     `<h1>Cadastro concluído!</h1>

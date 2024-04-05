@@ -3,15 +3,14 @@ const { selecionarNomes, CreateRadius, CreateInputLabel, isComplemento } = requi
 class ProgramasEmCurso {
 
     constructor() {
-        // this.submitForm = document.querySelector(".form-programa-cursos")
-
         this.formProgramasEmCurso = new Object()
+
 
         this.eventos()
     }
 
     async eventos() {
-        await this.render()
+        await ProgramasEmCurso.render()
 
         await this.validateDynamicInput()
 
@@ -23,7 +22,7 @@ class ProgramasEmCurso {
         })
     }
 
-    async render() {
+    static async render() {
         const response = await fetch("programa-curso")
 
         const htmlContent = await response.text()
@@ -34,6 +33,7 @@ class ProgramasEmCurso {
     }
 
     async validateDynamicInput() {
+
         const divProgramas = document.querySelector(".programas-cursos")
 
         const listaEncontrou = ["Pelo jornal Diário do Comércio", "Pelo site do CIEE/MG", "Pelas redes sociais do CIEE/MG", "Pelo site do Diário do Comércio", "Pelas redes sociais do Diário do Comércio", "Outros"]
@@ -43,7 +43,7 @@ class ProgramasEmCurso {
 
         const listaProgramas = ["Desafio a voz do jovem"]
 
-        document.addEventListener("change", function (e) {
+        document.addEventListener("change", (e) => {
             const element = e.target
 
             if (element.classList.contains("spc")) {
@@ -99,7 +99,7 @@ class ProgramasEmCurso {
 
             if (element.classList.contains("encontrou-como")) {
                 const comoEncontrou = document.getElementsByName("como-encontrou")
-                this.formProgramasEmCurso.indicacao = selecionarNomes(comoEncontrou)
+                this.formProgramasEmCurso["indicacao"] = selecionarNomes(comoEncontrou)
                 if (selecionarNomes(comoEncontrou) === "5" && !document.querySelector(".div-input-outros-como-encontrou")) {
                     const inputOutrosComoEncontrou = new CreateInputLabel(document.querySelector(".div-geral-csd"), "", "input-outros-como-encontrou")
                 } else {
@@ -118,7 +118,7 @@ class ProgramasEmCurso {
 
             if (element.classList.contains("chamou-atencao")) {
                 const comoAtencao = document.getElementsByName("atencao-desafio")
-                this.formProgramasEmCurso.indicacao = selecionarNomes(comoAtencao)
+                this.formProgramasEmCurso["chamou_atencao_desafio"] = selecionarNomes(comoAtencao)
                 if (selecionarNomes(comoAtencao) === "4" && !document.querySelector(".div-input-como-atencao")) {
                     const inputComoAtencao = new CreateInputLabel(document.querySelector(".div-geral-mca"), "", "input-como-atencao")
                 } else {
@@ -137,12 +137,12 @@ class ProgramasEmCurso {
 
                 if (validateSubmitProgramas) {
                     document.getElementById("msg-input-outros-como-encontrou").innerHTML = "";
-                    this.formProgramasEmCurso.descricao_indicacao = element.value.trim();
+                    this.formProgramasEmCurso["descricao_indicacao"] = element.value.trim();
                 } else {
                     e.preventDefault();
                     // Enviar para o HTML a mensagem de erro
                     document.getElementById("msg-input-outros-como-encontrou").innerHTML = "<p>Campo outros inválido!</p>";
-                    this.formProgramasEmCurso.descricao_indicacao = false;
+                    this.formProgramasEmCurso["descricao_indicacao"] = false;
                 }
             }
 
@@ -151,12 +151,12 @@ class ProgramasEmCurso {
 
                 if (validateSubmitProgramas) {
                     document.getElementById("msg-input-como-atencao").innerHTML = "";
-                    this.formProgramasEmCurso.descricao_chamou_atencao = element.value.trim();
+                    this.formProgramasEmCurso["descricao_chamou_atencao"] = element.value.trim();
                 } else {
                     e.preventDefault();
                     // Enviar para o HTML a mensagem de erro
                     document.getElementById("msg-input-como-atencao").innerHTML = "<p>Campo outros inválido!</p>";
-                    this.formProgramasEmCurso.descricao_chamou_atencao = false;
+                    this.formProgramasEmCurso["descricao_chamou_atencao"] = false;
                 }
             }
 

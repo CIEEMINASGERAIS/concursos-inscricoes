@@ -45906,8 +45906,6 @@ var _require = __webpack_require__(/*! ../utils/util */ "./frontend/utils/util.j
 var ProgramasEmCurso = /*#__PURE__*/function () {
   function ProgramasEmCurso() {
     _classCallCheck(this, ProgramasEmCurso);
-    // this.submitForm = document.querySelector(".form-programa-cursos")
-
     this.formProgramasEmCurso = new Object();
     this.eventos();
   }
@@ -45920,7 +45918,7 @@ var ProgramasEmCurso = /*#__PURE__*/function () {
           while (1) switch (_context.prev = _context.next) {
             case 0:
               _context.next = 2;
-              return this.render();
+              return ProgramasEmCurso.render();
             case 2:
               _context.next = 4;
               return this.validateDynamicInput();
@@ -45941,42 +45939,13 @@ var ProgramasEmCurso = /*#__PURE__*/function () {
       return eventos;
     }()
   }, {
-    key: "render",
-    value: function () {
-      var _render = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
-        var response, htmlContent, screenProgramasCurso;
-        return _regeneratorRuntime().wrap(function _callee2$(_context2) {
-          while (1) switch (_context2.prev = _context2.next) {
-            case 0:
-              _context2.next = 2;
-              return fetch("programa-curso");
-            case 2:
-              response = _context2.sent;
-              _context2.next = 5;
-              return response.text();
-            case 5:
-              htmlContent = _context2.sent;
-              screenProgramasCurso = document.querySelector(".screen-programa-curso");
-              screenProgramasCurso.innerHTML = htmlContent;
-            case 8:
-            case "end":
-              return _context2.stop();
-          }
-        }, _callee2);
-      }));
-      function render() {
-        return _render.apply(this, arguments);
-      }
-      return render;
-    }()
-  }, {
     key: "validateDynamicInput",
     value: function () {
-      var _validateDynamicInput = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
+      var _validateDynamicInput = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
         var _this2 = this;
         var divProgramas, listaEncontrou, listaChamouDesafio, listaProgramas;
-        return _regeneratorRuntime().wrap(function _callee3$(_context3) {
-          while (1) switch (_context3.prev = _context3.next) {
+        return _regeneratorRuntime().wrap(function _callee2$(_context2) {
+          while (1) switch (_context2.prev = _context2.next) {
             case 0:
               divProgramas = document.querySelector(".programas-cursos");
               listaEncontrou = ["Pelo jornal Diário do Comércio", "Pelo site do CIEE/MG", "Pelas redes sociais do CIEE/MG", "Pelo site do Diário do Comércio", "Pelas redes sociais do Diário do Comércio", "Outros"];
@@ -46033,7 +46002,7 @@ var ProgramasEmCurso = /*#__PURE__*/function () {
                 }
                 if (element.classList.contains("encontrou-como")) {
                   var comoEncontrou = document.getElementsByName("como-encontrou");
-                  this.formProgramasEmCurso.indicacao = selecionarNomes(comoEncontrou);
+                  _this2.formProgramasEmCurso["indicacao"] = selecionarNomes(comoEncontrou);
                   if (selecionarNomes(comoEncontrou) === "5" && !document.querySelector(".div-input-outros-como-encontrou")) {
                     var inputOutrosComoEncontrou = new CreateInputLabel(document.querySelector(".div-geral-csd"), "", "input-outros-como-encontrou");
                   } else {
@@ -46050,7 +46019,7 @@ var ProgramasEmCurso = /*#__PURE__*/function () {
                 }
                 if (element.classList.contains("chamou-atencao")) {
                   var comoAtencao = document.getElementsByName("atencao-desafio");
-                  this.formProgramasEmCurso.indicacao = selecionarNomes(comoAtencao);
+                  _this2.formProgramasEmCurso["chamou_atencao_desafio"] = selecionarNomes(comoAtencao);
                   if (selecionarNomes(comoAtencao) === "4" && !document.querySelector(".div-input-como-atencao")) {
                     var inputComoAtencao = new CreateInputLabel(document.querySelector(".div-geral-mca"), "", "input-como-atencao");
                   } else {
@@ -46066,37 +46035,66 @@ var ProgramasEmCurso = /*#__PURE__*/function () {
                   var validateSubmitProgramas = isComplemento(element.value.trim());
                   if (validateSubmitProgramas) {
                     document.getElementById("msg-input-outros-como-encontrou").innerHTML = "";
-                    _this2.formProgramasEmCurso.descricao_indicacao = element.value.trim();
+                    _this2.formProgramasEmCurso["descricao_indicacao"] = element.value.trim();
                   } else {
                     e.preventDefault();
                     // Enviar para o HTML a mensagem de erro
                     document.getElementById("msg-input-outros-como-encontrou").innerHTML = "<p>Campo outros inválido!</p>";
-                    _this2.formProgramasEmCurso.descricao_indicacao = false;
+                    _this2.formProgramasEmCurso["descricao_indicacao"] = false;
                   }
                 }
                 if (element.classList.contains("input-como-atencao")) {
                   var _validateSubmitProgramas = isComplemento(element.value.trim());
                   if (_validateSubmitProgramas) {
                     document.getElementById("msg-input-como-atencao").innerHTML = "";
-                    _this2.formProgramasEmCurso.descricao_chamou_atencao = element.value.trim();
+                    _this2.formProgramasEmCurso["descricao_chamou_atencao"] = element.value.trim();
                   } else {
                     e.preventDefault();
                     // Enviar para o HTML a mensagem de erro
                     document.getElementById("msg-input-como-atencao").innerHTML = "<p>Campo outros inválido!</p>";
-                    _this2.formProgramasEmCurso.descricao_chamou_atencao = false;
+                    _this2.formProgramasEmCurso["descricao_chamou_atencao"] = false;
                   }
                 }
               });
             case 6:
             case "end":
-              return _context3.stop();
+              return _context2.stop();
           }
-        }, _callee3);
+        }, _callee2);
       }));
       function validateDynamicInput() {
         return _validateDynamicInput.apply(this, arguments);
       }
       return validateDynamicInput;
+    }()
+  }], [{
+    key: "render",
+    value: function () {
+      var _render = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
+        var response, htmlContent, screenProgramasCurso;
+        return _regeneratorRuntime().wrap(function _callee3$(_context3) {
+          while (1) switch (_context3.prev = _context3.next) {
+            case 0:
+              _context3.next = 2;
+              return fetch("programa-curso");
+            case 2:
+              response = _context3.sent;
+              _context3.next = 5;
+              return response.text();
+            case 5:
+              htmlContent = _context3.sent;
+              screenProgramasCurso = document.querySelector(".screen-programa-curso");
+              screenProgramasCurso.innerHTML = htmlContent;
+            case 8:
+            case "end":
+              return _context3.stop();
+          }
+        }, _callee3);
+      }));
+      function render() {
+        return _render.apply(this, arguments);
+      }
+      return render;
     }()
   }]);
   return ProgramasEmCurso;

@@ -9,8 +9,13 @@ const Estudante = require("../db/models/estudante")(sequelize, DataTypes);
 
 const SocioEconomico = require("../db/models/socio_economico")(sequelize, DataTypes);
 
+const ProcessosEspeciais = require("../db/models/processos_especiais")(sequelize, DataTypes);
+
 Estudante.hasOne(SocioEconomico)
 SocioEconomico.belongsTo(Estudante)
+
+Estudante.hasOne(ProcessosEspeciais)
+ProcessosEspeciais.belongsTo(Estudante)
 
 // Função responsável por enviar as informações para o banco de dados
 async function postRegister(req, res) {
@@ -18,8 +23,6 @@ async function postRegister(req, res) {
     try {
 
         const novoEstudante = await Estudante.create(req.body)
-
-        await enviandoEmail.emailASerEnviado(req.body.email, req.body.nome, req.body.senha).catch(console.error)
 
         await SocioEconomico.create({
             estudante_id: novoEstudante.id,
@@ -34,6 +37,16 @@ async function postRegister(req, res) {
             etnia: req.body.etnia,
             situacao_judicial: req.body.situacao_judicial
         });
+
+        await ProcessosEspeciais.create({
+            estudante_id: novoEstudante.id,
+            indicacao: req.body.indicacao,
+            descricao_indicacao: req.body.descricao_indicacao,
+            chamou_atencao_desafio: req.body.chamou_atencao_desafio,
+            descricao_chamou_atencao: req.body.descricao_chamou_atencao
+        })
+
+        await enviandoEmail.emailASerEnviado(req.body.email, req.body.nome, req.body.senha).catch(console.error)
 
         return res.json({
             mensagem: "Usuário cadastrado com sucesso!",

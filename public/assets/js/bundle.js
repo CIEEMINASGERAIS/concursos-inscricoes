@@ -45348,11 +45348,9 @@ function _initAddress() {
                             while (1) switch (_context3.prev = _context3.next) {
                               case 0:
                                 e.preventDefault();
-                                if (
-                                // formDataAddress.cep && formDataAddress.logradouro && formDataAddress.numero && formDataAddress.uf
-                                // && formDataAddress.bairro && formDataAddress.cidade && formDataAddress.telefone1 && formDataAddress.telefone2
-                                // && formDataAddress.email
-                                formDataAddress) {
+                                if (formDataAddress.cep && formDataAddress.logradouro && formDataAddress.numero && formDataAddress.uf && formDataAddress.bairro && formDataAddress.cidade && formDataAddress.telefone1 && formDataAddress.telefone2 && formDataAddress.email
+                                // formDataAddress
+                                ) {
                                   changeMains('.screen-school-data');
                                   changeSubMainTitle('Formulário de Dados Acadêmicos');
                                   resolve(formDataAddress);
@@ -45793,22 +45791,9 @@ var initDataBasic = /*#__PURE__*/function () {
                     if (formData) {
                       formData.addEventListener("submit", function (e) {
                         e.preventDefault();
-                        if (formDataBasic
-                        // formDataBasic.nome &&
-                        // formDataBasic.nomemae &&
-                        // formDataBasic.naturalidade &&
-                        // formDataBasic.nacionalidade &&
-                        // formDataBasic.estadocivil &&
-                        // formDataBasic.dt_nascimento &&
-                        // formDataBasic.sexo &&
-                        // formDataBasic.uf_naturalidade &&
-                        // formDataBasic.deficiencia &&
-                        // formDataBasic.rg &&
-                        // formDataBasic.orgaoexpedidor &&
-                        // formDataBasic.idade &&
-                        // formDataBasic.cpf &&
-                        // formDataBasic.nome_social !== false
-                        ) {
+                        if (
+                        // formDataBasic
+                        formDataBasic.nome && formDataBasic.nomemae && formDataBasic.naturalidade && formDataBasic.nacionalidade && formDataBasic.estadocivil && formDataBasic.dt_nascimento && formDataBasic.sexo && formDataBasic.uf_naturalidade && formDataBasic.deficiencia && formDataBasic.rg && formDataBasic.orgaoexpedidor && formDataBasic.idade && formDataBasic.cpf && formDataBasic.nome_social !== false) {
                           changeMains(".screen-address");
                           changeSubMainTitle("Formulário de Endereço");
                           resolve(formDataBasic);
@@ -45907,31 +45892,64 @@ var ProgramasEmCurso = /*#__PURE__*/function () {
   function ProgramasEmCurso() {
     _classCallCheck(this, ProgramasEmCurso);
     this.formProgramasEmCurso = new Object();
-    this.eventos();
   }
   _createClass(ProgramasEmCurso, [{
     key: "eventos",
     value: function () {
-      var _eventos = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+      var _eventos = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
         var _this = this;
-        return _regeneratorRuntime().wrap(function _callee$(_context) {
-          while (1) switch (_context.prev = _context.next) {
+        return _regeneratorRuntime().wrap(function _callee2$(_context2) {
+          while (1) switch (_context2.prev = _context2.next) {
             case 0:
-              _context.next = 2;
-              return ProgramasEmCurso.render();
-            case 2:
-              _context.next = 4;
-              return this.validateDynamicInput();
-            case 4:
-              document.querySelector(".form-programa-cursos").addEventListener("submit", function (e) {
-                e.preventDefault();
-                return _this.formProgramasEmCurso;
-              });
-            case 5:
+              return _context2.abrupt("return", new Promise( /*#__PURE__*/function () {
+                var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(resolve, reject) {
+                  var programasDisponiveis;
+                  return _regeneratorRuntime().wrap(function _callee$(_context) {
+                    while (1) switch (_context.prev = _context.next) {
+                      case 0:
+                        _context.next = 2;
+                        return ProgramasEmCurso.render();
+                      case 2:
+                        _context.next = 4;
+                        return _this.validateDynamicInput();
+                      case 4:
+                        _context.next = 6;
+                        return selecionarNomes(document.getElementsByName("programas-curso"));
+                      case 6:
+                        programasDisponiveis = _context.sent;
+                        if (programasDisponiveis === "S") {
+                          document.querySelector(".form-programa-cursos").addEventListener("submit", function (e) {
+                            e.preventDefault();
+                            var alertEnd = document.querySelector(".end");
+                            if (_this.formProgramasEmCurso.indicacao && _this.formProgramasEmCurso.chamou_atencao_desafio && _this.formProgramasEmCurso.descricao_indicacao !== false && _this.formProgramasEmCurso.descricao_chamou_atencao !== false) {
+                              alertEnd.style.display = "block";
+                              resolve(_this.formProgramasEmCurso);
+                            } else {
+                              reject(new Error("Formulário inválido!"));
+                            }
+                          });
+                        } else {
+                          document.querySelector(".form-programa-cursos").addEventListener("submit", function (e) {
+                            e.preventDefault();
+                            alertEnd.style.display = "block";
+                            resolve(_this.formProgramasEmCurso);
+                          });
+                        }
+                      case 8:
+                      case "end":
+                        return _context.stop();
+                    }
+                  }, _callee);
+                }));
+                return function (_x, _x2) {
+                  return _ref.apply(this, arguments);
+                };
+              }()));
+            case 1:
             case "end":
-              return _context.stop();
+              return _context2.stop();
           }
-        }, _callee, this);
+        }, _callee2);
       }));
       function eventos() {
         return _eventos.apply(this, arguments);
@@ -45941,11 +45959,11 @@ var ProgramasEmCurso = /*#__PURE__*/function () {
   }, {
     key: "validateDynamicInput",
     value: function () {
-      var _validateDynamicInput = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
+      var _validateDynamicInput = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
         var _this2 = this;
         var divProgramas, listaEncontrou, listaChamouDesafio, listaProgramas;
-        return _regeneratorRuntime().wrap(function _callee2$(_context2) {
-          while (1) switch (_context2.prev = _context2.next) {
+        return _regeneratorRuntime().wrap(function _callee3$(_context3) {
+          while (1) switch (_context3.prev = _context3.next) {
             case 0:
               divProgramas = document.querySelector(".programas-cursos");
               listaEncontrou = ["Pelo jornal Diário do Comércio", "Pelo site do CIEE/MG", "Pelas redes sociais do CIEE/MG", "Pelo site do Diário do Comércio", "Pelas redes sociais do Diário do Comércio", "Outros"];
@@ -45965,6 +45983,7 @@ var ProgramasEmCurso = /*#__PURE__*/function () {
                     var selectProgramaCurso = document.createElement("select");
                     selectProgramaCurso.id = "programas-cursos";
                     selectProgramaCurso.className = "select-programas";
+                    selectProgramaCurso.required = true;
                     labelProgramasCursos.insertAdjacentElement("afterend", selectProgramaCurso);
                     var optionDisabledProgramaCurso = document.createElement("option");
                     optionDisabledProgramaCurso.innerText = "Selecione";
@@ -46058,9 +46077,9 @@ var ProgramasEmCurso = /*#__PURE__*/function () {
               });
             case 6:
             case "end":
-              return _context2.stop();
+              return _context3.stop();
           }
-        }, _callee2);
+        }, _callee3);
       }));
       function validateDynamicInput() {
         return _validateDynamicInput.apply(this, arguments);
@@ -46070,26 +46089,26 @@ var ProgramasEmCurso = /*#__PURE__*/function () {
   }], [{
     key: "render",
     value: function () {
-      var _render = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
+      var _render = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4() {
         var response, htmlContent, screenProgramasCurso;
-        return _regeneratorRuntime().wrap(function _callee3$(_context3) {
-          while (1) switch (_context3.prev = _context3.next) {
+        return _regeneratorRuntime().wrap(function _callee4$(_context4) {
+          while (1) switch (_context4.prev = _context4.next) {
             case 0:
-              _context3.next = 2;
+              _context4.next = 2;
               return fetch("programa-curso");
             case 2:
-              response = _context3.sent;
-              _context3.next = 5;
+              response = _context4.sent;
+              _context4.next = 5;
               return response.text();
             case 5:
-              htmlContent = _context3.sent;
+              htmlContent = _context4.sent;
               screenProgramasCurso = document.querySelector(".screen-programa-curso");
               screenProgramasCurso.innerHTML = htmlContent;
             case 8:
             case "end":
-              return _context3.stop();
+              return _context4.stop();
           }
-        }, _callee3);
+        }, _callee4);
       }));
       function render() {
         return _render.apply(this, arguments);
@@ -46569,15 +46588,9 @@ function _createFormSchoolData() {
                             while (1) switch (_context6.prev = _context6.next) {
                               case 0:
                                 e.preventDefault();
-                                if (
-                                // dataFormSchool.escola_id &&
-                                // dataFormSchool.curso_id &&
-                                // dataFormSchool.previsao_semestre &&
-                                // dataFormSchool.previsao_ano &&
-                                // dataFormSchool.previsao_mes &&
-                                // dataFormSchool.horario &&
-                                // dataFormSchool.periodo
-                                dataFormSchool) {
+                                if (dataFormSchool.escola_id && dataFormSchool.curso_id && dataFormSchool.previsao_semestre && dataFormSchool.previsao_ano && dataFormSchool.previsao_mes && dataFormSchool.horario && dataFormSchool.periodo
+                                // dataFormSchool
+                                ) {
                                   anoIngresso(dataFormSchool.previsao_ano);
                                   today = new Date();
                                   dataFormSchool.ano = today.getFullYear();
@@ -46649,7 +46662,7 @@ function _socioEconomic() {
         case 0:
           return _context2.abrupt("return", new Promise( /*#__PURE__*/function () {
             var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(resolve, reject) {
-              var response, htmlContent, screenSocioEconomic, formSocioEconomic, formEconomic, aprendiz, responsavel, imovel, pessoas, filhos, escolas, rendas, generos, declaracao, situacaoJudicial, alertEnd;
+              var response, htmlContent, screenSocioEconomic, formSocioEconomic, formEconomic, aprendiz, responsavel, imovel, pessoas, filhos, escolas, rendas, generos, declaracao, situacaoJudicial;
               return _regeneratorRuntime().wrap(function _callee$(_context) {
                 while (1) switch (_context.prev = _context.next) {
                   case 0:
@@ -46735,17 +46748,12 @@ function _socioEconomic() {
                     generos = document.getElementsByName("genero");
                     declaracao = document.getElementsByName("declaracao");
                     situacaoJudicial = document.getElementsByName("situacao-judicial");
-                    alertEnd = document.querySelector(".end");
                     if (formSocioEconomic) {
                       formSocioEconomic.addEventListener("submit", function (e) {
                         e.preventDefault();
-                        if (
-                        // formEconomic.aprendiz &&
-                        // formEconomic.responsavel &&
-                        // formEconomic.imovel &&
-                        // formEconomic.pessoas_por_residencia &&
-                        // formEconomic.tem_filhos
-                        formEconomic) {
+                        if (formEconomic.aprendiz && formEconomic.responsavel && formEconomic.imovel && formEconomic.pessoas_por_residencia && formEconomic.tem_filhos
+                        // formEconomic
+                        ) {
                           formEconomic.escola_estudou = selecionarNomes(escolas);
                           formEconomic.renda = selecionarNomes(rendas);
                           formEconomic.genero = selecionarNomes(generos);
@@ -46753,7 +46761,6 @@ function _socioEconomic() {
                           formEconomic.situacao_judicial = selecionarNomes(situacaoJudicial);
                           changeMains(".screen-programa-curso");
                           changeSubMainTitle("Programas Em Curso");
-                          // alertEnd.style.display = "block";
                           resolve(formEconomic);
                         } else {
                           erroInputSocioEconomic(formEconomic);
@@ -46762,7 +46769,7 @@ function _socioEconomic() {
                     } else {
                       reject(new Error("O formulário não foi encontrado!"));
                     }
-                  case 27:
+                  case 26:
                   case "end":
                     return _context.stop();
                 }
@@ -48033,10 +48040,10 @@ var _require2 = __webpack_require__(/*! ../utils/util.js */ "./frontend/utils/ut
   dateTime = _require2.dateTime;
 function takeData() {
   return _takeData.apply(this, arguments);
-}
+} // const data = takeData();
 function _takeData() {
   _takeData = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
-    var date, callMain, termsConditions, formData, validateFormBasic, formAddress, validateFormAddress, formSchoolData, validateFormSchool, dataEconomy, programaCurso, allData;
+    var date, callMain, termsConditions, formData, validateFormBasic, formAddress, validateFormAddress, formSchoolData, validateFormSchool, dataEconomy, validateFormSocioEconomic, programaCurso, formProgramaCurso, allData;
     return _regeneratorRuntime().wrap(function _callee$(_context) {
       while (1) switch (_context.prev = _context.next) {
         case 0:
@@ -48107,31 +48114,33 @@ function _takeData() {
           return socioEconomic();
         case 19:
           dataEconomy = _context.sent;
-          // let validateFormSocioEconomic;
-          // document.addEventListener("click", function (event) {
-          //   const element = event.target;
-          //   validateFormSocioEconomic = false;
-          //   validateFormSocioEconomic = conferirFormSchool(dataEconomy);
-          //   if (validateFormSchool && validateFormAddress && validateFormBasic && validateFormSocioEconomic) {
-          //     if (
-          //     ) {
-          //       changeMains(".screen-programa-curso");
-          //       changeSubMainTitle("Programa Em Curso");
-          //     }
-          //   } else {
-          //     if (element.classList.contains("main")) {
-          //       event.preventDefault();
-          //     }
-          //   }
-          // });
+          document.addEventListener("click", function (event) {
+            var element = event.target;
+            validateFormSocioEconomic = false;
+            validateFormSocioEconomic = conferirFormSchool(dataEconomy);
+            if (validateFormSchool && validateFormAddress && validateFormBasic && validateFormSocioEconomic) {
+              if (element.classList.contains("big-programa-curso") || element.classList.contains("button-programa-curso")) {
+                changeMains(".screen-programa-curso");
+                changeSubMainTitle("Programa Em Curso");
+              }
+            } else {
+              if (element.classList.contains("main")) {
+                event.preventDefault();
+              }
+            }
+          });
           programaCurso = new ProgramasEmCurso();
-          document.querySelector(".alert").innerHTML = "<h1>Cadastro conclu\xEDdo!</h1>\n    <p>Ol\xE1 ".concat(formData.nome, ", parab\xE9ns por finalizar a primeira etapa do seu cadastro, fique atento ao seu e-mail,\n    enviaremos em\n    at\xE9 24 horas os dados para realizar seu primeiro login no nosso portal, para conclus\xE3o do seu cadastro.</p>\n    <div class=\"button-school-end\">\n            <a class=\"button-end-school\" href=\"https://cieemg.org.br/\" rel=\"noopener noreferrer\">Confirmar</a>\n    </div>\n    <div class=\"data-erro\">\n      <p>").concat(date, " v - 1.1.0</p>\n    </div>");
           _context.next = 24;
-          return _objectSpread(_objectSpread(_objectSpread(_objectSpread(_objectSpread({}, termsConditions), formData), formAddress), formSchoolData), dataEconomy);
+          return programaCurso.eventos();
         case 24:
+          formProgramaCurso = _context.sent;
+          document.querySelector(".alert").innerHTML = "<h1>Cadastro conclu\xEDdo!</h1>\n    <p>Ol\xE1 ".concat(formData.nome, ", parab\xE9ns por finalizar a primeira etapa do seu cadastro, fique atento ao seu e-mail,\n    enviaremos em\n    at\xE9 24 horas os dados para realizar seu primeiro login no nosso portal, para conclus\xE3o do seu cadastro.</p>\n    <div class=\"button-school-end\">\n            <a class=\"button-end-school\" href=\"https://cieemg.org.br/\" rel=\"noopener noreferrer\">Confirmar</a>\n    </div>\n    <div class=\"data-erro\">\n      <p>").concat(date, " v - 1.1.0</p>\n    </div>");
+          _context.next = 28;
+          return _objectSpread(_objectSpread(_objectSpread(_objectSpread(_objectSpread(_objectSpread({}, termsConditions), formData), formAddress), formSchoolData), dataEconomy), formProgramaCurso);
+        case 28:
           allData = _context.sent;
           return _context.abrupt("return", allData);
-        case 26:
+        case 30:
         case "end":
           return _context.stop();
       }
@@ -48139,31 +48148,51 @@ function _takeData() {
   }));
   return _takeData.apply(this, arguments);
 }
-var data = takeData();
-
-// async function sendData() {
-//   const data = await takeData();
-
-//   try {
-//     const response = await fetch("http://localhost:8080/cadastrar", {
-//       method: "POST",
-//       headers: {
-//         "Content-Type": "application/json",
-//       },
-//       error: false,
-//       mensagem: "Usuário cadastrado com sucesso",
-//       body: JSON.stringify(data),
-//     });
-//     if (response.ok) {
-//     } else {
-//       console.log(response.status);
-//     }
-//   } catch (error) {
-//     console.log("Erro: ", error);
-//   }
-// }
-
-// sendData();
+function sendData() {
+  return _sendData.apply(this, arguments);
+}
+function _sendData() {
+  _sendData = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
+    var data, response;
+    return _regeneratorRuntime().wrap(function _callee2$(_context2) {
+      while (1) switch (_context2.prev = _context2.next) {
+        case 0:
+          _context2.next = 2;
+          return takeData();
+        case 2:
+          data = _context2.sent;
+          console.log(data);
+          _context2.prev = 4;
+          _context2.next = 7;
+          return fetch("http://localhost:8080/cadastrar", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            error: false,
+            mensagem: "Usuário cadastrado com sucesso",
+            body: JSON.stringify(data)
+          });
+        case 7:
+          response = _context2.sent;
+          if (response.ok) {} else {
+            console.log(response.status);
+          }
+          _context2.next = 14;
+          break;
+        case 11:
+          _context2.prev = 11;
+          _context2.t0 = _context2["catch"](4);
+          console.log("Erro: ", _context2.t0);
+        case 14:
+        case "end":
+          return _context2.stop();
+      }
+    }, _callee2, null, [[4, 11]]);
+  }));
+  return _sendData.apply(this, arguments);
+}
+sendData();
 })();
 
 /******/ })()

@@ -93,30 +93,32 @@ async function takeData() {
 
   const dataEconomy = await socioEconomic();
 
-  // let validateFormSocioEconomic;
-  // document.addEventListener("click", function (event) {
-  //   const element = event.target;
+  let validateFormSocioEconomic;
+  document.addEventListener("click", function (event) {
+    const element = event.target;
 
-  //   validateFormSocioEconomic = false;
+    validateFormSocioEconomic = false;
 
-  //   validateFormSocioEconomic = conferirFormSchool(dataEconomy);
+    validateFormSocioEconomic = conferirFormSchool(dataEconomy);
 
-  //   if (validateFormSchool && validateFormAddress && validateFormBasic && validateFormSocioEconomic) {
-  //     if (
-
-
-  //     ) {
-  //       changeMains(".screen-programa-curso");
-  //       changeSubMainTitle("Programa Em Curso");
-  //     }
-  //   } else {
-  //     if (element.classList.contains("main")) {
-  //       event.preventDefault();
-  //     }
-  //   }
-  // });
+    if (validateFormSchool && validateFormAddress && validateFormBasic && validateFormSocioEconomic) {
+      if (
+        element.classList.contains("big-programa-curso") ||
+        element.classList.contains("button-programa-curso")
+      ) {
+        changeMains(".screen-programa-curso");
+        changeSubMainTitle("Programa Em Curso");
+      }
+    } else {
+      if (element.classList.contains("main")) {
+        event.preventDefault();
+      }
+    }
+  });
 
   const programaCurso = new ProgramasEmCurso()
+
+  const formProgramaCurso = await programaCurso.eventos()
 
   document.querySelector(".alert").innerHTML =
     `<h1>Cadastro concluído!</h1>
@@ -136,33 +138,36 @@ async function takeData() {
     ...formAddress,
     ...formSchoolData,
     ...dataEconomy,
+    ...formProgramaCurso
   };
 
   return allData;
 }
 
-const data = takeData();
+// const data = takeData();
 
-// async function sendData() {
-//   const data = await takeData();
+async function sendData() {
+  const data = await takeData();
 
-//   try {
-//     const response = await fetch("http://localhost:8080/cadastrar", {
-//       method: "POST",
-//       headers: {
-//         "Content-Type": "application/json",
-//       },
-//       error: false,
-//       mensagem: "Usuário cadastrado com sucesso",
-//       body: JSON.stringify(data),
-//     });
-//     if (response.ok) {
-//     } else {
-//       console.log(response.status);
-//     }
-//   } catch (error) {
-//     console.log("Erro: ", error);
-//   }
-// }
+  console.log(data)
 
-// sendData();
+  try {
+    const response = await fetch("http://localhost:8080/cadastrar", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      error: false,
+      mensagem: "Usuário cadastrado com sucesso",
+      body: JSON.stringify(data),
+    });
+    if (response.ok) {
+    } else {
+      console.log(response.status);
+    }
+  } catch (error) {
+    console.log("Erro: ", error);
+  }
+}
+
+sendData();

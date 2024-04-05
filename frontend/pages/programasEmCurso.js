@@ -4,21 +4,40 @@ class ProgramasEmCurso {
 
     constructor() {
         this.formProgramasEmCurso = new Object()
-
-
-        this.eventos()
     }
 
     async eventos() {
-        await ProgramasEmCurso.render()
+        return new Promise(async (resolve, reject) => {
+            await ProgramasEmCurso.render()
 
-        await this.validateDynamicInput()
+            await this.validateDynamicInput()
 
-        document.querySelector(".form-programa-cursos").addEventListener("submit", (e) => {
-            e.preventDefault()
+            const programasDisponiveis = await selecionarNomes(document.getElementsByName("programas-curso"))
 
-            return this.formProgramasEmCurso
+            if ((programasDisponiveis === "S")) {
+                document.querySelector(".form-programa-cursos").addEventListener("submit", (e) => {
+                    e.preventDefault()
 
+                    const alertEnd = document.querySelector(".end");
+
+                    if (this.formProgramasEmCurso.indicacao
+                        && this.formProgramasEmCurso.chamou_atencao_desafio
+                        && this.formProgramasEmCurso.descricao_indicacao !== false
+                        && this.formProgramasEmCurso.descricao_chamou_atencao !== false) {
+                        alertEnd.style.display = "block";
+                        resolve(this.formProgramasEmCurso)
+                    } else {
+                        reject(new Error("Formulário inválido!"))
+                    }
+                })
+            } else {
+                document.querySelector(".form-programa-cursos").addEventListener("submit", (e) => {
+                    e.preventDefault()
+                    alertEnd.style.display = "block";
+                    resolve(this.formProgramasEmCurso)
+                })
+
+            }
         })
     }
 
@@ -58,6 +77,7 @@ class ProgramasEmCurso {
                     const selectProgramaCurso = document.createElement("select")
                     selectProgramaCurso.id = "programas-cursos"
                     selectProgramaCurso.className = "select-programas"
+                    selectProgramaCurso.required = true
                     labelProgramasCursos.insertAdjacentElement("afterend", selectProgramaCurso)
                     const optionDisabledProgramaCurso = document.createElement("option")
                     optionDisabledProgramaCurso.innerText = "Selecione"

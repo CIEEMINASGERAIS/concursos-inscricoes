@@ -114,18 +114,16 @@ async function socioEconomic() {
 
     const situacaoJudicial = document.getElementsByName("situacao-judicial");
 
-    const alertEnd = document.querySelector(".end");
-
     if (formSocioEconomic) {
       formSocioEconomic.addEventListener("submit", (e) => {
         e.preventDefault();
         if (
-          // formEconomic.aprendiz &&
-          // formEconomic.responsavel &&
-          // formEconomic.imovel &&
-          // formEconomic.pessoas_por_residencia &&
-          // formEconomic.tem_filhos
-          formEconomic
+          formEconomic.aprendiz &&
+          formEconomic.responsavel &&
+          formEconomic.imovel &&
+          formEconomic.pessoas_por_residencia &&
+          formEconomic.tem_filhos
+          // formEconomic
         ) {
           formEconomic.escola_estudou = selecionarNomes(escolas);
           formEconomic.renda = selecionarNomes(rendas);
@@ -134,7 +132,6 @@ async function socioEconomic() {
           formEconomic.situacao_judicial = selecionarNomes(situacaoJudicial);
           changeMains(".screen-programa-curso")
           changeSubMainTitle("Programas Em Curso");
-          // alertEnd.style.display = "block";
           resolve(formEconomic);
         } else {
           erroInputSocioEconomic(formEconomic)

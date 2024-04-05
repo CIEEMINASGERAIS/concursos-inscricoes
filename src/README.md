@@ -63,6 +63,8 @@ Criar as Models
 
 ### npx sequelize-cli model:generate --name curso --attributes id:integer,idescola:integer,idcurso:integer,descricao:string,duracao:string
 
+### npx sequelize-cli model:generate --name processos_especiais --attributes id:integer,estudante_id:integer,indicacao:string,descricao_indicacao:string,chamou_atencao_desafio:string,descricao_chamou_atencao:string
+
 Executar as migrations
 
 ### npx sequelize-cli db:migrate

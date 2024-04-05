@@ -501,21 +501,21 @@ const initDataBasic = async () => {
       formData.addEventListener("submit", (e) => {
         e.preventDefault();
         if (
-          formDataBasic
-          // formDataBasic.nome &&
-          // formDataBasic.nomemae &&
-          // formDataBasic.naturalidade &&
-          // formDataBasic.nacionalidade &&
-          // formDataBasic.estadocivil &&
-          // formDataBasic.dt_nascimento &&
-          // formDataBasic.sexo &&
-          // formDataBasic.uf_naturalidade &&
-          // formDataBasic.deficiencia &&
-          // formDataBasic.rg &&
-          // formDataBasic.orgaoexpedidor &&
-          // formDataBasic.idade &&
-          // formDataBasic.cpf &&
-          // formDataBasic.nome_social !== false
+          // formDataBasic
+          formDataBasic.nome &&
+          formDataBasic.nomemae &&
+          formDataBasic.naturalidade &&
+          formDataBasic.nacionalidade &&
+          formDataBasic.estadocivil &&
+          formDataBasic.dt_nascimento &&
+          formDataBasic.sexo &&
+          formDataBasic.uf_naturalidade &&
+          formDataBasic.deficiencia &&
+          formDataBasic.rg &&
+          formDataBasic.orgaoexpedidor &&
+          formDataBasic.idade &&
+          formDataBasic.cpf &&
+          formDataBasic.nome_social !== false
         ) {
           changeMains(".screen-address");
           changeSubMainTitle("Formulário de Endereço");

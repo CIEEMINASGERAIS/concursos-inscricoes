@@ -14,11 +14,11 @@ class ProgramasEmCurso {
 
             const programasDisponiveis = await selecionarNomes(document.getElementsByName("programas-curso"))
 
+            const alertEnd = document.querySelector(".end");
+
             if ((programasDisponiveis === "S")) {
                 document.querySelector(".form-programa-cursos").addEventListener("submit", (e) => {
                     e.preventDefault()
-
-                    const alertEnd = document.querySelector(".end");
 
                     if (this.formProgramasEmCurso.indicacao
                         && this.formProgramasEmCurso.chamou_atencao_desafio

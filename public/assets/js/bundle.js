@@ -45903,7 +45903,7 @@ var ProgramasEmCurso = /*#__PURE__*/function () {
             case 0:
               return _context2.abrupt("return", new Promise( /*#__PURE__*/function () {
                 var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(resolve, reject) {
-                  var programasDisponiveis;
+                  var programasDisponiveis, alertEnd;
                   return _regeneratorRuntime().wrap(function _callee$(_context) {
                     while (1) switch (_context.prev = _context.next) {
                       case 0:
@@ -45917,10 +45917,10 @@ var ProgramasEmCurso = /*#__PURE__*/function () {
                         return selecionarNomes(document.getElementsByName("programas-curso"));
                       case 6:
                         programasDisponiveis = _context.sent;
+                        alertEnd = document.querySelector(".end");
                         if (programasDisponiveis === "S") {
                           document.querySelector(".form-programa-cursos").addEventListener("submit", function (e) {
                             e.preventDefault();
-                            var alertEnd = document.querySelector(".end");
                             if (_this.formProgramasEmCurso.indicacao && _this.formProgramasEmCurso.chamou_atencao_desafio && _this.formProgramasEmCurso.descricao_indicacao !== false && _this.formProgramasEmCurso.descricao_chamou_atencao !== false) {
                               alertEnd.style.display = "block";
                               resolve(_this.formProgramasEmCurso);
@@ -45935,7 +45935,7 @@ var ProgramasEmCurso = /*#__PURE__*/function () {
                             resolve(_this.formProgramasEmCurso);
                           });
                         }
-                      case 8:
+                      case 9:
                       case "end":
                         return _context.stop();
                     }

@@ -24,6 +24,7 @@ class ProgramasEmCurso {
                         && this.formProgramasEmCurso.chamou_atencao_desafio
                         && this.formProgramasEmCurso.descricao_indicacao !== false
                         && this.formProgramasEmCurso.descricao_chamou_atencao !== false) {
+                        console.log("teste")
                         this.formProgramasEmCurso.enviar_email = 2
                         alertEnd.style.display = "block";
                         resolve(this.formProgramasEmCurso)

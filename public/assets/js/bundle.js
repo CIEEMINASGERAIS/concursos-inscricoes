@@ -45922,6 +45922,7 @@ var ProgramasEmCurso = /*#__PURE__*/function () {
                           document.querySelector(".form-programa-cursos").addEventListener("submit", function (e) {
                             e.preventDefault();
                             if (_this.formProgramasEmCurso.indicacao && _this.formProgramasEmCurso.chamou_atencao_desafio && _this.formProgramasEmCurso.descricao_indicacao !== false && _this.formProgramasEmCurso.descricao_chamou_atencao !== false) {
+                              console.log("teste");
                               _this.formProgramasEmCurso.enviar_email = 2;
                               alertEnd.style.display = "block";
                               resolve(_this.formProgramasEmCurso);

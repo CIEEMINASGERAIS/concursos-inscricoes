@@ -40,23 +40,27 @@ async function postRegister(req, res) {
             situacao_judicial: req.body.situacao_judicial
         });
 
-        console.log(enviar_email)
+        // console.log(enviar_email)
 
-        console.log(req.body.enviar_email)
+        // console.log(req.body.enviar_email)
 
-        console.log(typeof req.body.enviar_email)
+        // console.log(typeof req.body.enviar_email)
 
-        console.log(enviar_email === "2")
+        // console.log(enviar_email === "2")
 
-        console.log(enviar_email === "1")
+        // console.log(enviar_email === "1")
 
-        console.log(enviar_email === 2)
+        // console.log(enviar_email === 2)
 
-        console.log(enviar_email === 1)
+        // console.log(enviar_email === 1)
 
-        if (enviar_email === 2) {
+        const estudante = await Estudante.findOne({ where: { enviar_email: 2 } })
+
+        console.log(estudante.enviar_email)
+
+        if (estudante) {
             await ProcessosEspeciais.create({
-                estudante_id: novoEstudante.id,
+                estudante_id: estudante.id,
                 indicacao: req.body.indicacao,
                 descricao_indicacao: req.body.descricao_indicacao,
                 chamou_atencao_desafio: req.body.chamou_atencao_desafio,

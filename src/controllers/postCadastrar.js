@@ -20,6 +20,8 @@ ProcessosEspeciais.belongsTo(Estudante)
 // Função responsável por enviar as informações para o banco de dados
 async function postRegister(req, res) {
 
+    const { enviar_email } = req.body;
+
     try {
 
         const novoEstudante = await Estudante.create(req.body)
@@ -38,15 +40,33 @@ async function postRegister(req, res) {
             situacao_judicial: req.body.situacao_judicial
         });
 
-        await ProcessosEspeciais.create({
-            estudante_id: novoEstudante.id,
-            indicacao: req.body.indicacao,
-            descricao_indicacao: req.body.descricao_indicacao,
-            chamou_atencao_desafio: req.body.chamou_atencao_desafio,
-            descricao_chamou_atencao: req.body.descricao_chamou_atencao
-        })
+        console.log(enviar_email)
 
-        await enviandoEmail.emailASerEnviado(req.body.email, req.body.nome, req.body.senha).catch(console.error)
+        console.log(req.body.enviar_email)
+
+        console.log(typeof req.body.enviar_email)
+
+        console.log(enviar_email === "2")
+
+        console.log(enviar_email === "1")
+
+        console.log(enviar_email === 2)
+
+        console.log(enviar_email === 1)
+
+        if (enviar_email === 2) {
+            await ProcessosEspeciais.create({
+                estudante_id: novoEstudante.id,
+                indicacao: req.body.indicacao,
+                descricao_indicacao: req.body.descricao_indicacao,
+                chamou_atencao_desafio: req.body.chamou_atencao_desafio,
+                descricao_chamou_atencao: req.body.descricao_chamou_atencao
+            })
+
+            await enviandoEmail.emailASerEnviadoProcessos(req.body.email, req.body.nome, req.body.senha).catch(console.error)
+        } else {
+            await enviandoEmail.emailASerEnviadoComum(req.body.email, req.body.nome, req.body.senha).catch(console.error)
+        }
 
         return res.json({
             mensagem: "Usuário cadastrado com sucesso!",

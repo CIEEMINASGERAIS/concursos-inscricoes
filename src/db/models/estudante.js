@@ -624,9 +624,11 @@ module.exports = (sequelize, DataTypes) => {
         },
       },
       enviar_email: {
-        type: DataTypes.STRING(1),
+        type: DataTypes.INTEGER(1),
         allowNull: false,
-        defaultValue: 1,
+        validate: {
+          is: /^(1|2)$/,
+        }
       },
       nome_social: {
         type: DataTypes.STRING(255),

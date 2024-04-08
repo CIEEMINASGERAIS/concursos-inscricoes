@@ -24,6 +24,7 @@ class ProgramasEmCurso {
                         && this.formProgramasEmCurso.chamou_atencao_desafio
                         && this.formProgramasEmCurso.descricao_indicacao !== false
                         && this.formProgramasEmCurso.descricao_chamou_atencao !== false) {
+                        this.formProgramasEmCurso.enviar_email = 2
                         alertEnd.style.display = "block";
                         resolve(this.formProgramasEmCurso)
                     } else {
@@ -33,10 +34,10 @@ class ProgramasEmCurso {
             } else {
                 document.querySelector(".form-programa-cursos").addEventListener("submit", (e) => {
                     e.preventDefault()
+                    this.formProgramasEmCurso.enviar_email = 1
                     alertEnd.style.display = "block";
                     resolve(this.formProgramasEmCurso)
                 })
-
             }
         })
     }
@@ -120,12 +121,13 @@ class ProgramasEmCurso {
             if (element.classList.contains("encontrou-como")) {
                 const comoEncontrou = document.getElementsByName("como-encontrou")
                 this.formProgramasEmCurso["indicacao"] = selecionarNomes(comoEncontrou)
-                if (selecionarNomes(comoEncontrou) === "5" && !document.querySelector(".div-input-outros-como-encontrou")) {
+                if (this.formProgramasEmCurso["indicacao"] === "5" && !document.querySelector(".div-input-outros-como-encontrou")) {
                     const inputOutrosComoEncontrou = new CreateInputLabel(document.querySelector(".div-geral-csd"), "", "input-outros-como-encontrou")
                 } else {
                     if (document.querySelector("#div-input-outros-como-encontrou")) {
                         document.querySelector("#div-input-outros-como-encontrou").remove()
                     }
+                    this.formProgramasEmCurso.descricao_indicacao = ""
                 }
             }
 
@@ -139,12 +141,13 @@ class ProgramasEmCurso {
             if (element.classList.contains("chamou-atencao")) {
                 const comoAtencao = document.getElementsByName("atencao-desafio")
                 this.formProgramasEmCurso["chamou_atencao_desafio"] = selecionarNomes(comoAtencao)
-                if (selecionarNomes(comoAtencao) === "4" && !document.querySelector(".div-input-como-atencao")) {
+                if (this.formProgramasEmCurso["chamou_atencao_desafio"] === "4" && !document.querySelector(".div-input-como-atencao")) {
                     const inputComoAtencao = new CreateInputLabel(document.querySelector(".div-geral-mca"), "", "input-como-atencao")
                 } else {
                     if (document.querySelector("#div-input-como-atencao")) {
                         document.querySelector("#div-input-como-atencao").remove()
                     }
+                    this.formProgramasEmCurso.descricao_chamou_atencao = ""
                 }
             }
         })
@@ -157,7 +160,7 @@ class ProgramasEmCurso {
 
                 if (validateSubmitProgramas) {
                     document.getElementById("msg-input-outros-como-encontrou").innerHTML = "";
-                    this.formProgramasEmCurso["descricao_indicacao"] = element.value.trim();
+                    this.formProgramasEmCurso["descricao_indicacao"] = element.value
                 } else {
                     e.preventDefault();
                     // Enviar para o HTML a mensagem de erro
@@ -171,7 +174,7 @@ class ProgramasEmCurso {
 
                 if (validateSubmitProgramas) {
                     document.getElementById("msg-input-como-atencao").innerHTML = "";
-                    this.formProgramasEmCurso["descricao_chamou_atencao"] = element.value.trim();
+                    this.formProgramasEmCurso["descricao_chamou_atencao"] = element.value
                 } else {
                     e.preventDefault();
                     // Enviar para o HTML a mensagem de erro
@@ -183,9 +186,5 @@ class ProgramasEmCurso {
         })
     }
 }
-
-
-
-
 
 module.exports = { ProgramasEmCurso }

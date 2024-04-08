@@ -45922,6 +45922,7 @@ var ProgramasEmCurso = /*#__PURE__*/function () {
                           document.querySelector(".form-programa-cursos").addEventListener("submit", function (e) {
                             e.preventDefault();
                             if (_this.formProgramasEmCurso.indicacao && _this.formProgramasEmCurso.chamou_atencao_desafio && _this.formProgramasEmCurso.descricao_indicacao !== false && _this.formProgramasEmCurso.descricao_chamou_atencao !== false) {
+                              _this.formProgramasEmCurso.enviar_email = 2;
                               alertEnd.style.display = "block";
                               resolve(_this.formProgramasEmCurso);
                             } else {
@@ -45931,6 +45932,7 @@ var ProgramasEmCurso = /*#__PURE__*/function () {
                         } else {
                           document.querySelector(".form-programa-cursos").addEventListener("submit", function (e) {
                             e.preventDefault();
+                            _this.formProgramasEmCurso.enviar_email = 1;
                             alertEnd.style.display = "block";
                             resolve(_this.formProgramasEmCurso);
                           });
@@ -46022,12 +46024,13 @@ var ProgramasEmCurso = /*#__PURE__*/function () {
                 if (element.classList.contains("encontrou-como")) {
                   var comoEncontrou = document.getElementsByName("como-encontrou");
                   _this2.formProgramasEmCurso["indicacao"] = selecionarNomes(comoEncontrou);
-                  if (selecionarNomes(comoEncontrou) === "5" && !document.querySelector(".div-input-outros-como-encontrou")) {
+                  if (_this2.formProgramasEmCurso["indicacao"] === "5" && !document.querySelector(".div-input-outros-como-encontrou")) {
                     var inputOutrosComoEncontrou = new CreateInputLabel(document.querySelector(".div-geral-csd"), "", "input-outros-como-encontrou");
                   } else {
                     if (document.querySelector("#div-input-outros-como-encontrou")) {
                       document.querySelector("#div-input-outros-como-encontrou").remove();
                     }
+                    _this2.formProgramasEmCurso.descricao_indicacao = "";
                   }
                 }
                 if (element.classList.contains("select-programas")) {
@@ -46039,12 +46042,13 @@ var ProgramasEmCurso = /*#__PURE__*/function () {
                 if (element.classList.contains("chamou-atencao")) {
                   var comoAtencao = document.getElementsByName("atencao-desafio");
                   _this2.formProgramasEmCurso["chamou_atencao_desafio"] = selecionarNomes(comoAtencao);
-                  if (selecionarNomes(comoAtencao) === "4" && !document.querySelector(".div-input-como-atencao")) {
+                  if (_this2.formProgramasEmCurso["chamou_atencao_desafio"] === "4" && !document.querySelector(".div-input-como-atencao")) {
                     var inputComoAtencao = new CreateInputLabel(document.querySelector(".div-geral-mca"), "", "input-como-atencao");
                   } else {
                     if (document.querySelector("#div-input-como-atencao")) {
                       document.querySelector("#div-input-como-atencao").remove();
                     }
+                    _this2.formProgramasEmCurso.descricao_chamou_atencao = "";
                   }
                 }
               });
@@ -46054,7 +46058,7 @@ var ProgramasEmCurso = /*#__PURE__*/function () {
                   var validateSubmitProgramas = isComplemento(element.value.trim());
                   if (validateSubmitProgramas) {
                     document.getElementById("msg-input-outros-como-encontrou").innerHTML = "";
-                    _this2.formProgramasEmCurso["descricao_indicacao"] = element.value.trim();
+                    _this2.formProgramasEmCurso["descricao_indicacao"] = element.value;
                   } else {
                     e.preventDefault();
                     // Enviar para o HTML a mensagem de erro
@@ -46066,7 +46070,7 @@ var ProgramasEmCurso = /*#__PURE__*/function () {
                   var _validateSubmitProgramas = isComplemento(element.value.trim());
                   if (_validateSubmitProgramas) {
                     document.getElementById("msg-input-como-atencao").innerHTML = "";
-                    _this2.formProgramasEmCurso["descricao_chamou_atencao"] = element.value.trim();
+                    _this2.formProgramasEmCurso["descricao_chamou_atencao"] = element.value;
                   } else {
                     e.preventDefault();
                     // Enviar para o HTML a mensagem de erro

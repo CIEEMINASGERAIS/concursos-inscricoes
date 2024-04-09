@@ -8,38 +8,20 @@ class ProgramasEmCurso {
 
     async eventos() {
         return new Promise(async (resolve, reject) => {
+
             await ProgramasEmCurso.render()
 
             await this.validateDynamicInput()
 
-            const programasDisponiveis = await selecionarNomes(document.getElementsByName("programas-curso"))
-
-            const alertEnd = document.querySelector(".end");
-
-            if ((programasDisponiveis === "S")) {
-                document.querySelector(".form-programa-cursos").addEventListener("submit", (e) => {
-                    e.preventDefault()
-
-                    if (this.formProgramasEmCurso.indicacao
-                        && this.formProgramasEmCurso.chamou_atencao_desafio
-                        && this.formProgramasEmCurso.descricao_indicacao !== false
-                        && this.formProgramasEmCurso.descricao_chamou_atencao !== false) {
-                        console.log("teste")
-                        this.formProgramasEmCurso.enviar_email = 2
-                        alertEnd.style.display = "block";
-                        resolve(this.formProgramasEmCurso)
-                    } else {
-                        reject(new Error("Formulário inválido!"))
-                    }
-                })
-            } else {
-                document.querySelector(".form-programa-cursos").addEventListener("submit", (e) => {
-                    e.preventDefault()
-                    this.formProgramasEmCurso.enviar_email = 1
-                    alertEnd.style.display = "block";
-                    resolve(this.formProgramasEmCurso)
-                })
+            if (this.programasDisponiveis === "S") {
+                console.log(this.programasDisponiveis)
             }
+
+            console.log(await this.programasDisponiveis)
+
+            document.querySelector(".form-programa-cursos").addEventListener("submit", async (e) => {
+                await this.handleSubmit(e, resolve, reject)
+            })
         })
     }
 
@@ -117,7 +99,12 @@ class ProgramasEmCurso {
                 }
             }
 
-
+            if (element.classList.contains("select-programas")) {
+                if (element.value === "D" && !document.querySelector(".div-geral-csd")) {
+                    const radiusSoubeDesafios = new CreateRadius(document.querySelector(".div-desafio"), "como-encontrou", "form-check-input encontrou-como", listaEncontrou, "label-desafio-encontro", "1. Como você ficou sabendo deste desafio?", "label-title", "form-check", "csd", "poe", "div-geral-csd")
+                    const radiusAtencaoDesafio = new CreateRadius(document.querySelector(".div-chamou-desafio"), "atencao-desafio", "form-check-input chamou-atencao", listaChamouDesafio, "label-desafio-encontro", "2. O que mais te chamou a atenção neste desafio?", "label-title", "form-check", "mca", "oca", "div-geral-mca")
+                }
+            }
 
             if (element.classList.contains("encontrou-como")) {
                 const comoEncontrou = document.getElementsByName("como-encontrou")
@@ -129,13 +116,6 @@ class ProgramasEmCurso {
                         document.querySelector("#div-input-outros-como-encontrou").remove()
                     }
                     this.formProgramasEmCurso.descricao_indicacao = ""
-                }
-            }
-
-            if (element.classList.contains("select-programas")) {
-                if (element.value === "D" && !document.querySelector(".div-geral-csd")) {
-                    const radiusSoubeDesafios = new CreateRadius(document.querySelector(".div-desafio"), "como-encontrou", "form-check-input encontrou-como", listaEncontrou, "label-desafio-encontro", "1. Como você ficou sabendo deste desafio?", "label-title", "form-check", "csd", "poe", "div-geral-csd")
-                    const radiusAtencaoDesafio = new CreateRadius(document.querySelector(".div-chamou-desafio"), "atencao-desafio", "form-check-input chamou-atencao", listaChamouDesafio, "label-desafio-encontro", "2. O que mais te chamou a atenção neste desafio?", "label-title", "form-check", "mca", "oca", "div-geral-mca")
                 }
             }
 
@@ -186,6 +166,43 @@ class ProgramasEmCurso {
 
         })
     }
+
+    handleSubmit = async (e, resolve, reject) => {
+
+        const alertEnd = document.querySelector(".end");
+
+        this.programasDisponiveis = selecionarNomes(document.getElementsByName("programas-curso"))
+        console.log(this.programasDisponiveis)
+        console.log(typeof this.programasDisponiveis)
+
+        if (this.programasDisponiveis === "S") {
+            console.log("Teste")
+
+            e.preventDefault()
+
+            console.log("Teste")
+
+            console.log(this.formProgramasEmCurso)
+
+            if (this.formProgramasEmCurso.indicacao
+                && this.formProgramasEmCurso.chamou_atencao_desafio
+                && this.formProgramasEmCurso.descricao_indicacao !== false
+                && this.formProgramasEmCurso.descricao_chamou_atencao !== false) {
+                console.log("teste")
+                this.formProgramasEmCurso.enviar_email = 2
+                alertEnd.style.display = "block";
+                resolve(this.formProgramasEmCurso)
+            } else {
+                reject(new Error("Formulário inválido!"))
+            }
+        } else {
+            e.preventDefault()
+            this.formProgramasEmCurso.enviar_email = 1
+            alertEnd.style.display = "block";
+            resolve(this.formProgramasEmCurso)
+        }
+    }
+
 }
 
 module.exports = { ProgramasEmCurso }

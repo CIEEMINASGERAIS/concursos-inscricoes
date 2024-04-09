@@ -835,6 +835,32 @@ const erroInput = (object) => {
   }
 };
 
+const erroInputProgramasEmCurso = (object) => {
+  for (let chave in object) {
+    if (chave === "indicacao") {
+      document.getElementById(
+        `msg-fracasso-programa-curso`
+      ).innerHTML = `<p>Campo "Como você ficou sabendo deste desafio?" inválido!</p>`;
+      break
+    } else if (chave === "chamou_atencao_desafio") {
+      document.getElementById(
+        `msg-fracasso-programa-curso`
+      ).innerHTML = `<p>Campo "O que mais te chamou a atenção neste desafio?" inválido!</p>`;
+      break
+    } else if (chave === "descricao_indicacao") {
+      document.getElementById(
+        `msg-fracasso-programa-curso`
+      ).innerHTML = `<p>Campo "Descrição de como você ficou sabendo deste desafio?" inválido!</p>`;
+      break
+    } else if (chave === "descricao_chamou_atencao") {
+      document.getElementById(
+        `msg-fracasso-programa-curso`
+      ).innerHTML = `<p>Campo "Descrição do que mais te chamou a atenção neste desafio?" inválido!</p>`;
+      break
+    }
+  }
+};
+
 const erroSelect = (select) => {
   const selects = document.querySelectorAll(select);
 
@@ -1097,4 +1123,5 @@ module.exports = {
   conferirFormAddress,
   conferirFormSchool,
   selecionarNomes,
+  erroInputProgramasEmCurso
 };

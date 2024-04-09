@@ -45888,47 +45888,52 @@ var _require = __webpack_require__(/*! ../utils/util */ "./frontend/utils/util.j
   selecionarNomes = _require.selecionarNomes,
   CreateRadius = _require.CreateRadius,
   CreateInputLabel = _require.CreateInputLabel,
-  isComplemento = _require.isComplemento;
+  isComplemento = _require.isComplemento,
+  erroInputProgramasEmCurso = _require.erroInputProgramasEmCurso,
+  removerMensagem = _require.removerMensagem;
 var ProgramasEmCurso = /*#__PURE__*/function () {
   function ProgramasEmCurso() {
     var _this = this;
     _classCallCheck(this, ProgramasEmCurso);
     _defineProperty(this, "handleSubmit", /*#__PURE__*/function () {
-      var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(e, resolve, reject) {
-        var alertEnd;
+      var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(e, resolve) {
+        var alertEnd, selectProgramas;
         return _regeneratorRuntime().wrap(function _callee$(_context) {
           while (1) switch (_context.prev = _context.next) {
             case 0:
+              e.preventDefault();
               alertEnd = document.querySelector(".end");
+              selectProgramas = document.querySelector(".select-programas");
               _this.programasDisponiveis = selecionarNomes(document.getElementsByName("programas-curso"));
               console.log(_this.programasDisponiveis);
               console.log(_typeof(_this.programasDisponiveis));
               if (_this.programasDisponiveis === "S") {
-                console.log("Teste");
-                e.preventDefault();
-                console.log("Teste");
-                console.log(_this.formProgramasEmCurso);
-                if (_this.formProgramasEmCurso.indicacao && _this.formProgramasEmCurso.chamou_atencao_desafio && _this.formProgramasEmCurso.descricao_indicacao !== false && _this.formProgramasEmCurso.descricao_chamou_atencao !== false) {
-                  console.log("teste");
-                  _this.formProgramasEmCurso.enviar_email = 2;
-                  alertEnd.style.display = "block";
-                  resolve(_this.formProgramasEmCurso);
-                } else {
-                  reject(new Error("Formulário inválido!"));
+                if (selectProgramas.value === "D") {
+                  console.log("Teste");
+                  console.log("Teste");
+                  console.log(_this.formProgramasEmCurso);
+                  if (_this.formProgramasEmCurso.indicacao && _this.formProgramasEmCurso.chamou_atencao_desafio && _this.formProgramasEmCurso.descricao_indicacao !== false && _this.formProgramasEmCurso.descricao_chamou_atencao !== false) {
+                    console.log("teste");
+                    _this.formProgramasEmCurso.enviar_email = 2;
+                    alertEnd.style.display = "block";
+                    resolve(_this.formProgramasEmCurso);
+                  } else {
+                    erroInputProgramasEmCurso(formProgramasEmCurso);
+                    removerMensagem("msg-fracasso-programa-curso");
+                  }
                 }
               } else {
-                e.preventDefault();
                 _this.formProgramasEmCurso.enviar_email = 1;
                 alertEnd.style.display = "block";
                 resolve(_this.formProgramasEmCurso);
               }
-            case 5:
+            case 7:
             case "end":
               return _context.stop();
           }
         }, _callee);
       }));
-      return function (_x, _x2, _x3) {
+      return function (_x, _x2) {
         return _ref.apply(this, arguments);
       };
     }());
@@ -45956,36 +45961,35 @@ var ProgramasEmCurso = /*#__PURE__*/function () {
                         if (_this2.programasDisponiveis === "S") {
                           console.log(_this2.programasDisponiveis);
                         }
-                        _context3.t0 = console;
-                        _context3.next = 8;
-                        return _this2.programasDisponiveis;
-                      case 8:
-                        _context3.t1 = _context3.sent;
-                        _context3.t0.log.call(_context3.t0, _context3.t1);
-                        document.querySelector(".form-programa-cursos").addEventListener("submit", /*#__PURE__*/function () {
-                          var _ref3 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2(e) {
-                            return _regeneratorRuntime().wrap(function _callee2$(_context2) {
-                              while (1) switch (_context2.prev = _context2.next) {
-                                case 0:
-                                  _context2.next = 2;
-                                  return _this2.handleSubmit(e, resolve, reject);
-                                case 2:
-                                case "end":
-                                  return _context2.stop();
-                              }
-                            }, _callee2);
-                          }));
-                          return function (_x6) {
-                            return _ref3.apply(this, arguments);
-                          };
-                        }());
-                      case 11:
+                        _this2.form = document.querySelector(".form-programa-cursos");
+                        if (_this2.form) {
+                          _this2.form.addEventListener("submit", /*#__PURE__*/function () {
+                            var _ref3 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2(e) {
+                              return _regeneratorRuntime().wrap(function _callee2$(_context2) {
+                                while (1) switch (_context2.prev = _context2.next) {
+                                  case 0:
+                                    _context2.next = 2;
+                                    return _this2.handleSubmit(e, resolve);
+                                  case 2:
+                                  case "end":
+                                    return _context2.stop();
+                                }
+                              }, _callee2);
+                            }));
+                            return function (_x5) {
+                              return _ref3.apply(this, arguments);
+                            };
+                          }());
+                        } else {
+                          reject(new Error("Formulário inválido!"));
+                        }
+                      case 7:
                       case "end":
                         return _context3.stop();
                     }
                   }, _callee3);
                 }));
-                return function (_x4, _x5) {
+                return function (_x3, _x4) {
                   return _ref2.apply(this, arguments);
                 };
               }()));
@@ -47707,6 +47711,23 @@ var erroInput = function erroInput(object) {
     }
   }
 };
+var erroInputProgramasEmCurso = function erroInputProgramasEmCurso(object) {
+  for (var _chave8 in object) {
+    if (_chave8 === "indicacao") {
+      document.getElementById("msg-fracasso-programa-curso").innerHTML = "<p>Campo \"Como voc\xEA ficou sabendo deste desafio?\" inv\xE1lido!</p>";
+      break;
+    } else if (_chave8 === "chamou_atencao_desafio") {
+      document.getElementById("msg-fracasso-programa-curso").innerHTML = "<p>Campo \"O que mais te chamou a aten\xE7\xE3o neste desafio?\" inv\xE1lido!</p>";
+      break;
+    } else if (_chave8 === "descricao_indicacao") {
+      document.getElementById("msg-fracasso-programa-curso").innerHTML = "<p>Campo \"Descri\xE7\xE3o de como voc\xEA ficou sabendo deste desafio?\" inv\xE1lido!</p>";
+      break;
+    } else if (_chave8 === "descricao_chamou_atencao") {
+      document.getElementById("msg-fracasso-programa-curso").innerHTML = "<p>Campo \"Descri\xE7\xE3o do que mais te chamou a aten\xE7\xE3o neste desafio?\" inv\xE1lido!</p>";
+      break;
+    }
+  }
+};
 var erroSelect = function erroSelect(select) {
   var selects = document.querySelectorAll(select);
   for (var i = 0; i < selects.length; i++) {
@@ -47728,34 +47749,34 @@ var erroSelect = function erroSelect(select) {
   }
 };
 var erroInputAddress = function erroInputAddress(object) {
-  for (var _chave8 in object) {
-    if (object[_chave8] === false && _chave8 !== "complemento") {
-      if (_chave8 === "telefone1") {
+  for (var _chave9 in object) {
+    if (object[_chave9] === false && _chave9 !== "complemento") {
+      if (_chave9 === "telefone1") {
         document.getElementById("msg-fracasso-address").innerHTML = "<p>Campo telefone 1 inv\xE1lido!</p>";
         break;
-      } else if (_chave8 === "telefone2") {
+      } else if (_chave9 === "telefone2") {
         document.getElementById("msg-fracasso-address").innerHTML = "<p>Campo telefone 2 inv\xE1lido!</p>";
         break;
       } else {
-        document.getElementById("msg-fracasso-address").innerHTML = "<p>Campo ".concat(_chave8, " inv\xE1lido!</p>");
+        document.getElementById("msg-fracasso-address").innerHTML = "<p>Campo ".concat(_chave9, " inv\xE1lido!</p>");
         break;
       }
     }
   }
 };
 var erroInputSocioEconomic = function erroInputSocioEconomic(object) {
-  for (var _chave9 in object) {
-    if (object[_chave9] === false) {
-      if (_chave9 === "pessoas_por_residencia") {
+  for (var _chave10 in object) {
+    if (object[_chave10] === false) {
+      if (_chave10 === "pessoas_por_residencia") {
         document.getElementById("msg-fracasso-socio-economy").innerHTML = "<p>Campo pessoas por resid\xEAncia inv\xE1lido!</p>";
         removerMensagem("msg-fracasso-socio-economy");
         break;
-      } else if (_chave9 === "tem_filhos") {
+      } else if (_chave10 === "tem_filhos") {
         document.getElementById("msg-fracasso-socio-economy").innerHTML = "<p>Campo tem filhos inv\xE1lido!</p>";
         removerMensagem("msg-fracasso-socio-economy");
         break;
       } else {
-        document.getElementById("msg-fracasso-socio-economy").innerHTML = "<p>Campo ".concat(_chave9, " inv\xE1lido!</p>");
+        document.getElementById("msg-fracasso-socio-economy").innerHTML = "<p>Campo ".concat(_chave10, " inv\xE1lido!</p>");
         removerMensagem("msg-fracasso-socio-economy");
         break;
       }
@@ -47931,7 +47952,8 @@ module.exports = {
   conferirFormBasic: conferirFormBasic,
   conferirFormAddress: conferirFormAddress,
   conferirFormSchool: conferirFormSchool,
-  selecionarNomes: selecionarNomes
+  selecionarNomes: selecionarNomes,
+  erroInputProgramasEmCurso: erroInputProgramasEmCurso
 };
 
 /***/ }),

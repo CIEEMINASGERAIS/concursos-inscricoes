@@ -1,4 +1,4 @@
-const { selecionarNomes, CreateRadius, CreateInputLabel, isComplemento } = require("../utils/util")
+const { selecionarNomes, CreateRadius, CreateInputLabel, isComplemento, erroInputProgramasEmCurso, removerMensagem } = require("../utils/util")
 
 class ProgramasEmCurso {
 
@@ -17,11 +17,15 @@ class ProgramasEmCurso {
                 console.log(this.programasDisponiveis)
             }
 
-            console.log(await this.programasDisponiveis)
+            this.form = document.querySelector(".form-programa-cursos")
 
-            document.querySelector(".form-programa-cursos").addEventListener("submit", async (e) => {
-                await this.handleSubmit(e, resolve, reject)
-            })
+            if (this.form) {
+                this.form.addEventListener("submit", async (e) => {
+                    await this.handleSubmit(e, resolve)
+                })
+            } else {
+                reject(new Error("Formulário inválido!"))
+            }
         })
     }
 
@@ -167,36 +171,40 @@ class ProgramasEmCurso {
         })
     }
 
-    handleSubmit = async (e, resolve, reject) => {
-
+    handleSubmit = async (e, resolve) => {
+        e.preventDefault()
         const alertEnd = document.querySelector(".end");
+
+        const selectProgramas = document.querySelector(".select-programas")
 
         this.programasDisponiveis = selecionarNomes(document.getElementsByName("programas-curso"))
         console.log(this.programasDisponiveis)
         console.log(typeof this.programasDisponiveis)
 
         if (this.programasDisponiveis === "S") {
-            console.log("Teste")
+            if (selectProgramas.value === "D") {
+                console.log("Teste")
 
-            e.preventDefault()
 
-            console.log("Teste")
 
-            console.log(this.formProgramasEmCurso)
+                console.log("Teste")
 
-            if (this.formProgramasEmCurso.indicacao
-                && this.formProgramasEmCurso.chamou_atencao_desafio
-                && this.formProgramasEmCurso.descricao_indicacao !== false
-                && this.formProgramasEmCurso.descricao_chamou_atencao !== false) {
-                console.log("teste")
-                this.formProgramasEmCurso.enviar_email = 2
-                alertEnd.style.display = "block";
-                resolve(this.formProgramasEmCurso)
-            } else {
-                reject(new Error("Formulário inválido!"))
+                console.log(this.formProgramasEmCurso)
+
+                if (this.formProgramasEmCurso.indicacao
+                    && this.formProgramasEmCurso.chamou_atencao_desafio
+                    && this.formProgramasEmCurso.descricao_indicacao !== false
+                    && this.formProgramasEmCurso.descricao_chamou_atencao !== false) {
+                    console.log("teste")
+                    this.formProgramasEmCurso.enviar_email = 2
+                    alertEnd.style.display = "block";
+                    resolve(this.formProgramasEmCurso)
+                } else {
+                    erroInputProgramasEmCurso(formProgramasEmCurso)
+                    removerMensagem("msg-fracasso-programa-curso");
+                }
             }
         } else {
-            e.preventDefault()
             this.formProgramasEmCurso.enviar_email = 1
             alertEnd.style.display = "block";
             resolve(this.formProgramasEmCurso)

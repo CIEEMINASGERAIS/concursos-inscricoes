@@ -147,9 +147,7 @@ async function takeData() {
 // const data = takeData();
 
 async function sendData() {
-  const data = await takeData();
-
-  console.log(data)
+  const data = await takeData();  
 
   try {
     const response = await fetch("https://appcadastro.cieemg.org.br/cadastrar", {

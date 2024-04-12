@@ -26,41 +26,48 @@ async function emailASerEnviadoComum(to, user, pass) {
         html: ` 
         <html>
             <div style="height: 100%;
-            border: 1px solid rgb(190, 190, 190);
-            padding: 1rem;
-            max-width: 30rem;
-            height: 18rem;        
-            margin: 0rem auto;
-            background-color: white;">
-                <img alt="Logo do CIEEMG" style="height: 3rem;"
-                    src="cid:logociee" />
-                    <div style="height: 1px;
+                border: 1px solid rgb(190, 190, 190);
+                padding: 1rem;
+                max-width: 30rem;
+                height: 18rem;        
+                margin: 0rem auto;
+                background-color: white;">
+                <img alt="Logo do CIEEMG" style="height: 3rem;" src="cid:logociee" />
+                <div style="height: 1px;
                     background-color: rgb(216, 216, 216);
                     margin: 1rem 0rem 1rem 0rem;"></div>
-                    <p style="margin: 1rem 0rem;
+                <p style="margin: 1rem 0rem;
                     color: black;">Prezado(a) <b>${user}</b>,
-                    </p>
-                    <p style="color: black;">
+                </p>
+                <p style="color: black;">
 
-                        Esta é a sua senha, pedimos que altere sua senha no primeiro acesso ao sistema.</p>
+                    Esta é a sua senha, pedimos que altere sua senha no primeiro acesso ao sistema.</p>
 
-                    <p style="margin: 1rem 0rem;
+                <p style="margin: 1rem 0rem;
                     color: black;">A senha é: <b>${pass}</b>.</p>
-                    <div style="height: 1px;
+                <p style="color: black;">
+                    Parabéns por sua inscrição no desafio a Voz do Jovem, <a
+                    style="color: red; text-decoration: none; font-weight: bolder;"
+                    onmouseover="this.style.textDecoration = 'underline'" onmouseout="this.style.textDecoration = 'none'"
+                    rel="noopener noreferrer" target="_blank"
+                    href="https://www.cieemg.org.br/noticia/desafio-a-voz-do-jovem">clique aqui</a> para leitura do regulamento.
+                    Boa sorte!
+                </p>
+                <div style="height: 1px;
                     background-color: rgb(216, 216, 216);
                     margin: 1rem 0rem 0.5rem 0rem;"></div>
-                    <p style="font-size: 0.7em;
+                <p style="font-size: 0.7em;
                     font-weight: 800;
                     text-align: center;
                     margin: 0.5rem;
                     color: black;">CIEEMG - Centro de Integração Empresa Escola de Minas Gerais</p>
-                    <p style="font-size: 0.7em;
+                <p style="font-size: 0.7em;
                     font-weight: 800;
                     text-align: center;
                     margin: 0.5rem;
-                    color: black;">Portal CIEE/MG (<a href="https://cieemg.org.br/" rel="noopener noreferrer" target="_blank">www.cieemg.org.br</a>)</p>
+                    color: black;">Portal CIEE/MG (<a href="https://cieemg.org.br/" rel="noopener noreferrer"
+                    target="_blank">www.cieemg.org.br</a>)</p>
             </div>
-
         </html>
          `,
         attachments: [{

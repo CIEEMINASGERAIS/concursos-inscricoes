@@ -12,6 +12,9 @@ const app = express();
 
 const path = require("path");
 
+// Responsável por pegar dados do .env
+require("dotenv").config();
+
 // Acessar os controllers
 const getEndereco = require("./src/controllers/getEndereco");
 
@@ -104,7 +107,7 @@ app.get("/programa-curso", programaEmCurso.renderProgramaCurso);
 // Função responsável por enviar as informações para o banco de dados
 app.post("/cadastrar", postCadastro.postRegister);
 
-// Iniciar o servidor na porta 8080, criar a função utilizando modelo Arrow function para retornar a mensagem de sucesso
-app.listen(8080, "0.0.0.0", () => {
-  console.log("Servidor iniciado na porta 8080: https://localhost:8080");
+// Iniciar o servidor na porta, criar a função utilizando modelo Arrow function para retornar a mensagem de sucesso
+app.listen(process.env.PORT, "0.0.0.0", () => {
+  console.log(`Servidor iniciado na porta ${process.env.PORT}: https://localhost:${process.env.PORT}`);
 });

@@ -139,7 +139,7 @@ async function takeData() {
     ...formSchoolData,
     ...dataEconomy,
     ...formProgramaCurso
-  };
+  };  
 
   return allData;
 }

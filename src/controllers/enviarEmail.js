@@ -29,7 +29,7 @@ async function emailASerEnviadoProcessos(to, user, pass) {
                 border: 1px solid rgb(190, 190, 190);
                 padding: 1rem;
                 max-width: 30rem;
-                height: 18rem;        
+                height: 20rem;        
                 margin: 0rem auto;
                 background-color: white;">
                 <img alt="Logo do CIEEMG" style="height: 3rem;" src="cid:logociee" />

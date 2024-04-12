@@ -8,6 +8,8 @@ const cors = require("cors");
 // Chamar a função express
 const app = express();
 
+const helmet = require('helmet')
+
 // const ejs = require("ejs");
 
 const path = require("path");
@@ -54,6 +56,7 @@ app.set("view engine", "ejs");
 // Criar o middleware para receber os dados no corpo da requisição
 app.use(express.json());
 
+
 // Criar o middleware para receber requisições externas
 app.use((req, res, next) => {
   // Qualquer endereço pode fazer requisição
@@ -64,6 +67,8 @@ app.use((req, res, next) => {
   res.header("Access-Control-Allow-Headers", "Content-Type");
   // Executar o cors
   app.use(cors());
+  // Executar o helmet
+  app.use(helmet())
   // Quando não houver o erro deve continuar o processamento
   next();
 });
@@ -109,5 +114,5 @@ app.post("/cadastrar", postCadastro.postRegister);
 
 // Iniciar o servidor na porta, criar a função utilizando modelo Arrow function para retornar a mensagem de sucesso
 app.listen(process.env.PORT, "0.0.0.0", () => {
-  console.log(`Servidor iniciado na porta ${process.env.PORT}: https://localhost:${process.env.PORT}`);
+  console.log(`Servidor iniciado na porta ${process.env.PORT}: http://localhost:${process.env.PORT}`);
 });

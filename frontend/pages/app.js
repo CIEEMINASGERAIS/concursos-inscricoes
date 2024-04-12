@@ -152,7 +152,7 @@ async function sendData() {
   console.log(data)
 
   try {
-    const response = await fetch("http://localhost:8080/cadastrar", {
+    const response = await fetch("https://appcadastro.cieemg.org.br/cadastrar", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

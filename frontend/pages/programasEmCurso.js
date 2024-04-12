@@ -13,10 +13,6 @@ class ProgramasEmCurso {
 
             await this.validateDynamicInput()
 
-            if (this.programasDisponiveis === "S") {
-                console.log(this.programasDisponiveis)
-            }
-
             this.form = document.querySelector(".form-programa-cursos")
 
             if (this.form) {
@@ -101,6 +97,8 @@ class ProgramasEmCurso {
                 if (document.querySelector("#div-input-como-atencao")) {
                     document.querySelector("#div-input-como-atencao").remove()
                 }
+                this.formProgramasEmCurso.indicacao = ""
+                this.formProgramasEmCurso.chamou_atencao_desafio = ""
             }
 
             if (element.classList.contains("select-programas")) {
@@ -178,24 +176,13 @@ class ProgramasEmCurso {
         const selectProgramas = document.querySelector(".select-programas")
 
         this.programasDisponiveis = selecionarNomes(document.getElementsByName("programas-curso"))
-        console.log(this.programasDisponiveis)
-        console.log(typeof this.programasDisponiveis)
 
         if (this.programasDisponiveis === "S") {
             if (selectProgramas.value === "D") {
-                console.log("Teste")
-
-
-
-                console.log("Teste")
-
-                console.log(this.formProgramasEmCurso)
-
                 if (this.formProgramasEmCurso.indicacao
                     && this.formProgramasEmCurso.chamou_atencao_desafio
                     && this.formProgramasEmCurso.descricao_indicacao !== false
                     && this.formProgramasEmCurso.descricao_chamou_atencao !== false) {
-                    console.log("teste")
                     this.formProgramasEmCurso.enviar_email = 2
                     alertEnd.style.display = "block";
                     resolve(this.formProgramasEmCurso)
@@ -210,7 +197,6 @@ class ProgramasEmCurso {
             resolve(this.formProgramasEmCurso)
         }
     }
-
 }
 
 module.exports = { ProgramasEmCurso }

@@ -2,7 +2,7 @@ const path = require('path') //CommonJs
 const webpack = require('webpack')
 
 module.exports = {
-  mode: 'development', //production
+  mode: 'production', //development
   entry: './frontend/pages/app.js',
   output: {
     path: path.resolve(__dirname, 'public', 'assets', 'js'),

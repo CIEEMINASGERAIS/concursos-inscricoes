@@ -16,7 +16,7 @@ const tranposter = nodemailer.createTransport({
     },
 })
 
-async function emailASerEnviadoComum(to, user, pass) {
+async function emailASerEnviadoProcessos(to, user, pass) {
 
     const info = await tranposter.sendMail({
         from: 'validacao.cadastro@cieeminas.com.br',
@@ -89,7 +89,7 @@ async function emailASerEnviadoComum(to, user, pass) {
     console.log('Message sent: %s', info.messageId)
 }
 
-async function emailASerEnviadoProcessos(to, user, pass) {
+async function emailASerEnviadoComum(to, user, pass) {
 
     const info = await tranposter.sendMail({
         from: 'validacao.cadastro@cieeminas.com.br',

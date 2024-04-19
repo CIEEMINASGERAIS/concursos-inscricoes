@@ -56,17 +56,30 @@ app.set("view engine", "ejs");
 // Criar o middleware para receber os dados no corpo da requisição
 app.use(express.json());
 
+const whiteList = [
+  'https://www.google.com',      
+];
+
+const corsOptions = {
+  origin: function (origin, callback) {
+    if(whiteList.indexOf(origin) !== -1 || !origin) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  }
+};
 
 // Criar o middleware para receber requisições externas
 app.use((req, res, next) => {
   // Qualquer endereço pode fazer requisição
-  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Origin", 'https://www.google.com');
   // Tipos de método que a API aceita
   res.header("Access-Control-Allow-Methods", "POST", "GET", "OPTIONS");
   // Permitir o envio de dados para API
   res.header("Access-Control-Allow-Headers", "Content-Type");
   // Executar o cors
-  app.use(cors());
+  app.use(cors(corsOptions));
   // Executar o helmet
   app.use(helmet())
   // Quando não houver o erro deve continuar o processamento

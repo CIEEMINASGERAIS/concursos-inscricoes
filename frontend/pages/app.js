@@ -148,7 +148,7 @@ async function sendData() {
   const data = await takeData();  
 
   try {
-    const response = await fetch("https://appcadastro.cieemg.org.br/cadastrar", {
+    const response = await fetch("https://appcadastro.cieemg.org.br", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

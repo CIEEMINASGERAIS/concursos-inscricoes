@@ -331,56 +331,6 @@ module.exports = (sequelize, DataTypes) => {
           notEmpty: {
             msg: "Esse campo não pode ser vazio.",
           },
-          isUf(value, next) {
-            const listUfNaturalidade = [
-              "RO",
-              "AC",
-              "AM",
-              "RR",
-              "PA",
-              "AP",
-              "TO",
-              "MA",
-              "PI",
-              "CE",
-              "RN",
-              "PB",
-              "PE",
-              "AL",
-              "SE",
-              "BA",
-              "MG",
-              "ES",
-              "RJ",
-              "SP",
-              "PR",
-              "SC",
-              "RS",
-              "MS",
-              "MT",
-              "GO",
-              "DF",
-            ];
-
-            let state;
-
-            for (let i = 0; i < listUfNaturalidade.length; i++) {
-              if (listUfNaturalidade[i] === value) {
-                state = listUfNaturalidade[i];
-              }
-            }
-
-            if (state != value || value.length === 0 || value.length != 2) {
-              return next("Estado incorreto!");
-            }
-
-            value = parseInt(value);
-            if (value) {
-              return next("É permitido somente os estados da lista.");
-            }
-
-            return next();
-          },
         },
       },
       idade: {

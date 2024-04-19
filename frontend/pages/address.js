@@ -89,15 +89,13 @@ async function initAddress() {
           }
 
           // Validação do CEP bem-sucedida, permitir que o usuário digite nos campos
-          logradouro.removeAttribute('disabled');
-          uf.removeAttribute('disabled');
+          logradouro.removeAttribute('disabled');          
           bairro.removeAttribute('disabled');
           cidade.removeAttribute('disabled');
         } else {
 
           // Validação do CEP falhou, desabilitar os campos
-          logradouro.setAttribute('disabled', 'true');
-          uf.setAttribute('disabled', 'true');
+          logradouro.setAttribute('disabled', 'true');          
           bairro.setAttribute('disabled', 'true');
           cidade.setAttribute('disabled', 'true');
 
@@ -216,28 +214,7 @@ async function initAddress() {
           formDataAddress.logradouro = false
         }
       })
-    }
-
-    if (uf) {
-
-      uf.addEventListener('input', e => {
-
-        let value = e.target.value
-
-        value = e.target.value.replace(/[^a-zA-Z]/g, '')
-
-        let validate = isNaturalidadeNacionalidade(value)
-
-        if (validate) {
-          document.getElementById("msg-uf").innerHTML = ""
-          formDataAddress.uf = value
-        } else {
-          document.getElementById("msg-uf").innerHTML =
-            "<p>UF inválido!</p>"
-          formDataAddress.uf = false
-        }
-      })
-    }
+    }  
 
     if (bairro) {
 

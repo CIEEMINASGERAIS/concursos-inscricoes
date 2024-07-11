@@ -1,6 +1,6 @@
 "use strict";
 const { Model } = require("sequelize");
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 
 module.exports = (sequelize, DataTypes) => {
   class Estudante extends Model {
@@ -474,13 +474,21 @@ module.exports = (sequelize, DataTypes) => {
       },
       cpf_pai: {
         type: DataTypes.STRING(14),
-        allowNull: true,
-        // Não obrigatório
+        allowNull: true,        
+        is: /^[0-9]{3}\.[0-9]{3}\.[0-9]{3}\-[0-9]{2}$/,
+        len: {
+          args: [14],
+          msg: "Esse campo deve ter 14 caracteres.",
+        },        
       },
       cpf_mae: {
         type: DataTypes.STRING(14),
-        allowNull: true,
-        // Obrigatório
+        allowNull: false,        
+        is: /^[0-9]{3}\.[0-9]{3}\.[0-9]{3}\-[0-9]{2}$/,
+        len: {
+          args: [14],
+          msg: "Esse campo deve ter 14 caracteres.",
+        },        
       },
       notificacao: {
         type: DataTypes.STRING(2),
@@ -603,7 +611,7 @@ module.exports = (sequelize, DataTypes) => {
   Estudante.beforeSave(async (estudante) => {
     if (estudante.changed('senha')) {
       try {
-        const saltRounds = 10;
+        const saltRounds = 9;
         const hash = await bcrypt.hash(estudante.senha, saltRounds);
         estudante.senha = hash;
       } catch (error) {

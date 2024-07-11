@@ -179,6 +179,51 @@ const initDataBasic = async () => {
       });
     }
 
+    const inputCpfPais = document.querySelector(".cpf-pais");
+
+    if (inputCpfPais) {
+      let validate;
+
+      document.addEventListener("input", async (e) => {
+
+        const element = e.target;
+
+        if (element.classList.contains('cpf-pais')) {
+
+          element.value = element.value.replace(/\D/g, "");
+          element.value = element.value.replace(/(\d{3})(\d)/, "$1.$2");
+          element.value = element.value.replace(/(\d{3})(\d)/, "$1.$2");
+          element.value = element.value.replace(/(\d{3})(\d{1,2})$/, "$1-$2");
+
+          validate = isCpf(element.value);
+
+          if (validate) {
+            if (element.classList.contains('mamae')) {
+              formDataBasic.cpf_mae = element.value;
+            } else {
+              formDataBasic.cpf_pai = element.value;
+            }
+
+            document.getElementById("msg-cpf-mae").innerHTML = "";
+            document.getElementById("msg-cpf-pai").innerHTML = "";
+          } else {
+            e.preventDefault();
+            // Enviar para o HTML a mensagem de erro
+
+            if (element.classList.contains('mamae')) {
+              formDataBasic.cpf_mae = false;
+              document.getElementById("msg-cpf-mae").innerHTML = "<p>CPF inválido!</p>";
+            }
+
+            if (element.classList.contains('papai')) {
+              formDataBasic.cpf_pai = false;
+              document.getElementById("msg-cpf-pai").innerHTML = "<p>CPF inválido!</p>";
+            }
+          }
+        }
+      });
+    }
+
     const rg = document.querySelector(".rg");
 
     if (rg) {
@@ -515,6 +560,8 @@ const initDataBasic = async () => {
           formDataBasic.orgaoexpedidor &&
           formDataBasic.idade &&
           formDataBasic.cpf &&
+          formDataBasic.cpf_mae &&
+          formDataBasic.cpf_pai !== false &&
           formDataBasic.nome_social !== false
         ) {
           changeMains(".screen-address");

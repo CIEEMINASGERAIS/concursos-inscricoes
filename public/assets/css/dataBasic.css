@@ -74,6 +74,7 @@
 .name,
 #nome-social,
 .cpf,
+.cpf-pais,
 .rg,
 .orgao-expedidor,
 .nome-mae,
@@ -105,7 +106,6 @@
 .div-number-1-1{
   margin-top: 1rem;
 }
-/* .div-nome-cpf{} */
 
 .div-number-1 {
   flex-wrap: wrap;
@@ -117,8 +117,6 @@
 
 .div-name {
   width: 47%;
-  /* margin-right: 2rem; */
-  
 }
 
 .div-cpf {
@@ -127,11 +125,9 @@
 }
 
 #div-nome-social {
-  width: 100%;
-  /* margin-right: 3.5rem; */
+  width: 100%;  
 }
 
-/* label */
 .div-social {
   width: 100%;
   display: flex;
@@ -251,17 +247,6 @@
   .div-number-5 {
     margin-bottom: 2rem;
   }
-
-  /* .div-name {
-    order: 0;
-  } */
-  /* .div-cpf {
-  
-  }
-
-  #div-nome-social {
-    
-  } */
 }
 
 @media screen and (max-width:1824px) {
@@ -390,6 +375,7 @@
   .name,
   .social,
   .cpf,
+  .cpf-pais,
   .rg,
   .orgao-expedidor,
   .nome-mae,

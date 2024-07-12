@@ -18,13 +18,13 @@
   width: 100%;
   background-color: rgba(0, 0, 0, 0.199);
   border-radius: 0.5rem;
-  font-size: 1.2rem;
+  font-size: 1rem;
   box-shadow: 0.5rem 0.5rem 0.6rem rgba(0, 0, 0, 0.336);
 }
 
 .form-address input {
   width: 100%;
-  font-size: 1.1rem;
+  font-size: 1rem;
   border-radius: 0.5rem;
   border: 1.5px solid rgb(122, 123, 131);
   padding: 0.5rem 0.5rem 0.4rem 0.5rem;

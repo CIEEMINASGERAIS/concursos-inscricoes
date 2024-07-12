@@ -25,7 +25,7 @@
 
 .form-data input,
 .form-data select {
-  font-size: 1.1rem;
+  font-size: 1rem;
   border-radius: 0.5rem;
   border: 1.5px solid rgb(122, 123, 131);
   padding: 0.6rem 0.5rem 0.4rem 0.5rem;
@@ -94,13 +94,13 @@
 .div-number-1-1,
 .div-number-1-5,
 .div-number-2,
+.div-number-2-5,
 .div-number-3,
 .div-number-4,
 .div-number-5 {
   display: flex;
   flex-direction: center;
   justify-content: space-between;
-  margin-bottom: 1rem;
   width: 100%;
 }
 .div-number-1-1{
@@ -145,17 +145,19 @@
 }
 
 .div-nome-mae {
-  width: 100%;
-  margin-right: 3rem;
+  width: 47%;
+  
 }
 
 .div-nome-pai {
-  width: 100%;
+  width: 47%;
+  margin-bottom: 1rem;
 }
 
 .div-carteira-trabalho {
   width: 100%;
   margin-right: 3rem;
+  margin-bottom: 1rem;
 }
 
 .div-naturalidade {
@@ -254,6 +256,7 @@
     display: flex;
     flex-direction: row;
     margin-bottom: 0;
+    gap: 1rem;
   }
 
   .div-cpf {
@@ -353,7 +356,7 @@
 @media screen and (max-width:1066px) {
 
   .form-data label {
-    font-size: 1.1rem;
+    font-size: 1rem;
     margin: 0;
     padding: 0;
   }
@@ -362,6 +365,7 @@
   .div-number-1-1,
   .div-number-1-5,
   .div-number-2,
+  .div-number-2-5,
   .div-number-3,
   .div-number-4,
   .div-number-5 {
@@ -369,7 +373,7 @@
     flex-direction: column;
     width: 100%;
     gap: 0rem;
-    margin-top: -1rem;
+
   }
 
   .name,
@@ -415,9 +419,9 @@
     margin-bottom: 1rem;
   }
 
-  .div-cpf {
-    margin-top: 0rem;
-  }
+  /* .cpf-pai {
+    margin-bottom: 1rem;
+  } */
   
 }
 

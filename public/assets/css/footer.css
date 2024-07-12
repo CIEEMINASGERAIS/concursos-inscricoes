@@ -13,7 +13,7 @@
 
 .oie {
   margin-bottom: 0rem;
-  font-size: 1rem;
+  background: #e1dcdc;
 }
 
 @media screen and (max-width: 660px) {

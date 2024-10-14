@@ -4,7 +4,7 @@ module.exports = {
             name: "app",
             script: "./app.js",
             env: {
-                "NODE_ENV": "development",
+                "NODE_ENV": "production",
                 "host": process.env.DB_HOST,
                 "database": process.env.DB_BASE,
                 "username": process.env.DB_USER,

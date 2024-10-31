@@ -132,8 +132,10 @@ async function socioEconomic() {
           formEconomic.etnia = selecionarNomes(declaracao);
           formEconomic.situacao_judicial = selecionarNomes(situacaoJudicial);
           setTimeout(() => {
-            alertEnd.style.display = "block";
-          }, 2500);          
+            
+          }, 4000);
+          alertEnd.style.display = "block";
+          document.querySelector(".alert").style.display = "none";
           formEconomic.enviar_email = 1;
           // changeMains(".screen-programa-curso")
           // changeSubMainTitle("Programas Em Curso");

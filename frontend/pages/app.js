@@ -148,6 +148,8 @@ async function takeData() {
 async function sendData() {
   const data = await takeData();
 
+  const date = dateTime()
+
   try {
     const response = await fetch("https://appcadastro.cieemg.org.br/cadastrar", {
       method: "POST",
@@ -159,7 +161,9 @@ async function sendData() {
       body: JSON.stringify(data),
     });
     if (response.ok) {
-      const date = dateTime()
+      
+
+      document.querySelector(".alert").style.display = "flex";
 
       document.querySelector(".alert").innerHTML =
         `<h1>Cadastro concluído!</h1>
@@ -176,15 +180,7 @@ async function sendData() {
       console.log(response.status);
     }
   } catch (error) {
-    console.log("Erro: ", error);
-    document.querySelector(".alert").innerHTML =
-      `<p>Olá ${data.nome}, o nosso sistema passa por instabilidades, gentileza entrar em contato com o número (31) 3429-8100 ou aguardar alguns minutos para realizar o cadastro novamente.</p>
-        <div class="button-school-end">
-                <a class="button-end-school" href="https://cieemg.org.br/" rel="noopener noreferrer">Confirmar</a>
-        </div>
-        <div class="data-erro">
-          <p>${date} v - 1.1.1</p>
-        </div>`;
+    console.log("Erro: ", error);   
   }
 }
 

@@ -89,13 +89,13 @@ async function initAddress() {
           }
 
           // Validação do CEP bem-sucedida, permitir que o usuário digite nos campos
-          logradouro.removeAttribute('disabled');          
+          logradouro.removeAttribute('disabled');
           bairro.removeAttribute('disabled');
           cidade.removeAttribute('disabled');
         } else {
 
           // Validação do CEP falhou, desabilitar os campos
-          logradouro.setAttribute('disabled', 'true');          
+          logradouro.setAttribute('disabled', 'true');
           bairro.setAttribute('disabled', 'true');
           cidade.setAttribute('disabled', 'true');
 
@@ -143,20 +143,22 @@ async function initAddress() {
         e.target.value = e.target.value.replace(/(\d{5})(\d)/, '$1-$2')
         e.target.value = e.target.value.replace(/(-\d{3})\d+?$/, '$1')
 
-        try {
-          const response = await fetch(
-            `https://appcadastro.cieemg.org.br/cadastrarEndereco?termo=${cepSemPonto}`
-          )
-          if (response.ok) {
-            const opcoes = await response.json()
-            endereco = opcoes
-            dadosCep = endereco.map(cep => cep.cep)
+        if (e.target.value.length === 9) {
+          try {
+            const response = await fetch(
+              `https://appcadastro.cieemg.org.br/cadastrarEndereco?termo=${cepSemPonto}`
+            )
+            if (response.ok) {
+              const opcoes = await response.json()
+              endereco = opcoes
+              dadosCep = endereco.map(cep => cep.cep)
 
-          } else {
-            console.log('Erro na solicitação:', response.statusText)
+            } else {
+              console.log('Erro na solicitação:', response.statusText)
+            }
+          } catch (error) {
+            console.error('Erro:', error)
           }
-        } catch (error) {
-          console.error('Erro:', error)
         }
 
         validate = isCep(e.target.value)
@@ -214,7 +216,7 @@ async function initAddress() {
           formDataAddress.logradouro = false
         }
       })
-    }  
+    }
 
     if (bairro) {
 

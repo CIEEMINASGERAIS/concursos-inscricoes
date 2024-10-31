@@ -117,6 +117,7 @@ async function socioEconomic() {
     if (formSocioEconomic) {
       formSocioEconomic.addEventListener("submit", (e) => {
         e.preventDefault();
+        const alertEnd = document.querySelector(".end");
         if (
           formEconomic.aprendiz &&
           formEconomic.responsavel &&
@@ -130,11 +131,13 @@ async function socioEconomic() {
           formEconomic.genero = selecionarNomes(generos);
           formEconomic.etnia = selecionarNomes(declaracao);
           formEconomic.situacao_judicial = selecionarNomes(situacaoJudicial);
-          changeMains(".screen-programa-curso")
-          changeSubMainTitle("Programas Em Curso");
+          alertEnd.style.display = "block";
+          formEconomic.enviar_email = 1;
+          // changeMains(".screen-programa-curso")
+          // changeSubMainTitle("Programas Em Curso");
           resolve(formEconomic);
         } else {
-          erroInputSocioEconomic(formEconomic)
+          erroInputSocioEconomic(formEconomic);
         }
       });
     } else {

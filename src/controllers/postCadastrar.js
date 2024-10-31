@@ -9,18 +9,20 @@ const Estudante = require("../db/models/estudante")(sequelize, DataTypes);
 
 const SocioEconomico = require("../db/models/socio_economico")(sequelize, DataTypes);
 
-const ProcessosEspeciais = require("../db/models/processos_especiais")(sequelize, DataTypes);
+// const ProcessosEspeciais = require("../db/models/processos_especiais")(sequelize, DataTypes);
 
 Estudante.hasOne(SocioEconomico)
 SocioEconomico.belongsTo(Estudante)
 
-Estudante.hasOne(ProcessosEspeciais)
-ProcessosEspeciais.belongsTo(Estudante)
+// Estudante.hasOne(ProcessosEspeciais)
+// ProcessosEspeciais.belongsTo(Estudante)
 
 // Função responsável por enviar as informações para o banco de dados
 async function postRegister(req, res) {
 
     const { enviar_email } = req.body;
+
+    console.log(req.body);
 
     try {
 
@@ -40,19 +42,19 @@ async function postRegister(req, res) {
             situacao_judicial: req.body.situacao_judicial
         });
 
-        if (enviar_email === 2) {
-            await ProcessosEspeciais.create({
-                estudante_id: novoEstudante.id,
-                indicacao: req.body.indicacao,
-                descricao_indicacao: req.body.descricao_indicacao,
-                chamou_atencao_desafio: req.body.chamou_atencao_desafio,
-                descricao_chamou_atencao: req.body.descricao_chamou_atencao
-            })
+        // if (enviar_email === 2) {
+        //     await ProcessosEspeciais.create({
+        //         estudante_id: novoEstudante.id,
+        //         indicacao: req.body.indicacao,
+        //         descricao_indicacao: req.body.descricao_indicacao,
+        //         chamou_atencao_desafio: req.body.chamou_atencao_desafio,
+        //         descricao_chamou_atencao: req.body.descricao_chamou_atencao
+        //     })
 
-            await enviandoEmail.emailASerEnviadoProcessos(req.body.email, req.body.nome, req.body.senha).catch(console.error)
-        } else {
-            await enviandoEmail.emailASerEnviadoComum(req.body.email, req.body.nome, req.body.senha).catch(console.error)
-        }
+        //     await enviandoEmail.emailASerEnviadoProcessos(req.body.email, req.body.nome, req.body.senha).catch(console.error)
+        // } else {
+        await enviandoEmail.emailASerEnviadoComum(req.body.email, req.body.nome, req.body.senha).catch(console.error)
+        // }
 
         return res.json({
             mensagem: "Usuário cadastrado com sucesso!",

@@ -1,6 +1,6 @@
 {
   "name": "server",
-  "version": "2.1.1",
+  "version": "1.1.1",
   "description": "SEQUENCIA PARA CRIAR O PROJETO\r Criar o arquivo package\r ### npm init",
   "main": "app.js",
   "scripts": {

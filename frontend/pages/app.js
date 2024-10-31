@@ -4,7 +4,7 @@ const initAddress = require("./address.js");
 const initDataBasic = require("./dataBasic.js");
 const createFormSchoolData = require("./schoolData.js");
 const socioEconomic = require("./socioEconomic.js");
-const { ProgramasEmCurso } = require("./programasEmCurso.js")
+// const { ProgramasEmCurso } = require("./programasEmCurso.js")
 const {
   conferirFormAddress,
   conferirFormBasic,
@@ -14,8 +14,7 @@ const {
   dateTime
 } = require("../utils/util.js");
 
-async function takeData() {
-  const date = dateTime()
+async function takeData() {  
   const callMain = main();
   const termsConditions = await termsAndConditions();
 
@@ -103,11 +102,23 @@ async function takeData() {
 
     if (validateFormSchool && validateFormAddress && validateFormBasic && validateFormSocioEconomic) {
       if (
-        element.classList.contains("big-programa-curso") ||
-        element.classList.contains("button-programa-curso")
+        element.classList.contains("button-finish-socio")
       ) {
-        changeMains(".screen-programa-curso");
-        changeSubMainTitle("Programa Em Curso");
+        //   changeMains(".screen-programa-curso");
+        //   changeSubMainTitle("Programa Em Curso");
+        console.log('Siiii!')
+        // }
+        // document.querySelector(".alert").innerHTML =
+        //   `<h1>Cadastro concluído!</h1>
+        // <p>Olá ${formData.nome}, parabéns por finalizar a primeira etapa do seu cadastro, fique atento ao seu e-mail,
+        // enviaremos em
+        // até 24 horas os dados para realizar seu primeiro login no nosso portal, para conclusão do seu cadastro.</p>
+        // <div class="button-school-end">
+        //         <a class="button-end-school" href="https://cieemg.org.br/" rel="noopener noreferrer">Confirmar</a>
+        // </div>
+        // <div class="data-erro">
+        //   <p>${date} v - 1.1.0</p>
+        // </div>`;
       }
     } else {
       if (element.classList.contains("main")) {
@@ -116,21 +127,11 @@ async function takeData() {
     }
   });
 
-  const programaCurso = new ProgramasEmCurso()
+  // const programaCurso = new ProgramasEmCurso()
 
-  const formProgramaCurso = await programaCurso.eventos()
+  // const formProgramaCurso = await programaCurso.eventos()
 
-  document.querySelector(".alert").innerHTML =
-    `<h1>Cadastro concluído!</h1>
-    <p>Olá ${formData.nome}, parabéns por finalizar a primeira etapa do seu cadastro, fique atento ao seu e-mail,
-    enviaremos em
-    até 24 horas os dados para realizar seu primeiro login no nosso portal, para conclusão do seu cadastro.</p>
-    <div class="button-school-end">
-            <a class="button-end-school" href="https://cieemg.org.br/" rel="noopener noreferrer">Confirmar</a>
-    </div>
-    <div class="data-erro">
-      <p>${date} v - 1.1.0</p>
-    </div>`;
+
 
   const allData = await {
     ...termsConditions,
@@ -138,14 +139,14 @@ async function takeData() {
     ...formAddress,
     ...formSchoolData,
     ...dataEconomy,
-    ...formProgramaCurso
-  };  
+    // ...formProgramaCurso
+  };
 
   return allData;
 }
 
 async function sendData() {
-  const data = await takeData();  
+  const data = await takeData();
 
   try {
     const response = await fetch("https://appcadastro.cieemg.org.br/cadastrar", {
@@ -158,6 +159,19 @@ async function sendData() {
       body: JSON.stringify(data),
     });
     if (response.ok) {
+      const date = dateTime()
+
+      document.querySelector(".alert").innerHTML =
+        `<h1>Cadastro concluído!</h1>
+        <p>Olá ${data.nome}, parabéns por finalizar a primeira etapa do seu cadastro, fique atento ao seu e-mail,
+        enviaremos em
+        até 24 horas os dados para realizar seu primeiro login no nosso portal, para conclusão do seu cadastro.</p>
+        <div class="button-school-end">
+                <a class="button-end-school" href="https://cieemg.org.br/" rel="noopener noreferrer">Confirmar</a>
+        </div>
+        <div class="data-erro">
+          <p>${date} v - 1.1.1</p>
+        </div>`;
     } else {
       console.log(response.status);
     }

@@ -11,4 +11,4 @@ async function renderProgramaCurso(req, res) {
     });
 }
 
-module.exports = { renderProgramaCurso }
+// module.exports = { renderProgramaCurso }

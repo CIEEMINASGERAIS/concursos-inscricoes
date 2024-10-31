@@ -133,7 +133,7 @@ async function socioEconomic() {
           formEconomic.situacao_judicial = selecionarNomes(situacaoJudicial);
           setTimeout(() => {
             alertEnd.style.display = "block";
-          }, 1500);          
+          }, 2500);          
           formEconomic.enviar_email = 1;
           // changeMains(".screen-programa-curso")
           // changeSubMainTitle("Programas Em Curso");

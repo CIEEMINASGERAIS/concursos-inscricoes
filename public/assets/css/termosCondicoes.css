@@ -12,6 +12,29 @@ body {
   background-position: center;
 }
 
+
+::-webkit-scrollbar {
+  width: 10px;  
+  height: 10px; 
+}
+
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+  border-radius: 5px;
+}
+
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 5px;
+}
+
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
 .screen-terms-conditions {
   margin: 5rem 0rem 9.5rem 11rem;
 }

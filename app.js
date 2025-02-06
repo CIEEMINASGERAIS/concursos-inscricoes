@@ -127,5 +127,5 @@ app.post("/cadastrar", postCadastro.postRegister);
 
 // Iniciar o servidor na porta, criar a função utilizando modelo Arrow function para retornar a mensagem de sucesso
 app.listen(process.env.PORT, "0.0.0.0", () => {
-  console.log(`Servidor iniciado na porta ${process.env.PORT}: http://localhost:${process.env.PORT}`);
+  console.log(`Servidor iniciado na porta ${process.env.PORT}: https://appcadastro.cieemg.org.br${process.env.PORT}`);
 });

@@ -153,7 +153,7 @@ async function sendData() {
   const date = dateTime()
 
   try {
-    const response = await fetch("https://appcadastro.cieemg.org.br", {
+    const response = await fetch("https://appcadastro.cieemg.org.br/cadastrar", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

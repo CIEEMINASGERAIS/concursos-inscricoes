@@ -57,7 +57,7 @@ app.set("view engine", "ejs");
 app.use(express.json());
 
 const whiteList = [
-  'https://appcadastro.cieemg.org.br',      
+  'http://localhost:8080',      
 ];
 
 const corsOptions = {
@@ -73,7 +73,7 @@ const corsOptions = {
 // Criar o middleware para receber requisições externas
 app.use((req, res, next) => {
   // Qualquer endereço pode fazer requisição
-  res.header("Access-Control-Allow-Origin", 'https://appcadastro.cieemg.org.br');
+  res.header("Access-Control-Allow-Origin", 'http://localhost:8080');
   // Tipos de método que a API aceita
   res.header("Access-Control-Allow-Methods", "POST", "GET", "OPTIONS");
   // Permitir o envio de dados para API

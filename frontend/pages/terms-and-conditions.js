@@ -9,49 +9,60 @@ async function termsAndConditions() {
     const response = await fetch("terms-and-conditions");
 
     const contetHtml = await response.text();
-
     const termsConditions = document.querySelector(".screen-terms-conditions");
-
-    let schoolData = {};
-
     termsConditions.innerHTML = contetHtml;
 
-    const readTerms = document.querySelector('.div-terms-and-conditions');
+    let schoolData = {};
+    const readTerms = document.querySelector(".div-terms-and-conditions");
+
+    // Pegando os elementos corretamente
+    const checkbox = document.getElementById("li-concordo");
+    const buttonAccept = document.getElementById("button-accept");
+    const buttonDecline = document.getElementById("button-decline");
+    const buttonBasicData = document.getElementById("button-basic-data");
+
+    // Inicialmente, o botão "Aceitar" deve estar desativado
+    buttonAccept.disabled = true;
+
+    // Recuperar do localStorage o estado do botão "Basic Data"
+    const isBlocked = localStorage.getItem("buttonBasicDataBlocked");
+    if (isBlocked === "true") {
+      buttonBasicData.disabled = true;
+    }
 
     document.addEventListener("click", async (e) => {
-      element = e.target;
+      const element = e.target;
 
-      if (
-        element.classList.contains("button-termo") ||
-        element.classList.contains("terms-and-conditions") ||
-        element.classList.contains("p-t-c") ||
-        element.classList.contains("h1-t-c") ||
-        element.classList.contains("h2-t-c") ||
-        element.classList.contains("s-t-c") ||
-        element.classList.contains("a-t-c") ||
-        element.classList.contains("check-term") ||
-        element.classList.contains("label-li") ||
-        element.classList.contains("input-li") ||
-        element.classList.contains("checkbox") ||
-        element.classList.contains("text-terms-conditions") ||
-        element.classList.contains("title-terms") ||
-        element.classList.contains("button-terms-a-d") ||
-        element.classList.contains("terms-input-label")
-      ) {
+      if (element.classList.contains("button-termo") ||
+          element.classList.contains("terms-and-conditions") ||
+          element.classList.contains("p-t-c") ||
+          element.classList.contains("h1-t-c") ||
+          element.classList.contains("h2-t-c") ||
+          element.classList.contains("s-t-c") ||
+          element.classList.contains("a-t-c") ||
+          element.classList.contains("check-term") ||
+          element.classList.contains("label-li") ||
+          element.classList.contains("input-li") ||
+          element.classList.contains("checkbox") ||
+          element.classList.contains("text-terms-conditions") ||
+          element.classList.contains("title-terms") ||
+          element.classList.contains("button-terms-a-d") ||
+          element.classList.contains("terms-input-label")) {
         readTerms.style.display = "flex";
       } else {
         readTerms.style.display = "none";
       }
 
       if (element.classList.contains("button-decline")) {
-        e.preventDefault()
+        e.preventDefault();  
+        buttonBasicData.disabled = true;  
+        localStorage.setItem("buttonBasicDataBlocked", "true");  
       }
 
-      if (element.classList.contains("button-accept") ||
-        element.classList.contains("big-basic-data") || element.classList.contains("button-basic-data")) {
+      if (element.classList.contains("button-accept")) {
         if (schoolData.termos_condicoes === 1) {
           schoolData.dt_cadastro = dateRegister();
-          schoolData.dt_atualizacao = dateRegister()
+          schoolData.dt_atualizacao = dateRegister();
           changeMains(".screen-basic-data1");
           changeSubMainTitle("Formulário de Dados Básicos");
           resolve(schoolData);
@@ -59,38 +70,30 @@ async function termsAndConditions() {
           e.preventDefault();
         }
       }
+    });
 
-      let checkbox = document.getElementById("li-concordo");
-
-      if (checkbox.checked === true) {
+    // Lógica para habilitar/desabilitar o botão "Aceitar"
+    checkbox.addEventListener("change", () => {
+      if (checkbox.checked) {
         schoolData.termos_condicoes = 1;
-        document.getElementById("button-accept").disabled = false;
+        buttonAccept.disabled = false;  // Habilita o botão "Aceitar"
       } else {
         schoolData.termos_condicoes = 0;
-        document.getElementById("button-accept").disabled = true;
+        buttonAccept.disabled = true;   // Desabilita o botão "Aceitar"
       }
     });
 
     $(document).ready(function () {
       document.getElementById("li-concordo").disabled = true;
 
-      const isMobile = window.innerWidth <= 920; // Defina a largura máxima para considerar como dispositivo móvel
-
+      const isMobile = window.innerWidth <= 920;
       if (isMobile) {
         setTimeout(() => {
           document.getElementById("li-concordo").disabled = false;
         }, 5000);
       } else {
         $(".text-terms-conditions").bind("scroll", function () {
-          /*
-           * scrollTop -> Quanto rolou
-           * innerHeight -> Altura do interior da div
-           * scrollHeight -> Altura do conteúdo da div
-           */
-          if (
-            $(this).scrollTop() + $(this).innerHeight() >=
-            this.scrollHeight
-          ) {
+          if ($(this).scrollTop() + $(this).innerHeight() >= this.scrollHeight) {
             document.getElementById("li-concordo").disabled = false;
           } else {
             document.getElementById("li-concordo").disabled = true;

@@ -72,8 +72,6 @@ const corsOptions = {
 
 // Criar o middleware para receber requisições externas
 app.use((req, res, next) => {
-  // Qualquer endereço pode fazer requisição
-  // res.header("Access-Control-Allow-Origin", 'https://appcadastro.cieemg.org.br');
   // Tipos de método que a API aceita
   res.header("Access-Control-Allow-Methods", "POST", "GET", "OPTIONS");
   // Permitir o envio de dados para API

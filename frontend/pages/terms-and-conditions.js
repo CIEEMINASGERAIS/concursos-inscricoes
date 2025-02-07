@@ -34,52 +34,55 @@ async function termsAndConditions() {
       const element = e.target;
 
       if (element.classList.contains("button-termo") ||
-          element.classList.contains("terms-and-conditions") ||
-          element.classList.contains("p-t-c") ||
-          element.classList.contains("h1-t-c") ||
-          element.classList.contains("h2-t-c") ||
-          element.classList.contains("s-t-c") ||
-          element.classList.contains("a-t-c") ||
-          element.classList.contains("check-term") ||
-          element.classList.contains("label-li") ||
-          element.classList.contains("input-li") ||
-          element.classList.contains("checkbox") ||
-          element.classList.contains("text-terms-conditions") ||
-          element.classList.contains("title-terms") ||
-          element.classList.contains("button-terms-a-d") ||
-          element.classList.contains("terms-input-label")) {
+        element.classList.contains("terms-and-conditions") ||
+        element.classList.contains("p-t-c") ||
+        element.classList.contains("h1-t-c") ||
+        element.classList.contains("h2-t-c") ||
+        element.classList.contains("s-t-c") ||
+        element.classList.contains("a-t-c") ||
+        element.classList.contains("check-term") ||
+        element.classList.contains("label-li") ||
+        element.classList.contains("input-li") ||
+        element.classList.contains("checkbox") ||
+        element.classList.contains("text-terms-conditions") ||
+        element.classList.contains("title-terms") ||
+        element.classList.contains("button-terms-a-d") ||
+        element.classList.contains("terms-input-label")) {
         readTerms.style.display = "flex";
       } else {
         readTerms.style.display = "none";
       }
 
       if (element.classList.contains("button-decline")) {
-        e.preventDefault();  
-        buttonBasicData.disabled = true;  
-        localStorage.setItem("buttonBasicDataBlocked", "true");  
+        e.preventDefault();
+        buttonBasicData.disabled = true;
+        localStorage.setItem("buttonBasicDataBlocked", "true");
       }
 
+
+      // Lógica para habilitar/desabilitar o botão "Aceitar"
+      checkbox.addEventListener("change", () => {
+        if (checkbox.checked) {
+          schoolData.termos_condicoes = 1;
+          buttonAccept.disabled = false;  // Habilita o botão "Aceitar"
+        } else {
+          schoolData.termos_condicoes = 0;
+          buttonAccept.disabled = true;   // Desabilita o botão "Aceitar"
+        }
+      });
+
       if (element.classList.contains("button-accept")) {
-        if (schoolData.termos_condicoes === 1) {
+        if (schoolData.termos_condicoes === 1) {          
           schoolData.dt_cadastro = dateRegister();
+          console.log('teste')
           schoolData.dt_atualizacao = dateRegister();
           changeMains(".screen-basic-data1");
           changeSubMainTitle("Formulário de Dados Básicos");
+          console.log(schoolData)
           resolve(schoolData);
         } else {
           e.preventDefault();
         }
-      }
-    });
-
-    // Lógica para habilitar/desabilitar o botão "Aceitar"
-    checkbox.addEventListener("change", () => {
-      if (checkbox.checked) {
-        schoolData.termos_condicoes = 1;
-        buttonAccept.disabled = false;  // Habilita o botão "Aceitar"
-      } else {
-        schoolData.termos_condicoes = 0;
-        buttonAccept.disabled = true;   // Desabilita o botão "Aceitar"
       }
     });
 

@@ -57,7 +57,7 @@ app.set("view engine", "ejs");
 app.use(express.json());
 
 const whiteList = [
-  'https://appcadastro.cieemg.org.br',      
+  'https://appcadastro.cieemg.org.br',
 ];
 
 const corsOptions = {
@@ -73,7 +73,7 @@ const corsOptions = {
 // Criar o middleware para receber requisições externas
 app.use((req, res, next) => {
   // Qualquer endereço pode fazer requisição
-  res.header("Access-Control-Allow-Origin", 'https://appcadastro.cieemg.org.br');
+  // res.header("Access-Control-Allow-Origin", 'https://appcadastro.cieemg.org.br');
   // Tipos de método que a API aceita
   res.header("Access-Control-Allow-Methods", "POST", "GET", "OPTIONS");
   // Permitir o envio de dados para API
@@ -126,6 +126,4 @@ app.get("/socio-economic", socialEconomic.renderSocioEconomic);
 app.post("/cadastrar", postCadastro.postRegister);
 
 // Iniciar o servidor na porta, criar a função utilizando modelo Arrow function para retornar a mensagem de sucesso
-app.listen(process.env.PORT, "0.0.0.0", () => {
-  console.log(`Servidor iniciado na porta ${process.env.PORT}: https://appcadastro.cieemg.org.br${process.env.PORT}`);
-});
+app.listen(process.env.PORT);

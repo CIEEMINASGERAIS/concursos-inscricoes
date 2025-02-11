@@ -22,16 +22,21 @@ async function emailASerEnviadoProcessos(to, user, pass) {
         from: 'validacao.cadastro@cieeminas.com.br',
         to: `${to}`,
         bcc: 'faleconosco.cieemg@gmail.com',
-        subject: 'Senha para acesso do Portal Estudante',
+        subject: `Senha para acesso do Portal Estudante ${new Date().getTime()}`,
         html: ` 
         <html>
+        <head>
+            <meta charset="UTF-8">
+        </head>
+        <body>
             <div style="height: 100%;
                 border: 1px solid rgb(190, 190, 190);
                 padding: 1rem;
                 max-width: 30rem;
                 height: 20rem;        
                 margin: 0rem auto;
-                background-color: white;">
+                background-color: white;
+                margin-bottom: 3rem;">
                 <img alt="Logo do CIEEMG" style="height: 3rem;" src="cid:logociee" />
                 <div style="height: 1px;
                     background-color: rgb(216, 216, 216);
@@ -65,9 +70,10 @@ async function emailASerEnviadoProcessos(to, user, pass) {
                     font-weight: 800;
                     text-align: center;
                     margin: 0.5rem;
-                    color: black;">Portal CIEE/MG (<a href="https://cieemg.org.br/" rel="noopener noreferrer"
-                    target="_blank">www.cieemg.org.br</a>)</p>
+                    color: black;">Portal CIEE/MG &#40;<span><a href="https://bit.ly/4hvZ2Hq" rel="noopener noreferrer"
+                    target="_blank">www.cieemg.org.br</a></span>&#41;</p>
             </div>
+        </body>    
         </html>
          `,
         attachments: [{
@@ -76,21 +82,21 @@ async function emailASerEnviadoProcessos(to, user, pass) {
             cid: "logociee"
         }],
         text: `
-        Prezado(a) ${user},        
+        Prezado(a) ${user},
 
         Esta é a sua senha, pedimos que altere sua senha no primeiro acesso ao sistema.
 
         A senha é: ${pass}.
 
             CIEEMG - Centro de Integração Empresa Escola de Minas Gerais
-            Portal CIEE/MG (www.cieemg.org.br)`
+            Portal CIEE/MG www.cieemg.org.br`
     })
 
     console.log('Message sent: %s', info.messageId)
 }
 
 async function emailASerEnviadoComum(to, user, pass) {
-
+    console.log("Enviando e-mail para:", to);
     const info = await tranposter.sendMail({
         from: 'validacao.cadastro@cieeminas.com.br',
         to: `${to}`,
@@ -98,13 +104,19 @@ async function emailASerEnviadoComum(to, user, pass) {
         subject: 'Senha para acesso do Portal Estudante',
         html: ` 
         <html>
+        <html>
+        <head>
+            <meta charset="UTF-8">
+        </head>
+        <body>
             <div style="height: 100%;
             border: 1px solid rgb(190, 190, 190);
             padding: 1rem;
             max-width: 30rem;
             height: 18rem;        
             margin: 0rem auto;
-            background-color: white;">
+            background-color: white;
+            margin-bottom: 5rem;">
                 <img alt="Logo do CIEEMG" style="height: 3rem;"
                     src="cid:logociee" />
                     <div style="height: 1px;
@@ -131,9 +143,9 @@ async function emailASerEnviadoComum(to, user, pass) {
                     font-weight: 800;
                     text-align: center;
                     margin: 0.5rem;
-                    color: black;">Portal CIEE/MG (<a href="https://cieemg.org.br/" rel="noopener noreferrer" target="_blank">www.cieemg.org.br</a>)</p>
+                    color: black;">Portal CIEE/MG &#40;<span><a href="https://bit.ly/4hvZ2Hq" rel="noopener noreferrer" target="_blank">www.cieemg.org.br</a>&#41;</span></p>
             </div>
-
+        </body>    
         </html>
          `,
         attachments: [{
@@ -149,9 +161,9 @@ async function emailASerEnviadoComum(to, user, pass) {
         A senha é: ${pass}.
 
             CIEEMG - Centro de Integração Empresa Escola de Minas Gerais
-            Portal CIEE/MG (www.cieemg.org.br)`
+            Portal CIEE/MG www.cieemg.org.br`
     })
-
+    console.log("E-mail enviado:", info.messageId);
     console.log('Message sent: %s', info.messageId)
 }
 

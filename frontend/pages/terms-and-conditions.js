@@ -1,4 +1,4 @@
-console.log("foi2");
+
 const {
   changeMains,
   changeSubMainTitle,

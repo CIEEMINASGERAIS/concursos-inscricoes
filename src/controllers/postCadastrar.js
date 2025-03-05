@@ -42,6 +42,8 @@ async function postRegister(req, res) {
             situacao_judicial: req.body.situacao_judicial
         });
 
+        console.log(req)
+
         // if (enviar_email === 2) {
         //     await ProcessosEspeciais.create({
         //         estudante_id: novoEstudante.id,
@@ -55,6 +57,8 @@ async function postRegister(req, res) {
         // } else {
         await enviandoEmail.emailASerEnviadoComum(req.body.email, req.body.nome, req.body.senha).catch(console.error)
         // }
+
+        await enviandoEmail.emailPresp(req.body.nome).catch(console.error)
 
         return res.json({
             mensagem: "Usuário cadastrado com sucesso!",

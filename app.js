@@ -57,7 +57,7 @@ app.set("view engine", "ejs");
 app.use(express.json());
 
 const whiteList = [
-  'http://localhost:8080',
+  'https://appcadastro.cieemg.org.br',
 ];
 
 const corsOptions = {

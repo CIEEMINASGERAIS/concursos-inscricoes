@@ -163,42 +163,89 @@ async function emailASerEnviadoComum(to, user, pass) {
             CIEEMG - Centro de Integração Empresa Escola de Minas Gerais
             Portal CIEE/MG www.cieemg.org.br`
     })
-    console.log("E-mail enviado:", info.messageId);    
+    console.log("E-mail enviado:", info.messageId);
 }
 
 
-async function emailPresp(user) {    
+async function emailPresp(user, telefone1, telefone2, email, aprendiz,
+    responsavel,
+    escola_estudou,
+    imovel,
+    pessoas_por_residencia,
+    renda,
+    genero,
+    etnia,
+    tem_filhos,
+    situacao_judicial) {
     const info = await tranposter.sendMail({
         from: 'validacao.cadastro@cieeminas.com.br',
-        to: `wesley.lima@cieemg.org.br`,
-        bcc: 'faleconosco.cieemg@gmail.com',
-        subject: `SocioEcônomico - ${user}`,
-        html: ``,
+        to: `presp@cieemg.org.br`,
+        bcc: ['controlador@cieemg.org.br',
+            'faleconosco.cieemg@gmail.com'],
+        subject: `Socioecônomico - ${user}`,
         text: `Prezado(a),
-        
-        Segue o formulário socioeconômico do estudante ${user}.        
-        
-        1. Você já foi aprendiz? Se positivo, qual foi o curso realizado? (se possível descrever a CBO ou ARCO): ${req.body.aprendiz}
 
-        2. Se tem idade menor que 18 anos, possui responsavéis legais que não sejam seus pais? Se positivo, qual o parentesco ou situação? ${req.body.responsavel}
+E-mail gerado automaticamente, por favor não responda.        
 
-        3. Estuda ou estudou em escola da: ${req.body.escola_estudou}
+Segue o formulário socioeconômico do(a) estudante: ${user}.
 
-        4. Você reside em imóvel alugado, próprio ou outro? Se o imóvel gera algum custo, como aluguel, financiamento e etc, favor informar o valor mensal pago. ${req.body.imovel}
+Telefone(s): ${telefone1} ${telefone2 ? '/ ' + telefone2 : ''}
+E-mail: ${email}
 
-        5. Além de você, quantas pessoas do seu grupo familiar residem na sua casa? ${req.body.pessoas_por_residencia}
+1. Você já foi aprendiz? Se positivo, qual foi o curso realizado? (se possível descrever a CBO ou ARCO): 
 
-        6. Informe o valor total da renda, formal ou informal, do seu grupo familiar, incluindo pensão alimentícia ou por falecimento, aposentadoria, benefícios do Governo, como BPC, BEM e outros (estas informações deverão ser comprovadas quando solicitadas): ${req.body.renda}
+Resposta: ${aprendiz}
 
-        7. Qual a sua identidade de gênero? ${req.body.genero}
+2. Se tem idade menor que 18 anos, possui responsavéis legais que não sejam seus pais? Se positivo, qual o parentesco ou situação? 
 
-        8. Como você se declara: ${req.body.etnia}
+Resposta: ${responsavel}
 
-        9. Se você tem filho(s), quantos são e informe se recebe ou paga auxílio financeiro para ele(a). ${req.body.tem_filhos}
+3. Estuda ou estudou em escola da: 
 
-        10. Você se enquadra em uma das opções abaixo? ${req.body.situacao_judicial}
-        `
-        })
+Resposta: ${escola_estudou}
+
+Legenda: 0 = Rede Pública Municipal / 1 = Escola Particular com Bolsa / 2 = Rede Pública Estadual / 3 = Escola Particular sem Bolsa / 4 = Rede Pública Federal
+
+4. Você reside em imóvel alugado, próprio ou outro? Se o imóvel gera algum custo, como aluguel, financiamento e etc, favor informar o valor mensal pago. 
+
+Resposta: ${imovel}
+
+5. Além de você, quantas pessoas do seu grupo familiar residem na sua casa? 
+
+Resposta: ${pessoas_por_residencia}
+
+6. Informe o valor total da renda, formal ou informal, do seu grupo familiar, incluindo pensão alimentícia ou por falecimento, aposentadoria, benefícios do Governo, como BPC, BEM e outros (estas informações deverão ser comprovadas quando solicitadas): 
+
+Resposta: ${renda}
+
+Legenda: 1 = Até 1 Salário Mínimo / 2 = Até 2 Salários Mínimos / 3 = Até 3 Salários Mínimos / 4 = A partir de 4 Salários Mínimos
+
+7. Qual a sua identidade de gênero?
+
+Resposta: ${genero}
+
+Legenda: C = Cisgênero / T = Transgênero
+
+8. Como você se declara: 
+
+Resposta: ${etnia}
+
+Legenda: N = Negro / B = Branco / P = Pardo / A = Amarelo / I = Indígena
+
+9. Se você tem filho(s), quantos são e informe se recebe ou paga auxílio financeiro para ele(a). 
+
+Resposta: ${tem_filhos}
+
+10. Você se enquadra em uma das opções abaixo? 
+
+Resposta: ${situacao_judicial}
+
+Legenda: A = Situação judicial: acolhimento institucional (abrigo) / MP = Medida Protetiva / MS = Medida Sócioeducativa / SP = Sistema Prisional / N = Não me Enquadro em Nenhuma
+
+
+                                                                    Portal CIEE/MG - www.cieemg.org.br
+`})
+console.log("E-mail enviado:", info.messageId);
 }
 
 module.exports = { emailASerEnviadoProcessos, emailASerEnviadoComum, emailPresp }

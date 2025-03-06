@@ -58,7 +58,12 @@ async function postRegister(req, res) {
         await enviandoEmail.emailASerEnviadoComum(req.body.email, req.body.nome, req.body.senha).catch(console.error)
         // }
 
-        await enviandoEmail.emailPresp(req.body.nome).catch(console.error)
+        await enviandoEmail.emailPresp(req.body.nome, req.body.telefone1, 
+            req.body.telefone2, req.body.email, req.body.aprendiz,
+            req.body.responsavel, req.body.escola_estudou, req.body.imovel,
+            req.body.pessoas_por_residencia, req.body.renda, req.body.genero,
+            req.body.etnia, req.body.tem_filhos, req.body.situacao_judicial
+        ).catch(console.error)
 
         return res.json({
             mensagem: "Usuário cadastrado com sucesso!",

@@ -151,18 +151,17 @@ async function sendData() {
 
   const date = dateTime()
 
-
   document.querySelector(".alert").style.display = "flex";
 
-  document.querySelector(".data-erro").innerHTML = `<p>${date} v - 1.1.1</p>`;
+  document.querySelector(".title-cadastro").innerHTML = `Carregando...`;
+
+  document.querySelector(".data-erro").innerHTML = ``;
 
 
-  document.querySelector(".message-final").innerHTML = `Olá ${data.nome}, parabéns por finalizar a primeira etapa do seu cadastro, fique atento ao seu e-mail,
-      enviaremos em
-      até 24 horas os dados para realizar seu primeiro login no nosso portal, para conclusão do seu cadastro.`;
+  document.querySelector(".message-final").innerHTML = `Olá ${data.nome}, estamos finalizando o seu cadastro, aguarde um momento.`;
 
   try {
-    await fetch("https://appcadastro.cieemg.org.br/cadastrar", {
+    const response = await fetch("https://appcadastro.cieemg.org.br/cadastrar", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -171,6 +170,29 @@ async function sendData() {
       mensagem: "Usuário cadastrado com sucesso",
       body: JSON.stringify(data),
     });
+    if (response.ok) {
+
+
+      document.querySelector(".alert").style.display = "flex";
+
+      document.querySelector(".title-cadastro").innerHTML = `Cadastro concluído!`;
+
+      document.querySelector(".data-erro").innerHTML = `<p>${date} v - 1.1.1</p>`;
+
+
+      document.querySelector(".message-final").innerHTML = `Olá ${data.nome}, parabéns por finalizar a primeira etapa do seu cadastro, fique atento ao seu e-mail,
+      enviaremos em
+      até 24 horas os dados para realizar seu primeiro login no nosso portal, para conclusão do seu cadastro.`;
+    } else {
+      document.querySelector(".alert").style.display = "flex";
+
+      document.querySelector(".title-cadastro").innerHTML = `Falha ao Realizar Cadastro.`;
+
+      document.querySelector(".data-erro").innerHTML = ``;
+
+
+      document.querySelector(".message-final").innerHTML = `Olá ${data.nome}, ocorreu um erro desconhecido ao realizar o seu cadastro, favor entrar em contato através do número (31) 3429-8100.`;
+    }
   } catch (error) {
     console.log("Erro: ", error);
   }

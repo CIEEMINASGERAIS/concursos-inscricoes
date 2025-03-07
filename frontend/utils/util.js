@@ -659,6 +659,10 @@ const isNumero = (numero) => {
     return false;
   }
 
+  if (numero.length > 6) {
+    return false;
+  }
+
   numero = parseInt(numero);
   if (!numero) {
     return false;

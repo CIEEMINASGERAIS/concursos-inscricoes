@@ -107,8 +107,7 @@ async function takeData() {
         element.classList.contains("button-finish-socio")
       ) {
         //   changeMains(".screen-programa-curso");
-        //   changeSubMainTitle("Programa Em Curso");
-        console.log('Siiii!')
+        //   changeSubMainTitle("Programa Em Curso");        
         // }
         // document.querySelector(".alert").innerHTML =
         //   `<h1>Cadastro concluído!</h1>
@@ -162,7 +161,7 @@ async function sendData() {
       mensagem: "Usuário cadastrado com sucesso",
       body: JSON.stringify(data),
     });
-    if (response.ok) {
+    // if (response.ok) {
       
 
       document.querySelector(".alert").style.display = "flex";
@@ -178,9 +177,9 @@ async function sendData() {
         <div class="data-erro">
           <p>${date} v - 1.1.1</p>
         </div>`;
-    } else {
-      console.log(response.status);
-    }
+    // } else {
+    //   console.log(response.status);
+    // }
   } catch (error) {
     console.log("Erro: ", error);   
   }

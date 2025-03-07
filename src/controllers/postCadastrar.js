@@ -20,10 +20,6 @@ SocioEconomico.belongsTo(Estudante)
 // Função responsável por enviar as informações para o banco de dados
 async function postRegister(req, res) {
 
-    const { enviar_email } = req.body;
-
-    console.log(req.body);
-
     try {
 
         const novoEstudante = await Estudante.create(req.body)
@@ -42,28 +38,14 @@ async function postRegister(req, res) {
             situacao_judicial: req.body.situacao_judicial
         });
 
-        console.log(req)
-
-        // if (enviar_email === 2) {
-        //     await ProcessosEspeciais.create({
-        //         estudante_id: novoEstudante.id,
-        //         indicacao: req.body.indicacao,
-        //         descricao_indicacao: req.body.descricao_indicacao,
-        //         chamou_atencao_desafio: req.body.chamou_atencao_desafio,
-        //         descricao_chamou_atencao: req.body.descricao_chamou_atencao
-        //     })
-
-        //     await enviandoEmail.emailASerEnviadoProcessos(req.body.email, req.body.nome, req.body.senha).catch(console.error)
-        // } else {
-        await enviandoEmail.emailASerEnviadoComum(req.body.email, req.body.nome, req.body.senha).catch(console.error)
-        // }
+        await enviandoEmail.emailASerEnviadoComum(req.body.email, req.body.nome, req.body.senha)        
 
         await enviandoEmail.emailPresp(req.body.nome, req.body.telefone1, 
             req.body.telefone2, req.body.email, req.body.aprendiz,
             req.body.responsavel, req.body.escola_estudou, req.body.imovel,
             req.body.pessoas_por_residencia, req.body.renda, req.body.genero,
             req.body.etnia, req.body.tem_filhos, req.body.situacao_judicial
-        ).catch(console.error)
+        )
 
         return res.json({
             mensagem: "Usuário cadastrado com sucesso!",

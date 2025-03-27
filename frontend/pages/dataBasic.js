@@ -560,7 +560,7 @@ const initDataBasic = async () => {
           formDataBasic.orgaoexpedidor &&
           formDataBasic.idade &&
           formDataBasic.cpf &&
-          formDataBasic.cpf_mae &&
+          formDataBasic.cpf_mae !== false &&
           formDataBasic.cpf_pai !== false &&
           formDataBasic.nome_social !== false
         ) {

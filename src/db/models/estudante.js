@@ -483,7 +483,7 @@ module.exports = (sequelize, DataTypes) => {
       },
       cpf_mae: {
         type: DataTypes.STRING(14),
-        allowNull: false,        
+        allowNull: true,        
         is: /^[0-9]{3}\.[0-9]{3}\.[0-9]{3}\-[0-9]{2}$/,
         len: {
           args: [14],

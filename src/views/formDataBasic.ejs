@@ -23,21 +23,29 @@
     </div>
   </div>
 
-  <div class="div-number-1-5">
+  <div class="div-number-1-2">
+
+    <div class="div-check-rg">      
+      <input type="checkbox" id="check-rg">
+      <label class="label-check-rg" for="check-rg">Utilizo identidade antiga</label>
+    </div>
+
     <div class="div-rg">
       <label for="rg">RG</label>
       <input type="text" name="rg" class="rg" placeholder="RG" id="rg" maxlength="15" required />
       <p class="obrigatorio">Obrigatório</p>
       <span id="msg-rg"></span>
     </div>
-    <div class="div-orgao-expedidor">
-      <label for="orgao-expedidor">Orgão Expedidor</label>
-      <input type="text" name="orgaoExpedidor" class="orgao-expedidor" id="orgao-expedidor"
-        placeholder="Orgão Expedidor" maxlength="45" required />
-      <p class="obrigatorio">Obrigatório</p>
-      <span id="msg-orgao-expedidor"></span>
-    </div>
   </div>
+
+  <div class="div-orgao-expedidor">
+    <label for="orgao-expedidor">Orgão Expedidor</label>
+    <input type="text" name="orgaoExpedidor" class="orgao-expedidor" id="orgao-expedidor" placeholder="Orgão Expedidor"
+      maxlength="45" required />
+    <p class="obrigatorio">Obrigatório</p>
+    <span id="msg-orgao-expedidor"></span>
+  </div>
+
   <div class="div-number-2">
     <div class="div-nome-mae">
       <label for="nome-mae">Nome da Mãe</label>
@@ -49,7 +57,7 @@
     <div class="div-cpf">
       <label for="cpf-mae">CPF Mãe (Responsável legal ou tutor)</label>
       <input type="text" name="cpf-mae" autocomplete="off" maxlength="14" class="cpf-pais mamae" id="cpf-mae"
-        placeholder="CPF Mãe"  />      
+        placeholder="CPF Mãe" />
       <span id="msg-cpf-mae"></span>
     </div>
   </div>

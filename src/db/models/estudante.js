@@ -263,12 +263,7 @@ module.exports = (sequelize, DataTypes) => {
       // *************************** VERIFICAR ***************************
       rg: {
         type: DataTypes.STRING(45),
-        allowNull: false,
         validate: {
-          notEmpty: {
-            msg: "Esse campo não pode ser vazio.",
-          },
-          notNull: { msg: "O campo rg precisa ser preenchido" },
           is: /^\d+$/,
         },
         // Obrigatório e só permitir números
@@ -474,21 +469,21 @@ module.exports = (sequelize, DataTypes) => {
       },
       cpf_pai: {
         type: DataTypes.STRING(14),
-        allowNull: true,        
+        allowNull: true,
         is: /^[0-9]{3}\.[0-9]{3}\.[0-9]{3}\-[0-9]{2}$/,
         len: {
           args: [14],
           msg: "Esse campo deve ter 14 caracteres.",
-        },        
+        },
       },
       cpf_mae: {
         type: DataTypes.STRING(14),
-        allowNull: true,        
+        allowNull: true,
         is: /^[0-9]{3}\.[0-9]{3}\.[0-9]{3}\-[0-9]{2}$/,
         len: {
           args: [14],
           msg: "Esse campo deve ter 14 caracteres.",
-        },        
+        },
       },
       notificacao: {
         type: DataTypes.STRING(2),

@@ -542,6 +542,31 @@ const initDataBasic = async () => {
       }
     });
 
+    function showTag(div) {
+      div.querySelector('.hide').classList.add("show");
+      div.querySelector('.show').classList.remove("hide");      
+    }
+
+    function hideTag(div) {
+      const show = div.querySelector('.show');
+      show.classList.add("hide");
+    }
+
+    const checkRg = document.getElementById("check-rg");
+
+    const divRg = document.querySelector(".div-number-1-2");
+    
+    checkRg.addEventListener("change", function(e) { 
+      const element = e.target;      
+
+      if (element.checked) {
+        showTag(divRg)
+        divRg.querySelector('input').setAttribute("required", true)
+      } else {
+        hideTag(divRg)
+      }
+    })
+
     if (formData) {
       formData.addEventListener("submit", (e) => {
         e.preventDefault();
@@ -556,7 +581,7 @@ const initDataBasic = async () => {
           formDataBasic.sexo &&
           formDataBasic.uf_naturalidade &&
           formDataBasic.deficiencia &&
-          formDataBasic.rg &&
+          formDataBasic.rg !== false &&
           formDataBasic.orgaoexpedidor &&
           formDataBasic.idade &&
           formDataBasic.cpf &&

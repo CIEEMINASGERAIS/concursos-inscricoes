@@ -161,7 +161,7 @@ async function sendData() {
   document.querySelector(".message-final").innerHTML = `Olá ${data.nome}, estamos finalizando o seu cadastro, aguarde um momento.`;
 
   try {
-    const response = await fetch("https://appcadastro.cieemg.org.br//cadastrar", {
+    const response = await fetch("https://appcadastro.cieemg.org.br/cadastrar", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

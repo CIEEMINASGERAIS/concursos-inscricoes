@@ -57,7 +57,7 @@ app.set("view engine", "ejs");
 app.use(express.json());
 
 const whiteList = [
-  'https://appcadastro.cieemg.org.br/',
+  'https://appcadastro.cieemg.org.br',
 ];
 
 const corsOptions = {

@@ -557,13 +557,14 @@ const initDataBasic = async () => {
     const divRg = document.querySelector(".div-number-1-2");
     
     checkRg.addEventListener("change", function(e) { 
-      const element = e.target;      
+      const element = e.target;          
 
       if (element.checked) {
         showTag(divRg)
-        divRg.querySelector('input').setAttribute("required", true)
+        divRg.querySelector('input[name="rg"]').required = true;
       } else {
         hideTag(divRg)
+        divRg.querySelector('input[name="rg"]').required = false;
       }
     })
 

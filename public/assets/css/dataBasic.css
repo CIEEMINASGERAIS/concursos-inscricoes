@@ -110,6 +110,11 @@
   margin: 2rem 0 2rem 0;
 }
 
+.label-check-rg {
+  display: flex;
+  text-align: center;
+}
+
 .div-number-1 {
   flex-wrap: wrap;
 }
@@ -331,10 +336,15 @@
     margin-bottom: 0.5rem;
   }
 
+  .label-check-rg {
+    display: flex;
+    text-align: center;
+  }
+
   .div-social,
-  .div-check-rg {
+  .div-check-rg {    
     margin: 0 0 1rem 0;
-    width: 20%;
+    /* width: 20%; */
   }
 
   .div-cpf {

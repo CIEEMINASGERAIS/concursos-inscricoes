@@ -628,7 +628,7 @@ const isDeficiente = (listDeficiencias, deficiencia) => {
 
 const isDescricao = (descricao) => {
   descricao = descricao.trim();
-
+false
   const regex = new RegExp(/^[0-9]+$/);
 
   if (regex.test(descricao)) {

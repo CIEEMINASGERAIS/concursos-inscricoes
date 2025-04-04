@@ -544,7 +544,7 @@ const initDataBasic = async () => {
 
     function showTag(div) {
       div.querySelector('.hide').classList.add("show");
-      div.querySelector('.show').classList.remove("hide");      
+      div.querySelector('.show').classList.remove("hide");
     }
 
     function hideTag(div) {
@@ -555,14 +555,16 @@ const initDataBasic = async () => {
     const checkRg = document.getElementById("check-rg");
 
     const divRg = document.querySelector(".div-number-1-2");
-    
-    checkRg.addEventListener("change", function(e) { 
-      const element = e.target;          
+
+    checkRg.addEventListener("change", function (e) {
+      const element = e.target;
 
       if (element.checked) {
         showTag(divRg)
         divRg.querySelector('input[name="rg"]').required = true;
-      } else {
+      }
+
+      if (!element.checked) {
         hideTag(divRg)
         divRg.querySelector('input[name="rg"]').required = false;
       }
@@ -590,8 +592,11 @@ const initDataBasic = async () => {
           formDataBasic.cpf_pai !== false &&
           formDataBasic.nome_social !== false
         ) {
+          if (!checkRg.checked) {            
+            formDataBasic.rg = formDataBasic.cpf.replace(/\D/g, "");;            
+          }
           changeMains(".screen-address");
-          changeSubMainTitle("Formulário de Endereço");
+          changeSubMainTitle("Formulário de Endereço");          
           resolve(formDataBasic);
         } else {
           document.getElementById("msg-fracasso").innerHTML =

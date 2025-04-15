@@ -210,14 +210,26 @@ const initDataBasic = async () => {
             e.preventDefault();
             // Enviar para o HTML a mensagem de erro
 
-            if (element.classList.contains('mamae')) {
+            if (element.classList.contains('mamae') && element.value.length > 0) {
               formDataBasic.cpf_mae = false;
               document.getElementById("msg-cpf-mae").innerHTML = "<p>CPF inválido!</p>";
             }
 
-            if (element.classList.contains('papai')) {
+            if (element.classList.contains('mamae') && element.value.length === 0) {
+              formDataBasic.cpf_pai = '';
+              document.getElementById("msg-cpf-mae").innerHTML = "<p>CPF inválido!</p>";
+              removerMensagem("msg-cpf-mae");
+            }
+
+            if (element.classList.contains('papai') && element.value.length > 0) {
               formDataBasic.cpf_pai = false;
               document.getElementById("msg-cpf-pai").innerHTML = "<p>CPF inválido!</p>";
+            }
+
+            if (element.classList.contains('papai') && element.value.length === 0) {
+              formDataBasic.cpf_pai = '';
+              document.getElementById("msg-cpf-pai").innerHTML = "<p>CPF inválido!</p>";
+              removerMensagem("msg-cpf-pai");
             }
           }
         }
@@ -592,11 +604,11 @@ const initDataBasic = async () => {
           formDataBasic.cpf_pai !== false &&
           formDataBasic.nome_social !== false
         ) {
-          if (!checkRg.checked) {            
-            formDataBasic.rg = formDataBasic.cpf.replace(/\D/g, "");;            
+          if (!checkRg.checked) {
+            formDataBasic.rg = formDataBasic.cpf.replace(/\D/g, "");;
           }
           changeMains(".screen-address");
-          changeSubMainTitle("Formulário de Endereço");          
+          changeSubMainTitle("Formulário de Endereço");
           resolve(formDataBasic);
         } else {
           document.getElementById("msg-fracasso").innerHTML =

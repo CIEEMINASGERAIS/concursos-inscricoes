@@ -40,8 +40,7 @@
   color: rgb(255, 0, 0);
   cursor: default;
   font-weight: bold;
-  margin: 0rem;
-  margin-top: -1.1rem;
+  margin: 0.1rem 0rem 0rem 0rem;  
   padding: 0;
 }
 
@@ -287,10 +286,6 @@
 
 /* inicio correção de mensagem erro, todas as alteraçoes realizadas aqui, são para style das mensagem erro. */
 @media screen and (max-width:1260px) {
-  .form-data span p {
-    margin-top: -1.1rem;
-  }
-
   #msg-naturalidade p {
     margin-top: 0rem;
   }
@@ -301,10 +296,6 @@
 }
 
 @media screen and (max-width:1066px) {
-  .form-data span p {
-    margin-top: -1.1rem;
-  }
-
   #msg-naturalidade p {
     margin-top: -1.1rem;
   }
@@ -365,10 +356,6 @@
 }
 
 @media screen and (max-width:600px) {
-  .form-data span p {
-    margin-top: 0rem;
-  }
-
   #msg-naturalidade p {
     margin-top: 0rem;
   }

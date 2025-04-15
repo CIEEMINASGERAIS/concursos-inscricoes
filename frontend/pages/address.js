@@ -146,7 +146,7 @@ async function initAddress() {
         if (e.target.value.length === 9) {
           try {
             const response = await fetch(
-              `https://appcadastro.cieemg.org.br/cadastrarEndereco?termo=${cepSemPonto}`
+              `http://localhost:8080/cadastrarEndereco?termo=${cepSemPonto}`
             )
             if (response.ok) {
               const opcoes = await response.json()
@@ -389,7 +389,12 @@ async function initAddress() {
       })
 
       email.onblur = async () => {
-        document.getElementById('msg-email').innerHTML = "<p style='color: #ffffff;'>Carregando...</p>"
+        document.getElementById('msg-email').innerHTML = `
+        <div class="clearfix">
+          <div class="spinner-border float-end" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+        </div>`
 
         formDataAddress.email = false
 

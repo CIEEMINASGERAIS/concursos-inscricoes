@@ -103,24 +103,7 @@ async function takeData() {
     validateFormSocioEconomic = conferirFormSchool(dataEconomy);
 
     if (validateFormSchool && validateFormAddress && validateFormBasic && validateFormSocioEconomic) {
-      if (
-        element.classList.contains("button-finish-socio")
-      ) {
-        //   changeMains(".screen-programa-curso");
-        //   changeSubMainTitle("Programa Em Curso");        
-        // }
-        // document.querySelector(".alert").innerHTML =
-        //   `<h1>Cadastro concluído!</h1>
-        // <p>Olá ${formData.nome}, parabéns por finalizar a primeira etapa do seu cadastro, fique atento ao seu e-mail,
-        // enviaremos em
-        // até 24 horas os dados para realizar seu primeiro login no nosso portal, para conclusão do seu cadastro.</p>
-        // <div class="button-school-end">
-        //         <a class="button-end-school" href="https://cieemg.org.br/" rel="noopener noreferrer">Confirmar</a>
-        // </div>
-        // <div class="data-erro">
-        //   <p>${date} v - 1.1.0</p>
-        // </div>`;
-      }
+      
     } else {
       if (element.classList.contains("main")) {
         event.preventDefault();
@@ -128,19 +111,12 @@ async function takeData() {
     }
   });
 
-  // const programaCurso = new ProgramasEmCurso()
-
-  // const formProgramaCurso = await programaCurso.eventos()
-
-
-
   const allData = await {
     ...termsConditions,
     ...formData,
     ...formAddress,
     ...formSchoolData,
     ...dataEconomy,
-    // ...formProgramaCurso
   };
 
   return allData;
@@ -161,7 +137,7 @@ async function sendData() {
   document.querySelector(".message-final").innerHTML = `Olá ${data.nome}, estamos finalizando o seu cadastro, aguarde um momento.`;
 
   try {
-    const response = await fetch("https://appcadastro.cieemg.org.br/cadastrar", {
+    const response = await fetch("http://localhost:8080/cadastrar", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

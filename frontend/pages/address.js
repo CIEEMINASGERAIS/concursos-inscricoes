@@ -376,8 +376,6 @@ async function initAddress() {
 
         validateInput = isEmail(e.target.value)
 
-        console.log(validateInput);
-
         if (validateInput) {
           // Enviar para o HTML a mensagem de erro
           document.getElementById('msg-email').innerHTML = ""
@@ -399,19 +397,19 @@ async function initAddress() {
 
         formDataAddress.email = false;
 
-        validateFocus = await emailBd(email.value);                
+        validateFocus = await emailBd(email.value);
 
         setTimeout(() => {
-          submits.style.display = 'flex';   
+          submits.style.display = 'flex';
           submits.style.alignItems = 'center';
-          if (validateFocus) {                                
+          if (validateFocus) {
             document.getElementById('msg-email').innerHTML = ""
           } else {
             if (email.value.length !== 0) {
               document.getElementById('msg-email').innerHTML =
-                "<p>Email já cadastrado!</p>"                
+                "<span><p>Email já cadastrado!</p></span>"
             } else {
-              document.getElementById('msg-email').innerHTML = "";              
+              document.getElementById('msg-email').innerHTML = "";
             }
           }
 

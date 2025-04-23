@@ -246,7 +246,7 @@ input#cep {
   outline: none;
 }
 
-#msg-email p {
+#msg-email span {
   color: red;
   font-size: 1.2em;
 }

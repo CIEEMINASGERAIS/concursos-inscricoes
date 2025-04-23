@@ -395,7 +395,7 @@ async function initAddress() {
 
         submits.style.display = 'none';
 
-        document.getElementById('msg-email').innerHTML = "<p>Carregando...</p>"
+        document.getElementById('msg-email').innerHTML = "<span>Carregando...</span>"
 
         formDataAddress.email = false;
 
@@ -403,7 +403,7 @@ async function initAddress() {
 
         setTimeout(() => {
           submits.style.display = 'flex';   
-          submits.style.alignItems = 'center'; 
+          submits.style.alignItems = 'center';
           if (validateFocus) {                                
             document.getElementById('msg-email').innerHTML = ""
           } else {

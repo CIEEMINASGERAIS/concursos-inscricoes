@@ -246,6 +246,11 @@ input#cep {
   outline: none;
 }
 
+#msg-email p {
+  color: red;
+  font-size: 1.2em;
+}
+
 @media screen and (max-width:920px) {
   .screen-address {
     margin: 5rem 8rem 0rem 0rem;

@@ -1,3 +1,5 @@
+const validator = require("validator");
+
 const changeSubMainTitle = (text) => {
   const subTitle = document.querySelector(".sub-main-title h1");
 
@@ -52,7 +54,7 @@ const isSchool = async (school, idSchool) => {
 
   try {
     const response = await fetch(
-      `http://localhost:8080/cadastrarEscola?termo=${school}`
+      `https://appcadastro.cieemg.org.br/cadastrarEscola?termo=${school}`
     );
     if (response.ok) {
       likeSchool = await response.json();
@@ -99,7 +101,7 @@ const isCourse = async (course, codeCourse, idCourse) => {
 
   try {
     const response = await fetch(
-      `http://localhost:8080/cadastrarCurso?termo=${codeCourse}`
+      `https://appcadastro.cieemg.org.br/cadastrarCurso?termo=${codeCourse}`
     );
     if (response.ok) {
       likeCourse = await response.json();
@@ -305,7 +307,7 @@ const cpfInBd = async (cpf) => {
 
   try {
     const response = await fetch(
-      `http://localhost:8080/verificarEstudante?termo=${cpf}`
+      `https://appcadastro.cieemg.org.br/verificarEstudante?termo=${cpf}`
     );
     if (response.ok) {
       const opcoes = await response.json();
@@ -702,11 +704,7 @@ const isTelefone = (telefone) => {
 };
 
 const isEmail = (email) => {
-  const regex = new RegExp(
-    /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/
-  );
-
-  if (!regex.test(email)) {
+  if (!validator.isEmail(email)) {
     return false;
   }
 
@@ -718,7 +716,7 @@ const emailBd = async (emailBd) => {
 
   try {
     const response = await fetch(
-      `http://localhost:8080/verificarEmail?termo=${emailBd}`
+      `https://appcadastro.cieemg.org.br/verificarEmail?termo=${emailBd}`
     );
     if (response.ok) {
       const opcoes = await response.json();

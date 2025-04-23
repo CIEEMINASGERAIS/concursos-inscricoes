@@ -146,7 +146,7 @@ async function initAddress() {
         if (e.target.value.length === 9) {
           try {
             const response = await fetch(
-              `http://localhost:8080/cadastrarEndereco?termo=${cepSemPonto}`
+              `https://appcadastro.cieemg.org.br/cadastrarEndereco?termo=${cepSemPonto}`
             )
             if (response.ok) {
               const opcoes = await response.json()
@@ -376,6 +376,8 @@ async function initAddress() {
 
         validateInput = isEmail(e.target.value)
 
+        console.log(validateInput);
+
         if (validateInput) {
           // Enviar para o HTML a mensagem de erro
           document.getElementById('msg-email').innerHTML = ""
@@ -389,27 +391,27 @@ async function initAddress() {
       })
 
       email.onblur = async () => {
-        document.getElementById('msg-email').innerHTML = `
-        <div class="clearfix">
-          <div class="spinner-border float-end" role="status">
-            <span class="visually-hidden">Loading...</span>
-          </div>
-        </div>`
+        const submits = document.querySelector('.div-buttons-address');
 
-        formDataAddress.email = false
+        submits.style.display = 'none';
 
-        validateFocus = await emailBd(email.value)
+        document.getElementById('msg-email').innerHTML = "<p>Carregando...</p>"
+
+        formDataAddress.email = false;
+
+        validateFocus = await emailBd(email.value);                
 
         setTimeout(() => {
-
-          if (validateFocus) {
+          submits.style.display = 'flex';   
+          submits.style.alignItems = 'center'; 
+          if (validateFocus) {                                
             document.getElementById('msg-email').innerHTML = ""
           } else {
             if (email.value.length !== 0) {
               document.getElementById('msg-email').innerHTML =
-                "<p>Email já cadastrado!</p>"
+                "<p>Email já cadastrado!</p>"                
             } else {
-              document.getElementById('msg-email').innerHTML = ""
+              document.getElementById('msg-email').innerHTML = "";              
             }
           }
 
@@ -447,4 +449,4 @@ async function initAddress() {
   })
 }
 
-module.exports = initAddress
+module.exports = initAddress;

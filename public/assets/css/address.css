@@ -253,10 +253,6 @@ input#cep {
   font-weight: bold;
 }
 
-#msg-email span p {
-  color: red;
-}
-
 @media screen and (max-width:920px) {
   .screen-address {
     margin: 5rem 8rem 0rem 0rem;

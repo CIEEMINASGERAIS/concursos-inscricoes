@@ -383,7 +383,7 @@ async function initAddress() {
           e.preventDefault()
           // Enviar para o HTML a mensagem de erro
           document.getElementById('msg-email').innerHTML =
-            "<p>Email inválido!</p>"
+            "<span><p>Email inválido!</p></span>"
           formDataAddress.email = false
         }
       })

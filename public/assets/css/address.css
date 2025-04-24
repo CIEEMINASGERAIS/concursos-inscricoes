@@ -250,6 +250,11 @@ input#cep {
 #msg-email span {
   color: red;
   font-size: 1.2em;
+  font-weight: bold;
+}
+
+#msg-email span p {
+  color: red;
 }
 
 @media screen and (max-width:920px) {

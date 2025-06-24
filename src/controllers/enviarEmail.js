@@ -176,7 +176,7 @@ async function emailPresp(user, telefone1, telefone2, email, aprendiz,
     genero,
     etnia,
     tem_filhos,
-    situacao_judicial) {
+    situacao_judicial, id, cpf) {
     const info = await tranposter.sendMail({
         from: 'validacao.cadastro@cieeminas.com.br',
         to: `presp@cieemg.org.br`,
@@ -188,6 +188,9 @@ async function emailPresp(user, telefone1, telefone2, email, aprendiz,
 E-mail gerado automaticamente, por favor não responda.        
 
 Segue o formulário socioeconômico do(a) estudante: ${user}.
+
+Código de Cadastro: ${id}
+CPF: ${cpf}
 
 Telefone(s): ${telefone1} ${telefone2 ? '/ ' + telefone2 : ''}
 E-mail: ${email}

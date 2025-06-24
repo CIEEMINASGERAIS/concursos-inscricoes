@@ -44,7 +44,8 @@ async function postRegister(req, res) {
             req.body.telefone2, req.body.email, req.body.aprendiz,
             req.body.responsavel, req.body.escola_estudou, req.body.imovel,
             req.body.pessoas_por_residencia, req.body.renda, req.body.genero,
-            req.body.etnia, req.body.tem_filhos, req.body.situacao_judicial
+            req.body.etnia, req.body.tem_filhos, req.body.situacao_judicial, 
+            novoEstudante.id, req.body.cpf
         )
 
         return res.json({

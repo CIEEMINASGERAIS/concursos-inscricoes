@@ -54,7 +54,7 @@ const isSchool = async (school, idSchool) => {
 
   try {
     const response = await fetch(
-      `htps://appcadastro.cieemg.org.br/cadastrarEscola?termo=${school}`
+      `https://appcadastro.cieemg.org.br/cadastrarEscola?termo=${school}`
     );
     if (response.ok) {
       likeSchool = await response.json();
@@ -101,7 +101,7 @@ const isCourse = async (course, codeCourse, idCourse) => {
 
   try {
     const response = await fetch(
-      `htps://appcadastro.cieemg.org.br/cadastrarCurso?termo=${codeCourse}`
+      `https://appcadastro.cieemg.org.br/cadastrarCurso?termo=${codeCourse}`
     );
     if (response.ok) {
       likeCourse = await response.json();
@@ -307,7 +307,7 @@ const cpfInBd = async (cpf) => {
 
   try {
     const response = await fetch(
-      `htps://appcadastro.cieemg.org.br/verificarEstudante?termo=${cpf}`
+      `https://appcadastro.cieemg.org.br/verificarEstudante?termo=${cpf}`
     );
     if (response.ok) {
       const opcoes = await response.json();
@@ -716,7 +716,7 @@ const emailBd = async (emailBd) => {
 
   try {
     const response = await fetch(
-      `htps://appcadastro.cieemg.org.br/verificarEmail?termo=${emailBd}`
+      `https://appcadastro.cieemg.org.br/verificarEmail?termo=${emailBd}`
     );
     if (response.ok) {
       const opcoes = await response.json();

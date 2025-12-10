@@ -247,7 +247,7 @@ async function createFormSchoolData() {
     const callCourse = async () => {
       try {
         const response = await fetch(
-          `https://appcadastro.cieemg.org.br/cadastrarCurso?termo=${codeFinal}`
+          `http://localhost:8080/cadastrarCurso/${codeFinal}`
         );
         if (response.ok) {
           const opcoes = await response.json();
@@ -275,7 +275,7 @@ async function createFormSchoolData() {
 
         try {
           const response = await fetch(
-            `https://appcadastro.cieemg.org.br/cadastrarEscola?termo=${element.value}`
+            `http://localhost:8080/cadastrarEscola?termo=${element.value}`
           );
           if (response.ok) {
             opcoes = await response.json();

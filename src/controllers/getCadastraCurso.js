@@ -6,16 +6,20 @@ const { Op } = require("sequelize");
 
 const Curso = require("../db/models/curso")(sequelize, DataTypes);
 
-async function cadastrarCurso(req, res) {
-    const termoPesquisa = req.query.termo;
+async function index(req, res) {
+    const { id } = req.params;
+
+    if (!id) {
+        return res.status(400).json({
+            errors: ['Faltando o ID'],
+        })
+    }
 
     try {
         const data = await Curso.findAll({
             attributes: ["descricao", "idescola", "idcurso", "duracao"],
             where: {
-                idescola: {
-                    [Op.eq]: `${termoPesquisa}`,
-                },
+                idescola: id
             },
             limit: 100,
         });
@@ -34,4 +38,4 @@ async function cadastrarCurso(req, res) {
     }
 }
 
-module.exports = { cadastrarCurso }
+module.exports = { index }

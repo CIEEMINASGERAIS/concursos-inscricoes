@@ -1,18 +1,15 @@
 // Incluir as bibliotecas
 // Gerenciar as requisições, rotas e URLs, entre outras funcionalidades
 const express = require("express");
-
 // Importar a biblioteca para permitir conexão externa
 const cors = require("cors");
-
 // Chamar a função express
 const app = express();
-
 const helmet = require('helmet')
-
 // const ejs = require("ejs");
-
 const path = require("path");
+
+const cursoRoutes = require('./routes/cursoRoute')
 
 // Responsável por pegar dados do .env
 require("dotenv").config();
@@ -57,7 +54,7 @@ app.set("view engine", "ejs");
 app.use(express.json());
 
 const whiteList = [
-  'https://appcadastro.cieemg.org.br',
+  'https://appcadastro.cieemg.org.br', 'http://localhost:8080'
 ];
 
 const corsOptions = {
@@ -100,7 +97,7 @@ app.get("/verificarEmail", getEmail.verificarEmail);
 app.get("/cadastrarEndereco", getEndereco.getCadastrarEndereco);
 
 // Rota para cadastrar curso
-app.get("/cadastrarCurso", getCadastraCurso.cadastrarCurso);
+app.use("/cadastrarCurso/", cursoRoutes);
 
 // Função responsável por renderizar a primeira página
 app.get("/", index.renderIndex);

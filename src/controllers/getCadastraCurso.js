@@ -20,8 +20,7 @@ async function index(req, res) {
             attributes: ["descricao", "idescola", "idcurso", "duracao"],
             where: {
                 idescola: id
-            },
-            limit: 100,
+            },            
         });
         const opcoes = data.map((curso) => {
             return {

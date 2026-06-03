@@ -73,11 +73,11 @@ async function termsAndConditions() {
       });
 
       if (element.classList.contains("button-accept")) {
-        if (schoolData.termos_condicoes === 1) {          
-          schoolData.dt_cadastro = dateRegister();          
+        if (schoolData.termos_condicoes === 1) {
+          schoolData.dt_cadastro = dateRegister();
           schoolData.dt_atualizacao = dateRegister();
           changeMains(".screen-basic-data1");
-          changeSubMainTitle("Formulário de Dados Básicos");          
+          changeSubMainTitle("Formulário de Dados Básicos");
           resolve(schoolData);
         } else {
           e.preventDefault();

@@ -54,7 +54,9 @@ app.set("view engine", "ejs");
 app.use(express.json());
 
 const whiteList = [
-  'https://appcadastro.cieemg.org.br'
+  "https://appcadastro.cieemg.org.br",
+  "http://localhost:8080",
+  "http://127.0.0.1:8080",
 ];
 
 const corsOptions = {
@@ -62,24 +64,15 @@ const corsOptions = {
     if (whiteList.indexOf(origin) !== -1 || !origin) {
       callback(null, true);
     } else {
-      callback(new Error('Not allowed by CORS'));
+      callback(new Error("Not allowed by CORS"));
     }
-  }
+  },
+  methods: ["GET", "POST", "OPTIONS"],
+  allowedHeaders: ["Content-Type"],
 };
 
-// Criar o middleware para receber requisições externas
-app.use((req, res, next) => {
-  // Tipos de método que a API aceita
-  res.header("Access-Control-Allow-Methods", "POST", "GET", "OPTIONS");
-  // Permitir o envio de dados para API
-  res.header("Access-Control-Allow-Headers", "Content-Type");
-  // Executar o cors
-  app.use(cors(corsOptions));
-  // Executar o helmet
-  app.use(helmet())
-  // Quando não houver o erro deve continuar o processamento
-  next();
-});
+app.use(cors(corsOptions));
+app.use(helmet());
 
 // Rota para renderizar o EJS em HTML da Escola
 app.get("/schoolData", getEscola.renderSchoolData);

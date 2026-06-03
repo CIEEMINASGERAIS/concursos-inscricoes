@@ -147,7 +147,7 @@ async function initAddress() {
         if (e.target.value.length === 9) {
           try {
             const response = await fetch(
-              `https://appcadastro.cieemg.org.br/cadastrarEndereco?termo=${cepSemPonto}`
+              `http://localhost:8080/cadastrarEndereco?termo=${cepSemPonto}`
             )
             if (response.ok) {
               const opcoes = await response.json()
@@ -354,7 +354,7 @@ async function initAddress() {
 
         if (validate) {
           const telefone2SemSimbolo = e.target.value.replace(/\D/g, '')
-          // Enviar para o HTML a mensagem de erro          
+          // Enviar para o HTML a mensagem de erro
           document.getElementById('msg-telefone2').innerHTML = ""
           return (formDataAddress.telefone2 = telefone2SemSimbolo)
         } else {

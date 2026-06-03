@@ -54,7 +54,7 @@ const isSchool = async (school, idSchool) => {
 
   try {
     const response = await fetch(
-      `https://appcadastro.cieemg.org.br/cadastrarEscola?termo=${school}`
+      `http://localhost:8080/cadastrarEscola?termo=${school}`
     );
     if (response.ok) {
       likeSchool = await response.json();
@@ -103,7 +103,7 @@ const isCourse = async (course, codeCourse, idCourse) => {
     console.log(codeCourse);
 
     const response = await fetch(
-      `https://appcadastro.cieemg.org.br/cadastrarCurso/${codeCourse}`
+      `http://localhost:8080/cadastrarCurso/${codeCourse}`
     );
     if (response.ok) {
       likeCourse = await response.json();
@@ -305,12 +305,10 @@ const validaSegundoDigito = (cpf) => {
 };
 
 const cpfInBd = async (cpf) => {
-  let cpfBd;
+  let cpfBd = [];
 
   try {
-    const response = await fetch(
-      `https://appcadastro.cieemg.org.br/verificarEstudante?termo=${cpf}`
-    );
+    const response = await fetch(`/verificarEstudante?termo=${cpf}`);
     if (response.ok) {
       const opcoes = await response.json();
       cpfBd = opcoes.map((cpf) => cpf.cpf);
@@ -319,6 +317,7 @@ const cpfInBd = async (cpf) => {
     }
   } catch (error) {
     console.error("Erro:", error);
+    return false;
   }
 
   if (cpfBd.length > 0) {
@@ -718,7 +717,7 @@ const emailBd = async (emailBd) => {
 
   try {
     const response = await fetch(
-      `https://appcadastro.cieemg.org.br/verificarEmail?termo=${emailBd}`
+      `http://localhost:8080/verificarEmail?termo=${emailBd}`
     );
     if (response.ok) {
       const opcoes = await response.json();
@@ -932,7 +931,7 @@ const erroInputAddress = (object) => {
         ).innerHTML = `<p>Campo ${chave} inválido!</p>`;
         console.log(object[chave]);
         break
-      }     
+      }
     }
   }
 }

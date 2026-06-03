@@ -53,10 +53,11 @@ input#cep {
   width: 100%;
   display: flex;
   justify-content: space-around;
+  gap: 2rem;
 }
 
-.telefone2-email {
-  margin-bottom: 4REM;
+.instagram-linkedin {
+  margin-bottom: 4rem;
 }
 
 .div-cep,
@@ -68,7 +69,9 @@ input#cep {
 .div-cidade,
 .div-telefone1,
 .div-telefone2,
-.div-email {
+.div-email,
+.div-instagram,
+.div-linkedin {
   width: 100%;
   margin: 0rem;
 }
@@ -77,11 +80,12 @@ input#cep {
 .div-complemento,
 .div-bairro,
 .div-telefone1,
-.div-email {
+.div-email,
+.div-instagram{
   margin-left: 2rem;
 }
 
-.obrigatorio{
+.obrigatorio {
   color: #ffffff;
 }
 
@@ -89,7 +93,7 @@ input#cep {
   color: rgb(255, 0, 0);
   cursor: default;
   font-weight: bold;
-  margin:0;
+  margin: 0;
   padding: 0rem 0rem 0rem 0.5rem;
   border-radius: 0.5rem;
   max-width: 78%;
@@ -97,8 +101,8 @@ input#cep {
   margin-top: -1.1rem;
 }
 
-#msg-complemento p{
-  margin-top: 0rem; 
+#msg-complemento p {
+  margin-top: 0rem;
 }
 
 
@@ -130,18 +134,19 @@ input#cep {
   cursor: pointer;
   width: 10rem;
 }
+
 .button-back-address:hover,
 .button-advanced-adress:hover,
 .button-confirm-cep:hover,
 .btn-cep:hover {
   background-color: #0056b3;
-  border:solid #0056b3;
+  border: solid #0056b3;
 }
 
 .button-back-address:focus,
 .button-advanced-adress:focus,
 .btn-cep:focus,
-.button-confirm-cep:focus{
+.button-confirm-cep:focus {
   outline: none;
 }
 
@@ -240,10 +245,11 @@ input#cep {
   width: 10rem;
 }
 
-.button-confirm-cep:hover{
+.button-confirm-cep:hover {
   background-color: #0056b3;
 }
-.button-confirm-cep:focus{
+
+.button-confirm-cep:focus {
   outline: none;
 }
 
@@ -288,10 +294,10 @@ input#cep {
   .div-email {
     margin-left: 0rem;
   }
-  
-.div-uf{
-  margin-top: 1rem;
-}
+
+  .div-uf {
+    margin-top: 1rem;
+  }
 
   .div-email {
     margin-bottom: 2.5rem;
@@ -301,12 +307,14 @@ input#cep {
     margin-top: 0rem;
   }
 }
+
 @media screen and (max-width: 560px) {
-  .form-address span p{
-  max-width: 100%;
-  margin-top: 0rem;
+  .form-address span p {
+    max-width: 100%;
+    margin-top: 0rem;
+  }
 }
-}
+
 @media screen and (max-width: 430px) {
 
   .screen-address {
@@ -322,6 +330,7 @@ input#cep {
     margin-top: 0rem;
   }
 }
+
 @media screen and (max-width: 300px) {
   .screen-address {
     margin: 3.5rem 5rem 0.5rem 0rem;

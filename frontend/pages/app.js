@@ -103,7 +103,7 @@ async function takeData() {
     validateFormSocioEconomic = conferirFormSchool(dataEconomy);
 
     if (validateFormSchool && validateFormAddress && validateFormBasic && validateFormSocioEconomic) {
-      
+
     } else {
       if (element.classList.contains("main")) {
         event.preventDefault();
@@ -137,7 +137,7 @@ async function sendData() {
   document.querySelector(".message-final").innerHTML = `Olá ${data.nome}, estamos finalizando o seu cadastro, aguarde um momento.`;
 
   try {
-    const response = await fetch("https://appcadastro.cieemg.org.br/cadastrar", {
+    const response = await fetch("http://localhost:8080/cadastrar", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

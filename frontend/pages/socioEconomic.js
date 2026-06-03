@@ -132,7 +132,7 @@ async function socioEconomic() {
           formEconomic.etnia = selecionarNomes(declaracao);
           formEconomic.situacao_judicial = selecionarNomes(situacaoJudicial);
           setTimeout(() => {
-            
+
           }, 4000);
           alertEnd.style.display = "block";
           document.querySelector(".alert").style.display = "none";

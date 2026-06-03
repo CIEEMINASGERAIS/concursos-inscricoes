@@ -59,25 +59,33 @@
       <span id="msg-periodo"></span>
     </div>
   </div>
-  <div id="div-horario-estudo" class="horario-estudo-search">
-    <label for="horario">Horário de Estudo</label>
-    <select name="horarioEstudo" id="horario" data-live-search="true" class="w-100"
-      title="Selecione o horário de estudo.">
-      <option value="" disabled selected>Selecione</option>
-    </select>
-    <p class="obrigatorio">Obrigatório</p>
-    <span id="msg-horario"></span>
-  </div>
-  <span id="msg-fracasso-school"></span>
-  <div class="div-buttons">
-    <button class="button-back-school" type="button">Voltar</button>
-    <div class="linha-ou-school">
-      <div class="line-div"></div>
-      <div class="ou">OU</div>
-      <div class="line-div"></div>
+  <div class="horario-matricula">
+    <div id="div-horario-estudo" class="horario-estudo-search">
+      <label for="horario">Horário de Estudo</label>
+      <select name="horarioEstudo" id="horario" data-live-search="true" class="w-100"
+        title="Selecione o horário de estudo.">
+        <option value="" disabled selected>Selecione</option>
+      </select>
+      <p class="obrigatorio">Obrigatório</p>
+      <span id="msg-horario"></span>
     </div>
-    <button class="button-finish-school" type="submit">Avançar</button>
-  </div>
+    <div>
+      <label for="matricula" class="label-matricula">Número de Matrícula</label>
+      <input type="text" name="matricula" id="matricula" placeholder="Número de Matrícula"
+        class="matricula form-control" maxlength="45" required />
+    </div>
+    </div>
+    <span id="msg-fracasso-school"></span>
+    <div class="div-buttons">
+      <button class="button-back-school" type="button">Voltar</button>
+      <div class="linha-ou-school">
+        <div class="line-div"></div>
+        <div class="ou">OU</div>
+        <div class="line-div"></div>
+      </div>
+      <button class="button-finish-school" type="submit">Avançar</button>
+    </div>
+  <
 </form>
 <div class="school-found">
   <div class="alert-school">

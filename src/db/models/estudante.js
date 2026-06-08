@@ -594,6 +594,18 @@ module.exports = (sequelize, DataTypes) => {
           is: /^[^0-9]*$/,
         },
       },
+      instagram: {
+        type: DataTypes.STRING(255),
+        allowNull: true,
+      },
+      linkedin: {
+        type: DataTypes.STRING(255),
+        allowNull: true,
+      },
+      matricula: {
+        type: DataTypes.STRING(45),
+        allowNull: true,
+      }
     },
     {
       timestamps: false,

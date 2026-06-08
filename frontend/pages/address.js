@@ -421,6 +421,22 @@ async function initAddress() {
       }
     }
 
+    const linkedin = document.getElementById('linkedin')
+
+    if (linkedin) {
+      linkedin.addEventListener('input', e => {
+        formDataAddress.linkedin = e.target.value.trim()
+      })
+    }
+
+    const instagram = document.getElementById('instagram')
+
+    if (instagram) {
+      instagram.addEventListener('input', e => {
+        formDataAddress.instagram = e.target.value.trim()
+      })
+    }
+
     if (form) {
       form.addEventListener('submit', async e => {
         e.preventDefault()

@@ -157,6 +157,14 @@ async function createFormSchoolData() {
 
     const dataFormSchool = {};
 
+    const matricula = document.getElementById("matricula");
+
+    if (matricula) {
+      matricula.addEventListener("input", (e) => {
+        dataFormSchool.matricula = e.target.value.trim();
+      });
+    }
+
     const escolas = document.querySelector(".escola-search select");
     const cursos = document.querySelector(".curso-search select");
     let codigoEscola = {};

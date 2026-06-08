@@ -48,7 +48,8 @@
 .escolas-cursos,
 .ano-semestre-formatura,
 .div-ano-formatura,
-.mes-formatura-periodo
+.mes-formatura-periodo,
+.horario-matricula
  {
   width: 100%;
   display: flex;
@@ -148,14 +149,10 @@
 .semestre-formatura-search,
 .mes-formatura-search,
 .periodo-search,
-.horario-estudo-search {
+.horario-estudo-search,
+.matricula-search {
   width: 100%;
   margin: 1rem;
-}
-
-.horario-estudo-search {
-  margin: 1rem 0rem 1rem 1rem;
-  width: 48%;
 }
 
 .escola-search select,
@@ -166,10 +163,6 @@
 .periodo-search select,
 .horario-estudo-search select {
   width: 2rem;
-}
-
-#div-horario-estudo {
-  margin-bottom: 3rem;
 }
 
 .escola-search button,
@@ -343,7 +336,8 @@
   .escolas-cursos,
   .ano-semestre-formatura,
   .div-ano-formatura,
-  .mes-formatura-periodo {
+  .mes-formatura-periodo,
+  .horario-matricula {
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -356,14 +350,10 @@
   .semestre-formatura-search,
   .mes-formatura-search,
   .periodo-search,
-  .horario-estudo-search {
+  .horario-estudo-search,
+  .matricula-search {
     width: 100%;
 
-  }
-
-  .horario-estudo-search {
-    margin: 1rem 0rem 0rem 0rem;
-    width: 100%;
   }
 
   .alert p {

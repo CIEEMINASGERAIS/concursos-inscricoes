@@ -42,7 +42,7 @@ const socialEconomic = require("./src/controllers/renderSocialEconomy");
 
 // const programaEmCurso = require("./src/controllers/renderProgramasEmCurso");
 
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: true, limit: "25mb" }));
 
 app.use(express.static(path.resolve(__dirname, "public", "assets")));
 
@@ -51,7 +51,7 @@ app.set("views", path.resolve(__dirname, "src", "views"));
 app.set("view engine", "ejs");
 
 // Criar o middleware para receber os dados no corpo da requisição
-app.use(express.json());
+app.use(express.json({ limit: "25mb" }));
 
 const whiteList = [
   "https://appcadastro.cieemg.org.br",

@@ -160,11 +160,12 @@ async function sendData() {
       enviaremos em
       até 24 horas os dados para realizar seu primeiro login no nosso portal, para conclusão do seu cadastro.`;
     } else {
+      const erroResposta = await response.text();
       document.querySelector(".alert").style.display = "flex";
 
       document.querySelector(".title-cadastro").innerHTML = `Falha ao Realizar Cadastro.`;
 
-      document.querySelector(".data-erro").innerHTML = ``;
+      document.querySelector(".data-erro").innerHTML = `<p>${date}</p>`;
 
 
       document.querySelector(".message-final").innerHTML = `Olá ${data.nome}, ocorreu um erro desconhecido ao realizar o seu cadastro, favor entrar em contato através do número (31) 3429-8100.`;

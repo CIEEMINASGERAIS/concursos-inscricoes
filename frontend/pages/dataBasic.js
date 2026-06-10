@@ -486,11 +486,58 @@ const initDataBasic = async () => {
     const deficiencias = document.getElementById("deficiencias");
 
     const descDiv = document.querySelector(".descricao-deficiencia");
+    const laudoDeficiencia = document.getElementById("laudo-deficiencia");
+    const divLaudoDeficiencia = document.getElementById("div-laudo-deficiencia");
+
+    const atualizarVisibilidadeLaudo = (valorDeficiencia) => {
+      const precisaLaudo = ["F", "A", "V", "ME", "MU", "TE"].includes(valorDeficiencia);
+
+      if (!divLaudoDeficiencia || !laudoDeficiencia) {
+        return;
+      }
+
+      divLaudoDeficiencia.classList.toggle("hide", !precisaLaudo);
+      divLaudoDeficiencia.classList.toggle("show", precisaLaudo);
+      laudoDeficiencia.required = precisaLaudo;
+
+      if (!precisaLaudo) {
+        laudoDeficiencia.value = "";
+        formDataBasic.laudo_deficiencia_nome = "";
+        formDataBasic.laudo_deficiencia_base64 = "";
+        formDataBasic.laudo_deficiencia_tipo = "";
+      }
+    };
+
+    if (laudoDeficiencia) {
+      laudoDeficiencia.addEventListener("change", (e) => {
+        const arquivo = e.target.files && e.target.files.length > 0 ? e.target.files[0] : null;
+        if (!arquivo) {
+          formDataBasic.laudo_deficiencia_nome = "";
+          formDataBasic.laudo_deficiencia_base64 = "";
+          formDataBasic.laudo_deficiencia_tipo = "";
+          return;
+        }
+
+        formDataBasic.laudo_deficiencia_nome = arquivo.name;
+        formDataBasic.laudo_deficiencia_tipo = arquivo.type;
+
+        const reader = new FileReader();
+        reader.onload = () => {
+          formDataBasic.laudo_deficiencia_base64 = reader.result;
+        };
+        reader.onerror = () => {
+          formDataBasic.laudo_deficiencia_base64 = false;
+        };
+        reader.readAsDataURL(arquivo);
+      });
+    }
 
     if (deficiencias) {
       let validate;
 
-      deficiencias.addEventListener("input", (e) => {
+      deficiencias.addEventListener("change", (e) => {
+        atualizarVisibilidadeLaudo(e.target.value);
+
         validate = isDeficiente(listDeficiencias, e.target.value);
 
         if (validate) {
@@ -505,7 +552,7 @@ const initDataBasic = async () => {
         }
       });
 
-      deficiencias.addEventListener("input", (e) => {
+      deficiencias.addEventListener("change", (e) => {
         if (e.target.value != "Selecione" && e.target.value != "N") {
           formDataBasic.deficiencia = false;
           const descricoesInputs = document.querySelectorAll(".descricoes");
@@ -531,6 +578,8 @@ const initDataBasic = async () => {
           formDataBasic.deficiencia_descricao = "";
         }
       });
+
+      atualizarVisibilidadeLaudo(deficiencias.value);
     }
 
     document.addEventListener("input", (e) => {
@@ -553,6 +602,14 @@ const initDataBasic = async () => {
         }
       }
     });
+
+    function validateLaudo() {
+      const opcaodeficiencia = ["F", "A", "V", "ME", "MU", "TE"];
+      if (opcaodeficiencia.includes(deficiencias.value)) {
+        return !!formDataBasic.laudo_deficiencia_base64;
+      }
+      return true;
+    }
 
     function showTag(div) {
       div.querySelector('.hide').classList.add("show");
@@ -585,6 +642,9 @@ const initDataBasic = async () => {
     if (formData) {
       formData.addEventListener("submit", (e) => {
         e.preventDefault();
+        const invalidFields = Object.entries(formDataBasic)
+          .filter(([, value]) => value === false)
+          .map(([key]) => key);
         if (
           // formDataBasic
           formDataBasic.nome &&
@@ -602,7 +662,8 @@ const initDataBasic = async () => {
           formDataBasic.cpf &&
           formDataBasic.cpf_mae !== false &&
           formDataBasic.cpf_pai !== false &&
-          formDataBasic.nome_social !== false
+          formDataBasic.nome_social !== false &&
+          validateLaudo()
         ) {
           if (!checkRg.checked) {
             formDataBasic.rg = formDataBasic.cpf.replace(/\D/g, "");;
@@ -611,8 +672,22 @@ const initDataBasic = async () => {
           changeSubMainTitle("Formulário de Endereço");
           resolve(formDataBasic);
         } else {
-          document.getElementById("msg-fracasso").innerHTML =
-            "<p>Formulário incompleto!</p>";
+          if (invalidFields.length > 0) {
+            console.warn(
+              "Campos inválidos no formulário básico:",
+              invalidFields,
+              formDataBasic
+            );
+            document.getElementById("msg-fracasso").innerHTML =
+              `<p>Formulário incompleto: ${invalidFields.join(", ")}</p>`;
+          } else {
+            console.warn(
+              "Formulário básico bloqueado sem campos explicitamente inválidos:",
+              formDataBasic
+            );
+            document.getElementById("msg-fracasso").innerHTML =
+              "<p>Formulário incompleto!</p>";
+          }
           erroInput(formDataBasic);
           erroSelect(".form-data select");
           removerMensagem("msg-fracasso");
@@ -621,6 +696,8 @@ const initDataBasic = async () => {
     } else {
       reject(new Error("O formulário não foi encontrado!"));
     }
+
+
   });
 };
 

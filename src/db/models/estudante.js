@@ -49,7 +49,7 @@ module.exports = (sequelize, DataTypes) => {
             msg: "Esse campo deve ter 14 caracteres.",
           },
           is: /^[0-9]{3}\.[0-9]{3}\.[0-9]{3}\-[0-9]{2}$/,
-          isUnique(value, next) {
+           isUnique(value, next) {
             Estudante.findOne({ where: { cpf: value } })
               .then((estudante) => {
                 if (estudante) {
@@ -605,7 +605,11 @@ module.exports = (sequelize, DataTypes) => {
       matricula: {
         type: DataTypes.STRING(45),
         allowNull: true,
-      }
+      },
+      laudo_deficiencia: {
+        type: DataTypes.STRING(255),
+        allowNull: true,
+      },
     },
     {
       timestamps: false,

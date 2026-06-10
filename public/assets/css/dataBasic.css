@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -209,6 +210,21 @@
   width: 100%;
 }
 
+.laudo-deficiencia {
+  min-width: 50%;
+  max-width: 50%;
+}
+
+#div-laudo-deficiencia p {
+  min-width: 50%;
+  max-width: 50%;
+}
+
+#div-laudo-deficiencia {
+  margin-bottom: 2rem;
+}
+
+
 .div-buttons-data {
   display: flex;
   align-items: center;
@@ -295,215 +311,230 @@
 }
 
 @media screen and (max-width:1066px) {
-  #msg-naturalidade p {
-    margin-top: -1.1rem;
-  }
-
-  #msg-nacionalidade p {
-    margin-top: -1.1rem;
-  }
-
-  #msg-data-nascimento p {
-    margin-top: -1.1rem;
-  }
-
-  .div-number-1-1,
-  .div-number-1-2 {
-    margin: 1rem 0 0 0;
-  }
-
-  .div-name {
-    width: 46rem;
-    margin-right: 2rem;
-  }
-
-  #div-nome-social {
-    width: 100%;
-  }
-
-  .label-nome-social,
-  .label-check-rg {
-    margin-bottom: 0.5rem;
-  }
-
-  .label-check-rg {
-    display: flex;
-    text-align: center;
-  }
-
-  .div-social,
-  .div-check-rg {
-    margin: 0 0 1rem 0;
-    /* width: 20%; */
-  }
-
-  .div-cpf {
-    width: 46rem;
-    order: 2;
-  }
-
-  .social,
-  .check-rg {
-    padding-left: 1rem;
-  }
-}
-
-@media screen and (max-width:700px) {
-  #msg-data-nascimento p {
-    margin-top: 0rem;
-  }
-}
-
-@media screen and (max-width:600px) {
-  #msg-naturalidade p {
-    margin-top: 0rem;
-  }
-
-  #msg-nacionalidade p {
-    margin-top: 0rem;
-  }
-}
-
-/* fim correção de mensagem erro */
-@media screen and (max-width:1066px) {
-
-  .form-data label {
-    font-size: 1rem;
-    margin: 0;
-    padding: 0;
-  }
-
-  .div-number-1,
-  .div-number-1-1,
-  .div-number-1-2,
-  .div-number-1-5,
-  .div-number-2,
-  .div-number-2-5,
-  .div-number-3,
-  .div-number-4,
-  .div-number-5 {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    gap: 0rem;
-
-  }
-
-  .name,
-  .social,
-  .cpf,
-  .cpf-pais,
-  .rg,
-  .orgao-expedidor,
-  .nome-mae,
-  .nome-pai,
-  .carteira-trabalho,
-  .naturalidade,
-  .nacionalidade,
-  .estado-civil,
-  .data-nascimento,
-  .sexo,
-  .uf-naturalidade,
-  .deficiencias {
-    width: 100%;
-  }
-
-  .div-name,
-  .div-social,
-  .div-cpf,
-  .div-rg,
-  .div-orgao-expedidor,
-  .div-nome-mae,
-  .div-nome-pai,
-  .div-carteira-trabalho,
-  .div-naturalidade,
-  .div-nacionalidade,
-  .div-estado-civil,
-  .div-data-nascimento,
-  .div-sexo,
-  .div-naturalidade,
-  .div-naturalidade,
-  .div-deficiencias {
-    width: 100%;
-    margin-top: 1.5rem;
-  }
-
-  #div-nome-social {
+  .descricao-deficiencia{
     margin-bottom: 1rem;
   }
 
-  /* .cpf-pai {
+  #laudo-deficiencia {
+    width: 100%;
+    max-width: 100%;
+
+  }
+
+  #div-laudo-deficiencia p {
+    max-width: 100%;
+
+  }
+
+    #msg-naturalidade p {
+      margin-top: -1.1rem;
+    }
+
+    #msg-nacionalidade p {
+      margin-top: -1.1rem;
+    }
+
+    #msg-data-nascimento p {
+      margin-top: -1.1rem;
+    }
+
+    .div-number-1-1,
+    .div-number-1-2 {
+      margin: 1rem 0 0 0;
+    }
+
+    .div-name {
+      width: 46rem;
+      margin-right: 2rem;
+    }
+
+    #div-nome-social {
+      width: 100%;
+    }
+
+    .label-nome-social,
+    .label-check-rg {
+      margin-bottom: 0.5rem;
+    }
+
+    .label-check-rg {
+      display: flex;
+      text-align: center;
+    }
+
+    .div-social,
+    .div-check-rg {
+      margin: 0 0 1rem 0;
+      /* width: 20%; */
+    }
+
+    .div-cpf {
+      width: 46rem;
+      order: 2;
+    }
+
+    .social,
+    .check-rg {
+      padding-left: 1rem;
+    }
+  }
+
+  @media screen and (max-width:700px) {
+    #msg-data-nascimento p {
+      margin-top: 0rem;
+    }
+  }
+
+  @media screen and (max-width:600px) {
+    #msg-naturalidade p {
+      margin-top: 0rem;
+    }
+
+    #msg-nacionalidade p {
+      margin-top: 0rem;
+    }
+  }
+
+  /* fim correção de mensagem erro */
+  @media screen and (max-width:1066px) {
+
+    .form-data label {
+      font-size: 1rem;
+      margin: 0;
+      padding: 0;
+    }
+
+    .div-number-1,
+    .div-number-1-1,
+    .div-number-1-2,
+    .div-number-1-5,
+    .div-number-2,
+    .div-number-2-5,
+    .div-number-3,
+    .div-number-4,
+    .div-number-5 {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      gap: 0rem;
+
+    }
+
+    .name,
+    .social,
+    .cpf,
+    .cpf-pais,
+    .rg,
+    .orgao-expedidor,
+    .nome-mae,
+    .nome-pai,
+    .carteira-trabalho,
+    .naturalidade,
+    .nacionalidade,
+    .estado-civil,
+    .data-nascimento,
+    .sexo,
+    .uf-naturalidade,
+    .deficiencias {
+      width: 100%;
+    }
+
+    .div-name,
+    .div-social,
+    .div-cpf,
+    .div-rg,
+    .div-orgao-expedidor,
+    .div-nome-mae,
+    .div-nome-pai,
+    .div-carteira-trabalho,
+    .div-naturalidade,
+    .div-nacionalidade,
+    .div-estado-civil,
+    .div-data-nascimento,
+    .div-sexo,
+    .div-naturalidade,
+    .div-naturalidade,
+    .div-deficiencias {
+      width: 100%;
+      margin-top: 1.5rem;
+    }
+
+    #div-nome-social {
+      margin-bottom: 1rem;
+    }
+
+    /* .cpf-pai {
     margin-bottom: 1rem;
   } */
 
-}
-
-@media screen and (max-width:920px) {
-  .screen-basic-data1 {
-    margin: 7rem 8rem 0rem 0rem;
   }
 
-  .form-data {
-    margin: -2rem 0rem 5rem 6rem;
-    width: 100%;
+  @media screen and (max-width:920px) {
+    .screen-basic-data1 {
+      margin: 7rem 8rem 0rem 0rem;
+    }
+
+    .form-data {
+      margin: -2rem 0rem 5rem 6rem;
+      width: 100%;
+    }
+
+    .form-data label {
+      font-size: 1.1rem;
+      margin: 0;
+      padding: 0;
+    }
   }
 
-  .form-data label {
-    font-size: 1.1rem;
-    margin: 0;
-    padding: 0;
-  }
-}
+  @media screen and (max-width:540px) {
+    .screen-basic-data1 {
+      margin: 5rem 8rem 0.5rem 0rem;
+    }
 
-@media screen and (max-width:540px) {
-  .screen-basic-data1 {
-    margin: 5rem 8rem 0.5rem 0rem;
-  }
+    .form-data {
+      margin: 4rem 0rem 5rem 6rem;
+      width: 100%;
+    }
 
-  .form-data {
-    margin: 4rem 0rem 5rem 6rem;
-    width: 100%;
-  }
-
-  .form-data label {
-    font-size: 1.1rem;
-    margin: 0;
-    padding: 0;
-  }
-}
-
-@media screen and (max-width: 430px) {
-  .screen-basic-data1 {
-    margin: 1rem 6rem 0.5rem 0rem;
+    .form-data label {
+      font-size: 1.1rem;
+      margin: 0;
+      padding: 0;
+    }
   }
 
-  .form-data {
-    margin: 4rem 0rem 5rem 5rem;
-    width: 100%;
-    padding: 1rem 1rem 1rem 1rem;
+  @media screen and (max-width: 430px) {
+    .screen-basic-data1 {
+      margin: 1rem 6rem 0.5rem 0rem;
+    }
+
+    .form-data {
+      margin: 4rem 0rem 5rem 5rem;
+      width: 100%;
+      padding: 1rem 1rem 1rem 1rem;
+    }
+
+    .form-data label {
+      font-size: 1.1rem;
+      margin: 0;
+      padding: 0;
+    }
   }
 
-  .form-data label {
-    font-size: 1.1rem;
-    margin: 0;
-    padding: 0;
-  }
-}
+  @media screen and (max-width: 300px) {
+    .screen-basic-data1 {
+      margin: 3.5rem 5rem 0.5rem 0rem;
+    }
 
-@media screen and (max-width: 300px) {
-  .screen-basic-data1 {
-    margin: 3.5rem 5rem 0.5rem 0rem;
-  }
+    .form-data {
+      margin: 3rem 0rem 5rem 4.5rem;
+      width: 100%;
+      padding: 1.5rem 0.5rem 4rem 0.5rem;
+    }
 
-  .form-data {
-    margin: 3rem 0rem 5rem 4.5rem;
-    width: 100%;
-    padding: 1.5rem 0.5rem 4rem 0.5rem;
+    .form-data label {
+      font-size: 1.1rem;
+      margin: 0;
+      padding: 0;
+    }
   }
-
-  .form-data label {
-    font-size: 1.1rem;
-    margin: 0;
-    padding: 0;
-  }
-}

@@ -278,7 +278,8 @@ input#cep {
   .numero-complemento,
   .uf-bairro,
   .cidade-telefone1,
-  .telefone2-email {
+  .telefone2-email,
+  .instagram-linkedin {
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -290,7 +291,8 @@ input#cep {
   .div-complemento,
   .div-bairro,
   .div-telefone1,
-  .div-email {
+  .div-email,
+  .div-instagram {
     margin-left: 0rem;
   }
 

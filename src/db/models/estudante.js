@@ -533,7 +533,7 @@ module.exports = (sequelize, DataTypes) => {
       dt_aceite_termos: {
         type: DataTypes.DATE,
         allowNull: false,
-        defaultValue: sequelize.literal("CURRENT_TIMESTAMP"),
+        defaultValue: DataTypes.NOW
       },
       naturalidade: {
         type: DataTypes.STRING(100),

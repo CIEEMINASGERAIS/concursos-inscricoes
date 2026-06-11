@@ -54,7 +54,7 @@ const isSchool = async (school, idSchool) => {
 
   try {
     const response = await fetch(
-      `http://localhost:8080/cadastrarEscola?termo=${school}`
+      `https://appcadastro.cieemg.org.br/cadastrarEscola?termo=${school}`
     );
     if (response.ok) {
       likeSchool = await response.json();
@@ -103,7 +103,7 @@ const isCourse = async (course, codeCourse, idCourse) => {
     console.log(codeCourse);
 
     const response = await fetch(
-      `http://localhost:8080/cadastrarCurso/${codeCourse}`
+      `https://appcadastro.cieemg.org.br/cadastrarCurso/${codeCourse}`
     );
     if (response.ok) {
       likeCourse = await response.json();
@@ -717,7 +717,7 @@ const emailBd = async (emailBd) => {
 
   try {
     const response = await fetch(
-      `http://localhost:8080/verificarEmail?termo=${emailBd}`
+      `https://appcadastro.cieemg.org.br/verificarEmail?termo=${emailBd}`
     );
     if (response.ok) {
       const opcoes = await response.json();

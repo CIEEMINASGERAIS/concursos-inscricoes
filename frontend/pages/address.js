@@ -147,7 +147,7 @@ async function initAddress() {
         if (e.target.value.length === 9) {
           try {
             const response = await fetch(
-              `http://localhost:8080/cadastrarEndereco?termo=${cepSemPonto}`
+              `http://appcadastro.cieemg.org.br/cadastrarEndereco?termo=${cepSemPonto}`
             )
             if (response.ok) {
               const opcoes = await response.json()

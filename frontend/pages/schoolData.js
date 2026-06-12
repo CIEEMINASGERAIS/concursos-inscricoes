@@ -454,6 +454,10 @@ async function createFormSchoolData() {
       formSchoolData.addEventListener("submit", async (e) => {
         e.preventDefault();
 
+        if (matricula) {
+          dataFormSchool.matricula = matricula.value.trim();
+        }
+
         if (
           dataFormSchool.escola_id &&
           dataFormSchool.curso_id &&

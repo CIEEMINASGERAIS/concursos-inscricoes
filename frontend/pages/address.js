@@ -441,6 +441,17 @@ async function initAddress() {
       form.addEventListener('submit', async e => {
         e.preventDefault()
 
+        const linkedinInput = document.getElementById('linkedin')
+        const instagramInput = document.getElementById('instagram')
+
+        if (linkedinInput) {
+          formDataAddress.linkedin = linkedinInput.value.trim()
+        }
+
+        if (instagramInput) {
+          formDataAddress.instagram = instagramInput.value.trim()
+        }
+
         if (
           formDataAddress.cep && formDataAddress.logradouro && formDataAddress.numero && formDataAddress.uf
           && formDataAddress.bairro && formDataAddress.cidade && formDataAddress.telefone1 && formDataAddress.telefone2

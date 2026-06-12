@@ -56,7 +56,6 @@ app.use(express.json({ limit: "25mb" }));
 const whiteList = [
   "https://appcadastro.cieemg.org.br",
   "http://localhost:8080",
-  "http://127.0.0.1:8080",
 ];
 
 const corsOptions = {

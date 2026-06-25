@@ -122,19 +122,69 @@ async function takeData() {
   return allData;
 }
 
+// async function sendData() {
+//   const data = await takeData();
+
+//   const date = dateTime()
+
+//   document.querySelector(".alert").style.display = "flex";
+
+//   document.querySelector(".title-cadastro").innerHTML = `Carregando...`;
+
+//   document.querySelector(".data-erro").innerHTML = ``;
+
+
+//   document.querySelector(".message-final").innerHTML = `Olá ${data.nome}, estamos finalizando o seu cadastro, aguarde um momento.`;
+
+//   try {
+//     const response = await fetch("/cadastrar", {
+//       method: "POST",
+//       headers: {
+//         "Content-Type": "application/json",
+//       },
+//       error: false,
+//       mensagem: "Usuário cadastrado com sucesso",
+//       body: JSON.stringify(data),
+//     });
+//     if (response.ok) {
+
+
+//       document.querySelector(".alert").style.display = "flex";
+
+//       document.querySelector(".title-cadastro").innerHTML = `Cadastro concluído!`;
+
+//       document.querySelector(".data-erro").innerHTML = `<p>${date} v - 1.1.1</p>`;
+
+
+//       document.querySelector(".message-final").innerHTML = `Olá ${data.nome}, parabéns por finalizar a primeira etapa do seu cadastro, fique atento ao seu e-mail,
+//       enviaremos em
+//       até 24 horas os dados para realizar seu primeiro login no nosso portal, para conclusão do seu cadastro.`;
+//     } else {
+//       const erroResposta = await response.text();
+//       document.querySelector(".alert").style.display = "flex";
+
+//       document.querySelector(".title-cadastro").innerHTML = `Falha ao Realizar Cadastro.`;
+
+//       document.querySelector(".data-erro").innerHTML = `<p>${date}</p>`;
+
+
+//       document.querySelector(".message-final").innerHTML = `Olá ${data.nome}, ocorreu um erro desconhecido ao realizar o seu cadastro, favor entrar em contato através do número (31) 3429-8100.`;
+//     }
+//   } catch (error) {
+//     console.log("Erro: ", error);
+//   }
+// }
 async function sendData() {
   const data = await takeData();
+  const date = dateTime();
 
-  const date = dateTime()
+  console.log("Payload final /cadastrar:", JSON.stringify(data, null, 2));
 
   document.querySelector(".alert").style.display = "flex";
-
   document.querySelector(".title-cadastro").innerHTML = `Carregando...`;
-
   document.querySelector(".data-erro").innerHTML = ``;
-
-
-  document.querySelector(".message-final").innerHTML = `Olá ${data.nome}, estamos finalizando o seu cadastro, aguarde um momento.`;
+  document.querySelector(".message-final").innerHTML =
+    `Olá ${data.nome}, estamos finalizando o seu cadastro, aguarde um momento.`;
 
   try {
     const response = await fetch("/cadastrar", {
@@ -142,36 +192,32 @@ async function sendData() {
       headers: {
         "Content-Type": "application/json",
       },
-      error: false,
-      mensagem: "Usuário cadastrado com sucesso",
       body: JSON.stringify(data),
     });
+
+    const responseText = await response.text();
+    console.log("Status /cadastrar:", response.status);
+    console.log("Resposta /cadastrar:", responseText);
+
     if (response.ok) {
-
-
       document.querySelector(".alert").style.display = "flex";
-
       document.querySelector(".title-cadastro").innerHTML = `Cadastro concluído!`;
-
       document.querySelector(".data-erro").innerHTML = `<p>${date} v - 1.1.1</p>`;
-
-
-      document.querySelector(".message-final").innerHTML = `Olá ${data.nome}, parabéns por finalizar a primeira etapa do seu cadastro, fique atento ao seu e-mail,
-      enviaremos em
-      até 24 horas os dados para realizar seu primeiro login no nosso portal, para conclusão do seu cadastro.`;
+      document.querySelector(".message-final").innerHTML =
+        `Olá ${data.nome}, parabéns por finalizar a primeira etapa do seu cadastro...`;
     } else {
-      const erroResposta = await response.text();
+      document.error?.("Erro backend /cadastrar:", response.status, responseText);
+
       document.querySelector(".alert").style.display = "flex";
-
       document.querySelector(".title-cadastro").innerHTML = `Falha ao Realizar Cadastro.`;
+      document.querySelector(".data-erro").innerHTML =
+        `<p>${date} - status ${response.status}</p>`;
 
-      document.querySelector(".data-erro").innerHTML = `<p>${date}</p>`;
-
-
-      document.querySelector(".message-final").innerHTML = `Olá ${data.nome}, ocorreu um erro desconhecido ao realizar o seu cadastro, favor entrar em contato através do número (31) 3429-8100.`;
+      document.querySelector(".message-final").innerHTML =
+        `Olá ${data.nome}, não foi possível concluir o cadastro.`;
     }
   } catch (error) {
-    console.log("Erro: ", error);
+    console.error("Erro no fetch /cadastrar:", error);
   }
 }
 

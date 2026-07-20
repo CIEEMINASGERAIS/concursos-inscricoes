@@ -10,6 +10,9 @@ const helmet = require('helmet')
 const path = require("path");
 
 const cursoRoutes = require('./routes/cursoRoute')
+const requestLogger = require('./src/middlewares/requestLogger');
+const errorHandler = require('./src/middlewares/errorHandler');
+const { logger } = require('./src/utils/logger');
 
 // Responsável por pegar dados do .env
 require("dotenv").config();
@@ -28,6 +31,7 @@ const getCadastrarEscola = require("./src/controllers/getCadastrarEscola");
 const getEscola = require("./src/controllers/renderSchool");
 
 const postCadastro = require("./src/controllers/postCadastrar");
+const postClientLog = require("./src/controllers/postClientLog");
 
 // Acessar os renders das páginas
 const index = require("./src/controllers/renderIndex");
@@ -44,14 +48,16 @@ const socialEconomic = require("./src/controllers/renderSocialEconomy");
 
 app.use(express.urlencoded({ extended: true, limit: "25mb" }));
 
-app.use(express.static(path.resolve(__dirname, "public", "assets")));
-
 app.set("views", path.resolve(__dirname, "src", "views"));
 // Configurar o EJS como a engine de visualização
 app.set("view engine", "ejs");
 
 // Criar o middleware para receber os dados no corpo da requisição
 app.use(express.json({ limit: "25mb" }));
+
+app.use(requestLogger);
+
+app.use(express.static(path.resolve(__dirname, "public", "assets")));
 
 const whiteList = [
   "https://appcadastro.cieemg.org.br",
@@ -124,6 +130,33 @@ app.get("/socio-economic", socialEconomic.renderSocioEconomic);
 
 // Função responsável por enviar as informações para o banco de dados
 app.post("/cadastrar", postCadastro.postRegister);
+
+// Endpoint para receber logs do frontend (sem auth, com sanitização LGPD)
+app.post("/api/logs", postClientLog.postClientLog);
+
+app.use(errorHandler);
+
+process.on("uncaughtException", (error) => {
+  logger.error("UNCAUGHT_EXCEPTION", {
+    erro: error.message,
+    stack: error.stack,
+    originalError: error,
+  });
+
+  process.exit(1);
+});
+
+process.on("unhandledRejection", (reason) => {
+  const error = reason instanceof Error ? reason : new Error(String(reason));
+
+  logger.error("UNHANDLED_REJECTION", {
+    erro: error.message,
+    stack: error.stack,
+    originalError: reason,
+  });
+
+  process.exit(1);
+});
 
 // Iniciar o servidor na porta, criar a função utilizando modelo Arrow function para retornar a mensagem de sucesso
 app.listen(process.env.PORT);

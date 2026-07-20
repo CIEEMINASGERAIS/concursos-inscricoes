@@ -3,6 +3,7 @@ const sequelize = require("../db/models");
 const DataTypes = require("sequelize/lib/data-types");
 
 const { Op } = require("sequelize");
+const { handleControllerError } = require("../utils/controllerError");
 
 // Acessar o models estudante
 const Estudante = require("../db/models/estudante")(sequelize, DataTypes);
@@ -27,8 +28,12 @@ async function verificarEmail(req, res) {
         });
         res.json(opcoes);
     } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: "Erro ao buscar email do estudante." });
+        return handleControllerError(req, res, error, {
+            status: 500,
+            message: "ERRO_BUSCAR_EMAIL",
+            publicMessage: "Erro ao buscar email do estudante.",
+            etapa: "BUSCAR_EMAIL",
+        });
     }
 }
 

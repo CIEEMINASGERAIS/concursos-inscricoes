@@ -3,6 +3,7 @@ const sequelize = require("../db/models");
 const DataTypes = require("sequelize/lib/data-types");
 
 const { Op } = require("sequelize");
+const { handleControllerError } = require("../utils/controllerError");
 
 const Escola = require("../db/models/escola")(sequelize, DataTypes);
 
@@ -29,8 +30,12 @@ async function cadastrarEscola(req, res) {
 
         res.json(opcoes);
     } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: "Erro ao buscar escola." });
+        return handleControllerError(req, res, error, {
+            status: 500,
+            message: "ERRO_BUSCAR_ESCOLA",
+            publicMessage: "Erro ao buscar escola.",
+            etapa: "BUSCAR_ESCOLA",
+        });
     }
 }
 

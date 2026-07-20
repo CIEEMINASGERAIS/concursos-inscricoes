@@ -21,6 +21,8 @@ const {
   CreateInputLabel
 } = require("../utils/util.js");
 
+const { clientLogger } = require("../utils/clientLogger.js");
+
 // Função responsável por iniciar as funções e gerar o conteúdo da página
 const initDataBasic = async () => {
   return new Promise(async (resolve, reject) => {
@@ -673,18 +675,11 @@ const initDataBasic = async () => {
           resolve(formDataBasic);
         } else {
           if (invalidFields.length > 0) {
-            console.warn(
-              "Campos inválidos no formulário básico:",
-              invalidFields,
-              formDataBasic
-            );
+            clientLogger.warn("FORM_BASICO_CAMPOS_INVALIDOS", { campos: invalidFields });
             document.getElementById("msg-fracasso").innerHTML =
               `<p>Formulário incompleto: ${invalidFields.join(", ")}</p>`;
           } else {
-            console.warn(
-              "Formulário básico bloqueado sem campos explicitamente inválidos:",
-              formDataBasic
-            );
+            clientLogger.warn("FORM_BASICO_BLOQUEADO");
             document.getElementById("msg-fracasso").innerHTML =
               "<p>Formulário incompleto!</p>";
           }

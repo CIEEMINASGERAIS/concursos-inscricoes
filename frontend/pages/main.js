@@ -1,4 +1,5 @@
 const { changeSubMainTitle, changeMains } = require("../utils/util.js");
+const { clientLogger } = require("../utils/clientLogger.js");
 document.addEventListener("DOMContentLoaded", () => {
   setTimeout(() => {
     const buttonDataBasic = document.getElementById("button-basic-data");
@@ -6,7 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
       localStorage.setItem("menuItemId", buttonDataBasic.id);
       // console.log("ID salvo no localStorage:", buttonDataBasic.id);
     } else {
-      console.warn("Elemento #big-basic-data não encontrado.");
+      clientLogger.warn("ELEMENTO_BOTAO_BASIC_NAO_ENCONTRADO");
     }
   }, 500); // atraso para garantir que o DOM está carregado
 });

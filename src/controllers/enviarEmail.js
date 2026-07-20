@@ -1,4 +1,5 @@
 const nodemailer = require("nodemailer")
+const { logger } = require("../utils/logger");
 
 require("dotenv").config();
 
@@ -16,8 +17,7 @@ const tranposter = nodemailer.createTransport({
     },
 })
 
-async function emailASerEnviadoProcessos(to, user, pass) {
-
+async function emailASerEnviadoProcessos(to, user, pass, context = {}) {
     const info = await tranposter.sendMail({
         from: 'validacao.cadastro@cieeminas.com.br',
         to: `${to}`,
@@ -92,11 +92,14 @@ async function emailASerEnviadoProcessos(to, user, pass) {
             Portal CIEE/MG www.cieemg.org.br`
     })
 
-    console.log('Message sent: %s', info.messageId)
+    logger.info("EMAIL_ENVIADO", {
+        ...context,
+        messageId: info.messageId,
+        destinatario: "processos",
+    });
 }
 
-async function emailASerEnviadoComum(to, user, pass) {
-    console.log("Enviando e-mail para:", to);
+async function emailASerEnviadoComum(to, user, pass, context = {}) {
     const info = await tranposter.sendMail({
         from: 'validacao.cadastro@cieeminas.com.br',
         to: `${to}`,
@@ -163,7 +166,11 @@ async function emailASerEnviadoComum(to, user, pass) {
             CIEEMG - Centro de Integração Empresa Escola de Minas Gerais
             Portal CIEE/MG www.cieemg.org.br`
     })
-    console.log("E-mail enviado:", info.messageId);
+    logger.info("EMAIL_ENVIADO", {
+        ...context,
+        messageId: info.messageId,
+        destinatario: "estudante",
+    });
 }
 
 
@@ -176,7 +183,7 @@ async function emailPresp(user, telefone1, telefone2, email, aprendiz,
     genero,
     etnia,
     tem_filhos,
-    situacao_judicial, id, cpf) {
+    situacao_judicial, id, cpf, context = {}) {
     const info = await tranposter.sendMail({
         from: 'validacao.cadastro@cieeminas.com.br',
         to: `presp@cieemg.org.br`,
@@ -248,7 +255,11 @@ Legenda: A = Situação judicial: acolhimento institucional (abrigo) / MP = Medi
 
                                                                     Portal CIEE/MG - www.cieemg.org.br
 `})
-console.log("E-mail enviado:", info.messageId);
+logger.info("EMAIL_ENVIADO", {
+    ...context,
+    messageId: info.messageId,
+    destinatario: "presp",
+});
 }
 
 module.exports = { emailASerEnviadoProcessos, emailASerEnviadoComum, emailPresp }

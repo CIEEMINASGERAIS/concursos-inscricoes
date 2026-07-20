@@ -13,6 +13,7 @@ const {
   conferirFormSchool,
   dateTime
 } = require("../utils/util.js");
+const { clientLogger } = require("../utils/clientLogger.js");
 
 async function takeData() {
 
@@ -178,7 +179,10 @@ async function sendData() {
   const data = await takeData();
   const date = dateTime();
 
-  console.log("Payload final /cadastrar:", JSON.stringify(data, null, 2));
+  clientLogger.info("INICIO_CADASTRO_FRONTEND", {
+    etapa: "INICIO_CADASTRO",
+    cpf: data.cpf,
+  });
 
   document.querySelector(".alert").style.display = "flex";
   document.querySelector(".title-cadastro").innerHTML = `Carregando...`;
@@ -196,8 +200,6 @@ async function sendData() {
     });
 
     const responseText = await response.text();
-    console.log("Status /cadastrar:", response.status);
-    console.log("Resposta /cadastrar:", responseText);
 
     if (response.ok) {
       document.querySelector(".alert").style.display = "flex";
@@ -206,7 +208,11 @@ async function sendData() {
       document.querySelector(".message-final").innerHTML =
         `Olá ${data.nome}, parabéns por finalizar a primeira etapa do seu cadastro...`;
     } else {
-      document.error?.("Erro backend /cadastrar:", response.status, responseText);
+      clientLogger.error("FALHA_BACKEND_CADASTRO", {
+        status: response.status,
+        resposta: responseText,
+        cpf: data.cpf,
+      });
 
       document.querySelector(".alert").style.display = "flex";
       document.querySelector(".title-cadastro").innerHTML = `Falha ao Realizar Cadastro.`;
@@ -217,7 +223,10 @@ async function sendData() {
         `Olá ${data.nome}, não foi possível concluir o cadastro.`;
     }
   } catch (error) {
-    console.error("Erro no fetch /cadastrar:", error);
+    clientLogger.error("ERRO_FETCH_CADASTRO", {
+      mensagem: error?.message,
+      cpf: data.cpf,
+    });
   }
 }
 

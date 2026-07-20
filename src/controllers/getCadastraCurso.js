@@ -3,6 +3,8 @@ const sequelize = require("../db/models");
 const DataTypes = require("sequelize/lib/data-types");
 
 const { Op } = require("sequelize");
+const { logger } = require("../utils/logger");
+const { handleControllerError } = require("../utils/controllerError");
 
 const Curso = require("../db/models/curso")(sequelize, DataTypes);
 
@@ -10,6 +12,11 @@ async function index(req, res) {
     const { id } = req.params;
 
     if (!id) {
+        logger.warn("VALIDACAO_FALHOU", {
+            etapa: "BUSCAR_CURSO",
+            erro: "Faltando o ID",
+        });
+
         return res.status(400).json({
             errors: ['Faltando o ID'],
         })
@@ -32,8 +39,12 @@ async function index(req, res) {
         });
         res.json(opcoes);
     } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: "Erro ao buscar curso." });
+        return handleControllerError(req, res, error, {
+            status: 500,
+            message: "ERRO_BUSCAR_CURSO",
+            publicMessage: "Erro ao buscar curso.",
+            etapa: "BUSCAR_CURSO",
+        });
     }
 }
 

@@ -1,11 +1,16 @@
 const ejs = require("ejs");
+const { handleControllerError } = require("../utils/controllerError");
 
 // Rota para renderizar o EJS em HTML
 async function renderAddress(req, res) {
     ejs.renderFile("./src/views/address.ejs", (err, html) => {
         if (err) {
-            console.error(err);
-            return res.status(500).send("Erro ao renderizar o arquivo EJS.");
+            return handleControllerError(req, res, err, {
+                status: 500,
+                message: "ERRO_RENDER_ADDRESS",
+                publicMessage: "Erro ao renderizar o arquivo EJS.",
+                etapa: "RENDER_ADDRESS",
+            });
         }
         res.send(html);
     });

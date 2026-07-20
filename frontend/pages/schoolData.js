@@ -14,6 +14,7 @@ const {
 } = require("../utils/util");
 
 const generator = require("generate-password");
+const { clientLogger } = require("../utils/clientLogger.js");
 
 async function createFormSchoolData() {
   return new Promise(async (resolve, reject) => {
@@ -260,10 +261,10 @@ async function createFormSchoolData() {
           idCurso = opcoes;
           mostrarOpcoesAutocompleteCursos(opcoes);
         } else {
-          console.log("Erro na solicitação:", response.statusText);
+          clientLogger.warn("FALHA_BUSCA_CURSO", { status: response.status, statusText: response.statusText });
         }
       } catch (error) {
-        console.error("Erro:", error);
+        clientLogger.error("ERRO_BUSCA_CURSO", { mensagem: error?.message });
       }
     };
 
@@ -286,10 +287,10 @@ async function createFormSchoolData() {
             mostrarOpcoesAutocompleteEscolas(opcoes);
             codigoEscola = opcoes;
           } else {
-            console.log("Erro na solicitação:", response.statusText);
+            clientLogger.warn("FALHA_BUSCA_ESCOLA", { status: response.status, statusText: response.statusText });
           }
         } catch (error) {
-          console.error("Erro:", error);
+          clientLogger.error("ERRO_BUSCA_ESCOLA", { mensagem: error?.message });
         }
 
         const SchoolFound = document.querySelector(".school-found");

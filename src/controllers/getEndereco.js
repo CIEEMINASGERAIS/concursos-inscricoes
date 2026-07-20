@@ -3,6 +3,7 @@ const sequelize = require("../db/models");
 const DataTypes = require("sequelize/lib/data-types");
 
 const { Op } = require("sequelize");
+const { handleControllerError } = require("../utils/controllerError");
 
 const Cep = require("../db/models/cep")(sequelize, DataTypes);
 
@@ -30,8 +31,12 @@ async function getCadastrarEndereco(req, res) {
     });
     res.json(opcoes);
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: "Erro ao buscar cep." });
+    return handleControllerError(req, res, error, {
+      status: 500,
+      message: "ERRO_BUSCAR_CEP",
+      publicMessage: "Erro ao buscar cep.",
+      etapa: "BUSCAR_CEP",
+    });
   }
 }
 

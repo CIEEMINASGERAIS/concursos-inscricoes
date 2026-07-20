@@ -1,4 +1,5 @@
 const validator = require("validator");
+const { clientLogger } = require("./clientLogger.js");
 
 const changeSubMainTitle = (text) => {
   const subTitle = document.querySelector(".sub-main-title h1");

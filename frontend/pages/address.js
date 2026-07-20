@@ -1,5 +1,6 @@
 const { isNumero, isComplemento, isTelefone, isEmail, changeMains, changeSubMainTitle, removerMensagem, isCep, isNaturalidadeNacionalidade, isUfNaturalidade, emailBd, erroInputAddress } = require('../utils/util.js')
 const { cadastro } = require('../../src/services/fetch.js')
+const { clientLogger } = require("../utils/clientLogger.js");
 
 async function initAddress() {
   return new Promise(async (resolve, reject) => {
@@ -153,10 +154,10 @@ async function initAddress() {
               dadosCep = endereco.map(cep => cep.cep)
 
             } else {
-              console.log('Erro na solicitação:', response.statusText)
+              clientLogger.warn('FALHA_BUSCA_CEP', { status: response.status, statusText: response.statusText });
             }
           } catch (error) {
-            console.error('Erro:', error)
+            clientLogger.error('ERRO_BUSCA_CEP', { mensagem: error?.message });
           }
         }
 

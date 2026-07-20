@@ -1,4 +1,5 @@
 const Sequelize = require("sequelize");
+const { logger } = require("../../utils/logger");
 
 const env = process.env.NODE_ENV || "development";
 const config = require(__dirname + "/../config/config.js")[env];
@@ -17,13 +18,19 @@ const sequelize = new Sequelize(
 sequelize
   .authenticate()
   .then(function () {
-    console.log("Conexão com o banco de dados realizada com sucesso!");
+    logger.info("DB_CONNECTION_OK", {
+      database: config.database,
+      host: config.host,
+    });
   })
   .catch(function (error) {
-    console.log(
-      "Erro: Conexão com banco de dados não realizada com sucesso!",
-      error
-    );
+    logger.error("DB_CONNECTION_ERROR", {
+      erro: error.message,
+      stack: error.stack,
+      originalError: error,
+      database: config.database,
+      host: config.host,
+    });
     throw error;
   });
 

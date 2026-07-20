@@ -9,7 +9,19 @@ const Escola = require("../db/models/escola")(sequelize, DataTypes);
 
 // Rotar para obter dados do banco (GET)
 async function cadastrarEscola(req, res) {
-    const termoPesquisa = req.query.termo;
+    const termoBruto = req.query.termo;
+
+    if (typeof termoBruto !== "string" || termoBruto.length === 0) {
+        return res.json([]);
+    }
+
+    if (termoBruto.length > 100) {
+        return res.status(400).json({
+            erro: "Termo de busca muito longo. Limite de 100 caracteres.",
+        });
+    }
+
+    const termoPesquisa = termoBruto.replace(/[%_]/g, (c) => `\\${c}`);
 
     try {
         const data = await Escola.findAll({

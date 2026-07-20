@@ -280,8 +280,25 @@ async function createFormSchoolData() {
       input.addEventListener("input", async (e) => {
         const element = e.target;
 
+        const termoCompleto = (element.value || "").trim();
+
+        if (termoCompleto.length > 60 && termoCompleto.length <= 80) {
+          clientLogger.warn("BUSCA_ESCOLA_TERMO_LONGO", {
+            tamanho: termoCompleto.length,
+            navegador: navigator.userAgent.slice(0, 100),
+          });
+        }
+
+        const termo = termoCompleto.slice(0, 80);
+
+        if (termo.length < 2) {
+          mostrarOpcoesAutocompleteEscolas([]);
+          codigoEscola = [];
+          return;
+        }
+
         try {
-          const response = await fetch(`/cadastrarEscola?termo=${element.value}`);
+          const response = await fetch(`/cadastrarEscola?termo=${encodeURIComponent(termo)}`);
           if (response.ok) {
             opcoes = await response.json();
             mostrarOpcoesAutocompleteEscolas(opcoes);

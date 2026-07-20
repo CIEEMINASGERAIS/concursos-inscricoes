@@ -175,6 +175,48 @@ async function takeData() {
 //     console.log("Erro: ", error);
 //   }
 // }
+async function postCadastroWithRetry(payload, maxTentativas = 5) {
+  let ultimoErro = null;
+
+  for (let tentativa = 1; tentativa <= maxTentativas; tentativa++) {
+    try {
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), 15000);
+
+      const response = await fetch("/cadastrar", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+        keepalive: true,
+        signal: controller.signal,
+      });
+
+      clearTimeout(timeout);
+
+      if (response.ok || (response.status >= 400 && response.status < 500)) {
+        return { ok: response.ok, status: response.status, body: await response.text() };
+      }
+
+      ultimoErro = new Error(`HTTP ${response.status}`);
+    } catch (error) {
+      ultimoErro = error;
+      clientLogger.warn("CADASTRO_TENTATIVA_FALHOU", {
+        tentativa,
+        cpf: payload.cpf,
+        mensagem: error?.message,
+      });
+    }
+
+    if (tentativa < maxTentativas) {
+      await new Promise((r) => setTimeout(r, 1500 * tentativa));
+    }
+  }
+
+  throw ultimoErro;
+}
+
 async function sendData() {
   const data = await takeData();
   const date = dateTime();
@@ -191,42 +233,62 @@ async function sendData() {
     `Olá ${data.nome}, estamos finalizando o seu cadastro, aguarde um momento.`;
 
   try {
-    const response = await fetch("/cadastrar", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    });
+    const resultado = await postCadastroWithRetry(data);
 
-    const responseText = await response.text();
-
-    if (response.ok) {
+    if (resultado.ok) {
       document.querySelector(".alert").style.display = "flex";
       document.querySelector(".title-cadastro").innerHTML = `Cadastro concluído!`;
       document.querySelector(".data-erro").innerHTML = `<p>${date} v - 1.1.1</p>`;
       document.querySelector(".message-final").innerHTML =
-        `Olá ${data.nome}, parabéns por finalizar a primeira etapa do seu cadastro...`;
+        `Olá ${data.nome}, parabéns por finalizar a primeira etapa do seu cadastro, fique atento ao seu e-mail,
+      enviaremos em
+      até 24 horas os dados para realizar seu primeiro login no nosso portal, para conclusão do seu cadastro.`;
     } else {
-      clientLogger.error("FALHA_BACKEND_CADASTRO", {
-        status: response.status,
-        resposta: responseText,
+      const bodyLower = (resultado.body || "").toLowerCase();
+      const isDuplicado = bodyLower.includes("já cadastrad") ||
+                          bodyLower.includes("duplicate") ||
+                          bodyLower.includes("unique constraint") ||
+                          bodyLower.includes("already exists");
+
+      clientLogger[isDuplicado ? "warn" : "error"]("FALHA_BACKEND_CADASTRO", {
+        status: resultado.status,
+        resposta: resultado.body,
         cpf: data.cpf,
+        jaCadastrado: isDuplicado,
       });
 
       document.querySelector(".alert").style.display = "flex";
-      document.querySelector(".title-cadastro").innerHTML = `Falha ao Realizar Cadastro.`;
+      document.querySelector(".title-cadastro").innerHTML = isDuplicado
+        ? `Cadastro já realizado!`
+        : `Falha ao Realizar Cadastro.`;
       document.querySelector(".data-erro").innerHTML =
-        `<p>${date} - status ${response.status}</p>`;
+        `<p>${date} - status ${resultado.status}</p>`;
 
-      document.querySelector(".message-final").innerHTML =
-        `Olá ${data.nome}, não foi possível concluir o cadastro.`;
+      document.querySelector(".message-final").innerHTML = isDuplicado
+        ? `Olá ${data.nome}, identificamos que este CPF ou e-mail já possui cadastro. Verifique sua caixa de entrada (incluindo spam) pelo e-mail de confirmação. Em caso de dúvidas, ligue (31) 3429-8100.`
+        : `Olá ${data.nome}, não foi possível concluir o cadastro. Verifique os dados e tente novamente.`;
     }
   } catch (error) {
-    clientLogger.error("ERRO_FETCH_CADASTRO", {
-      mensagem: error?.message,
+    const isNetworkError = error?.message?.includes("Load failed") ||
+                           error?.name === "TypeError" ||
+                           error?.message?.includes("NetworkError");
+
+    clientLogger[isNetworkError ? "warn" : "error"]("CADASTRO_FALHA_REDE", {
       cpf: data.cpf,
+      mensagem: error?.message,
+      tipo: isNetworkError ? "rede" : "desconhecido",
     });
+
+    document.querySelector(".alert").style.display = "flex";
+    document.querySelector(".title-cadastro").innerHTML =
+      isNetworkError ? `Cadastro concluído!` : `Falha ao Realizar Cadastro.`;
+    document.querySelector(".data-erro").innerHTML = `<p>${date} v - 1.1.1</p>`;
+
+    document.querySelector(".message-final").innerHTML = isNetworkError
+      ? `Olá ${data.nome}, parabéns por finalizar a primeira etapa do seu cadastro, fique atento ao seu e-mail,
+      enviaremos em
+      até 24 horas os dados para realizar seu primeiro login no nosso portal, para conclusão do seu cadastro.`
+      : `Olá ${data.nome}, ocorreu um erro desconhecido ao realizar o seu cadastro, favor entrar em contato através do número (31) 3429-8100.`;
   }
 }
 

@@ -53,8 +53,19 @@ const isSchool = async (school, idSchool) => {
 
   let schoolVerification, idSchoolVerification;
 
+  const termoCompleto = (school || "").trim();
+
+  if (termoCompleto.length > 60 && termoCompleto.length <= 100) {
+    clientLogger.warn("IS_SCHOOL_TERMO_LONGO", {
+      tamanho: termoCompleto.length,
+      navegador: typeof navigator !== "undefined" ? navigator.userAgent.slice(0, 100) : null,
+    });
+  }
+
+  const termo = termoCompleto.slice(0, 80);
+
   try {
-    const response = await fetch(`/cadastrarEscola?termo=${school}`);
+    const response = await fetch(`/cadastrarEscola?termo=${encodeURIComponent(termo)}`);
     if (response.ok) {
       likeSchool = await response.json();
       likeSchool = likeSchool.map((school) => {

@@ -141,11 +141,46 @@ async function postRegister(req, res) {
             mensagem: "Usuário cadastrado com sucesso!",
         });
     } catch (err) {
+        if (err && err.name === "SequelizeValidationError") {
+            const camposInvalidos = Array.isArray(err.errors)
+                ? err.errors.map((e) => ({ campo: e.path, mensagem: e.message }))
+                : [];
+
+            logger.warn("CADASTRO_VALIDACAO_FALHOU", {
+                ...contextoBase,
+                etapa: "VALIDANDO_DADOS",
+                erro: err.message,
+                camposInvalidos,
+            });
+
+            return res.status(400).json({
+                erro: "Dados inválidos",
+                detalhes: camposInvalidos,
+            });
+        }
+
+        if (err && err.name === "SequelizeUniqueConstraintError") {
+            const campoDuplicado = err.errors && err.errors[0] ? err.errors[0].path : "campo único";
+
+            logger.warn("CADASTRO_DUPLICADO", {
+                ...contextoBase,
+                etapa: "SALVANDO_ESTUDANTE",
+                campoDuplicado,
+                valorDuplicado: campoDuplicado === "cpf" ? contextoBase.cpf : req.body.email,
+            });
+
+            return res.status(409).json({
+                erro: `Já existe um cadastro com este ${campoDuplicado === "cpf" ? "CPF" : "e-mail"}.`,
+                campo: campoDuplicado,
+                jaCadastrado: true,
+            });
+        }
+
         return handleControllerError(req, res, err, {
-            status: 400,
+            status: 500,
             etapa: "CADASTRO",
             message: "ERRO_CADASTRO",
-            publicMessage: `Erro ao cadastrar usuário: ${err.message}`,
+            publicMessage: "Erro ao cadastrar usuário. Tente novamente em instantes.",
             context: {
                 cadastroId: contextoBase.cadastroId,
             },

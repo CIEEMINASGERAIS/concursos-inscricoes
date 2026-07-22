@@ -220,6 +220,57 @@ async function postCadastroWithRetry(payload, maxTentativas = 5) {
 async function sendData() {
   const data = await takeData();
   const date = dateTime();
+  const tituloErroPadrao = "Falha ao Realizar Cadastro.";
+  const mensagemErroPadrao = `Olá ${data.nome}, ocorreu um erro desconhecido ao realizar o seu cadastro, favor entrar em contato através do número (31) 3429-8100.`;
+
+  const parseErroBackend = (status, body) => {
+    const bodyText = body || "";
+    const bodyLower = bodyText.toLowerCase();
+
+    const isDuplicado = bodyLower.includes("já cadastrad") ||
+      bodyLower.includes("duplicate") ||
+      bodyLower.includes("unique constraint") ||
+      bodyLower.includes("already exists") ||
+      status === 409;
+
+    if (isDuplicado) {
+      return {
+        tipo: "duplicado",
+        titulo: "Cadastro já realizado!",
+        mensagem: `Olá ${data.nome}, identificamos que este CPF ou e-mail já possui cadastro. Verifique sua caixa de entrada (incluindo spam) pelo e-mail de confirmação. Em caso de dúvidas, ligue (31) 3429-8100.`,
+      };
+    }
+
+    if (status === 413 || bodyLower.includes("payload too large") || bodyLower.includes("request entity too large")) {
+      return {
+        tipo: "payload_grande",
+        titulo: tituloErroPadrao,
+        mensagem: mensagemErroPadrao,
+      };
+    }
+
+    if (status === 400) {
+      return {
+        tipo: "dados_invalidos",
+        titulo: tituloErroPadrao,
+        mensagem: mensagemErroPadrao,
+      };
+    }
+
+    if (status >= 500) {
+      return {
+        tipo: "erro_servidor",
+        titulo: tituloErroPadrao,
+        mensagem: mensagemErroPadrao,
+      };
+    }
+
+    return {
+      tipo: "falha_generica",
+      titulo: tituloErroPadrao,
+      mensagem: mensagemErroPadrao,
+    };
+  };
 
   clientLogger.info("INICIO_CADASTRO_FRONTEND", {
     etapa: "INICIO_CADASTRO",
@@ -244,29 +295,21 @@ async function sendData() {
       enviaremos em
       até 24 horas os dados para realizar seu primeiro login no nosso portal, para conclusão do seu cadastro.`;
     } else {
-      const bodyLower = (resultado.body || "").toLowerCase();
-      const isDuplicado = bodyLower.includes("já cadastrad") ||
-                          bodyLower.includes("duplicate") ||
-                          bodyLower.includes("unique constraint") ||
-                          bodyLower.includes("already exists");
+      const erroCadastro = parseErroBackend(resultado.status, resultado.body);
 
-      clientLogger[isDuplicado ? "warn" : "error"]("FALHA_BACKEND_CADASTRO", {
+      clientLogger[erroCadastro.tipo === "duplicado" ? "warn" : "error"]("FALHA_BACKEND_CADASTRO", {
         status: resultado.status,
         resposta: resultado.body,
         cpf: data.cpf,
-        jaCadastrado: isDuplicado,
+        tipoErro: erroCadastro.tipo,
       });
 
       document.querySelector(".alert").style.display = "flex";
-      document.querySelector(".title-cadastro").innerHTML = isDuplicado
-        ? `Cadastro já realizado!`
-        : `Falha ao Realizar Cadastro.`;
+      document.querySelector(".title-cadastro").innerHTML = erroCadastro.titulo;
       document.querySelector(".data-erro").innerHTML =
         `<p>${date} - status ${resultado.status}</p>`;
 
-      document.querySelector(".message-final").innerHTML = isDuplicado
-        ? `Olá ${data.nome}, identificamos que este CPF ou e-mail já possui cadastro. Verifique sua caixa de entrada (incluindo spam) pelo e-mail de confirmação. Em caso de dúvidas, ligue (31) 3429-8100.`
-        : `Olá ${data.nome}, não foi possível concluir o cadastro. Verifique os dados e tente novamente.`;
+      document.querySelector(".message-final").innerHTML = erroCadastro.mensagem;
     }
   } catch (error) {
     const isNetworkError = error?.message?.includes("Load failed") ||
@@ -281,14 +324,14 @@ async function sendData() {
 
     document.querySelector(".alert").style.display = "flex";
     document.querySelector(".title-cadastro").innerHTML =
-      isNetworkError ? `Cadastro concluído!` : `Falha ao Realizar Cadastro.`;
+      isNetworkError ? `Cadastro concluído!` : tituloErroPadrao;
     document.querySelector(".data-erro").innerHTML = `<p>${date} v - 1.1.1</p>`;
 
     document.querySelector(".message-final").innerHTML = isNetworkError
       ? `Olá ${data.nome}, parabéns por finalizar a primeira etapa do seu cadastro, fique atento ao seu e-mail,
       enviaremos em
       até 24 horas os dados para realizar seu primeiro login no nosso portal, para conclusão do seu cadastro.`
-      : `Olá ${data.nome}, ocorreu um erro desconhecido ao realizar o seu cadastro, favor entrar em contato através do número (31) 3429-8100.`;
+      : mensagemErroPadrao;
   }
 }
 

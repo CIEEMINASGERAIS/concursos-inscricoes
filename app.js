@@ -61,24 +61,35 @@ app.use(express.static(path.resolve(__dirname, "public", "assets")));
 
 const whiteList = [
   "https://appcadastro.cieemg.org.br",
-  "http://localhost:8080"
+  "http://localhost:8080",
 ];
 
+// Origens null acontecem em webviews, Samsung Browser modo privado,
+// e navegação por file://. Permitimos explicitamente para não bloquear
+// o frontend legítimo, mas SEM usar o atalho `!origin` (que mascara
+// origens realmente desconhecidas e abre brecha de segurança).
 const corsOptions = {
   origin: function (origin, callback) {
-    if (whiteList.indexOf(origin) !== -1 || !origin) {
+    if (!origin || origin === "null" || whiteList.indexOf(origin) !== -1) {
       callback(null, true);
     } else {
       callback(new Error("Not allowed by CORS"));
     }
   },
   methods: ["GET", "POST", "OPTIONS"],
-  allowedHeaders: ["Content-Type"],
+  allowedHeaders: ["Content-Type", "X-Requested-With"],
+  exposedHeaders: ["x-request-id"],
+  maxAge: 86400,
+  optionsSuccessStatus: 204,
 };
 
 app.use(cors(corsOptions));
 app.use(
   helmet({
+    // Cross-Origin-Resource-Policy: same-site evita bloqueio em browsers
+    // Chromium-based (Samsung Browser) para recursos same-origin.
+    crossOriginResourcePolicy: { policy: "same-site" },
+    crossOriginOpenerPolicy: { policy: "same-origin" },
     contentSecurityPolicy: {
       directives: {
         defaultSrc: ["'self'"],
@@ -86,7 +97,7 @@ app.use(
         styleSrc: ["'self'", "https://cdn.jsdelivr.net", "https://fonts.googleapis.com"],
         connectSrc: ["'self'", "https://cdn.jsdelivr.net", "https://fonts.googleapis.com"],
         fontSrc: ["'self'", "https://fonts.gstatic.com", "data:"],
-        imgSrc: ["'self'", "data:"]
+        imgSrc: ["'self'", "data:"],
       },
     },
   })

@@ -105,12 +105,32 @@ function postClientLog(req, res) {
         ? body.message.slice(0, 200)
         : "CLIENT_LOG";
 
+    const context = body.context || {};
+
+    // Tags de busca rápida no PM2: tipoErro, labelErro, online, effectiveType
+    const enrichedContext = sanitizeContext({
+        ...context,
+        requestOrigin: req.headers.origin || null,
+        networkHints: {
+            online: context.online ?? null,
+            effectiveType: context.effectiveType ?? null,
+            downlinkMbps: context.downlinkMbps ?? null,
+            rttMs: context.rttMs ?? null,
+            saveData: context.saveData ?? null,
+            cookieEnabled: context.cookieEnabled ?? null,
+        },
+        tipoErro: context.tipoErro || null,
+        labelErro: context.labelErro || null,
+        tentativas: context.tentativa ?? context.attempts ?? null,
+        urlEndpoint: context.url || null,
+    });
+
     logger.log(level, message, {
         source: "frontend",
         rota: req.headers.referer || req.headers["x-page-url"] || null,
         navegador: req.headers["user-agent"] || null,
         url: body.url || req.headers["x-page-url"] || null,
-        contexto: sanitizeContext(body.context || {}),
+        contexto: enrichedContext,
     });
 
     return res.status(204).end();

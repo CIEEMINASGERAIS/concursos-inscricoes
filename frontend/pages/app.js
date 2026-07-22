@@ -14,6 +14,7 @@ const {
   dateTime
 } = require("../utils/util.js");
 const { clientLogger } = require("../utils/clientLogger.js");
+const { fetchJson, classifyFetchError, readNetworkDiagnostics } = require("../utils/http.js");
 
 async function takeData() {
 
@@ -176,45 +177,42 @@ async function takeData() {
 //   }
 // }
 async function postCadastroWithRetry(payload, maxTentativas = 5) {
-  let ultimoErro = null;
-
-  for (let tentativa = 1; tentativa <= maxTentativas; tentativa++) {
-    try {
-      const controller = new AbortController();
-      const timeout = setTimeout(() => controller.abort(), 15000);
-
-      const response = await fetch("/cadastrar", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(payload),
-        keepalive: true,
-        signal: controller.signal,
-      });
-
-      clearTimeout(timeout);
-
-      if (response.ok || (response.status >= 400 && response.status < 500)) {
-        return { ok: response.ok, status: response.status, body: await response.text() };
-      }
-
-      ultimoErro = new Error(`HTTP ${response.status}`);
-    } catch (error) {
-      ultimoErro = error;
-      clientLogger.warn("CADASTRO_TENTATIVA_FALHOU", {
-        tentativa,
+  try {
+    const resultado = await fetchJson("/cadastrar", {
+      method: "POST",
+      body: payload,
+      timeoutMs: 20000,
+      maxTentativas,
+      keepalive: false,
+      retryOn5xx: true,
+      contextoExtra: {
         cpf: payload.cpf,
-        mensagem: error?.message,
-      });
-    }
+        origem: "postCadastroWithRetry",
+        payloadBytes: JSON.stringify(payload).length,
+      },
+    });
 
-    if (tentativa < maxTentativas) {
-      await new Promise((r) => setTimeout(r, 1500 * tentativa));
-    }
+    return {
+      ok: resultado.ok,
+      status: resultado.status,
+      body: typeof resultado.data === "string" ? resultado.data : JSON.stringify(resultado.data || ""),
+      attempts: resultado.attempts,
+    };
+  } catch (error) {
+    const classification = error?.classification || classifyFetchError(error, "/cadastrar");
+
+    clientLogger.warn("CADASTRO_TENTATIVA_FALHOU", {
+      cpf: payload.cpf,
+      tentativaFinal: maxTentativas,
+      tipoErro: classification.tipo,
+      labelErro: classification.label,
+      mensagem: classification.mensagem,
+      nomeErro: error?.name,
+      ...readNetworkDiagnostics(),
+    });
+
+    throw Object.assign(error, { classification });
   }
-
-  throw ultimoErro;
 }
 
 async function sendData() {
@@ -227,11 +225,20 @@ async function sendData() {
     const bodyText = body || "";
     const bodyLower = bodyText.toLowerCase();
 
-    const isDuplicado = bodyLower.includes("já cadastrad") ||
+    // O backend pode responder com 400 (Validation error) OU 409 (UniqueConstraint)
+    // dependendo de qual camada do catch pegou o erro. Ambos significam "duplicado"
+    // quando o corpo menciona cpf/email "já cadastrado".
+    const isDuplicado =
+      bodyLower.includes("já cadastrad") ||
+      bodyLower.includes("já existe um cadastro") ||
       bodyLower.includes("duplicate") ||
       bodyLower.includes("unique constraint") ||
       bodyLower.includes("already exists") ||
       status === 409;
+
+    // Detecta especificamente erro de validação genérico do Sequelize
+    // (não confundir com duplicado).
+    const isValidationError = bodyLower.includes("validation error") && !isDuplicado;
 
     if (isDuplicado) {
       return {
@@ -250,6 +257,13 @@ async function sendData() {
     }
 
     if (status === 400) {
+      if (isValidationError) {
+        return {
+          tipo: "dados_invalidos",
+          titulo: "Dados inválidos",
+          mensagem: `Olá ${data.nome}, alguns dados informados não passaram na validação. Confira CPF, e-mail e demais campos e tente novamente. Em caso de dúvidas, ligue (31) 3429-8100.`,
+        };
+      }
       return {
         tipo: "dados_invalidos",
         titulo: tituloErroPadrao,
@@ -312,14 +326,17 @@ async function sendData() {
       document.querySelector(".message-final").innerHTML = erroCadastro.mensagem;
     }
   } catch (error) {
-    const isNetworkError = error?.message?.includes("Load failed") ||
-                           error?.name === "TypeError" ||
-                           error?.message?.includes("NetworkError");
+    const classification = error?.classification || classifyFetchError(error, "/cadastrar");
+    const isNetworkError = ["timeout", "rede", "mixed_content"].includes(classification.tipo);
 
-    clientLogger[isNetworkError ? "warn" : "error"]("CADASTRO_FALHA_REDE", {
+    clientLogger[isProvavelSucesso ? "warn" : "error"]("CADASTRO_FALHA_REDE", {
       cpf: data.cpf,
-      mensagem: error?.message,
-      tipo: isNetworkError ? "rede" : "desconhecido",
+      tipoErro: classification.tipo,
+      labelErro: classification.label,
+      mensagem: classification.mensagem,
+      nomeErro: error?.name,
+      attempts: error?.attempts || null,
+      ...readNetworkDiagnostics(),
     });
 
     document.querySelector(".alert").style.display = "flex";

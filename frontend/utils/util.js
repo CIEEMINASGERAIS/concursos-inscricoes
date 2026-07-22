@@ -322,10 +322,13 @@ const cpfInBd = async (cpf) => {
       cpfBd = opcoes.map((cpf) => cpf.cpf);
     } else {
       console.log("Erro na solicitação:", response.statusText);
+      return null;
     }
   } catch (error) {
+    // Falha de rede / abort não deve ser tratada como CPF já cadastrado.
+    // Retornamos null para que o caller saiba tratar de forma neutra.
     console.error("Erro:", error);
-    return false;
+    return null;
   }
 
   if (cpfBd.length > 0) {

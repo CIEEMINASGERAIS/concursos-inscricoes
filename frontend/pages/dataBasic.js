@@ -153,6 +153,8 @@ const initDataBasic = async () => {
 
     if (inputCpf) {
       let validate;
+      let cpfTimer = null;
+      let cpfInFlight = false;
 
       inputCpf.addEventListener("input", async (e) => {
         e.target.value = e.target.value.replace(/\D/g, "");
@@ -164,19 +166,39 @@ const initDataBasic = async () => {
 
         if (validate) {
           document.getElementById("msg-cpf").innerHTML = "";
-          const validateBd = await cpfInBd(e.target.value);
-          if (validateBd) {
-            formDataBasic.cpf = e.target.value;
+          // Só dispara a checagem no backend quando o usuário parou de digitar.
+          if (cpfTimer) clearTimeout(cpfTimer);
+          cpfTimer = setTimeout(async () => {
+            if (cpfInFlight) return;
+            cpfInFlight = true;
+            try {
+              const validateBd = await cpfInBd(e.target.value);
+              if (validateBd === null) {
+                // Falha de rede: aceita o CPF localmente; o backend fará a checagem final.
+                formDataBasic.cpf = e.target.value;
+                document.getElementById("msg-cpf").innerHTML = "";
+              } else if (validateBd) {
+                formDataBasic.cpf = e.target.value;
+                document.getElementById("msg-cpf").innerHTML = "";
+              } else {
+                document.getElementById("msg-cpf").innerHTML =
+                  "<p>CPF já cadastrado!</p>";
+                formDataBasic.cpf = false;
+              }
+            } finally {
+              cpfInFlight = false;
+            }
+          }, 400);
+        } else {
+          // Enquanto o usuário ainda digita, não marcamos como inválido.
+          const soDigitos = e.target.value.replace(/\D/g, "");
+          if (soDigitos.length < 11) {
+            delete formDataBasic.cpf;
             document.getElementById("msg-cpf").innerHTML = "";
           } else {
-            document.getElementById("msg-cpf").innerHTML =
-              "<p>CPF já cadastrado!</p>";
+            document.getElementById("msg-cpf").innerHTML = "<p>CPF inválido!</p>";
+            formDataBasic.cpf = false;
           }
-        } else {
-          e.preventDefault();
-          // Enviar para o HTML a mensagem de erro
-          document.getElementById("msg-cpf").innerHTML = "<p>CPF inválido!</p>";
-          formDataBasic.cpf = false;
         }
       });
     }
@@ -644,6 +666,11 @@ const initDataBasic = async () => {
     if (formData) {
       formData.addEventListener("submit", (e) => {
         e.preventDefault();
+        // Validação final do CPF no submit (cobre digitação sem debounce terminar).
+        const cpfCampo = document.querySelector(".cpf");
+        if (cpfCampo && !isCpf(cpfCampo.value)) {
+          formDataBasic.cpf = false;
+        }
         const invalidFields = Object.entries(formDataBasic)
           .filter(([, value]) => value === false)
           .map(([key]) => key);

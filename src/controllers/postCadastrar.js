@@ -23,6 +23,52 @@ const laudoUploadDir = path.resolve(__dirname, "..", "..", "public", "assets", "
 
 fs.mkdirSync(laudoUploadDir, { recursive: true });
 
+async function enviarEmailsPosCadastro(req, estudante, contextoBase) {
+    try {
+        logCadastroStep(req, "ENVIANDO_EMAIL", {
+            cadastroId: estudante.id,
+            destinatario: "estudante",
+        });
+        await enviandoEmail.emailASerEnviadoComum(req.body.email, req.body.nome, req.body.senha, {
+            ...contextoBase,
+            cadastroId: estudante.id,
+        });
+
+        logCadastroStep(req, "ENVIANDO_EMAIL", {
+            cadastroId: estudante.id,
+            destinatario: "presp",
+        });
+        await enviandoEmail.emailPresp(
+            req.body.nome,
+            req.body.telefone1,
+            req.body.telefone2,
+            req.body.email,
+            req.body.aprendiz,
+            req.body.responsavel,
+            req.body.escola_estudou,
+            req.body.imovel,
+            req.body.pessoas_por_residencia,
+            req.body.renda,
+            req.body.genero,
+            req.body.etnia,
+            req.body.tem_filhos,
+            req.body.situacao_judicial,
+            estudante.id,
+            req.body.cpf,
+            {
+                ...contextoBase,
+                cadastroId: estudante.id,
+            }
+        );
+    } catch (emailError) {
+        logger.error("ERRO_ENVIO_EMAIL_POS_CADASTRO", {
+            ...contextoBase,
+            cadastroId: estudante.id,
+            erro: emailError?.message,
+        });
+    }
+}
+
 // Estudante.hasOne(ProcessosEspeciais)
 // ProcessosEspeciais.belongsTo(Estudante)
 
@@ -35,6 +81,8 @@ async function postRegister(req, res) {
     });
 
     logger.info("INICIO_CADASTRO", contextoBase);
+
+    let transaction;
 
     try {
         logCadastroStep(req, "VALIDANDO_DADOS", {
@@ -69,7 +117,7 @@ async function postRegister(req, res) {
             const safeName = `${Date.now()}-${laudoNome || "laudo-medico"}`.replace(/[^a-zA-Z0-9._-]/g, "_");
             const filePath = path.join(laudoUploadDir, safeName);
 
-            fs.writeFileSync(filePath, Buffer.from(base64Data, "base64"));
+            await fs.promises.writeFile(filePath, Buffer.from(base64Data, "base64"));
             laudoUrl = `/uploads/laudos/${safeName}`;
         }
 
@@ -82,8 +130,10 @@ async function postRegister(req, res) {
         delete payload.laudo_deficiencia_nome;
         delete payload.laudo_deficiencia_tipo;
 
+        transaction = await sequelize.transaction();
+
         logCadastroStep(req, "SALVANDO_ESTUDANTE");
-        const novoEstudante = await Estudante.create(payload);
+        const novoEstudante = await Estudante.create(payload, { transaction });
 
         logCadastroStep(req, "SALVANDO_SOCIOECONOMICO", {
             cadastroId: novoEstudante.id,
@@ -101,46 +151,35 @@ async function postRegister(req, res) {
             genero: req.body.genero,
             etnia: req.body.etnia,
             situacao_judicial: req.body.situacao_judicial,
-        });
+        }, { transaction });
 
-        logCadastroStep(req, "ENVIANDO_EMAIL", {
-            cadastroId: novoEstudante.id,
-            destinatario: "estudante",
-        });
-        await enviandoEmail.emailASerEnviadoComum(req.body.email, req.body.nome, req.body.senha, contextoBase);
-
-        logCadastroStep(req, "ENVIANDO_EMAIL", {
-            cadastroId: novoEstudante.id,
-            destinatario: "presp",
-        });
-        await enviandoEmail.emailPresp(
-            req.body.nome,
-            req.body.telefone1,
-            req.body.telefone2,
-            req.body.email,
-            req.body.aprendiz,
-            req.body.responsavel,
-            req.body.escola_estudou,
-            req.body.imovel,
-            req.body.pessoas_por_residencia,
-            req.body.renda,
-            req.body.genero,
-            req.body.etnia,
-            req.body.tem_filhos,
-            req.body.situacao_judicial,
-            novoEstudante.id,
-            req.body.cpf,
-            contextoBase
-        );
+        await transaction.commit();
+        transaction = null;
 
         logCadastroStep(req, "CADASTRO_FINALIZADO", {
             cadastroId: novoEstudante.id,
+        });
+
+        // Envia e-mails em segundo plano para não bloquear o retorno do cadastro.
+        setImmediate(() => {
+            enviarEmailsPosCadastro(req, novoEstudante, contextoBase);
         });
 
         return res.json({
             mensagem: "Usuário cadastrado com sucesso!",
         });
     } catch (err) {
+        if (transaction) {
+            try {
+                await transaction.rollback();
+            } catch (rollbackError) {
+                logger.error("ERRO_ROLLBACK_CADASTRO", {
+                    ...contextoBase,
+                    erro: rollbackError?.message,
+                });
+            }
+        }
+
         if (err && err.name === "SequelizeValidationError") {
             const camposInvalidos = Array.isArray(err.errors)
                 ? err.errors.map((e) => ({ campo: e.path, mensagem: e.message }))

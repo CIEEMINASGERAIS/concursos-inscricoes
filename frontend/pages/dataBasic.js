@@ -172,18 +172,24 @@ const initDataBasic = async () => {
             if (cpfInFlight) return;
             cpfInFlight = true;
             try {
-              const validateBd = await cpfInBd(e.target.value);
-              if (validateBd === null) {
-                // Falha de rede: aceita o CPF localmente; o backend fará a checagem final.
+              const resultado = await cpfInBd(e.target.value);
+              if (resultado.status === "ok") {
                 formDataBasic.cpf = e.target.value;
                 document.getElementById("msg-cpf").innerHTML = "";
-              } else if (validateBd) {
-                formDataBasic.cpf = e.target.value;
-                document.getElementById("msg-cpf").innerHTML = "";
-              } else {
+              } else if (resultado.status === "duplicado") {
                 document.getElementById("msg-cpf").innerHTML =
-                  "<p>CPF já cadastrado!</p>";
+                  `<p>${resultado.mensagem || "CPF já cadastrado!"}</p>`;
                 formDataBasic.cpf = false;
+              } else if (resultado.status === "falha_rede") {
+                // Bloqueia avanço — não vamos submeter um cadastro que
+                // não conseguimos validar contra o banco.
+                document.getElementById("msg-cpf").innerHTML =
+                  `<p>${resultado.mensagem}</p>`;
+                formDataBasic.cpf = false;
+              } else {
+                // fallback defensivo
+                formDataBasic.cpf = e.target.value;
+                document.getElementById("msg-cpf").innerHTML = "";
               }
             } finally {
               cpfInFlight = false;

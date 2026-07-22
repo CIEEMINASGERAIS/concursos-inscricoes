@@ -1,5 +1,6 @@
 const validator = require("validator");
 const { clientLogger } = require("./clientLogger.js");
+const { fetchJson } = require("./http.js");
 
 const changeSubMainTitle = (text) => {
   const subTitle = document.querySelector(".sub-main-title h1");
@@ -312,30 +313,63 @@ const validaSegundoDigito = (cpf) => {
   return true;
 };
 
+/**
+ * cpfInBd
+ *
+ * Verifica se um CPF já está cadastrado no backend. Usa `fetchJson`
+ * (timeout + retry) para evitar o bug clássico do Samsung Browser / Safari
+ * iOS onde o `fetch` cru lança "Failed to fetch" e o caller não distingue
+ * "CPF disponível" de "não foi possível verificar".
+ *
+ * @param {string} cpf - CPF já formatado (com pontos e traço)
+ * @returns {Promise<{status: "ok"|"duplicado"|"falha_rede", mensagem?: string}>}
+ */
 const cpfInBd = async (cpf) => {
-  let cpfBd = [];
-
   try {
-    const response = await fetch(`/verificarEstudante?termo=${cpf}`);
-    if (response.ok) {
-      const opcoes = await response.json();
-      cpfBd = opcoes.map((cpf) => cpf.cpf);
-    } else {
-      console.log("Erro na solicitação:", response.statusText);
-      return null;
+    const resultado = await fetchJson(`/verificarEstudante?termo=${encodeURIComponent(cpf)}`, {
+      method: "GET",
+      timeoutMs: 8000,
+      maxTentativas: 3,
+      retryOn5xx: true,
+      logErros: false,
+      contextoExtra: {
+        origem: "cpfInBd",
+        cpfMascarado: cpf ? `***.***.${cpf.slice(-5)}` : null,
+      },
+    });
+
+    if (!resultado.ok) {
+      clientLogger.warn("CPF_VERIFICACAO_ERRO_HTTP", {
+        status: resultado.status,
+        cpfMascarado: cpf ? `***.***.${cpf.slice(-5)}` : null,
+      });
+      return {
+        status: "falha_rede",
+        mensagem: "Não foi possível verificar o CPF agora. Verifique sua conexão e tente novamente.",
+      };
     }
+
+    const opcoes = Array.isArray(resultado.data) ? resultado.data : [];
+    const existe = opcoes.length > 0;
+
+    return existe
+      ? { status: "duplicado", mensagem: "CPF já cadastrado!" }
+      : { status: "ok" };
   } catch (error) {
-    // Falha de rede / abort não deve ser tratada como CPF já cadastrado.
-    // Retornamos null para que o caller saiba tratar de forma neutra.
-    console.error("Erro:", error);
-    return null;
-  }
+    // fetch esgotou as tentativas com erro de rede (Failed to fetch / timeout / aborted).
+    // NÃO retornamos "ok" silenciosamente — o caller deve bloquear o avanço
+    // e pedir para o usuário tentar novamente.
+    clientLogger.warn("CPF_VERIFICACAO_FALHA_REDE", {
+      cpfMascarado: cpf ? `***.***.${cpf.slice(-5)}` : null,
+      mensagem: error?.message,
+      nomeErro: error?.name,
+    });
 
-  if (cpfBd.length > 0) {
-    return false;
+    return {
+      status: "falha_rede",
+      mensagem: "Não foi possível verificar o CPF agora. Verifique sua conexão e tente novamente.",
+    };
   }
-
-  return true;
 };
 
 const isEstadoCivil = (estadoCivil) => {

@@ -29,11 +29,22 @@ module.exports = (sequelize, DataTypes) => {
             msg: "Esse campo não pode ser vazio.",
           },
           notNull: { msg: "O campo nome precisa ser preenchido" },
-          len: {
-            args: [3, 255],
-            msg: "Esse campo deve ter 3 e 255 caracteres.",
+          // Validação customizada que faz trim() antes de medir o tamanho,
+          // evitando que " Jo " (4 chars com 3 espaços) ou "Jo" (2 chars)
+          // passem a regra len:[3,255] quando na verdade são inválidos.
+          validacaoNome(value) {
+            if (typeof value !== "string") {
+              throw new Error("Esse campo deve ter 3 e 255 caracteres.");
+            }
+            const trimmed = value.trim();
+            const semEspacos = trimmed.replace(/\s+/g, "");
+            if (semEspacos.length < 3 || semEspacos.length > 255) {
+              throw new Error("Esse campo deve ter 3 e 255 caracteres.");
+            }
+            if (/[0-9]/.test(trimmed)) {
+              throw new Error("Esse campo não pode conter números.");
+            }
           },
-          is: /^[^0-9]*$/,
         },
       },
       cpf: {

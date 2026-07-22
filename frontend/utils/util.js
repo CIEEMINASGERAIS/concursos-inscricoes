@@ -21,16 +21,17 @@ const changeMains = (nameClass) => {
 };
 
 const isNome = (nome) => {
+  if (typeof nome !== "string") return false;
+
   nome = nome.trim();
 
-  let nomeSemEspaco = nome.replace(" ", "");
+  // Remove TODOS os espaços (não só o primeiro) para checar tamanho real.
+  const nomeSemEspaco = nome.replace(/\s+/g, "");
 
   if (
     nome.length === 0 ||
-    nomeSemEspaco === nome ||
     nomeSemEspaco.length === 0 ||
     nomeSemEspaco.length < 3
-    // Depois tem que fazer uma regra para o numero de letras em cada nome
   ) {
     return false;
   }

@@ -93,7 +93,11 @@ const initDataBasic = async () => {
 
         if (validate) {
           document.getElementById("msg-nome").innerHTML = "";
-          return (formDataBasic.nome = e.target.value);
+          // Persistir SEM espaços nas pontas — o backend valida len:[3,255]
+          // contando caracteres brutos, então "  João Silva  " (15) passaria,
+          // mas " João " (6) pode falhar em outras regras (regex sem número).
+          // Trim aqui garante paridade com a validação do backend.
+          return (formDataBasic.nome = e.target.value.trim());
         } else {
           e.preventDefault();
           // Enviar para o HTML a mensagem de erro

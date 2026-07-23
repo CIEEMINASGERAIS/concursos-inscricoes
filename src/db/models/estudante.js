@@ -598,11 +598,26 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING(255),
         allowNull: true,
         validate: {
-          len: {
-            args: [3, 255],
-            msg: "Esse campo deve ter 3 e 255 caracteres.",
+          // Quando o usuário NÃO marcou o checkbox "usar nome social",
+          // o frontend envia string vazia. Aceitar sem reclamar.
+          // Quando MARCOU, o frontend garante >=3 chars reais via isNome.
+          // Este custom validator substitui o len:[3,255] padrão do Sequelize
+          // (cuja mensagem default vaza no log: "Esse campo deve ter 3 e 255 caracteres").
+          custom(valor) {
+            if (valor === null || valor === undefined) return;
+            if (typeof valor !== "string") {
+              throw new Error("Nome social inválido.");
+            }
+            const trimmed = valor.trim();
+            if (trimmed.length === 0) return; // vazio = não usa nome social
+            const semEspaco = trimmed.replace(/\s+/g, "");
+            if (semEspaco.length < 3) {
+              throw new Error("Nome social deve ter ao menos 3 letras.");
+            }
+            if (/[0-9]/.test(trimmed)) {
+              throw new Error("Nome social não pode conter números.");
+            }
           },
-          is: /^[^0-9]*$/,
         },
       },
       instagram: {

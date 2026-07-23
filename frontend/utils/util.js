@@ -327,7 +327,7 @@ const validaSegundoDigito = (cpf) => {
  */
 const cpfInBd = async (cpf) => {
   try {
-    const resultado = await fetchJson(`/verificarEstudante?termo=${encodeURIComponent(cpf)}`, {
+    const resultado = await fetchJson(`/verificarEstudante?cpf=${encodeURIComponent(cpf)}`, {
       method: "GET",
       timeoutMs: 8000,
       maxTentativas: 3,
@@ -350,8 +350,14 @@ const cpfInBd = async (cpf) => {
       };
     }
 
-    const opcoes = Array.isArray(resultado.data) ? resultado.data : [];
-    const existe = opcoes.length > 0;
+    // Backend corrigido agora retorna { existe: boolean, cpf }.
+    // Mantemos fallback pro formato antigo (array) por compatibilidade.
+    let existe = false;
+    if (resultado.data && typeof resultado.data === "object" && !Array.isArray(resultado.data)) {
+      existe = Boolean(resultado.data.existe);
+    } else if (Array.isArray(resultado.data)) {
+      existe = resultado.data.length > 0;
+    }
 
     return existe
       ? { status: "duplicado", mensagem: "CPF já cadastrado!" }

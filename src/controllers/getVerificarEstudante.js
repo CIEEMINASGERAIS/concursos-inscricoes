@@ -9,24 +9,29 @@ const { handleControllerError } = require("../utils/controllerError");
 const Estudante = require("../db/models/estudante")(sequelize, DataTypes);
 
 async function verificarEstudante(req, res) {
-    const termoPesquisa = req.query.termo;
+    // Aceita tanto ?cpf=XXX quanto ?termo=XXX (legado).
+    // Antes lia só req.query.termo, mas o frontend chama com ?cpf=,
+    // então retornava sempre [] e o frontend não detectava duplicado.
+    const termoPesquisa = (req.query.cpf || req.query.termo || "").toString().trim();
+
+    if (!termoPesquisa) {
+        return res.status(400).json({
+            erro: "CPF/termo não informado.",
+        });
+    }
 
     try {
-        const data = await Estudante.findAll({
+        const estudante = await Estudante.findOne({
             attributes: ["cpf"],
             where: {
-                cpf: {
-                    [Op.eq]: `${termoPesquisa}`,
-                },
+                cpf: termoPesquisa,
             },
-            limit: 1,
         });
-        const opcoes = data.map((estudante) => {
-            return {
-                cpf: estudante.cpf,
-            };
+
+        return res.json({
+            existe: Boolean(estudante),
+            cpf: termoPesquisa,
         });
-        res.json(opcoes);
     } catch (error) {
         return handleControllerError(req, res, error, {
             status: 500,

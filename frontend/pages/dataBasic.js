@@ -123,7 +123,10 @@ const initDataBasic = async () => {
         } else {
           const div = document.querySelector("#div-nome-social")
           div.remove()
-          formDataBasic.nome_social = ""
+          // Marcar explicitamente como "não usa nome social".
+          // Antes era "" (string vazia), que passava do check !== false
+          // e ia pro backend, disparando o validator len:[3,255] do Sequelize.
+          formDataBasic.nome_social = false
         }
       }
     })

@@ -11,6 +11,7 @@ const path = require("path");
 
 const cursoRoutes = require('./routes/cursoRoute')
 const requestLogger = require('./src/middlewares/requestLogger');
+const idempotencyMiddleware = require('./src/middlewares/idempotency').idempotencyMiddleware;
 const errorHandler = require('./src/middlewares/errorHandler');
 const { logger } = require('./src/utils/logger');
 
@@ -56,6 +57,9 @@ app.set("view engine", "ejs");
 app.use(express.json({ limit: "25mb" }));
 
 app.use(requestLogger);
+// Idempotency precisa rodar ANTES do controller mas DEPOIS do requestLogger
+// (que popula req.requestId). Só POSTs são cacheados — GETs passam direto.
+app.use(idempotencyMiddleware);
 
 app.use(express.static(path.resolve(__dirname, "public", "assets")));
 

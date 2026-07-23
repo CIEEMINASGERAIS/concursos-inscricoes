@@ -176,11 +176,38 @@ async function takeData() {
 //     console.log("Erro: ", error);
 //   }
 // }
+// Gera (ou reaproveita) um ID único por TENTATIVA de cadastro do usuário.
+// Esse ID é enviado no header X-Request-ID. Se o backend receber o MESMO
+// header dentro de 5 min, retorna 200 com a resposta cacheada em vez de
+// processar de novo — eliminando cadastro duplicado por "Failed to fetch"
+// seguido de retry.
+function obterOuGerarRequestId(cpf) {
+    const storageKey = `cadastro_request_id:${cpf}`;
+    let id = null;
+    try {
+        id = sessionStorage.getItem(storageKey);
+    } catch {
+        id = null;
+    }
+
+    if (!id) {
+        id = `web-${Date.now()}-${Math.random().toString(36).slice(2, 10)}`;
+        try {
+            sessionStorage.setItem(storageKey, id);
+        } catch {
+            // sessionStorage indisponível (modo privado extremo). Fallback ok.
+        }
+    }
+    return id;
+}
+
 async function postCadastroWithRetry(payload, maxTentativas = 5) {
   try {
+    const requestId = obterOuGerarRequestId(payload.cpf);
     const resultado = await fetchJson("/cadastrar", {
       method: "POST",
       body: payload,
+      headers: { "X-Request-ID": requestId },
       timeoutMs: 20000,
       maxTentativas,
       keepalive: false,
@@ -189,14 +216,20 @@ async function postCadastroWithRetry(payload, maxTentativas = 5) {
         cpf: payload.cpf,
         origem: "postCadastroWithRetry",
         payloadBytes: JSON.stringify(payload).length,
+        requestId,
       },
     });
+
+    // Se o backend sinalizou replay idempotente, marcar como sucesso
+    // silencioso (sem erro de UI) — significa que o cadastro JÁ foi feito.
+    const foiReplay = resultado.headersReplay || resultado.replay;
 
     return {
       ok: resultado.ok,
       status: resultado.status,
       body: typeof resultado.data === "string" ? resultado.data : JSON.stringify(resultado.data || ""),
       attempts: resultado.attempts,
+      replay: foiReplay,
     };
   } catch (error) {
     const classification = error?.classification || classifyFetchError(error, "/cadastrar");
@@ -301,6 +334,13 @@ async function sendData() {
     const resultado = await postCadastroWithRetry(data);
 
     if (resultado.ok) {
+      // Limpa o requestId cacheado: cadastro concluído, próximo submit
+      // deve poder gerar novo ID.
+      try {
+        sessionStorage.removeItem(`cadastro_request_id:${data.cpf}`);
+      } catch {
+        // ignore
+      }
       document.querySelector(".alert").style.display = "flex";
       document.querySelector(".title-cadastro").innerHTML = `Cadastro concluído!`;
       document.querySelector(".data-erro").innerHTML = `<p>${date} v - 1.1.1</p>`;
@@ -328,6 +368,14 @@ async function sendData() {
   } catch (error) {
     const classification = error?.classification || classifyFetchError(error, "/cadastrar");
     const isNetworkError = ["timeout", "rede", "mixed_content"].includes(classification.tipo);
+
+    // CORREÇÃO: isProvavelSucesso era undefined (ReferenceError silencioso
+    // engolido pelo try/catch). Como o backend tem idempotency middleware
+    // respondendo 200 com a resposta cacheada em retentativas, podemos
+    // SIM assumir que falha de rede com timeout longo = provável sucesso
+    // (request pode ter chegado no backend e sido processado).
+    // Default: warn (não error) para não poluir logs de PM2 com falsos erros.
+    const isProvavelSucesso = isNetworkError;
 
     clientLogger[isProvavelSucesso ? "warn" : "error"]("CADASTRO_FALHA_REDE", {
       cpf: data.cpf,

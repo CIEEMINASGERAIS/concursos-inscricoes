@@ -38,28 +38,34 @@ async function enviarEmailsPosCadastro(req, estudante, contextoBase) {
             cadastroId: estudante.id,
             destinatario: "presp",
         });
-        await enviandoEmail.emailPresp(
-            req.body.nome,
-            req.body.telefone1,
-            req.body.telefone2,
-            req.body.email,
-            req.body.aprendiz,
-            req.body.responsavel,
-            req.body.escola_estudou,
-            req.body.imovel,
-            req.body.pessoas_por_residencia,
-            req.body.renda,
-            req.body.genero,
-            req.body.etnia,
-            req.body.tem_filhos,
-            req.body.situacao_judicial,
-            estudante.id,
-            req.body.cpf,
-            {
-                ...contextoBase,
-                cadastroId: estudante.id,
-            }
-        );
+        // O e-mail para o PRESP dependia de varios campos da avaliacao
+        // social (aprendiz, responsavel, escola_estudou, imovel, etc.)
+        // que foram removidos do fluxo. Para nao enviar dados
+        // quebrados, deixamos o envio desativado ate que o template
+        // seja adaptado (ou a avaliacao social volte a ser obrigatoria).
+        // TODO: reativar quando a regra de negocio for revista.
+        // await enviandoEmail.emailPresp(
+        //     req.body.nome,
+        //     req.body.telefone1,
+        //     req.body.telefone2,
+        //     req.body.email,
+        //     req.body.aprendiz,
+        //     req.body.responsavel,
+        //     req.body.escola_estudou,
+        //     req.body.imovel,
+        //     req.body.pessoas_por_residencia,
+        //     req.body.renda,
+        //     req.body.genero,
+        //     req.body.etnia,
+        //     req.body.tem_filhos,
+        //     req.body.situacao_judicial,
+        //     estudante.id,
+        //     req.body.cpf,
+        //     {
+        //         ...contextoBase,
+        //         cadastroId: estudante.id,
+        //     }
+        // );
     } catch (emailError) {
         logger.error("ERRO_ENVIO_EMAIL_POS_CADASTRO", {
             ...contextoBase,
@@ -126,6 +132,14 @@ async function postRegister(req, res) {
             laudo_deficiencia: laudoUrl,
         };
 
+        // O frontend antigo definia `enviar_email` na tela de avaliação
+        // social (removida do fluxo). Como o campo é `allowNull: false`
+        // no model, garantimos um default aqui para nao quebrar o
+        // cadastro. 1 = envia e-mail de confirmação; 2 = nao envia.
+        if (payload.enviar_email === undefined || payload.enviar_email === null) {
+            payload.enviar_email = 1;
+        }
+
         delete payload.laudo_deficiencia_base64;
         delete payload.laudo_deficiencia_nome;
         delete payload.laudo_deficiencia_tipo;
@@ -135,23 +149,12 @@ async function postRegister(req, res) {
         logCadastroStep(req, "SALVANDO_ESTUDANTE");
         const novoEstudante = await Estudante.create(payload, { transaction });
 
-        logCadastroStep(req, "SALVANDO_SOCIOECONOMICO", {
-            cadastroId: novoEstudante.id,
-        });
-
-        await SocioEconomico.create({
-            estudante_id: novoEstudante.id,
-            aprendiz: req.body.aprendiz,
-            responsavel: req.body.responsavel,
-            imovel: req.body.imovel,
-            pessoas_por_residencia: req.body.pessoas_por_residencia,
-            tem_filhos: req.body.tem_filhos,
-            escola_estudou: req.body.escola_estudou,
-            renda: req.body.renda,
-            genero: req.body.genero,
-            etnia: req.body.etnia,
-            situacao_judicial: req.body.situacao_judicial,
-        }, { transaction });
+        // A tabela socio_economico deixou de fazer parte do cadastro
+        // obrigatorio. Os campos sao preenchidos em fluxo separado
+        // (ou nunca sao preenchidos, dependendo da regra de negocio).
+        // Por isso NAO criamos o SocioEconomico aqui: os campos
+        // obrigatorios quebrariam o cadastro se o usuario nao
+        // preencher a tela (que foi removida do fluxo).
 
         await transaction.commit();
         transaction = null;

@@ -640,8 +640,8 @@ module.exports = (sequelize, DataTypes) => {
     {
       timestamps: false,
       sequelize,
-      modelName: "estudante",
-      tableName: "estudante",
+      modelName: "concurso_inscritos",
+      tableName: "concurso_inscritos",
     }
   );
 

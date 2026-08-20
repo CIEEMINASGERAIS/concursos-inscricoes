@@ -4,8 +4,35 @@ const { fetchJson } = require("./http.js");
 
 const changeSubMainTitle = (text) => {
   const subTitle = document.querySelector(".sub-main-title h1");
+  if (subTitle) {
+    subTitle.innerText = text;
+  }
+};
 
-  return (subTitle.innerText = text);
+// Helper tolerante a elementos ausentes: retorna o node OU null sem
+// lançar. Usado por fluxos onde o markup de "alerta" foi removido do
+// template, mas o JS legado ainda tenta manipulá-lo.
+const safeQuerySelector = (selector) => {
+  try {
+    return document.querySelector(selector);
+  } catch (err) {
+    return null;
+  }
+};
+
+// Mostra o card de feedback (.alert) de forma idempotente. Usa a
+// classe `.show` (display: flex) em vez de style.display para
+// garantir a visibilidade mesmo se houver cache antigo. O botao
+// "Confirmar" dentro do proprio card leva o usuario para o site
+// do CIEE (padrao da versao antiga).
+const showAlert = () => {
+  const el = safeQuerySelector(".alert");
+  if (el) el.classList.add("show");
+};
+
+const hideAlert = () => {
+  const el = safeQuerySelector(".alert");
+  if (el) el.classList.remove("show");
 };
 
 const changeMains = (nameClass) => {
@@ -1163,6 +1190,9 @@ module.exports = {
   isNome,
   changeMains,
   changeSubMainTitle,
+  safeQuerySelector,
+  showAlert,
+  hideAlert,
   isCtps,
   isNaturalidadeNacionalidade,
   isEstadoCivil,

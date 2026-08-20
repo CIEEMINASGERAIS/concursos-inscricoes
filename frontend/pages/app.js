@@ -3,26 +3,35 @@ const termsAndConditions = require("./terms-and-conditions.js");
 const initAddress = require("./address.js");
 const initDataBasic = require("./dataBasic.js");
 const createFormSchoolData = require("./schoolData.js");
-const socioEconomic = require("./socioEconomic.js");
-// const { ProgramasEmCurso } = require("./programasEmCurso.js")
 const {
   conferirFormAddress,
   conferirFormBasic,
   changeMains,
   changeSubMainTitle,
   conferirFormSchool,
-  dateTime
+  dateTime,
+  safeQuerySelector,
+  showAlert,
+  hideAlert,
 } = require("../utils/util.js");
 const { clientLogger } = require("../utils/clientLogger.js");
 const { fetchJson, classifyFetchError, readNetworkDiagnostics } = require("../utils/http.js");
 
+// Referências mantidas no escopo do módulo para que `schoolData.js`
+// consiga montar o payload completo quando o usuário clicar em
+// "Finalizar" na última etapa (não usamos mais a página de
+// avaliação social).
+let _termsConditions = {};
+let _formData = {};
+let _formAddress = {};
+
 async function takeData() {
-
-
   const callMain = main();
   const termsConditions = await termsAndConditions();
+  _termsConditions = termsConditions;
 
   const formData = await initDataBasic();
+  _formData = formData;
   let validateFormBasic;
   document.addEventListener("click", function (event) {
     const element = event.target;
@@ -47,6 +56,7 @@ async function takeData() {
   });
 
   const formAddress = await initAddress();
+  _formAddress = formAddress;
   let validateFormAddress;
   document.addEventListener("click", function (event) {
     const element = event.target;
@@ -70,58 +80,11 @@ async function takeData() {
     }
   });
 
-  const formSchoolData = await createFormSchoolData();
-  let validateFormSchool;
-  document.addEventListener("click", function (event) {
-    const element = event.target;
-
-    validateFormSchool = false;
-
-    validateFormSchool = conferirFormSchool(formSchoolData);
-
-    if (validateFormSchool && validateFormAddress && validateFormBasic) {
-      if (
-        element.classList.contains("big-socio-economic") ||
-        element.classList.contains("button-socio-economic")
-      ) {
-        changeMains(".screen-socio-economic");
-        changeSubMainTitle("Formulário Socioeconômico");
-      }
-    } else {
-      if (element.classList.contains("main")) {
-        event.preventDefault();
-      }
-    }
-  });
-
-  const dataEconomy = await socioEconomic();
-
-  let validateFormSocioEconomic;
-  document.addEventListener("click", function (event) {
-    const element = event.target;
-
-    validateFormSocioEconomic = false;
-
-    validateFormSocioEconomic = conferirFormSchool(dataEconomy);
-
-    if (validateFormSchool && validateFormAddress && validateFormBasic && validateFormSocioEconomic) {
-
-    } else {
-      if (element.classList.contains("main")) {
-        event.preventDefault();
-      }
-    }
-  });
-
-  const allData = await {
-    ...termsConditions,
-    ...formData,
-    ...formAddress,
-    ...formSchoolData,
-    ...dataEconomy,
-  };
-
-  return allData;
+  await createFormSchoolData();
+  // A página "Dados Acadêmicos" é a ÚLTIMA etapa do cadastro.
+  // Nada mais acontece no `takeData` — o submit de schoolData
+  // chama `enviarCadastro` diretamente, que monta o payload
+  // com tudo o que já foi coletado.
 }
 
 // async function sendData() {
@@ -248,8 +211,24 @@ async function postCadastroWithRetry(payload, maxTentativas = 5) {
   }
 }
 
-async function sendData() {
-  const data = await takeData();
+async function enviarCadastro(dataFormSchool) {
+  // Monta o payload final a partir dos 4 forms já coletados (terms,
+  // dados básicos, endereço, dados acadêmicos). Não usamos mais a
+  // página de avaliação social.
+  const data = {
+    ..._termsConditions,
+    ..._formData,
+    ..._formAddress,
+    ...(dataFormSchool || {}),
+  };
+
+  // Campo obrigatório no model Estudante, antes definido pela tela
+  // de avaliação social (removida). Default = 1 (envia e-mail de
+  // confirmação). Pode ser sobrescrito se o backend ou um fluxo
+  // futuro quiser desativar.
+  if (data.enviar_email === undefined || data.enviar_email === null) {
+    data.enviar_email = 1;
+  }
   const date = dateTime();
   const tituloErroPadrao = "Falha ao Realizar Cadastro.";
   const mensagemErroPadrao = `Olá ${data.nome}, ocorreu um erro desconhecido ao realizar o seu cadastro, favor entrar em contato através do número (31) 3429-8100.`;
@@ -324,11 +303,22 @@ async function sendData() {
     cpf: data.cpf,
   });
 
-  document.querySelector(".alert").style.display = "flex";
-  document.querySelector(".title-cadastro").innerHTML = `Carregando...`;
-  document.querySelector(".data-erro").innerHTML = ``;
-  document.querySelector(".message-final").innerHTML =
-    `Olá ${data.nome}, estamos finalizando o seu cadastro, aguarde um momento.`;
+  const alertEl = safeQuerySelector(".alert");
+  const titleEl = safeQuerySelector(".title-cadastro");
+  const dataErroEl = safeQuerySelector(".data-erro");
+  const messageEl = safeQuerySelector(".message-final");
+  const subMainTitleEl = safeQuerySelector(".sub-main-title");
+
+  showAlert();
+  // Esconde o título "Cadastro finalizado" da barra superior quando o
+  // card detalhado de feedback entra em cena, para evitar sobreposição.
+  if (subMainTitleEl) subMainTitleEl.style.display = "none";
+  if (titleEl) titleEl.innerHTML = `Carregando...`;
+  if (dataErroEl) dataErroEl.innerHTML = ``;
+  if (messageEl) {
+    messageEl.innerHTML =
+      `Olá ${data.nome}, estamos finalizando o seu cadastro, aguarde um momento.`;
+  }
 
   try {
     const resultado = await postCadastroWithRetry(data);
@@ -341,13 +331,15 @@ async function sendData() {
       } catch {
         // ignore
       }
-      document.querySelector(".alert").style.display = "flex";
-      document.querySelector(".title-cadastro").innerHTML = `Cadastro concluído!`;
-      document.querySelector(".data-erro").innerHTML = `<p>${date} v - 1.1.1</p>`;
-      document.querySelector(".message-final").innerHTML =
-        `Olá ${data.nome}, parabéns por finalizar a primeira etapa do seu cadastro, fique atento ao seu e-mail,
+      showAlert();
+      if (titleEl) titleEl.innerHTML = `Cadastro concluído!`;
+      if (dataErroEl) dataErroEl.innerHTML = `<p>${date} v - 1.1.1</p>`;
+      if (messageEl) {
+        messageEl.innerHTML =
+          `Olá ${data.nome}, parabéns por finalizar a primeira etapa do seu cadastro, fique atento ao seu e-mail,
       enviaremos em
       até 24 horas os dados para realizar seu primeiro login no nosso portal, para conclusão do seu cadastro.`;
+      }
     } else {
       const erroCadastro = parseErroBackend(resultado.status, resultado.body);
 
@@ -358,12 +350,13 @@ async function sendData() {
         tipoErro: erroCadastro.tipo,
       });
 
-      document.querySelector(".alert").style.display = "flex";
-      document.querySelector(".title-cadastro").innerHTML = erroCadastro.titulo;
-      document.querySelector(".data-erro").innerHTML =
-        `<p>${date} - status ${resultado.status}</p>`;
-
-      document.querySelector(".message-final").innerHTML = erroCadastro.mensagem;
+      showAlert();
+      if (titleEl) titleEl.innerHTML = erroCadastro.titulo;
+      if (dataErroEl) {
+        dataErroEl.innerHTML =
+          `<p>${date} - status ${resultado.status}</p>`;
+      }
+      if (messageEl) messageEl.innerHTML = erroCadastro.mensagem;
     }
   } catch (error) {
     const classification = error?.classification || classifyFetchError(error, "/cadastrar");
@@ -387,17 +380,33 @@ async function sendData() {
       ...readNetworkDiagnostics(),
     });
 
-    document.querySelector(".alert").style.display = "flex";
-    document.querySelector(".title-cadastro").innerHTML =
-      isNetworkError ? `Cadastro concluído!` : tituloErroPadrao;
-    document.querySelector(".data-erro").innerHTML = `<p>${date} v - 1.1.1</p>`;
+    showAlert();
+    if (titleEl) {
+      titleEl.innerHTML =
+        isNetworkError ? `Cadastro concluído!` : tituloErroPadrao;
+    }
+    if (dataErroEl) dataErroEl.innerHTML = `<p>${date} v - 1.1.1</p>`;
 
-    document.querySelector(".message-final").innerHTML = isNetworkError
-      ? `Olá ${data.nome}, parabéns por finalizar a primeira etapa do seu cadastro, fique atento ao seu e-mail,
+    if (messageEl) {
+      messageEl.innerHTML = isNetworkError
+        ? `Olá ${data.nome}, parabéns por finalizar a primeira etapa do seu cadastro, fique atento ao seu e-mail,
       enviaremos em
       até 24 horas os dados para realizar seu primeiro login no nosso portal, para conclusão do seu cadastro.`
-      : mensagemErroPadrao;
+        : mensagemErroPadrao;
+    }
   }
 }
 
-sendData();
+// Disparado pelo submit da tela "Dados Acadêmicos" (schoolData.js).
+// A tela de avaliação social foi removida do fluxo.
+takeData()
+  .then(() => {
+    // Nada a fazer aqui — o submit de schoolData aciona enviarCadastro().
+  })
+  .catch((err) => {
+    clientLogger.error("FALHA_INICIALIZACAO_FLUXO", {
+      mensagem: err?.message,
+    });
+  });
+
+module.exports = { enviarCadastro, takeData };

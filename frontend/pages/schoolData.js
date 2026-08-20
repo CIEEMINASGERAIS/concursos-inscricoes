@@ -13,6 +13,18 @@ const {
   erroSelectSchool,
 } = require("../utils/util");
 
+// Importação lazy para evitar ciclo de require entre schoolData.js e
+// app.js (app.js importa createFormSchoolData, e este módulo exporta
+// enviarCadastro que schoolData.js consome).
+let _enviarCadastro = null;
+function getEnviarCadastro() {
+  if (_enviarCadastro) return _enviarCadastro;
+  // eslint-disable-next-line global-require
+  const app = require("./app.js");
+  _enviarCadastro = app.enviarCadastro;
+  return _enviarCadastro;
+}
+
 const generator = require("generate-password");
 const { clientLogger } = require("../utils/clientLogger.js");
 
@@ -486,9 +498,12 @@ async function createFormSchoolData() {
           const today = new Date();
           dataFormSchool.ano = today.getFullYear();
           dataFormSchool.senha = password;
-          changeMains(".screen-socio-economic");
-          changeSubMainTitle("Formulário Socioeconômico");
+          changeMains(".screen-main");
+          changeSubMainTitle("Cadastro finalizado");
           resolve(dataFormSchool);
+          // Disparado fora da Promise para não impactar o resolution chain
+          // caso enviarCadastro retorne rejeição.
+          getEnviarCadastro()(dataFormSchool);
         } else {
           erroSelectSchool(".form-school-data select", dataFormSchool.previsao_ano)
           removerMensagem("msg-fracasso-school");

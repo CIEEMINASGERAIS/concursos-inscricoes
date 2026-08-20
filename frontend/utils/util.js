@@ -20,18 +20,19 @@ const safeQuerySelector = (selector) => {
   }
 };
 
-// Mostra o card de feedback (.alert) de forma idempotente. Usa a
-// classe `.show` (display: flex) em vez de style.display para
+// Mostra o card de feedback (.alert-cadastro) de forma idempotente.
+// Usa a classe `.show` (display: flex) em vez de style.display para
 // garantir a visibilidade mesmo se houver cache antigo. O botao
 // "Confirmar" dentro do proprio card leva o usuario para o site
-// do CIEE (padrao da versao antiga).
+// do CIEE (padrao da versao antiga). Usa `.alert-cadastro` (e nao
+// `.alert`) para nao colidir com a `.alert` do schoolData.css.
 const showAlert = () => {
-  const el = safeQuerySelector(".alert");
+  const el = safeQuerySelector(".alert-cadastro");
   if (el) el.classList.add("show");
 };
 
 const hideAlert = () => {
-  const el = safeQuerySelector(".alert");
+  const el = safeQuerySelector(".alert-cadastro");
   if (el) el.classList.remove("show");
 };
 

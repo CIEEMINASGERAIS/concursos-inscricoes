@@ -19,46 +19,52 @@
 
 /* Popup de feedback do cadastro (padrao antigo, sem overlay
    escuro, com botao "Confirmar" que leva para o site do CIEE).
-   Escondido por padrao. Mostrado pelo JS via classe `.show`. */
-.alert {
+   Escondido por padrao. Mostrado pelo JS via classe `.show`.
+   Classe namespace-safe (.alert-cadastro) para nao colidir
+   com a `.alert` do schoolData.css. */
+.alert-cadastro {
   display: none;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   text-align: center;
-  margin: 3rem auto;
   background-color: #ffffff;
   outline: 2px solid gray;
   width: 90%;
-  padding: 1rem;
+  max-width: 720px;
+  padding: 1rem 1.5rem;
   border-radius: 0.8rem;
-  position: relative;
-  z-index: 10;
+  /* Centralizado vertical e horizontalmente na viewport */
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 9999;
 }
 
-.alert.show {
+.alert-cadastro.show {
   display: flex;
 }
 
-.alert .title-cadastro {
+.alert-cadastro .title-cadastro {
   font-size: 1.2em;
   font-weight: 700;
   margin: 1rem auto 0rem auto;
 }
 
-.alert .message-final {
+.alert-cadastro .message-final {
   margin: 1rem auto;
   font-size: 1em;
   line-height: 1.5;
 }
 
-.alert .data-erro {
+.alert-cadastro .data-erro {
   font-size: 0.85rem;
   color: #6b7a90;
   margin-top: 0.5rem;
 }
 
-.alert .data-erro p {
+.alert-cadastro .data-erro p {
   margin: 0;
 }
 

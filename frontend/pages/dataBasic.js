@@ -112,22 +112,23 @@ const initDataBasic = async () => {
 
     const divNomeSocial = document.querySelector(".div-social")
 
-    document.addEventListener("click", function (e) {
-      const element = e.target;
-
-      if (element.classList.contains("social")) {
-        if (checkNomeSocial.checked) {
-          if (!document.querySelector('.nome-social')) {
-            const inputSocial = new CreateInputLabel(divNomeSocial, "Nome Social", "nome-social")
-          }
-        } else {
-          const div = document.querySelector("#div-nome-social")
-          div.remove()
-          // Marcar explicitamente como "não usa nome social".
-          // Antes era "" (string vazia), que passava do check !== false
-          // e ia pro backend, disparando o validator len:[3,255] do Sequelize.
-          formDataBasic.nome_social = false
+    checkNomeSocial.addEventListener("change", function () {
+      if (checkNomeSocial.checked) {
+        if (!document.querySelector('.nome-social')) {
+          new CreateInputLabel(divNomeSocial, "Nome Social", "nome-social")
         }
+
+        // Enquanto estiver marcado, exige que o campo dinâmico seja
+        // preenchido e validado pelo listener de input abaixo.
+        formDataBasic.nome_social = false
+      } else {
+        const div = document.querySelector("#div-nome-social")
+        if (div) div.remove()
+
+        // Nome social é opcional quando a checkbox está desmarcada.
+        // Remover a chave também elimina um eventual `false` deixado por
+        // uma edição inválida antes de o usuário desmarcar a opção.
+        delete formDataBasic.nome_social
       }
     })
 
@@ -527,6 +528,11 @@ const initDataBasic = async () => {
     const divLaudoDeficiencia = document.getElementById("div-laudo-deficiencia");
 
     const atualizarVisibilidadeLaudo = (valorDeficiencia) => {
+      // Laudo passou a ser OPCIONAL no fluxo publico (regra de negocio
+      // revista). Continuamos mostrando o campo para deficiencias que
+      // historicamente exigiam laudo (F, A, V, ME, MU, TE), mas o
+      // atributo `required` NAO e mais setado — o usuario pode avancar
+      // mesmo sem anexar o arquivo.
       const precisaLaudo = ["F", "A", "V", "ME", "MU", "TE"].includes(valorDeficiencia);
 
       if (!divLaudoDeficiencia || !laudoDeficiencia) {
@@ -535,7 +541,7 @@ const initDataBasic = async () => {
 
       divLaudoDeficiencia.classList.toggle("hide", !precisaLaudo);
       divLaudoDeficiencia.classList.toggle("show", precisaLaudo);
-      laudoDeficiencia.required = precisaLaudo;
+      laudoDeficiencia.required = false;
 
       if (!precisaLaudo) {
         laudoDeficiencia.value = "";
@@ -597,7 +603,7 @@ const initDataBasic = async () => {
             const descLabel = document.createElement("label");
             const descInput = document.createElement("input");
             descDiv.appendChild(descLabel);
-            descLabel.innerText = "Descreva a deficiência";
+            descLabel.innerText = "Descreva sua necessidade";
             descLabel.setAttribute("for", "descricao");
             descDiv.appendChild(descInput);
             descInput.setAttribute("id", "descricao");
@@ -641,10 +647,11 @@ const initDataBasic = async () => {
     });
 
     function validateLaudo() {
-      const opcaodeficiencia = ["F", "A", "V", "ME", "MU", "TE"];
-      if (opcaodeficiencia.includes(deficiencias.value)) {
-        return !!formDataBasic.laudo_deficiencia_base64;
-      }
+      // Laudo deficiencia agora e OPCIONAL. Mesmo quando o usuario
+      // declara uma das deficiencias que historicamente exigiam laudo
+      // (F, A, V, ME, MU, TE), ele pode avancar no cadastro sem
+      // anexar o arquivo. Backend tambem passou a tratar o laudo
+      // como opcional (src/controllers/postCadastrar.js).
       return true;
     }
 
@@ -704,7 +711,7 @@ const initDataBasic = async () => {
           formDataBasic.cpf &&
           formDataBasic.cpf_mae !== false &&
           formDataBasic.cpf_pai !== false &&
-          formDataBasic.nome_social !== false &&
+          (!checkNomeSocial.checked || Boolean(formDataBasic.nome_social)) &&
           validateLaudo()
         ) {
           if (!checkRg.checked) {

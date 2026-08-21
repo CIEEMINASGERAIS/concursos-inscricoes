@@ -95,21 +95,14 @@ async function postRegister(req, res) {
             cadastroId: contextoBase.cadastroId,
         });
 
-        const exigeLaudo = ["F", "A", "V", "ME", "MU", "TE"].includes(req.body.deficiencia);
+        // Laudo medico eh OPCIONAL. Historicamente o backend bloqueava o
+        // cadastro quando o candidato declarava uma deficiencia que exigia
+        // laudo (F, A, V, ME, MU, TE) e nao anexava o arquivo. A regra
+        // de negocio foi revista: o laudo nao eh mais obrigatorio no fluxo
+        // publico. Se vier anexado, salvamos normalmente; se nao vier,
+        // seguimos com o cadastro sem o arquivo.
         const laudoBase64 = req.body.laudo_deficiencia_base64;
         const laudoNome = req.body.laudo_deficiencia_nome;
-
-        if (exigeLaudo && !laudoBase64) {
-            logger.warn("VALIDACAO_FALHOU", {
-                ...contextoBase,
-                etapa: "VALIDANDO_DADOS",
-                erro: "Anexe o laudo médico para a deficiência informada.",
-            });
-
-            return res.status(400).json({
-                erro: "Anexe o laudo médico para a deficiência informada.",
-            });
-        }
 
         let laudoUrl = null;
 

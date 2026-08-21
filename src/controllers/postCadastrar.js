@@ -225,6 +225,27 @@ async function postRegister(req, res) {
             publicMessage: "Erro ao cadastrar usuário. Tente novamente em instantes.",
             context: {
                 cadastroId: contextoBase.cadastroId,
+                // DIAGNOSTICO: loga as chaves do payload recebido
+                // para ajudar a identificar qual campo esta quebrando
+                // o Estudante.create (causa comum: campo NOT NULL
+                // novo na migration que ainda nao esta sendo enviado
+                // pelo frontend apos a remocao da tela SocioEconomico).
+                payloadKeys: Object.keys(req.body || {}).sort(),
+                payloadAmostra: (() => {
+                    const sample = {};
+                    const keys = Object.keys(req.body || {}).slice(0, 30);
+                    for (const k of keys) {
+                        const v = req.body[k];
+                        if (typeof v === "string") sample[k] = v.slice(0, 80);
+                        else sample[k] = v;
+                    }
+                    return sample;
+                })(),
+                erroOriginal: err.message,
+                nomeErro: err.name,
+                sqlState: err.parent?.sqlState || err.original?.sqlState || null,
+                sqlCode: err.parent?.code || err.original?.code || null,
+                sqlMessage: err.parent?.sqlMessage || err.original?.sqlMessage || null,
             },
         });
     }

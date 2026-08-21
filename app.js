@@ -64,7 +64,8 @@ app.use(idempotencyMiddleware);
 app.use(express.static(path.resolve(__dirname, "public", "assets")));
 
 const whiteList = [
-  "https://appcadastro.cieemg.org.br",
+
+  "https://concursotjmmg.cieemg.org.br",
   "http://localhost:8080",
 ];
 

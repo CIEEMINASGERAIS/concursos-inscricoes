@@ -37,13 +37,15 @@ function limparExpirados() {
 }
 
 function idempotencyMiddleware(req, res, next) {
-    const chave = gerarChaveIdempotencia(req);
-    const existente = cache.get(chave);
-
-    // Só aplica a rotas de mutação (POST). GET é naturalmente idempotente.
-    if (req.method !== "POST") {
+    // A idempotência protege exclusivamente o cadastro. Aplicá-la a
+    // outros POSTs faz requisições sem CPF/X-Request-ID compartilharem a
+    // mesma chave (por exemplo, todos os envios para /api/logs).
+    if (req.method !== "POST" || req.path !== "/cadastrar") {
         return next();
     }
+
+    const chave = gerarChaveIdempotencia(req);
+    const existente = cache.get(chave);
 
     if (existente && Date.now() - existente.criadoEm <= TTL_MS) {
         if (existente.status === "processando") {

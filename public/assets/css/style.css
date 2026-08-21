@@ -63,7 +63,7 @@ align-items: center;
   align-items: center;
   justify-content: center;
   text-align: center;
-;  /* background-color: #ffffff; */
+;  background-color: #ffffff;
   outline: 2px solid gray;
   width: 90%;
   max-width: 720px;

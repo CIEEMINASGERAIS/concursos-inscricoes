@@ -20,20 +20,103 @@ const safeQuerySelector = (selector) => {
   }
 };
 
-// Mostra o card de feedback (.alert-cadastro) de forma idempotente.
-// Usa a classe `.show` (display: flex) em vez de style.display para
-// garantir a visibilidade mesmo se houver cache antigo. O botao
-// "Confirmar" dentro do proprio card leva o usuario para o site
-// do CIEE (padrao da versao antiga). Usa `.alert-cadastro` (e nao
-// `.alert`) para nao colidir com a `.alert` do schoolData.css.
+// Mostra o modal de feedback (.alert-cadastro + .alert-overlay)
+// de forma idempotente. Usa a classe `.show` (display: flex/block)
+// em vez de style.display para garantir a visibilidade mesmo se
+// houver cache antigo. Usa `.alert-cadastro` (e nao `.alert`) para
+// nao colidir com a `.alert` do schoolData.css.
 const showAlert = () => {
   const el = safeQuerySelector(".alert-cadastro");
+  const overlay = safeQuerySelector(".alert-overlay");
   if (el) el.classList.add("show");
+  if (overlay) overlay.classList.add("show");
 };
 
 const hideAlert = () => {
   const el = safeQuerySelector(".alert-cadastro");
+  const overlay = safeQuerySelector(".alert-overlay");
   if (el) el.classList.remove("show");
+  if (overlay) overlay.classList.remove("show");
+};
+
+// Liga o modal de cadastro de forma "modal-obrigatoria":
+//  - Clicar no overlay (fundo borrado) NAO fecha o modal.
+//  - Tecla ESC NAO fecha o modal.
+//  - O usuario so sai clicando no botao "Confirmar" (que
+//    redireciona para o portal do CIEE).
+// O overlay continua visivel para reforcar visualmente que o
+// usuario precisa agir (clicando em Confirmar).
+const bindAlertDismiss = () => {
+  if (bindAlertDismiss._done) return;
+  // Nada a fazer - bindAlertDismiss existe apenas por simetria
+  // de API (era usado para fechar pelo overlay/ESC antes).
+  // Mantemos a funcao como no-op idempotente.
+  bindAlertDismiss._done = true;
+};
+
+// Trava (read-only) TODOS os campos de TODOS os formularios da pagina
+// apos o cadastro ser concluido. Desabilita inputs, selects, textareas
+// e botoes (incluindo botoes "Finalizar" e navegacao lateral).
+// Idempotente - pode ser chamada varias vezes sem efeito colateral.
+const lockAllForms = () => {
+  if (document.body.dataset.cadastroFinalizado === "1") return;
+  document.body.dataset.cadastroFinalizado = "1";
+
+  // Marca a body para que o CSS possa aplicar estilo visual de "travado"
+  // se quisermos (ex.: opacity reduzida nos forms).
+  document.body.classList.add("cadastro-finalizado");
+
+  // Seletores cobertos: todos os forms (sem excluir .form-* por causa
+  // do form de upload de laudo no futuro) + campos fora de form
+  // (ex.: switches em sidenav).
+  const formSelectors = [
+    "input:not([type=hidden])",
+    "select",
+    "textarea",
+    "button",
+  ];
+
+  // 1) Desabilita campos DENTRO de forms
+  const forms = document.querySelectorAll("form");
+  forms.forEach((form) => {
+    form.setAttribute("aria-disabled", "true");
+    formSelectors.forEach((sel) => {
+      form.querySelectorAll(sel).forEach((el) => {
+        el.setAttribute("disabled", "disabled");
+        el.setAttribute("readonly", "readonly");
+      });
+    });
+  });
+
+  // 2) Bloqueia a navegacao lateral (links/botoes da sidenav).
+  //    Os links sao <a class="main"> — vamos parar o clique e aplicar
+  //    estilo visual de "desabilitado".
+  const sidebarLinks = document.querySelectorAll(".sidenav a, .sidenav button");
+  sidebarLinks.forEach((el) => {
+    el.classList.add("disabled-nav");
+    el.setAttribute("aria-disabled", "true");
+    el.style.pointerEvents = "none";
+    el.style.opacity = "0.5";
+    el.style.cursor = "not-allowed";
+  });
+
+  // 3) Bloqueia cliques em qualquer ".main" (navegacao por link) via
+  //    captura, como rede de segurança.
+  if (!lockAllForms._guardInstalled) {
+    document.addEventListener(
+      "click",
+      (ev) => {
+        if (document.body.dataset.cadastroFinalizado !== "1") return;
+        const t = ev.target;
+        if (t && t.closest && t.closest(".sidenav")) {
+          ev.preventDefault();
+          ev.stopPropagation();
+        }
+      },
+      true
+    );
+    lockAllForms._guardInstalled = true;
+  }
 };
 
 const changeMains = (nameClass) => {
@@ -1194,6 +1277,8 @@ module.exports = {
   safeQuerySelector,
   showAlert,
   hideAlert,
+  bindAlertDismiss,
+  lockAllForms,
   isCtps,
   isNaturalidadeNacionalidade,
   isEstadoCivil,

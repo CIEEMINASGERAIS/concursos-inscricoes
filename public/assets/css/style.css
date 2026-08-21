@@ -17,8 +17,28 @@
   z-index: 2;
 }
 
-/* Popup de feedback do cadastro (padrao antigo, sem overlay
-   escuro, com botao "Confirmar" que leva para o site do CIEE).
+/* Overlay de fundo do modal de cadastro. Apenas desfoca a pagina
+   por tras (sem escurecer) - padrao do appcadastro.cieemg.org.br.
+   Some junto com o popup (classe `.show` controlada pelo JS).
+   O cursor `not-allowed` indica visualmente que clicar no overlay
+   nao fecha o modal - o usuario precisa clicar em "Confirmar". */
+.alert-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: transparent;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  z-index: 9998;
+  cursor: not-allowed;
+}
+
+.alert-overlay.show {
+  display: block;
+}
+
+/* Popup de feedback do cadastro (padrao antigo, centralizado,
+   com botao "Confirmar" que apenas fecha o modal).
    Escondido por padrao. Mostrado pelo JS via classe `.show`.
    Classe namespace-safe (.alert-cadastro) para nao colidir
    com a `.alert` do schoolData.css. */

@@ -498,8 +498,11 @@ async function createFormSchoolData() {
           const today = new Date();
           dataFormSchool.ano = today.getFullYear();
           dataFormSchool.senha = password;
-          changeMains(".screen-main");
-          changeSubMainTitle("Cadastro finalizado");
+          // NAO chama mais changeMains(".screen-main") — antes disso,
+          // o submit trocava para uma tela vazia e o usuario ficava
+          // numa "pagina em branco" antes de ver o popup. Agora
+          // permanecemos em screen-school-data e o popup aparece
+          // por cima (com overlay borrado).
           resolve(dataFormSchool);
           // Disparado fora da Promise para não impactar o resolution chain
           // caso enviarCadastro retorne rejeição.

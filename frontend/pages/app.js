@@ -13,6 +13,8 @@ const {
   safeQuerySelector,
   showAlert,
   hideAlert,
+  bindAlertDismiss,
+  lockAllForms,
 } = require("../utils/util.js");
 const { clientLogger } = require("../utils/clientLogger.js");
 const { fetchJson, classifyFetchError, readNetworkDiagnostics } = require("../utils/http.js");
@@ -24,6 +26,10 @@ const { fetchJson, classifyFetchError, readNetworkDiagnostics } = require("../ut
 let _termsConditions = {};
 let _formData = {};
 let _formAddress = {};
+
+// Liga o botao "Confirmar" do modal e o clique no overlay para
+// fechar o modal. Idempotente.
+bindAlertDismiss();
 
 async function takeData() {
   const callMain = main();
@@ -332,6 +338,11 @@ async function enviarCadastro(dataFormSchool) {
         // ignore
       }
       showAlert();
+      // Trava TODOS os forms e a navegacao lateral apos o cadastro
+      // ser concluido. O usuario nao pode mais editar nada - apenas
+      // fechar o popup (clicando no overlay borrado) ou clicar em
+      // "Confirmar" (que redireciona para o portal do CIEE).
+      lockAllForms();
       if (titleEl) titleEl.innerHTML = `Cadastro concluído!`;
       if (dataErroEl) dataErroEl.innerHTML = `<p>${date} v - 1.1.1</p>`;
       if (messageEl) {
@@ -386,6 +397,13 @@ async function enviarCadastro(dataFormSchool) {
         isNetworkError ? `Cadastro concluído!` : tituloErroPadrao;
     }
     if (dataErroEl) dataErroEl.innerHTML = `<p>${date} v - 1.1.1</p>`;
+
+    // Se a falha foi de rede com provável sucesso (timeout longo
+    // mas request pode ter chegado), tratamos como cadastro OK e
+    // travamos os forms para evitar reenvio.
+    if (isNetworkError) {
+      lockAllForms();
+    }
 
     if (messageEl) {
       messageEl.innerHTML = isNetworkError

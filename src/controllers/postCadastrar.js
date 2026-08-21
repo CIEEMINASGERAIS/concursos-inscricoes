@@ -29,10 +29,45 @@ async function enviarEmailsPosCadastro(req, estudante, contextoBase) {
             cadastroId: estudante.id,
             destinatario: "estudante",
         });
-        await enviandoEmail.emailASerEnviadoComum(req.body.email, req.body.nome, req.body.senha, {
-            ...contextoBase,
-            cadastroId: estudante.id,
-        });
+
+        // Busca o nome do curso para incluir no email de confirmacao.
+        // O cadastro guarda apenas `curso_id` (FK); o email precisa do
+        // nome amigavel para o candidato.
+        let cursoNome = null;
+        if (estudante.curso_id) {
+            try {
+                const Curso = require("../db/models/curso")(sequelize, DataTypes);
+                const curso = await Curso.findByPk(estudante.curso_id, {
+                    attributes: ["descricao"],
+                });
+                cursoNome = curso?.descricao || null;
+            } catch (cursoErr) {
+                logger.warn("ERRO_BUSCA_NOME_CURSO_EMAIL", {
+                    ...contextoBase,
+                    cadastroId: estudante.id,
+                    cursoId: estudante.curso_id,
+                    erro: cursoErr?.message,
+                });
+            }
+        }
+
+        await enviandoEmail.emailASerEnviadoComum(
+            req.body.email,
+            req.body.nome,
+            req.body.senha,
+            {
+                ...contextoBase,
+                cadastroId: estudante.id,
+            },
+            {
+                deficiencia: req.body.deficiencia,
+                deficiencia_descricao: req.body.deficiencia_descricao,
+                laudo_deficiencia: estudante.laudo_deficiencia,
+                etnia: req.body.etnia,
+                genero: req.body.genero,
+                curso_nome: cursoNome,
+            }
+        );
 
         logCadastroStep(req, "ENVIANDO_EMAIL", {
             cadastroId: estudante.id,
@@ -163,6 +198,7 @@ async function postRegister(req, res) {
 
         return res.json({
             mensagem: "Usuário cadastrado com sucesso!",
+            cadastroId: novoEstudante.id,
         });
     } catch (err) {
         if (transaction) {

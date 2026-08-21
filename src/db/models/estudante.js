@@ -636,6 +636,14 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING(255),
         allowNull: true,
       },
+       genero: {
+        type: DataTypes.STRING(1),
+        allowNull: true,
+      },
+       etnia: {
+        type: DataTypes.STRING(1),
+        allowNull: true,
+      },
     },
     {
       timestamps: false,

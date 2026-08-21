@@ -521,6 +521,36 @@ const initDataBasic = async () => {
       });
     }
 
+    // Genero (radio: C | T)
+    const radiosGenero = document.querySelectorAll('input[name="genero"]');
+    const validarGenero = () => {
+      const marcado = Array.from(radiosGenero).find((r) => r.checked);
+      formDataBasic.genero = marcado ? marcado.value : false;
+    };
+    if (radiosGenero.length > 0) {
+      radiosGenero.forEach((radio) => {
+        radio.addEventListener("change", () => {
+          document.getElementById("msg-genero")?.replaceChildren();
+          validarGenero();
+        });
+      });
+    }
+
+    // Etnia (radio: N | B | P | A | I)
+    const radiosEtnia = document.querySelectorAll('input[name="etnia"]');
+    const validarEtnia = () => {
+      const marcado = Array.from(radiosEtnia).find((r) => r.checked);
+      formDataBasic.etnia = marcado ? marcado.value : false;
+    };
+    if (radiosEtnia.length > 0) {
+      radiosEtnia.forEach((radio) => {
+        radio.addEventListener("change", () => {
+          document.getElementById("msg-etnia")?.replaceChildren();
+          validarEtnia();
+        });
+      });
+    }
+
     const deficiencias = document.getElementById("deficiencias");
 
     const descDiv = document.querySelector(".descricao-deficiencia");
@@ -691,6 +721,10 @@ const initDataBasic = async () => {
         if (cpfCampo && !isCpf(cpfCampo.value)) {
           formDataBasic.cpf = false;
         }
+        // Re-avalia genero/etnia no submit (cobre o caso do usuário
+        // marcar e submeter sem disparar o `change`).
+        validarGenero();
+        validarEtnia();
         const invalidFields = Object.entries(formDataBasic)
           .filter(([, value]) => value === false)
           .map(([key]) => key);
@@ -705,6 +739,8 @@ const initDataBasic = async () => {
           formDataBasic.sexo &&
           formDataBasic.uf_naturalidade &&
           formDataBasic.deficiencia &&
+          formDataBasic.genero &&
+          formDataBasic.etnia &&
           formDataBasic.rg !== false &&
           formDataBasic.orgaoexpedidor &&
           formDataBasic.idade &&

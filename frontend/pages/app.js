@@ -151,23 +151,23 @@ async function takeData() {
 // processar de novo — eliminando cadastro duplicado por "Failed to fetch"
 // seguido de retry.
 function obterOuGerarRequestId(cpf) {
-    const storageKey = `cadastro_request_id:${cpf}`;
-    let id = null;
-    try {
-        id = sessionStorage.getItem(storageKey);
-    } catch {
-        id = null;
-    }
+  const storageKey = `cadastro_request_id:${cpf}`;
+  let id = null;
+  try {
+    id = sessionStorage.getItem(storageKey);
+  } catch {
+    id = null;
+  }
 
-    if (!id) {
-        id = `web-${Date.now()}-${Math.random().toString(36).slice(2, 10)}`;
-        try {
-            sessionStorage.setItem(storageKey, id);
-        } catch {
-            // sessionStorage indisponível (modo privado extremo). Fallback ok.
-        }
+  if (!id) {
+    id = `web-${Date.now()}-${Math.random().toString(36).slice(2, 10)}`;
+    try {
+      sessionStorage.setItem(storageKey, id);
+    } catch {
+      // sessionStorage indisponível (modo privado extremo). Fallback ok.
     }
-    return id;
+  }
+  return id;
 }
 
 async function postCadastroWithRetry(payload, maxTentativas = 5) {
@@ -236,8 +236,15 @@ async function enviarCadastro(dataFormSchool) {
     data.enviar_email = 1;
   }
   const date = dateTime();
-  const tituloErroPadrao = "Falha ao Realizar Cadastro.";
-  const mensagemErroPadrao = `Olá ${data.nome}, ocorreu um erro desconhecido ao realizar o seu cadastro, favor entrar em contato através do número (31) 3429-8100.`;
+
+  // Templates de feedback visual no popup de cadastro (alinhados com as
+  // mensagens oficiais fornecidas pelo time de comunicação).
+  const tituloErroPadrao = "Falha ao realizar sua Inscrição!";
+  const mensagemErroPadrao =
+    `Entre em contato com nossa central de concursos para análise do seu cadastro.<br><br>` +
+    `Telefone/WhatsApp: (31) 3429-8100 – Opção 6<br>` +
+    `E-mail: concursotjmmg@cieemg.org.br<br>` +
+    `Horário de funcionamento: 08.30 até 17.30 de segunda a sexta-feira`;
 
   const parseErroBackend = (status, body) => {
     const bodyText = body || "";
@@ -278,8 +285,8 @@ async function enviarCadastro(dataFormSchool) {
       if (isValidationError) {
         return {
           tipo: "dados_invalidos",
-          titulo: "Dados inválidos",
-          mensagem: `Olá ${data.nome}, alguns dados informados não passaram na validação. Confira CPF, e-mail e demais campos e tente novamente. Em caso de dúvidas, ligue (31) 3429-8100.`,
+          titulo: tituloErroPadrao,
+          mensagem: mensagemErroPadrao,
         };
       }
       return {
@@ -343,13 +350,30 @@ async function enviarCadastro(dataFormSchool) {
       // fechar o popup (clicando no overlay borrado) ou clicar em
       // "Confirmar" (que redireciona para o portal do CIEE).
       lockAllForms();
-      if (titleEl) titleEl.innerHTML = `Cadastro concluído!`;
-      if (dataErroEl) dataErroEl.innerHTML = `<p>${date} v - 1.1.1</p>`;
+
+      // Extrai o id do cadastro do corpo da resposta. O backend envia
+      // `{ mensagem, cadastroId }`; toleramos tambem o caso de vir
+      // apenas `{ mensagem }` exibindo o codigo de banco generico.
+      let cadastroId = null;
+      try {
+        const parsed = JSON.parse(resultado.body || "{}");
+        cadastroId = parsed?.cadastroId ?? parsed?.id ?? null;
+      } catch {
+        cadastroId = null;
+      }
+      const codigoInscricao = cadastroId ?? "ID DO BANCO";
+
+      if (titleEl) {
+        titleEl.innerHTML =
+          `Inscrição concluída com sucesso!<br>` +
+          `Código de Inscrição: ${codigoInscricao}`;
+      }
+      if (dataErroEl) dataErroEl.innerHTML = `<p>${date} v - 1.0.0</p>`;
       if (messageEl) {
         messageEl.innerHTML =
-          `Olá ${data.nome}, parabéns por finalizar a primeira etapa do seu cadastro, fique atento ao seu e-mail,
-      enviaremos em
-      até 24 horas os dados para realizar seu primeiro login no nosso portal, para conclusão do seu cadastro.`;
+          `Atenção: Todas as informações referentes a datas, local de prova e demais ` +
+          `informações consulte o edital publicado em nosso portal ` +
+          `<a href="https://www.cieemg.org.br" target="_blank" rel="noopener">www.cieemg.org.br</a>.`;
       }
     } else {
       const erroCadastro = parseErroBackend(resultado.status, resultado.body);
@@ -396,7 +420,7 @@ async function enviarCadastro(dataFormSchool) {
       titleEl.innerHTML =
         isNetworkError ? `Cadastro concluído!` : tituloErroPadrao;
     }
-    if (dataErroEl) dataErroEl.innerHTML = `<p>${date} v - 1.1.1</p>`;
+    if (dataErroEl) dataErroEl.innerHTML = `<p>${date} v - 1.0.0</p>`;
 
     // Se a falha foi de rede com provável sucesso (timeout longo
     // mas request pode ter chegado), tratamos como cadastro OK e

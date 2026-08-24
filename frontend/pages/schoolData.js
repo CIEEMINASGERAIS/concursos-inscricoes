@@ -39,6 +39,13 @@ async function createFormSchoolData() {
 
     const formSchoolData = document.querySelector(".form-school-data");
 
+    // ====================================================================
+    // LÓGICA ANTIGA DE DADOS ACADÊMICOS (ano, semestre, mês, período,
+    // horário de estudo) — comentada para preservar referência enquanto
+    // o novo formulário de Cursos está em construção.
+    // ====================================================================
+
+    /*
     const anoFormatura = document.getElementById("ano-formatura");
 
     const inicio = 1990;
@@ -159,7 +166,14 @@ async function createFormSchoolData() {
 
       $(horario).selectpicker("refresh");
     }
+    */
 
+    // Gera a senha temporária UMA vez e amarra ao `dataFormSchool`.
+    // O backend persiste no model (criptografa via `beforeSave` +
+    // bcrypt) e envia por e-mail na confirmação. Era gerada no
+    // formulário antigo mas nunca era injetada no payload — bug
+    // encontrado em 2026-08-24: o backend respondia 400
+    // "concurso_inscritos.senha cannot be null".
     const password = generator.generate({
       length: 6,
       numbers: true,
@@ -168,8 +182,18 @@ async function createFormSchoolData() {
       excludeSimilarCharacters: true,
     });
 
-    const dataFormSchool = {};
+    // Inicializa dataFormSchool já com a senha gerada. Sem isso, o
+    // POST saía sem `senha`, o backend respondia 400
+    // (`senha cannot be null`) e o e-mail de confirmação não saía
+    // porque `req.body.senha` virava `undefined` no template.
+    const dataFormSchool = { senha: password };
 
+    // ====================================================================
+    // Captura de matrícula (campo antigo) — comentado junto com o
+    // restante do formulário acadêmico.
+    // ====================================================================
+
+    /*
     const matricula = document.getElementById("matricula");
 
     if (matricula) {
@@ -177,339 +201,231 @@ async function createFormSchoolData() {
         dataFormSchool.matricula = e.target.value.trim();
       });
     }
+    */
 
+    // ====================================================================
+    // Busca de escola — comentada. A escola deixou de ser coletada nesta
+    // tela; quando voltar, restaurar este bloco.
+    // ====================================================================
+
+    /*
     const escolas = document.querySelector(".escola-search select");
-    const cursos = document.querySelector(".curso-search select");
-    let codigoEscola = {};
-    let idCursoFinal;
-    let idCurso = {};
-    let codeFinal;
+    */
 
-    function mostrarOpcoesAutocompleteEscolas(opcoes) {
-      escolas.innerHTML = "";
+    // ====================================================================
+    // NOVO FORMULÁRIO DE CURSOS — cascata:
+    //   select #nivel  ->  popula #tipo (Curso)
+    //                  ->  se #tipo = "Graduação Similar", mostra input #curso-similar
+    //
+    // IMPORTANTE: as referências DOM (`#nivel`, `#tipo`, `#curso-similar`)
+    // DEVEM ser capturadas DEPOIS do `schoolData.innerHTML = htmlContent`
+    // acima. Se forem capturadas antes, apontam para elementos fora do
+    // DOM e os listeners `.change` nunca disparam (bug encontrado em
+    // teste com Playwright em 2026-08-24).
+    // ====================================================================
 
-      const option1 = document.createElement("option");
-      option1.disabled = "disabled";
-      option1.selected = "selected";
-      option1.text = "Selecione";
-      escolas.appendChild(option1);
+    const nivel = document.getElementById("nivel");
+    const tipo = document.getElementById("tipo");
+    const divCursoSimilar = document.getElementById("div-curso-similar");
+    const cursoSimilarInput = document.getElementById("curso-similar");
 
-      for (let i = 0; i < opcoes.length; i++) {
-        const option = document.createElement("option");
-        option.text = opcoes[i].razaosocial;
-        option.value = opcoes[i].razaosocial;
-        escolas.appendChild(option);
-      }
-
-      $(escolas).selectpicker("refresh");
-    }
-
-    function mostrarOpcoesAutocompleteCursos(opcoes) {
-      cursos.innerHTML = "";
-
-      const option1 = document.createElement("option");
-      option1.disabled = "disabled";
-      option1.selected = "selected";
-      option1.text = "Selecione";
-      cursos.appendChild(option1);
-
-      for (let i = 0; i < opcoes.length; i++) {
-        const option = document.createElement("option");
-        option.text = opcoes[i].descricao;
-        option.value = opcoes[i].descricao;
-        cursos.appendChild(option);
-      }
-
-      $(cursos).selectpicker("refresh");
-    }
-
-    function filtrarCursos(data) {
-      for (let i = 0; i < codigoEscola.length; i++) {
-        let codeEscola = {
-          razaosocial: codigoEscola[i].razaosocial,
-          id: codigoEscola[i].id,
-        };
-        if (codeEscola.razaosocial === data) {
-          return (codeFinal = codeEscola.id);
-        }
-      }
-    }
-
-    function filtrarIdCurso(descricaoCurso) {
-      for (let i = 0; i < idCurso.length; i++) {
-        let cursoId = {
-          descricao: idCurso[i].descricao,
-          idcurso: idCurso[i].idcurso,
-        };
-        if (cursoId.descricao === descricaoCurso) {
-          return (idCursoFinal = cursoId.idcurso);
-        }
-      }
-    }
-
-    const periodoFinal = () => {
-      for (let i = 0; i < idCurso.length; i++) {
-        if (dataFormSchool.curso_id === idCurso[i].idcurso) {
-          return idCurso[i].duracao;
-        }
-      }
+    // Mapa Nível -> Cursos. Apenas os `value` foram trocados pelos
+    // índices 0..15 da lista flat fornecida pelo usuário; as `label`
+    // são exatamente os textos enviados. Os valores 13 ("graduacao-similar")
+    // e 15 ("nivel-medio-similar") disparam o input condicional
+    // #curso-similar — ver `onTipoChange` mais abaixo.
+    const CURSOS_POR_NIVEL = {
+      "pos-graduacao": [
+        { value: "0", label: "Pós-Graduação em Direito" },
+      ],
+      "graduacao": [
+        { value: "1",  label: "Administração" },
+        { value: "2",  label: "Biblioteconomia" },
+        { value: "3",  label: "Comunicação Social" },
+        { value: "4",  label: "Comunicação Social com Habilitação em Publicidade" },
+        { value: "5",  label: "Direito" },
+        { value: "6",  label: "Engenharia Civil" },
+        { value: "7",  label: "Engenharia Elétrica" },
+        { value: "8",  label: "Jornalismo" },
+        { value: "9",  label: "Marketing" },
+        { value: "10", label: "Publicidade e Propaganda" },
+      ],
+      "graduacao-tecnologica": [
+        { value: "11", label: "Ciência da Computação" },
+        { value: "12", label: "Sistemas de Informação" },
+        { value: "13", label: "Graduação Similar" },
+      ],
+      "ensino-medio": [
+        { value: "14", label: "Técnico em Informática" },
+        { value: "15", label: "Nível Médio Similar" },
+      ],
     };
 
-    const anoIngresso = (formatura) => {
-      for (let i = 0; i < idCurso.length; i++) {
-        if (dataFormSchool.curso_id === idCurso[i].idcurso) {
-          let tempoCurso = idCurso[i].duracao / 2;
-          tempoCurso = Math.ceil(tempoCurso);
-          return (dataFormSchool.anoingresso = formatura - tempoCurso);
-        }
-      }
-    };
+    function popularTipo(listaCursos) {
+      // Limpa opções antigas, mantém só o placeholder "Selecione".
+      tipo.innerHTML = "";
 
-    const callCourse = async () => {
-      try {
-        const response = await fetch(`/cadastrarCurso/${codeFinal}`);
-        if (response.ok) {
-          const opcoes = await response.json();
-          idCurso = opcoes;
-          mostrarOpcoesAutocompleteCursos(opcoes);
+      const optionDefault = document.createElement("option");
+      optionDefault.value = "";
+      optionDefault.disabled = "disabled";
+      optionDefault.selected = "selected";
+      optionDefault.text = "Selecione";
+      tipo.appendChild(optionDefault);
+
+      for (let i = 0; i < listaCursos.length; i++) {
+        const option = document.createElement("option");
+        option.value = listaCursos[i].value;
+        option.text = listaCursos[i].label;
+        tipo.appendChild(option);
+      }
+
+      $(tipo).selectpicker("refresh");
+    }
+
+    function resetCursoSimilar() {
+      if (cursoSimilarInput) {
+        cursoSimilarInput.value = "";
+      }
+      if (divCursoSimilar) {
+        divCursoSimilar.classList.add("div-curso-similar-hidden");
+      }
+      dataFormSchool.cursoSimilar = "";
+    }
+
+    $(document).ready(function () {
+      $(".nivel-search select").selectpicker();
+      $(".tipo-search select").selectpicker();
+
+      // ------------------------------------------------------------------------
+      // IMPORTANTE: bootstrap-select@1.13.14 consome o evento `change` do
+      // <select> subjacente e dispara seu próprio evento
+      // `changed.bs.select` no wrapper `.bootstrap-select`. Listener direto
+      // em `.change()` no <select> pode não receber o evento em todos os
+      // cenários (browser não-PointerEvent, sync dispatch, etc.). Usamos os
+      // dois para garantir (defesa em profundidade).
+      // ------------------------------------------------------------------------
+      const onNivelChange = (nivelSelecionado) => {
+        dataFormSchool.nivel = nivelSelecionado;
+        dataFormSchool.curso = "";
+        document.getElementById("msg-nivel").innerHTML = "";
+        document.getElementById("msg-tipo").innerHTML = "";
+
+        const lista = CURSOS_POR_NIVEL[nivelSelecionado] || [];
+        popularTipo(lista);
+        resetCursoSimilar();
+      };
+
+      const onTipoChange = (cursoSelecionado) => {
+        dataFormSchool.curso = cursoSelecionado;
+        document.getElementById("msg-tipo").innerHTML = "";
+
+        if (
+          cursoSelecionado === "13" ||
+          cursoSelecionado === "15"
+        ) {
+          if (divCursoSimilar) {
+            divCursoSimilar.classList.remove("div-curso-similar-hidden");
+          }
         } else {
-          clientLogger.warn("FALHA_BUSCA_CURSO", { status: response.status, statusText: response.statusText });
+          resetCursoSimilar();
         }
-      } catch (error) {
-        clientLogger.error("ERRO_BUSCA_CURSO", { mensagem: error?.message });
-      }
-    };
+      };
 
-    $(document).ready(async function () {
-      $(".escola-search select").selectpicker();
+      // 1) evento nativo `change` no <select>
+      nivel.addEventListener("change", (e) => onNivelChange(e.target.value));
+      tipo.addEventListener("change", (e) => onTipoChange(e.target.value));
 
-      const input = document.querySelector(".escola-search input");
-
-      let validate;
-
-      let opcoes;
-
-      input.addEventListener("input", async (e) => {
-        const element = e.target;
-
-        const termoCompleto = (element.value || "").trim();
-
-        if (termoCompleto.length > 60 && termoCompleto.length <= 80) {
-          clientLogger.warn("BUSCA_ESCOLA_TERMO_LONGO", {
-            tamanho: termoCompleto.length,
-            navegador: navigator.userAgent.slice(0, 100),
-          });
-        }
-
-        const termo = termoCompleto.slice(0, 80);
-
-        if (termo.length < 2) {
-          mostrarOpcoesAutocompleteEscolas([]);
-          codigoEscola = [];
-          return;
-        }
-
-        try {
-          const response = await fetch(`/cadastrarEscola?termo=${encodeURIComponent(termo)}`);
-          if (response.ok) {
-            opcoes = await response.json();
-            mostrarOpcoesAutocompleteEscolas(opcoes);
-            codigoEscola = opcoes;
-          } else {
-            clientLogger.warn("FALHA_BUSCA_ESCOLA", { status: response.status, statusText: response.statusText });
-          }
-        } catch (error) {
-          clientLogger.error("ERRO_BUSCA_ESCOLA", { mensagem: error?.message });
-        }
-
-        const SchoolFound = document.querySelector(".school-found");
-
-        if (opcoes.length === 0) {
-          SchoolFound.style.display = "block";
-
-          if (SchoolFound.style.display === "block") {
-            document.addEventListener("click", (e) => {
-              const element = e.target;
-
-              if (element.classList.contains("button-confirm-school")) {
-                SchoolFound.style.display = "none";
-              }
-            });
-          }
-        }
+      // 2) evento do bootstrap-select no wrapper
+      $(nivel).on("changed.bs.select", function (e, clickedIndex, newValue) {
+        onNivelChange(newValue || nivel.value);
+      });
+      $(tipo).on("changed.bs.select", function (e, clickedIndex, newValue) {
+        onTipoChange(newValue || tipo.value);
       });
 
-      $(".escola-search select").change(async (e) => {
-        let data = e.currentTarget.value;
-        filtrarCursos(data);
-        validate = await isSchool(data, codeFinal);
-        if (validate) {
-          document.getElementById("msg-escola").innerHTML = "";
-          callCourse();
-          dataFormSchool.escola_id = codeFinal;
-        } else {
-          document.getElementById("msg-escola").innerHTML =
-            "<p>Escola inválida!</p>";
-          dataFormSchool.escola_id = false;
-        }
-      });
+      // Captura do input similar (apenas se existir/estiver visível).
+      if (cursoSimilarInput) {
+        cursoSimilarInput.addEventListener("input", (e) => {
+          dataFormSchool.cursoSimilar = e.target.value.trim();
+        });
+      }
     });
 
     let valid;
 
-    $(document).ready(function () {
-      $(".curso-search select").selectpicker();
-
-      $(".curso-search select").change(async (e) => {
-        let data = e.currentTarget.value;
-        filtrarIdCurso(data);
-        let validate = await isCourse(data, codeFinal, idCursoFinal);
-        if (validate) {
-          document.getElementById("msg-curso").innerHTML = "";
-          dataFormSchool.curso_id = idCursoFinal;
-          anoIngresso();
-        } else {
-          document.getElementById("msg-curso").innerHTML =
-            "<p>Curso inválido!</p>";
-          dataFormSchool.curso_id = false;
-        }
-      });
-
-      $(".ano-formatura-search select").selectpicker();
-
-      $(".ano-formatura-search select").change((e) => {
-        let data = e.currentTarget.value;
-
-        let validate;
-
-        validate = isDateFormatura(data, inicio, fim);
-        valid = isvalid(data);
-        let horarioIncompleto;
-        if (validate) {
-          document.getElementById("msg-ano").innerHTML = "";
-          dataFormSchool.previsao_ano = data;
-          if (!valid) {
-            horarioIncompleto = ["Estágio Curricular", "Formado"];
-            mostrarOpcoesAutocompleteHorario(horarioIncompleto);
-            document.getElementById("div-periodo").style.display = "none";
-            document.getElementById("periodo").style.display = true;
-            dataFormSchool.periodo = periodoFinal();
-          } else {
-            document.getElementById("div-periodo").style.display = "block";
-            document.getElementById("periodo").style.display = false;
-            horarioIncompleto = [];
-            mostrarOpcoesAutocompleteHorario(horariosEstudos);
-          }
-        } else {
-          document.getElementById("msg-ano").innerHTML = "<p>Ano inválido!</p>";
-          dataFormSchool.previsao_ano = false;
-        }
-      });
-
-      $(".semestre-formatura-search select").selectpicker();
-
-      $(".semestre-formatura-search select").change((e) => {
-        let data = e.currentTarget.value;
-        let validate;
-
-        validate = isSemestre(data);
-
-        if (validate) {
-          document.getElementById("msg-semestre-formatura").innerHTML = "";
-          dataFormSchool.previsao_semestre = data;
-        } else {
-          document.getElementById("msg-semestre-formatura").innerHTML =
-            "<p>Semestre de fomartura inválido!</p>";
-          dataFormSchool.previsao_semestre = false;
-        }
-      });
-
-      $(".mes-formatura-search select").selectpicker();
-
-      $(".mes-formatura-search select").change((e) => {
-        let data = e.currentTarget.value;
-
-        let validate = isMesFormatura(data);
-
-        if (validate) {
-          document.getElementById("msg-mes-formatura").innerHTML = "";
-          dataFormSchool.previsao_mes = data;
-        } else {
-          document.getElementById("msg-mes-formatura").innerHTML =
-            "<p>Mês de fomartura inválido!</p>";
-          dataFormSchool.previsao_mes = false;
-        }
-      });
-
-      $(".periodo-search select").selectpicker();
-
-      $(".periodo-search select").change((e) => {
-        let data = e.currentTarget.value;
-
-        let validate = isPeriodo(data);
-
-        if (validate) {
-          document.getElementById("msg-periodo").innerHTML = "";
-          dataFormSchool.periodo = data;
-        } else {
-          document.getElementById("msg-periodo").innerHTML =
-            "<p>Período inválido!</p>";
-          dataFormSchool.periodo = false;
-        }
-      });
-
-      $(".horario-estudo-search select").selectpicker();
-
-      $(".horario-estudo-search select").change((e) => {
-        let data = e.currentTarget.value;
-
-        let validate = isHorario(data);
-
-        if (validate) {
-          document.getElementById("msg-horario").innerHTML = "";
-          dataFormSchool.horario = data;
-        } else {
-          document.getElementById("msg-horario").innerHTML =
-            "<p>Horário de estudo inválido!</p>";
-          dataFormSchool.horario = false;
-        }
-      });
-    });
+    // ====================================================================
+    // Validações acadêmicas antigas removidas — o novo formulário de
+    // Cursos tem sua própria cascata registrada acima.
+    // ====================================================================
 
     if (formSchoolData) {
       formSchoolData.addEventListener("submit", async (e) => {
         e.preventDefault();
 
-        if (matricula) {
-          dataFormSchool.matricula = matricula.value.trim();
+        // Captura os 3 campos do novo formulário de Cursos. O
+        // `dataFormSchool.curso` recebe o value do <select #tipo>
+        // ("0".."15"). O `dataFormSchool.cursoSimilar` só é
+        // preenchido se o input estiver visível (a classe
+        // `.div-curso-similar-hidden` é a fonte de verdade — checamos
+        // por ela em vez de `.style.display` porque o bootstrap-select
+        // zera inline style quando (re)inicializa).
+        dataFormSchool.nivel = nivel ? nivel.value : "";
+        dataFormSchool.curso = tipo ? tipo.value : "";
+        dataFormSchool.curso_similar =
+          cursoSimilarInput &&
+          divCursoSimilar &&
+          !divCursoSimilar.classList.contains("div-curso-similar-hidden")
+            ? cursoSimilarInput.value.trim()
+            : "";
+
+        // O backend espera o payload com as chaves `curso` (VARCHAR2
+        // preenchido pelo value do #tipo) e `curso_similar` (string
+        // do input visível, ou vazio). Não enviamos `nivel` porque a
+        // coluna correspondente ainda não existe — e o spread
+        // ...req.body no controller só persiste colunas que existem
+        // no model (Sequelize ignora chaves desconhecidas no create).
+
+        const enviarCadastro = getEnviarCadastro();
+
+        // Avisos de UX: o cadastro prossegue mesmo sem esses campos
+        // preenchidos. O backend (gate `deveEnviarEmail` em
+        // postCadastrar.js) é quem decide se o e-mail de confirmação
+        // sai ou não. Aqui só registramos no clientLogger para
+        // diagnóstico e exibimos uma mensagem inline no campo.
+        if (!dataFormSchool.curso) {
+          clientLogger.warn("CADASTRO_CURSO_NAO_SELECIONADO", {
+            nivel: dataFormSchool.nivel,
+          });
+          const msg = document.getElementById("msg-tipo");
+          if (msg) msg.innerHTML = "Selecione um curso.";
+          // Não retornamos: cadastro segue, mas e-mail nao sera
+          // enviado (gate do backend).
+        }
+        if (
+          (dataFormSchool.curso === "13" || dataFormSchool.curso === "15") &&
+          !dataFormSchool.curso_similar
+        ) {
+          clientLogger.warn("CADASTRO_CURSO_SIMILAR_VAZIO", {
+            curso: dataFormSchool.curso,
+          });
+          const msg = document.getElementById("msg-curso-similar");
+          if (msg) msg.innerHTML = "Especifique o curso.";
+          // Mesmo motivo: nao bloqueamos o submit.
         }
 
-        if (
-          dataFormSchool.escola_id &&
-          dataFormSchool.curso_id &&
-          dataFormSchool.previsao_semestre &&
-          dataFormSchool.previsao_ano &&
-          dataFormSchool.previsao_mes &&
-          dataFormSchool.horario &&
-          dataFormSchool.periodo
-          // dataFormSchool
-        ) {
-          anoIngresso(dataFormSchool.previsao_ano);
-          const today = new Date();
-          dataFormSchool.ano = today.getFullYear();
-          dataFormSchool.senha = password;
-          // NAO chama mais changeMains(".screen-main") — antes disso,
-          // o submit trocava para uma tela vazia e o usuario ficava
-          // numa "pagina em branco" antes de ver o popup. Agora
-          // permanecemos em screen-school-data e o popup aparece
-          // por cima (com overlay borrado).
+        try {
+          await enviarCadastro(dataFormSchool);
           resolve(dataFormSchool);
-          // Disparado fora da Promise para não impactar o resolution chain
-          // caso enviarCadastro retorne rejeição.
-          getEnviarCadastro()(dataFormSchool);
-        } else {
-          erroSelectSchool(".form-school-data select", dataFormSchool.previsao_ano)
-          removerMensagem("msg-fracasso-school");
+        } catch (envioErr) {
+          // Erros de rede/validação já são tratados e logados dentro
+          // de enviarCadastro → postCadastroWithRetry. Aqui só
+          // mantemos a promise rejeitada para que `takeData()` em
+          // app.js saiba que algo falhou.
+          clientLogger.error("CADASTRO_ERRO_ENVIO", {
+            mensagem: envioErr?.message,
+            classificacao: envioErr?.classification,
+          });
+          reject(envioErr);
         }
       });
     } else {

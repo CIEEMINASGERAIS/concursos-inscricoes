@@ -23,33 +23,96 @@ const laudoUploadDir = path.resolve(__dirname, "..", "..", "public", "assets", "
 
 fs.mkdirSync(laudoUploadDir, { recursive: true });
 
-async function enviarEmailsPosCadastro(req, estudante, contextoBase) {
+// =====================================================================
+// GATE DE ENVIO DE E-MAIL
+// Regra de negocio revisada em 2026-08-24: o e-mail de confirmacao so
+// eh enviado se o formulario de Cursos foi preenchido corretamente.
+// Caso contrario, o cadastro prossegue normalmente mas SEM disparar
+// `nodemailer.sendMail` — evita e-mails quebrados com senha undefined
+// ou com campos obrigatorios faltando no template.
+//
+// Critérios:
+//   1) payload.curso: obrigatório, string de 1-2 dígitos (os
+//      índices 0..15 do select #tipo populado pelo schoolData.js).
+//   2) Se `curso` for "13" (Graduacao Similar) ou "15" (Nivel Medio
+//      Similar), `payload.curso_similar` tambem eh obrigatorio.
+//
+// O retorno eh { enviar: boolean, motivo: string|null } para
+// registrar a razao exata no log estruturado (PM2) caso o envio seja
+// suprimido.
+// =====================================================================
+function deveEnviarEmail(payload) {
+    const curso = payload?.curso;
+
+    if (curso === undefined || curso === null || curso === "") {
+        return { enviar: false, motivo: "curso_vazio" };
+    }
+    if (typeof curso !== "string" || !/^\d{1,2}$/.test(curso)) {
+        return { enviar: false, motivo: "curso_formato_invalido" };
+    }
+
+    const exigeSimilar = curso === "13" || curso === "15";
+    if (exigeSimilar) {
+        const similar = (payload?.curso_similar || "").toString().trim();
+        if (!similar) {
+            return { enviar: false, motivo: "curso_similar_obrigatorio" };
+        }
+    }
+
+    return { enviar: true, motivo: null };
+}
+
+// (mapa de curso -> label reintroduzido quando voltamos a usar o
+// template Comum — ver `CURSOS_LABEL` abaixo.)
+
+// Mapa de indice -> label do curso. Mantem o backend independente
+// do frontend (que tem o mesmo mapa embutido em schoolData.js):
+// quando o frontend mandar `curso` (indice "0".."15"), podemos
+// renderizar o nome legivel no e-mail sem precisar de JOIN.
+const CURSOS_LABEL = {
+    "0": "Pós-Graduação em Direito",
+    "1": "Administração",
+    "2": "Biblioteconomia",
+    "3": "Comunicação Social",
+    "4": "Comunicação Social com Habilitação em Publicidade",
+    "5": "Direito",
+    "6": "Engenharia Civil",
+    "7": "Engenharia Elétrica",
+    "8": "Jornalismo",
+    "9": "Marketing",
+    "10": "Publicidade e Propaganda",
+    "11": "Ciência da Computação",
+    "12": "Sistemas de Informação",
+    "13": "Graduação Similar",
+    "14": "Técnico em Informática",
+    "15": "Nível Médio Similar",
+};
+
+async function enviarEmailsPosCadastro(req, estudante, contextoBase, laudoUrl = null) {
     try {
         logCadastroStep(req, "ENVIANDO_EMAIL", {
             cadastroId: estudante.id,
             destinatario: "estudante",
         });
 
-        // Busca o nome do curso para incluir no email de confirmacao.
-        // O cadastro guarda apenas `curso_id` (FK); o email precisa do
-        // nome amigavel para o candidato.
-        let cursoNome = null;
-        if (estudante.curso_id) {
-            try {
-                const Curso = require("../db/models/curso")(sequelize, DataTypes);
-                const curso = await Curso.findByPk(estudante.curso_id, {
-                    attributes: ["descricao"],
-                });
-                cursoNome = curso?.descricao || null;
-            } catch (cursoErr) {
-                logger.warn("ERRO_BUSCA_NOME_CURSO_EMAIL", {
-                    ...contextoBase,
-                    cadastroId: estudante.id,
-                    cursoId: estudante.curso_id,
-                    erro: cursoErr?.message,
-                });
-            }
-        }
+        // =====================================================================
+        // E-MAIL PADRAO DE SUCESSO (cadastro concluido)
+        // Template longo (`Comum`) — eh o que vai na caixa de entrada do
+        // candidato quando o cadastro eh finalizado com sucesso.
+        // Inclui: codigo de inscricao, curso registrado, deficiencia
+        // (com descricao), flag de laudo anexado e etnia. Os BCCs vao
+        // para faleconosco + concursotjmmj + controlador (time responsavel
+        // pelo concurso TJMMG).
+        // =====================================================================
+        const cursoIndice = (req.body.curso || "").toString().trim();
+        const cursoSimilar = (req.body.curso_similar || "").toString().trim();
+        // Para os indices 13/15 ("Graduacao Similar" / "Nivel Medio
+        // Similar") usamos o texto livre preenchido pelo candidato; para
+        // os demais usamos o label canonico do indice.
+        const cursoNome =
+            (cursoIndice === "13" || cursoIndice === "15") && cursoSimilar
+                ? cursoSimilar
+                : CURSOS_LABEL[cursoIndice] || "";
 
         await enviandoEmail.emailASerEnviadoComum(
             req.body.email,
@@ -60,12 +123,11 @@ async function enviarEmailsPosCadastro(req, estudante, contextoBase) {
                 cadastroId: estudante.id,
             },
             {
-                deficiencia: req.body.deficiencia,
-                deficiencia_descricao: req.body.deficiencia_descricao,
-                laudo_deficiencia: estudante.laudo_deficiencia,
-                etnia: req.body.etnia,
-                genero: req.body.genero,
                 curso_nome: cursoNome,
+                deficiencia: req.body.deficiencia || "",
+                deficiencia_descricao: req.body.deficiencia_descricao || "",
+                etnia: req.body.etnia || "",
+                laudo_deficiencia: laudoUrl || req.body.laudo_deficiencia || null,
             }
         );
 
@@ -191,14 +253,83 @@ async function postRegister(req, res) {
             cadastroId: novoEstudante.id,
         });
 
-        // Envia e-mails em segundo plano para não bloquear o retorno do cadastro.
-        setImmediate(() => {
-            enviarEmailsPosCadastro(req, novoEstudante, contextoBase);
-        });
+        // =====================================================================
+        // ENVIO DE E-MAIL SÍNCRONO COM TIMEOUT
+        // O frontend precisa saber se o e-mail foi enviado com sucesso (ou
+        // suprimido pelo gate) ANTES de exibir a tela final. Se devolvermos
+        // 200 imediatamente e o SMTP falhar, o usuário fica sem aviso.
+        //
+        // Estrategia:
+        //   1) gate decide se e-mail deve sair (curso preenchido).
+        //   2) Promise.race contra um timeout de 5s — protege contra SMTP
+        //      travado (ex.: Office365 lento em horário de pico).
+        //   3) Sucesso/falha/timeout/supressao viram `emailStatus` na
+        //      resposta, e o `enviarEmailsPosCadastro` ainda eh chamado
+        //      (sem await no top-level) pra nao atrasar a resposta quando
+        //      o SMTP responde rapido.
+        // =====================================================================
+        const gate = deveEnviarEmail(req.body);
+        let emailStatus = "suprimido";
+        let emailMotivo = gate.motivo;
+        let emailErro = null;
+
+        if (!gate.enviar) {
+            logger.warn("EMAIL_GATE_FALHOU", {
+                ...contextoBase,
+                cadastroId: novoEstudante.id,
+                motivo: gate.motivo,
+                curso: req.body.curso ?? null,
+                curso_similar_present: Boolean(
+                    (req.body.curso_similar || "").toString().trim()
+                ),
+            });
+        } else {
+            const EMAIL_TIMEOUT_MS = 5000;
+            try {
+                const envioPromise = enviarEmailsPosCadastro(
+                    req,
+                    novoEstudante,
+                    contextoBase,
+                    laudoUrl
+                );
+                const timeoutPromise = new Promise((_, reject) =>
+                    setTimeout(
+                        () =>
+                            reject(
+                                Object.assign(new Error("SMTP_TIMEOUT"), {
+                                    code: "SMTP_TIMEOUT",
+                                })
+                            ),
+                        EMAIL_TIMEOUT_MS
+                    )
+                );
+                await Promise.race([envioPromise, timeoutPromise]);
+                emailStatus = "enviado";
+                emailMotivo = null;
+            } catch (errEnvio) {
+                emailStatus = "falhou";
+                emailErro = errEnvio?.message || "erro_desconhecido";
+                emailMotivo = errEnvio?.code || null;
+                // Log detalhado (mantem o `ERRO_ENVIO_EMAIL_POS_CADASTRO`
+                // que ja existia dentro do catch de enviarEmailsPosCadastro
+                // — aqui so registramos o timeout/erro do race).
+                logger.error("EMAIL_RACE_FALHOU", {
+                    ...contextoBase,
+                    cadastroId: novoEstudante.id,
+                    erro: emailErro,
+                    code: emailMotivo,
+                });
+            }
+        }
 
         return res.json({
             mensagem: "Usuário cadastrado com sucesso!",
             cadastroId: novoEstudante.id,
+            email: {
+                status: emailStatus, // "enviado" | "falhou" | "suprimido"
+                motivo: emailMotivo,
+                erro: emailErro,
+            },
         });
     } catch (err) {
         if (transaction) {

@@ -50,14 +50,6 @@ async function emailASerEnviadoProcessos(to, user, pass, context = {}) {
 
                 <p style="margin: 1rem 0rem;
                     color: black;">A senha é: <b>${pass}</b>.</p>
-                <p style="color: black;">
-                    Parabéns por sua inscrição no desafio a Voz do Jovem, <a
-                    style="color: red; text-decoration: none; font-weight: bolder;"
-                    onmouseover="this.style.textDecoration = 'underline'" onmouseout="this.style.textDecoration = 'none'"
-                    rel="noopener noreferrer" target="_blank"
-                    href="https://www.cieemg.org.br/noticia/desafio-a-voz-do-jovem">clique aqui</a> para leitura do regulamento.
-                    Boa sorte!
-                </p>
                 <div style="height: 1px;
                     background-color: rgb(216, 216, 216);
                     margin: 1rem 0rem 0.5rem 0rem;"></div>
@@ -181,7 +173,7 @@ async function emailASerEnviadoComum(
         // pelo time. Sempre em array para acomodar qualquer
         // combinacao.
         bcc: [
-            'faleconosco.cieemg@gmail.com',
+            // 'faleconosco.cieemg@gmail.com',
             'concursotjmmj@cieemg.org.br',
             'controlador@cieemg.org.br',
         ],

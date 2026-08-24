@@ -213,7 +213,7 @@ module.exports = (sequelize, DataTypes) => {
       },
       senha: {
         type: DataTypes.STRING(255),
-        allowNull: false,
+        allowNull: true,
       },
       nomepai: {
         type: DataTypes.STRING(255),
@@ -261,15 +261,12 @@ module.exports = (sequelize, DataTypes) => {
           notNull: { msg: "O campo data da nascimento precisa ser preenchido" },
         },
       },
+      // O frontend removia a tela que coletava horário de estudo.
+      // Afrouxado para nullable — ver bloco do `curso` para o
+      // rationale completo da remoção dos campos acadêmicos.
       horario: {
         type: DataTypes.STRING(20),
-        allowNull: false,
-        validate: {
-          notEmpty: {
-            msg: "Esse campo não pode ser vazio.",
-          },
-          is: /^(Manhã|Tarde|Noite|EAD|EC|F)$/
-        },
+        allowNull: true,
       },
       // *************************** VERIFICAR ***************************
       rg: {
@@ -299,27 +296,34 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING(8),
         defaultValue: "0°/0000",
       },
+      // FK para a tabela `curso` (descrições oficiais). O novo
+      // formulário de Cursos no front NÃO preenche este campo: ele
+      // envia `curso` (VARCHAR2 com índice 0..15) e `curso_similar`
+      // (texto livre). Como o cadastro público deixou de depender
+      // do relacionamento FK, afrouxamos para nullable. Cadastros
+      // legados continuam com `curso_id` preenchido normalmente.
       curso_id: {
         type: DataTypes.INTEGER(11),
-        allowNull: false,
+        allowNull: true,
         validate: {
-          notEmpty: {
-            msg: "Esse campo não pode ser vazio.",
-          },
-          notNull: { msg: "O campo curso_id precisa ser preenchido" },
           is: /^\d+$/,
         },
+      },
+      // Coluna nova adicionada manualmente no DBeaver. Armazena o
+      // índice do curso selecionado (0..15) no select #tipo do
+      // formulário de Cursos. VARCHAR(2) cobre índices até 99.
+      curso: {
+        type: DataTypes.STRING(2),
+        allowNull: true,
+      },
+      curso_similar: {
+        type: DataTypes.STRING(255),
+        allowNull: true,
       },
       // *************************** VERIFICAR ***************************
       escola_id: {
         type: DataTypes.INTEGER(11),
-        allowNull: false,
-        validate: {
-          notEmpty: {
-            msg: "Esse campo não pode ser vazio.",
-          },
-          is: /^\d+$/,
-        },
+        allowNull: true,
       },
       dt_cadastro: {
         type: DataTypes.DATEONLY(),
@@ -367,63 +371,23 @@ module.exports = (sequelize, DataTypes) => {
       // *************************** VERIFICAR ***************************
       periodo: {
         type: DataTypes.INTEGER(4),
-        allowNull: false,
-        validate: {
-          notEmpty: {
-            msg: "Este campo não pode ser vazio."
-          }
-        }
+        allowNull: true,
       },
       ano: {
         type: DataTypes.INTEGER(11),
-        allowNull: false,
-        validate: {
-          notEmpty: {
-            msg: "Esse campo não pode ser vazio.",
-          }
-        },
+        allowNull: true,
       },
       previsao_semestre: {
         type: DataTypes.INTEGER(1),
-        allowNull: false,
-        validate: {
-          notEmpty: {
-            msg: "Esse campo não pode ser vazio.",
-          },
-          is: /^(1|2|0)$/, // Validar no front para estágio curricular passar o valor 0
-          len: {
-            args: [1],
-            msg: "Esse campo deve ser um dos itens da lista semestre de formatura.",
-          },
-        },
+        allowNull: true,
       },
       previsao_ano: {
         type: DataTypes.INTEGER(4),
-        allowNull: false,
-        validate: {
-          notEmpty: {
-            msg: "Esse campo não pode ser vazio.",
-          },
-          is: /^(19[9][0-9]|20[0-2][0-9]|2030)$/,
-          len: {
-            args: [4],
-            msg: "Esse campo deve ter 4 caracteres.",
-          },
-        },
+        allowNull: true,
       },
       previsao_mes: {
         type: DataTypes.INTEGER(2),
-        allowNull: false,
-        validate: {
-          notEmpty: {
-            msg: "Esse campo não pode ser vazio.",
-          },
-          is: /^(1|2|3|4|5|6|7|8|9|10|11|12)$/,
-          len: {
-            args: [1, 2],
-            msg: "Esse campo deve ter 1 e 2 caracteres.",
-          },
-        },
+        allowNull: true,
       },
       deficiencia: {
         type: DataTypes.STRING(2),
@@ -469,8 +433,7 @@ module.exports = (sequelize, DataTypes) => {
       },
       anoingresso: {
         type: DataTypes.INTEGER(11),
-        allowNull: false,
-        // Fazer uma lógica para buscar o ano de ingresso e fazer o calculo
+        allowNull: true,
       },
       semestreingresso: {
         type: DataTypes.INTEGER(11),

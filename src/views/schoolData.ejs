@@ -1,4 +1,75 @@
 <form class="form-school-data" id="form-school-data">
+  <!--
+    ====================================================================
+    TELA ATUAL: FORMULÁRIO DE CURSOS (substituiu o antigo formulário de
+    dados acadêmicos, que está comentado abaixo para referência).
+    Estrutura provisória: 2 selects + 2 inputs texto. Os campos e a
+    lógica de população serão definidos em iteração seguinte.
+    ====================================================================
+  -->
+
+  <div class="escolas-cursos">
+    <!-- SELECT 1: Nível de escolaridade -->
+    <div id="div-nivel" class="nivel-search">
+      <label for="nivel">Nível</label>
+      <select name="nivel" id="nivel" data-live-search="true" class="w-100"
+        title="Selecione o nível.">
+        <option value="" disabled selected>Selecione</option>
+        <option value="pos-graduacao">Pós-Graduação</option>
+        <option value="graduacao">Graduação</option>
+        <option value="graduacao-tecnologica">Graduação Tecnológica</option>
+        <option value="ensino-medio">Ensino Médio</option>
+      </select>
+      <p class="obg">Obrigatório</p>
+      <span id="msg-nivel"></span>
+    </div>
+
+    <!-- SELECT 2: Tipo de curso (cascata do nível) -->
+    <div id="div-tipo" class="tipo-search">
+      <label for="tipo">Curso</label>
+      <select name="curso" id="tipo" data-live-search="true" class="w-100"
+        title="Selecione o curso.">
+        <option value="" disabled selected>Selecione</option>
+      </select>
+      <p class="obrigatorio">Obrigatório</p>
+      <span id="msg-tipo"></span>
+    </div>
+  </div>
+
+  <!-- INPUT CONDICIONAL: aparece quando Curso = "Graduação Similar"
+       ou "Nível Médio Similar". Usa classe dedicada
+       `.div-curso-similar-hidden` (com `!important` em schoolData.css)
+       em vez de inline style porque o bootstrap-select força
+       `display: block` no container quando inicializa.
+       `name="curso_similar"` casa com a coluna criada no DBeaver. -->
+  <div id="div-curso-similar" class="curso-similar-search matricula-search div-curso-similar-hidden">
+    <label for="curso-similar" class="label-curso-similar">Especifique o curso</label>
+    <input type="text" name="curso_similar" id="curso-similar" placeholder="Digite o nome do curso"
+      class="form-control" maxlength="100"/>
+    <p class="obrigatorio">Obrigatório</p>
+    <span id="msg-curso-similar"></span>
+  </div>
+
+  <span id="msg-fracasso-school"></span>
+  <div class="div-buttons">
+    <button class="button-back-school" type="button">Voltar</button>
+    <div class="linha-ou-school">
+      <div class="line-div"></div>
+      <div class="ou">OU</div>
+      <div class="line-div"></div>
+    </div>
+    <button class="button-finish-school" type="submit">Finalizar</button>
+  </div>
+</form>
+
+<!--
+  ====================================================================
+  HTML ANTIGO (formulário de dados acadêmicos) — comentado para
+  preservar referência. Descomentar quando o novo formulário de Cursos
+  estiver estabilizado e for desejável restaurar a coleta acadêmica.
+  ====================================================================
+
+<form class="form-school-data" id="form-school-data">
   <div class="escolas-cursos">
     <div id="escolasInput" class="escola-search">
       <label for="escolas">Escola onde estuda ou estudou?</label>
@@ -86,6 +157,18 @@
     <button class="button-finish-school" type="submit">Finalizar</button>
   </div>
 </form>
+<div class="school-found">
+  <div class="alert-school">
+    <h1>Escola não encontrada</h1>
+    <p>Favor enviar um e-mail para escola@cieemg.org.br informando a sua escola.</p>
+    <div class="button-school">
+      <button class="button-confirm-school">Confirmar</button>
+    </div>
+  </div>
+</div>
+-->
+
+<!-- Modal de "escola não encontrada" preservado para reuso futuro. -->
 <div class="school-found">
   <div class="alert-school">
     <h1>Escola não encontrada</h1>

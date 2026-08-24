@@ -36,6 +36,20 @@
   border-radius: 0.5rem;
 }
 
+/*
+ * Container do input condicional "Especifique o curso".
+ * Inicia oculto e só é revelado quando o usuário escolhe
+ * "Graduação Similar" no select #tipo.
+ *
+ * `!important` aqui é proposital: o bootstrap-select força
+ * `display: block` via inline style em outros elementos do mesmo
+ * grupo e, sem prioridade explícita, o container condicional
+ * acabava aparecendo por padrão (bug relatado em 2026-08-24).
+ */
+.div-curso-similar-hidden {
+  display: none !important;
+}
+
 .form-school-data .dropdown-toggle {
   z-index: 0;
 }
@@ -150,7 +164,10 @@
 .mes-formatura-search,
 .periodo-search,
 .horario-estudo-search,
-.matricula-search {
+.matricula-search,
+.nivel-search,
+.tipo-search,
+.curso-similar-search {
   width: 100%;
   margin: 1rem;
 }
@@ -161,7 +178,9 @@
 .semestre-formatura-search select,
 .mes-formatura-search select,
 .periodo-search select,
-.horario-estudo-search select {
+.horario-estudo-search select,
+.nivel-search select,
+.tipo-search select {
   width: 2rem;
 }
 
@@ -171,7 +190,9 @@
 .semestre-formatura-search button,
 .mes-formatura-search button,
 .periodo-search button,
-.horario-estudo-search button {
+.horario-estudo-search button,
+.nivel-search button,
+.tipo-search button {
   background-color: white !important;
   padding: 0.9375rem 1, 5625rem;
   color: rgb(0, 0, 0) !important;
@@ -187,7 +208,9 @@
 .semestre-formatura-search .dropdown-menu,
 .mes-formatura-search .dropdown-menu,
 .periodo-search .dropdown-menu,
-.horario-estudo-search .dropdown-menu {
+.horario-estudo-search .dropdown-menu,
+.nivel-search .dropdown-menu,
+.tipo-search .dropdown-menu {
   max-width: 16rem;
   font-size: 0.9em;
   color: rgb(0, 0, 0);

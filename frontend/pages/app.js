@@ -370,10 +370,43 @@ async function enviarCadastro(dataFormSchool) {
       }
       if (dataErroEl) dataErroEl.innerHTML = `<p>${date} v - 1.0.0</p>`;
       if (messageEl) {
-        messageEl.innerHTML =
+        let mensagemSucesso =
           `Atenção: Todas as informações referentes a datas, local de prova e demais ` +
           `informações consulte o edital publicado em nosso portal ` +
           `<a href="https://www.cieemg.org.br" target="_blank" rel="noopener">www.cieemg.org.br</a>.`;
+
+        // ===================================================================
+        // AVISO SOBRE O E-MAIL DE CONFIRMAÇÃO
+        // O backend agora devolve `email.status` em todas as respostas:
+        //   - "enviado": SMTP OK, candidato recebeu a senha.
+        //   - "falhou": SMTP explodiu ou timeout (>5s). Não chegamos a
+        //               reenviar — o candidato precisa ser avisado pra
+        //               entrar em contato com a central.
+        //   - "suprimido": gate bloqueou (ex.: curso_similar vazio).
+        //                  Cadastro OK, e-mail não vai sair — comportamento
+        //                  intencional da regra de negócio.
+        // ===================================================================
+        let parsedBody = null;
+        try {
+          parsedBody = JSON.parse(resultado.body || "{}");
+        } catch {
+          parsedBody = null;
+        }
+        const emailStatus = parsedBody?.email?.status || null;
+        const emailMotivo = parsedBody?.email?.motivo || null;
+
+        if (emailStatus === "falhou") {
+          mensagemSucesso +=
+            `<br><br><strong style="color:#b30000;">⚠️ Não conseguimos enviar seu e-mail de confirmação agora.</strong> ` +
+            `Anote seu código de inscrição (${codigoInscricao}) e entre em contato com a central ` +
+            `<a href="tel:+553134298100">(31) 3429-8100</a> – Opção 6 para receber sua senha de acesso.`;
+        } else if (emailStatus === "suprimido") {
+          mensagemSucesso +=
+            `<br><br><em>Observação: o e-mail automático não foi enviado porque alguns dados de curso não foram preenchidos. ` +
+            `Nossa equipe entrará em contato em até 24h pelo canal informado no cadastro.</em>`;
+        }
+
+        messageEl.innerHTML = mensagemSucesso;
       }
     } else {
       const erroCadastro = parseErroBackend(resultado.status, resultado.body);

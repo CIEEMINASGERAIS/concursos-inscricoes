@@ -124,7 +124,7 @@ class ProgramasEmCurso {
             if (element.classList.contains("chamou-atencao")) {
                 const comoAtencao = document.getElementsByName("atencao-desafio")
                 this.formProgramasEmCurso["chamou_atencao_desafio"] = selecionarNomes(comoAtencao)
-                if (this.formProgramasEmCurso["chamou_atencao_desafio"] === "4" && !document.querySelector(".div-input-como-atencao")) {
+                if (this.formProgramasEmCurso["chamou_atencao_desafio"] === "4" && !document.querySelector("#div-input-como-atencao")) {
                     const inputComoAtencao = new CreateInputLabel(document.querySelector(".div-geral-mca"), "", "input-como-atencao")
                 } else {
                     if (document.querySelector("#div-input-como-atencao")) {

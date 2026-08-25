@@ -13,6 +13,44 @@ const {
   erroSelectSchool,
 } = require("../utils/util");
 
+/**
+ * Habilita/desabilita o botão "Finalizar" da tela de Dados Acadêmicos
+ * com base nos campos visíveis no momento.
+ *
+ * Regras:
+ *   1. #nivel precisa ter valor selecionado (não-vazio).
+ *   2. #tipo (Curso) precisa ter valor selecionado.
+ *   3. Se a div `#div-curso-similar` NÃO estiver com a classe
+ *      `div-curso-similar-hidden` (ou seja, está visível porque o curso
+ *      escolhido foi "13" = Graduação Similar ou "15" = Nível Médio
+ *      Similar), então `#curso-similar` precisa estar preenchido.
+ */
+function atualizarBotaoFinalizar() {
+  const btn = document.querySelector(".button-finish-school");
+  if (!btn) return;
+
+  let tudoPreenchido = true;
+
+  const nivel = document.getElementById("nivel");
+  const tipo = document.getElementById("tipo");
+  const divCursoSimilar = document.getElementById("div-curso-similar");
+  const cursoSimilar = document.getElementById("curso-similar");
+
+  if (!nivel || !nivel.value) tudoPreenchido = false;
+  if (!tipo || !tipo.value) tudoPreenchido = false;
+
+  if (
+    divCursoSimilar &&
+    !divCursoSimilar.classList.contains("div-curso-similar-hidden")
+  ) {
+    if (!cursoSimilar || !cursoSimilar.value.trim()) {
+      tudoPreenchido = false;
+    }
+  }
+
+  btn.disabled = !tudoPreenchido;
+}
+
 // Importação lazy para evitar ciclo de require entre schoolData.js e
 // app.js (app.js importa createFormSchoolData, e este módulo exporta
 // enviarCadastro que schoolData.js consome).
@@ -313,6 +351,8 @@ async function createFormSchoolData() {
         const lista = CURSOS_POR_NIVEL[nivelSelecionado] || [];
         popularTipo(lista);
         resetCursoSimilar();
+        // Mudou o nível → reset do tipo libera/bloqueia conforme regra.
+        atualizarBotaoFinalizar();
       };
 
       const onTipoChange = (cursoSelecionado) => {
@@ -329,6 +369,9 @@ async function createFormSchoolData() {
         } else {
           resetCursoSimilar();
         }
+        // Mudou o curso → pode liberar/bloquear conforme o input
+        // #curso-similar ficar visível ou não.
+        atualizarBotaoFinalizar();
       };
 
       // 1) evento nativo `change` no <select>
@@ -347,9 +390,15 @@ async function createFormSchoolData() {
       if (cursoSimilarInput) {
         cursoSimilarInput.addEventListener("input", (e) => {
           dataFormSchool.cursoSimilar = e.target.value.trim();
+          // Digitar no campo similar afeta diretamente a regra do botão.
+          atualizarBotaoFinalizar();
         });
       }
     });
+
+    // Estado inicial do botão "Finalizar" — bloqueado até que
+    // #nivel, #tipo e (condicionalmente) #curso-similar estejam OK.
+    atualizarBotaoFinalizar();
 
     let valid;
 

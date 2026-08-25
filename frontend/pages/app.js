@@ -269,7 +269,7 @@ async function enviarCadastro(dataFormSchool) {
       return {
         tipo: "duplicado",
         titulo: "Cadastro já realizado!",
-        mensagem: `Olá ${data.nome}, identificamos que este CPF ou e-mail já possui cadastro. Verifique sua caixa de entrada (incluindo spam) pelo e-mail de confirmação. Em caso de dúvidas, ligue (31) 3429-8100.`,
+        mensagem: `Identificamos que este CPF ou e-mail já possui cadastro. Verifique sua caixa de entrada (incluindo spam) pelo e-mail de confirmação. Em caso de dúvidas, ligue (31) 3429-8100.`,
       };
     }
 
@@ -330,7 +330,7 @@ async function enviarCadastro(dataFormSchool) {
   if (dataErroEl) dataErroEl.innerHTML = ``;
   if (messageEl) {
     messageEl.innerHTML =
-      `Olá ${data.nome}, estamos finalizando o seu cadastro, aguarde um momento.`;
+      `Estamos finalizando o seu cadastro, aguarde um momento.`;
   }
 
   try {
@@ -464,7 +464,7 @@ async function enviarCadastro(dataFormSchool) {
 
     if (messageEl) {
       messageEl.innerHTML = isNetworkError
-        ? `Olá ${data.nome}, parabéns por finalizar a primeira etapa do seu cadastro, fique atento ao seu e-mail,
+        ? `Parabéns por finalizar a primeira etapa do seu cadastro, fique atento ao seu e-mail,
       enviaremos em
       até 24 horas os dados para realizar seu primeiro login no nosso portal, para conclusão do seu cadastro.`
         : mensagemErroPadrao;

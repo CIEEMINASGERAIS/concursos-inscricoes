@@ -114,9 +114,20 @@ async function enviarEmailsPosCadastro(req, estudante, contextoBase, laudoUrl = 
                 ? cursoSimilar
                 : CURSOS_LABEL[cursoIndice] || "";
 
+        // =====================================================================
+        // NOME USADO NO E-MAIL
+        // Se a pessoa cadastrou um nome social (checkbox "Prefiro usar
+        // nome social" marcado e campo preenchido com >=3 letras),
+        // usamos o nome social na saudacao do e-mail — é como a pessoa
+        // quer ser chamada. Caso contrario, cai para o nome civil.
+        // O nome civil continua sendo gravado normalmente no banco.
+        // =====================================================================
+        const nomeSocialRaw = (req.body.nome_social || "").toString().trim();
+        const nomeParaEmail = nomeSocialRaw.length >= 3 ? nomeSocialRaw : req.body.nome;
+
         await enviandoEmail.emailASerEnviadoComum(
             req.body.email,
-            req.body.nome,
+            nomeParaEmail,
             req.body.senha,
             {
                 ...contextoBase,
@@ -284,7 +295,12 @@ async function postRegister(req, res) {
                 ),
             });
         } else {
-            const EMAIL_TIMEOUT_MS = 5000;
+            // Office365 costuma levar 6-9s em horário de pico. 5s era
+            // curto e marcava `falhou` no frontend mesmo com o e-mail
+            // chegando minutos depois (race perdido, envio OK).
+            // 15s cobre o pior caso sem deixar a resposta pendurada
+            // além do aceitável para o candidato.
+            const EMAIL_TIMEOUT_MS = 15000;
             try {
                 const envioPromise = enviarEmailsPosCadastro(
                     req,

@@ -111,8 +111,70 @@
     padding: 1rem;
 }
 
-.form-group-um{
-  max-width: 50rem;
+/* Gênero (esquerda) e etnia (direita) dividem a linha quando houver
+ * espaço. `flex: 1 1 320px` faz cada bloco crescer igual e quebrar
+ * pra baixo só quando o container ficar menor que ~640px+gap, em vez
+ * do `max-width: 50rem` antigo que forçava a etnia inteira pra linha
+ * de baixo mesmo em viewports grandes. */
+.form-group-um {
+  flex: 1 1 320px;
+  min-width: 280px;
+}
+
+.form-group-dois {
+  flex: 1 1 320px;
+  min-width: 280px;
+}
+
+/* Em viewports estreitos, gênero e etnia empilham (cada um ocupa
+ * a largura toda). Sem isso o flex-wrap do `.div-number-4-5`
+ * comprimiria os blocos a <280px e a label "Indígena (possui
+ * declaração de vínculo com a comunidade indígena pela FUNAI)"
+ * forçaria overflow horizontal. */
+@media screen and (max-width: 700px) {
+  .form-group-um,
+  .form-group-dois {
+    flex-basis: 100%;
+    min-width: 0;
+  }
+}
+
+/* A label do radio "Indígena" é longa (76 chars). Sem limite ela
+ * ocupa uma linha inteira; com `max-width: 100%` + `overflow-wrap`
+ * ela respeita a largura do `.form-check` pai e quebra em quantas
+ * linhas forem necessárias. */
+.form-group-dois .form-check label {
+  max-width: 100%;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  display: inline-block;
+}
+
+/* Input "Descreva sua identidade de gênero": segue o mesmo padrão
+ * dos outros campos com label (label em cima, input embaixo,
+ * "Obrigatório"/msg logo abaixo). Sobrescreve o layout flex do
+ * `.form-group-um` pai que, sem este ajuste, renderizava label e
+ * input lado a lado. */
+.div-genero-descricao {
+  display: block;
+  width: 100%;
+  flex-basis: 100%;
+  margin-top: 0.5rem;
+}
+.div-genero-descricao .genero-descricao-label {
+  display: block;
+  margin-bottom: 0.25rem;
+  color: #fff;
+}
+.div-genero-descricao .genero-descricao-input {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0.5rem;
+  border-radius: 0.25rem;
+  border: 1px solid #ccc;
+  background: #fff;
+  color: #212529;
 }
 .div-number-4-5{
   display: flex;

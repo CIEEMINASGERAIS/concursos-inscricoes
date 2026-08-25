@@ -8,6 +8,7 @@ const {
   isEstadoCivil,
   isDate,
   isSexo,
+  isGenero,
   isUfNaturalidade,
   isDeficiente,
   isDescricao,
@@ -521,11 +522,32 @@ const initDataBasic = async () => {
       });
     }
 
-    // Genero (radio: C | T)
+    // Genero (radio: H | M | N | P | A)
+    // Quando a opção "A" (Prefiro me autodescrever) é escolhida,
+    // um input de texto livre é mostrado para descrever a identidade.
+    // O backend grava esse texto em `genero_descricao` (VARCHAR 255).
     const radiosGenero = document.querySelectorAll('input[name="genero"]');
+    const inputGeneroDescricao = document.getElementById("genero-descricao");
+    const divGeneroDescricao = document.getElementById("div-genero-descricao");
+
+    const atualizarVisibilidadeGeneroDescricao = (valor) => {
+      if (!divGeneroDescricao) return;
+      if (valor === "A") {
+        divGeneroDescricao.classList.remove("hide");
+      } else {
+        divGeneroDescricao.classList.add("hide");
+        if (inputGeneroDescricao) {
+          inputGeneroDescricao.value = "";
+          document.getElementById("msg-genero-descricao")?.replaceChildren();
+        }
+        formDataBasic.genero_descricao = "";
+      }
+    };
+
     const validarGenero = () => {
       const marcado = Array.from(radiosGenero).find((r) => r.checked);
       formDataBasic.genero = marcado ? marcado.value : false;
+      atualizarVisibilidadeGeneroDescricao(formDataBasic.genero);
     };
     if (radiosGenero.length > 0) {
       radiosGenero.forEach((radio) => {
@@ -533,6 +555,15 @@ const initDataBasic = async () => {
           document.getElementById("msg-genero")?.replaceChildren();
           validarGenero();
         });
+      });
+    }
+
+    // Listener do input de descrição — só fica ativo quando visível
+    // (a validação no submit cobre o caso "escondeu sem apagar").
+    if (inputGeneroDescricao) {
+      inputGeneroDescricao.addEventListener("input", (e) => {
+        formDataBasic.genero_descricao = e.target.value.trim();
+        document.getElementById("msg-genero-descricao")?.replaceChildren();
       });
     }
 
@@ -725,6 +756,12 @@ const initDataBasic = async () => {
         // marcar e submeter sem disparar o `change`).
         validarGenero();
         validarEtnia();
+
+        // Garante que a descrição (campo livre) seja enviada sempre
+        // — quando "A" não foi escolhido, fica como string vazia.
+        if (formDataBasic.genero !== "A") {
+          formDataBasic.genero_descricao = "";
+        }
         const invalidFields = Object.entries(formDataBasic)
           .filter(([, value]) => value === false)
           .map(([key]) => key);
@@ -740,6 +777,11 @@ const initDataBasic = async () => {
           formDataBasic.uf_naturalidade &&
           formDataBasic.deficiencia &&
           formDataBasic.genero &&
+          // Quando "Prefiro me autodescrever" (A) é escolhido,
+          // a descrição é obrigatória e deve passar por isDescricao.
+          (formDataBasic.genero !== "A" ||
+            (formDataBasic.genero_descricao &&
+              isDescricao(formDataBasic.genero_descricao))) &&
           formDataBasic.etnia &&
           formDataBasic.rg !== false &&
           formDataBasic.orgaoexpedidor &&

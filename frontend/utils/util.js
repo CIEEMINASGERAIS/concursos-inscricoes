@@ -696,7 +696,8 @@ const isHorario = (data) => {
 };
 
 const isSexo = (sexo) => {
-  const regex1 = new RegExp(/^[FM]$/);
+  // M=Masculino, F=Feminino, I=Intersexo, P=Prefiro não responder
+  const regex1 = new RegExp(/^[MFIP]$/);
 
   if (!regex1.test(sexo)) {
     return false;
@@ -708,6 +709,12 @@ const isSexo = (sexo) => {
   }
 
   return true;
+};
+
+const isGenero = (genero) => {
+  // H=Homem, M=Mulher, N=Não binário,
+  // P=Prefiro não responder, A=Prefiro me autodescrever
+  return /^[HMNPA]$/.test(genero);
 };
 
 const isUfNaturalidade = (ufNaturalidade) => {
@@ -1284,6 +1291,7 @@ module.exports = {
   isEstadoCivil,
   isDate,
   isSexo,
+  isGenero,
   isUfNaturalidade,
   isDeficiente,
   isDescricao,

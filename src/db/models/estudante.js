@@ -248,7 +248,8 @@ module.exports = (sequelize, DataTypes) => {
             msg: "Esse campo não pode ser vazio.",
           },
           notNull: { msg: "O campo nome precisa ser preenchido" },
-          is: /^[FM]$/,
+          // M=Masculino, F=Feminino, I=Intersexo, P=Prefiro não responder
+          is: /^[MFIP]$/,
         },
       },
       dt_nascimento: {
@@ -601,6 +602,18 @@ module.exports = (sequelize, DataTypes) => {
       },
        genero: {
         type: DataTypes.STRING(1),
+        allowNull: true,
+        validate: {
+          // H=Homem, M=Mulher, N=Não binário,
+          // P=Prefiro não responder, A=Prefiro me autodescrever
+          is: /^[HMNPA]$/,
+        },
+      },
+      // Texto livre para a opção "Prefiro me autodescrever" (A).
+      // Obrigatório apenas quando `genero === "A"`. Validado no
+      // controller/front; aqui fica nullable e sem regras rígidas.
+      genero_descricao: {
+        type: DataTypes.STRING(255),
         allowNull: true,
       },
        etnia: {

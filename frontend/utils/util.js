@@ -9,6 +9,24 @@ const changeSubMainTitle = (text) => {
   }
 };
 
+// Compara dois CPFs tratando-os como strings com máscara
+// (`123.456.789-00`). Como o input nunca permite digitar sem
+// máscara e o backend grava com máscara, comparamos como string
+// completa. Retorna true se ambos forem não vazios e idênticos.
+const cpfsConflitam = (a, b) => {
+  if (!a || !b) return false;
+  const sa = String(a).trim();
+  const sb = String(b).trim();
+  if (!sa || !sb) return false;
+  return sa === sb;
+};
+
+// Mensagens genéricas usadas em qualquer campo que tenha conflito
+// de valor com outro campo. Mantém o texto neutro para reaproveitar
+// em CPFs cruzados, e-mails iguais, telefones repetidos, etc.
+const MSG_VALOR_DUPLICADO = "Este valor já foi informado em outro campo.";
+const MSG_VALOR_NAO_PERMITIDO = "Este valor não é permitido neste campo.";
+
 // Helper tolerante a elementos ausentes: retorna o node OU null sem
 // lançar. Usado por fluxos onde o markup de "alerta" foi removido do
 // template, mas o JS legado ainda tenta manipulá-lo.
@@ -1278,6 +1296,9 @@ module.exports = {
   erroInputAddress,
   erroSelectSchool,
   isCpf,
+  cpfsConflitam,
+  MSG_VALOR_DUPLICADO,
+  MSG_VALOR_NAO_PERMITIDO,
   isNome,
   changeMains,
   changeSubMainTitle,

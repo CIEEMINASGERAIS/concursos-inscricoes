@@ -17,6 +17,9 @@ const {
   isComplemento,
   age,
   cpfInBd,
+  cpfsConflitam,
+  MSG_VALOR_DUPLICADO,
+  MSG_VALOR_NAO_PERMITIDO,
   erroInput,
   erroSelect,
   CreateInputLabel
@@ -174,6 +177,20 @@ const initDataBasic = async () => {
         validate = isCpf(e.target.value);
 
         if (validate) {
+          // Bloqueia se o CPF do candidato coincidir com o da mãe ou
+          // do pai já preenchidos. Comparação com máscara porque é
+          // como o input grava e o banco armazena.
+          const cpfMae = document.getElementById("cpf-mae");
+          const cpfPai = document.getElementById("cpf-pai");
+          if (
+            (cpfMae && cpfsConflitam(e.target.value, cpfMae.value)) ||
+            (cpfPai && cpfsConflitam(e.target.value, cpfPai.value))
+          ) {
+            document.getElementById("msg-cpf").innerHTML =
+              `<p>${MSG_VALOR_DUPLICADO}</p>`;
+            formDataBasic.cpf = false;
+            return;
+          }
           document.getElementById("msg-cpf").innerHTML = "";
           // Só dispara a checagem no backend quando o usuário parou de digitar.
           if (cpfTimer) clearTimeout(cpfTimer);
@@ -237,6 +254,37 @@ const initDataBasic = async () => {
           validate = isCpf(element.value);
 
           if (validate) {
+            // Bloqueia se o CPF do pai/da mãe coincidir com o CPF
+            // do próprio candidato já preenchido.
+            const cpfProprio = document.getElementById("cpf");
+            if (cpfProprio && cpfsConflitam(element.value, cpfProprio.value)) {
+              if (element.classList.contains('mamae')) {
+                document.getElementById("msg-cpf-mae").innerHTML =
+                  `<p>${MSG_VALOR_NAO_PERMITIDO}</p>`;
+                formDataBasic.cpf_mae = false;
+              } else {
+                document.getElementById("msg-cpf-pai").innerHTML =
+                  `<p>${MSG_VALOR_NAO_PERMITIDO}</p>`;
+                formDataBasic.cpf_pai = false;
+              }
+              return;
+            }
+            // Bloqueia cruzamento entre os dois pais (mãe == pai).
+            const outroPai = element.classList.contains('mamae')
+              ? document.getElementById("cpf-pai")
+              : document.getElementById("cpf-mae");
+            if (outroPai && cpfsConflitam(element.value, outroPai.value)) {
+              if (element.classList.contains('mamae')) {
+                document.getElementById("msg-cpf-mae").innerHTML =
+                  `<p>${MSG_VALOR_DUPLICADO}</p>`;
+                formDataBasic.cpf_mae = false;
+              } else {
+                document.getElementById("msg-cpf-pai").innerHTML =
+                  `<p>${MSG_VALOR_DUPLICADO}</p>`;
+                formDataBasic.cpf_pai = false;
+              }
+              return;
+            }
             if (element.classList.contains('mamae')) {
               formDataBasic.cpf_mae = element.value;
             } else {

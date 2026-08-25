@@ -122,7 +122,7 @@ async function emailASerEnviadoComum(
     const etniaCodigo = (dadosCadastro.etnia || "").toString().toUpperCase();
 
     const deficienciaTexto = deficienciasLegenda[defCodigo] || "Nenhuma";
-    const etniaTexto = etniasLegenda[etniaCodigo] || "Nao informada";
+    const etniaTexto = etniasLegenda[etniaCodigo] || "Não informada";
 
     const descricaoDeficiencia = (dadosCadastro.deficiencia_descricao || "").trim();
     const descricaoLinha = descricaoDeficiencia
@@ -161,7 +161,7 @@ async function emailASerEnviadoComum(
     }
 
     const cursoTexto = dadosCadastro.curso_nome
-        ? `<strong>CURSO REGISTRADO:</strong> ${dadosCadastro.curso_nome}<br>`
+        ? `<strong>CURSO:</strong> ${dadosCadastro.curso_nome}<br>`
         : "";
 
     const dataHoje = new Date().toLocaleDateString("pt-BR");
@@ -177,7 +177,7 @@ async function emailASerEnviadoComum(
             'concursotjmmj@cieemg.org.br',
             'controlador@cieemg.org.br',
         ],
-        subject: `CIEE/MG - Confirmacao de Inscricao Concurso TJMMG - Data: ${dataHoje}`,
+        subject: `CIEE/MG - Confirmação de Inscrição Concurso TJMMG - Data: ${dataHoje}`,
         html:
             `<html>
             <head>
@@ -198,7 +198,7 @@ async function emailASerEnviadoComum(
                         margin: 1rem 0rem 1rem 0rem;"></div>
 
                     <p style="color: black; margin: 0.5rem 0;">
-                        <strong>CIEE/MG &ndash; Confirmacao de Inscricao Concurso TJMMG - Data: ${dataHoje}</strong>
+                        <strong>CIEE/MG &ndash; Confirmação de Inscrição Concurso TJMMG - Data: ${dataHoje}</strong>
                     </p>
 
                     <p style="margin: 1rem 0; color: black;">
@@ -206,32 +206,32 @@ async function emailASerEnviadoComum(
                     </p>
 
                     <p style="color: black;">
-                        Sua inscricao para o concurso do Tribunal de Justica Militar do Estado de Minas Gerais foi realizada com sucesso.
+                        Sua inscrição para o concurso do Tribunal de Justiça Militar do Estado de Minas Gerais foi realizada com sucesso.
                     </p>
 
-                    <p style="color: black;"><strong>Codigo de Inscricao:</strong> ${context.cadastroId ?? "ID do banco"}</p>
+                    <p style="color: black;"><strong>Código de Inscrição:</strong> ${context.cadastroId ?? "ID do banco"}</p>
 
                     ${cursoTexto ? `<p style="color: black;">${cursoTexto}</p>` : ""}
 
-                    <p style="color: black;"><strong>Necessidade especial:</strong> ${deficienciaTexto}${descricaoLinha}${laudoPath ? `<br><strong>Laudo medico anexado:</strong> Sim` : ""}</p>
+                    <p style="color: black;"><strong>Necessidade especial:</strong> ${deficienciaTexto}${descricaoLinha}${laudoPath ? `<br><strong>Laudo médico anexado:</strong> Sim` : ""}</p>
 
                     <p style="color: black;"><strong>Como se considera (etnia):</strong> ${etniaTexto}</p>
 
                     <p style="color: black;">
-                        <strong>Atencao:</strong> Todas as informacoes referentes a datas, local de prova e demais informacoes consulte o edital publicado em nosso portal <a href="https://www.cieemg.org.br" target="_blank" rel="noopener">www.cieemg.org.br</a>.
+                        <strong>Atenção:</strong> Todas as informações referentes a datas, local de prova e demais informações consulte o edital publicado em nosso portal <a href="https://www.cieemg.org.br" target="_blank" rel="noopener">www.cieemg.org.br</a>.
                     </p>
 
                     <p style="color: black;">
-                        Caso voce tenha alguma duvida, entre em contato conosco pelos canais informados abaixo.
+                        Caso você tenha alguma dúvida, entre em contato conosco pelos canais informados abaixo.
                     </p>
 
                     <p style="color: black;">Atenciosamente,</p>
 
                     <p style="color: black;"><strong>CIEE/MG - Concursos</strong><br>
-                        Telefone/WhatsApp: (31) 3429-8100 &ndash; Opcao 6<br>
+                        Telefone/WhatsApp: (31) 3429-8100 &ndash; Opção 6<br>
                         E-mail: concursotjmmg@cieemg.org.br<br>
                         <a href="http://www.cieemg.org.br" target="_blank" rel="noopener">www.cieemg.org.br</a><br>
-                        <strong>Horario de funcionamento:</strong> 08:30 ate 17:30 de segunda a sexta-feira
+                        <strong>Horário de funcionamento:</strong> 08:30 até 17:30 de segunda a sexta-feira
                     </p>
 
                     <div style="height: 1px;
@@ -241,35 +241,37 @@ async function emailASerEnviadoComum(
                         font-weight: 800;
                         text-align: center;
                         margin: 0.5rem;
-                        color: black;">CIEEMG - Centro de Integracao Empresa Escola de Minas Gerais</p>
+                        color: black;">CIEEMG - Centro de Integração Empresa Escola de Minas Gerais</p>
                 </div>
             </body>
             </html>`,
         attachments,
         text:
-            `CIEE/MG - Confirmacao de Inscricao Concurso TJMMG - Data: ${dataHoje}
+            `CIEE/MG - Confirmação de Inscrição Concurso TJMMG - Data: ${dataHoje}
 
 Prezado(a) ${user},
 
-Sua inscricao para o concurso do Tribunal de Justica Militar do Estado de Minas Gerais foi realizada com sucesso.
+Confirmação de inscrição no concurso do Tribunal de Justiça Militar do Estado de Minas Gerais.
 
-Codigo de Inscricao: ${context.cadastroId ?? "ID do banco"}
+Sua inscrição para o concurso do Tribunal de Justiça Militar do Estado de Minas Gerais foi realizada com sucesso.
 
-${dadosCadastro.curso_nome ? `Curso registrado: ${dadosCadastro.curso_nome}\n` : ""}Necessidade especial: ${deficienciaTexto}${descricaoDeficiencia ? ` - ${descricaoDeficiencia}` : ""}${laudoPath ? " (laudo medico anexado)" : ""}
+Código de Inscrição: ${context.cadastroId ?? "ID do banco"}
+
+${dadosCadastro.curso_nome ? `Curso registrado: ${dadosCadastro.curso_nome}\n` : ""}Necessidade especial: ${deficienciaTexto}${descricaoDeficiencia ? ` - ${descricaoDeficiencia}` : ""}${laudoPath ? " (laudo médico anexado)" : ""}
 
 Como se considera (etnia): ${etniaTexto}
 
-Atencao: Todas as informacoes referentes a datas, local de prova e demais informacoes consulte o edital publicado em nosso portal www.cieemg.org.br.
+Atenção: Todas as informações referentes a datas, local de prova e demais informações consulte o edital publicado em nosso portal www.cieemg.org.br.
 
-Caso voce tenha alguma duvida, entre em contato conosco pelos canais informados abaixo.
+Caso você tenha alguma dúvida, entre em contato conosco pelos canais informados abaixo.
 
 Atenciosamente,
 
 CIEE/MG - Concursos
-Telefone/WhatsApp: (31) 3429-8100 - Opcao 6
+Telefone/WhatsApp: (31) 3429-8100 - Opção 6
 E-mail: concursotjmmg@cieemg.org.br
 www.cieemg.org.br
-Horario de funcionamento: 08:30 ate 17:30 de segunda a sexta-feira`
+Horário de funcionamento: 08:30 até 17:30 de segunda a sexta-feira`
     });
 
     logger.info("EMAIL_ENVIADO", {

@@ -146,8 +146,22 @@
   width: 5rem;
 }
 
+.button-finish-school:disabled {
+  background-color: #6c757d;
+  border-color: #6c757d;
+  color: #e9ecef;
+  cursor: not-allowed;
+  opacity: 0.6;
+  box-shadow: none;
+}
+
+.button-finish-school:disabled:hover {
+  background-color: #6c757d;
+  border-color: #6c757d;
+}
+
 .button-back-school:hover,
-.button-finish-school:hover {
+.button-finish-school:not(:disabled):hover {
   background-color: #0056b3;
   border: solid #0056b3;
 }

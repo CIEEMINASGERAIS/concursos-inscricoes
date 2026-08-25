@@ -458,7 +458,7 @@ async function initAddress() {
           // formDataAddress
         ) {
           changeMains('.screen-school-data')
-          changeSubMainTitle('Formulário de Dados Acadêmicos')
+          changeSubMainTitle('Formulário de Dados de Cursos')
           resolve(formDataAddress)
         } else {
           erroInputAddress(formDataAddress)

@@ -257,7 +257,7 @@ Sua inscrição para o concurso do Tribunal de Justiça Militar do Estado de Min
 
 Código de Inscrição: ${context.cadastroId ?? "ID do banco"}
 
-${dadosCadastro.curso_nome ? `Curso registrado: ${dadosCadastro.curso_nome}\n` : ""}Necessidade especial: ${deficienciaTexto}${descricaoDeficiencia ? ` - ${descricaoDeficiencia}` : ""}${laudoPath ? " (laudo médico anexado)" : ""}
+${dadosCadastro.curso_nome ? `Curso: ${dadosCadastro.curso_nome}\n` : ""}Necessidade especial: ${deficienciaTexto}${descricaoDeficiencia ? ` - ${descricaoDeficiencia}` : ""}${laudoPath ? " (laudo médico anexado)" : ""}
 
 Como se considera (etnia): ${etniaTexto}
 

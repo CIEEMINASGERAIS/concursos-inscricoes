@@ -509,7 +509,10 @@ const cpfInBd = async (cpf) => {
 };
 
 const isEstadoCivil = (estadoCivil) => {
-  const regex = new RegExp(/^[SCADV]$/);
+  // Aceita os códigos: S (Solteiro), C (Casado), A (Amasiado),
+  // D (Divorciado), V (Viúvo), P (Separado). Mantém a checagem
+  // original de não-numérico logo abaixo como salvaguarda.
+  const regex = new RegExp(/^[SCADVP]$/);
 
   if (!regex.test(estadoCivil)) {
     return false;

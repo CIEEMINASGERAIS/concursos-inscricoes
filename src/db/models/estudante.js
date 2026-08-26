@@ -416,12 +416,7 @@ module.exports = (sequelize, DataTypes) => {
       },
       telefone2: {
         type: DataTypes.STRING(20),
-        allowNull: false,
-        validate: {
-          notEmpty: {
-            msg: "Esse campo não pode ser vazio.",
-          }
-        },
+        allowNull: true,
       },
       ctps: {
         type: DataTypes.STRING(20),

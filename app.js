@@ -45,7 +45,7 @@ const address = require("./src/controllers/renderAddress");
 
 const socialEconomic = require("./src/controllers/renderSocialEconomy");
 
-// const programaEmCurso = require("./src/controllers/renderProgramasEmCurso");
+const programaEmCurso = require("./src/controllers/renderProgramasEmCurso");
 
 app.use(express.urlencoded({ extended: true, limit: "25mb" }));
 
@@ -142,7 +142,7 @@ app.get("/address", address.renderAddress);
 app.get("/socio-economic", socialEconomic.renderSocioEconomic);
 
 // Função responsável por renderizar a sexta página
-// app.get("/programa-curso", programaEmCurso.renderProgramaCurso);
+app.get("/programa-curso", programaEmCurso.renderProgramaCurso);
 
 // Função responsável por enviar as informações para o banco de dados
 app.post("/cadastrar", postCadastro.postRegister);

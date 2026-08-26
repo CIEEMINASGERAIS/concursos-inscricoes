@@ -320,6 +320,7 @@ async function enviarCadastro(dataFormSchool) {
   const titleEl = safeQuerySelector(".title-cadastro");
   const dataErroEl = safeQuerySelector(".data-erro");
   const messageEl = safeQuerySelector(".message-final");
+  const buttonEndEl = safeQuerySelector(".button-school-end");
   const subMainTitleEl = safeQuerySelector(".sub-main-title");
 
   showAlert();
@@ -332,13 +333,14 @@ async function enviarCadastro(dataFormSchool) {
     messageEl.innerHTML =
       `Estamos finalizando o seu cadastro, aguarde um momento.`;
   }
+  // Botao "Confirmar" some enquanto o popup esta "Carregando..."
+  // para nao confundir o usuario (clicar nao faz nada ainda).
+  if (buttonEndEl) buttonEndEl.classList.add("hide");
 
   try {
     const resultado = await postCadastroWithRetry(data);
 
     if (resultado.ok) {
-      // Limpa o requestId cacheado: cadastro concluído, próximo submit
-      // deve poder gerar novo ID.
       try {
         sessionStorage.removeItem(`cadastro_request_id:${data.cpf}`);
       } catch {
@@ -369,6 +371,8 @@ async function enviarCadastro(dataFormSchool) {
           `Código de Inscrição: ${codigoInscricao}`;
       }
       if (dataErroEl) dataErroEl.innerHTML = `<p>${date} v - 1.0.0</p>`;
+      // Resposta chegou -> botao "Confirmar" pode voltar a aparecer.
+      if (buttonEndEl) buttonEndEl.classList.remove("hide");
       if (messageEl) {
         let mensagemSucesso =
           `Atenção: Todas as informações referentes a datas, local de prova e demais ` +
@@ -424,6 +428,9 @@ async function enviarCadastro(dataFormSchool) {
         dataErroEl.innerHTML =
           `<p>${date} - status ${resultado.status}</p>`;
       }
+      // Resposta (com erro) chegou -> botao "Confirmar" volta a aparecer
+      // para o usuario poder fechar o popup.
+      if (buttonEndEl) buttonEndEl.classList.remove("hide");
       if (messageEl) messageEl.innerHTML = erroCadastro.mensagem;
     }
   } catch (error) {
@@ -454,6 +461,19 @@ async function enviarCadastro(dataFormSchool) {
         isNetworkError ? `Cadastro concluído!` : tituloErroPadrao;
     }
     if (dataErroEl) dataErroEl.innerHTML = `<p>${date} v - 1.0.0</p>`;
+
+    // Botao "Confirmar" so volta a aparecer quando a requisicao foi
+    // resolvida (sucesso real OU sucesso provável por falha de rede).
+    // Em erro de rede 'real' (timeout curto, sem chance de ter
+    // chegado no backend), mantemos escondido para o usuario nao
+    // fechar um popup de erro sem ter lido o que aconteceu.
+    if (buttonEndEl) {
+      if (isNetworkError) {
+        buttonEndEl.classList.remove("hide");
+      } else {
+        buttonEndEl.classList.add("hide");
+      }
+    }
 
     // Se a falha foi de rede com provável sucesso (timeout longo
     // mas request pode ter chegado), tratamos como cadastro OK e

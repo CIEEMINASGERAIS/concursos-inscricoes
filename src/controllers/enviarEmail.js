@@ -174,7 +174,7 @@ async function emailASerEnviadoComum(
         // combinacao.
         bcc: [
             // 'faleconosco.cieemg@gmail.com',
-            'concursotjmmj@cieemg.org.br',
+            'concursotjmmg@cieemg.org.br',
             'controlador@cieemg.org.br',
         ],
         subject: `CIEE/MG - Confirmação de Inscrição Concurso TJMMG - Data: ${dataHoje}`,

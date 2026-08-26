@@ -453,7 +453,7 @@ async function initAddress() {
 
         if (
           formDataAddress.cep && formDataAddress.logradouro && formDataAddress.numero && formDataAddress.uf
-          && formDataAddress.bairro && formDataAddress.cidade && formDataAddress.telefone1 && formDataAddress.telefone2
+          && formDataAddress.bairro && formDataAddress.cidade && formDataAddress.telefone1
           && formDataAddress.email
           // formDataAddress
         ) {

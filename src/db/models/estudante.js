@@ -237,7 +237,12 @@ module.exports = (sequelize, DataTypes) => {
             msg: "Esse campo não pode ser vazio.",
           },
           notNull: { msg: "O campo nome precisa ser preenchido" },
-          is: /^[SCADV]$/,
+          // Letras: S=Solteiro, C=Casado, A=Amaziado,
+          // D=Divorciado, V=Viúvo, P=Separado. Precisa bater com
+          // as <option value="..."> do <select name="estadoCivil">
+          // em formDataBasic.ejs e com `isEstadoCivil` em
+          // frontend/utils/util.js (regex /^[SCADVP]$/).
+          is: /^[SCADVP]$/,
         },
       },
       sexo: {

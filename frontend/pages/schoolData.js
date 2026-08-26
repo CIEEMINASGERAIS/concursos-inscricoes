@@ -22,8 +22,9 @@ const {
  *   2. #tipo (Curso) precisa ter valor selecionado.
  *   3. Se a div `#div-curso-similar` NÃO estiver com a classe
  *      `div-curso-similar-hidden` (ou seja, está visível porque o curso
- *      escolhido foi "13" = Graduação Similar ou "15" = Nível Médio
- *      Similar), então `#curso-similar` precisa estar preenchido.
+ *      escolhido foi "13" = "Ou Graduação similar em 'tecnologia'
+ *      conforme edital" ou "15" = "Ou similar conforme edital"),
+ *      então `#curso-similar` precisa estar preenchido.
  */
 function atualizarBotaoFinalizar() {
   const btn = document.querySelector(".button-finish-school");
@@ -267,11 +268,13 @@ async function createFormSchoolData() {
     const divCursoSimilar = document.getElementById("div-curso-similar");
     const cursoSimilarInput = document.getElementById("curso-similar");
 
-    // Mapa Nível -> Cursos. Apenas os `value` foram trocados pelos
-    // índices 0..15 da lista flat fornecida pelo usuário; as `label`
-    // são exatamente os textos enviados. Os valores 13 ("graduacao-similar")
-    // e 15 ("nivel-medio-similar") disparam o input condicional
+    // Mapa Nível -> Cursos. Os `value` são índices 0..15 (lista flat);
+    // as `label` são exatamente os textos enviados. Os valores
+    // "13" ("Ou Graduação similar em 'tecnologia' conforme edital") e
+    // "15" ("Ou similar conforme edital") disparam o input condicional
     // #curso-similar — ver `onTipoChange` mais abaixo.
+    // Obs.: o nível "graduacao-tecnologica" deixou de existir; os
+    // cursos 11/12/13 migraram para "graduacao".
     const CURSOS_POR_NIVEL = {
       "pos-graduacao": [
         { value: "0", label: "Pós-Graduação em Direito" },
@@ -287,15 +290,13 @@ async function createFormSchoolData() {
         { value: "8",  label: "Jornalismo" },
         { value: "9",  label: "Marketing" },
         { value: "10", label: "Publicidade e Propaganda" },
-      ],
-      "graduacao-tecnologica": [
         { value: "11", label: "Ciência da Computação" },
         { value: "12", label: "Sistemas de Informação" },
-        { value: "13", label: "Graduação Similar" },
+        { value: "13", label: "Ou Graduação similar em “tecnologia” conforme edital" },
       ],
       "ensino-medio": [
         { value: "14", label: "Técnico em Informática" },
-        { value: "15", label: "Nível Médio Similar" },
+        { value: "15", label: "Ou similar conforme edital" },
       ],
     };
 

@@ -34,8 +34,9 @@ fs.mkdirSync(laudoUploadDir, { recursive: true });
 // Critérios:
 //   1) payload.curso: obrigatório, string de 1-2 dígitos (os
 //      índices 0..15 do select #tipo populado pelo schoolData.js).
-//   2) Se `curso` for "13" (Graduacao Similar) ou "15" (Nivel Medio
-//      Similar), `payload.curso_similar` tambem eh obrigatorio.
+//   2) Se `curso` for "13" ("Ou Graduação similar em 'tecnologia'
+//      conforme edital") ou "15" ("Ou similar conforme edital"),
+//      `payload.curso_similar` tambem eh obrigatorio.
 //
 // O retorno eh { enviar: boolean, motivo: string|null } para
 // registrar a razao exata no log estruturado (PM2) caso o envio seja
@@ -83,9 +84,9 @@ const CURSOS_LABEL = {
     "10": "Publicidade e Propaganda",
     "11": "Ciência da Computação",
     "12": "Sistemas de Informação",
-    "13": "Graduação Similar",
+    "13": "Ou Graduação similar em \u201ctecnologia\u201d conforme edital",
     "14": "Técnico em Informática",
-    "15": "Nível Médio Similar",
+    "15": "Ou similar conforme edital",
 };
 
 async function enviarEmailsPosCadastro(req, estudante, contextoBase, laudoUrl = null) {
@@ -106,9 +107,10 @@ async function enviarEmailsPosCadastro(req, estudante, contextoBase, laudoUrl = 
         // =====================================================================
         const cursoIndice = (req.body.curso || "").toString().trim();
         const cursoSimilar = (req.body.curso_similar || "").toString().trim();
-        // Para os indices 13/15 ("Graduacao Similar" / "Nivel Medio
-        // Similar") usamos o texto livre preenchido pelo candidato; para
-        // os demais usamos o label canonico do indice.
+        // Para os indices 13/15 ("Ou Graduação similar em 'tecnologia'
+        // conforme edital" / "Ou similar conforme edital") usamos o
+        // texto livre preenchido pelo candidato; para os demais usamos
+        // o label canonico do indice.
         const cursoNome =
             (cursoIndice === "13" || cursoIndice === "15") && cursoSimilar
                 ? cursoSimilar

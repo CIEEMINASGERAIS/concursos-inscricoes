@@ -303,7 +303,7 @@ const initDataBasic = async () => {
             }
 
             if (element.classList.contains('mamae') && element.value.length === 0) {
-              formDataBasic.cpf_pai = '';
+              formDataBasic.cpf_mae = '';
               document.getElementById("msg-cpf-mae").innerHTML = "<p>CPF inválido!</p>";
               removerMensagem("msg-cpf-mae");
             }

@@ -904,25 +904,45 @@ const isEmail = (email) => {
 };
 
 const emailBd = async (emailBd) => {
-  let email;
-
   try {
-    const response = await fetch(`/verificarEmail?termo=${emailBd}`);
-    if (response.ok) {
-      const opcoes = await response.json();
-      email = opcoes.map((email) => email.email);
-    } else {
-      console.log("Erro na solicitação:", response.statusText);
+    const resultado = await fetchJson(`/verificarEmail?termo=${encodeURIComponent(emailBd)}`, {
+      method: "GET",
+      timeoutMs: 8000,
+      maxTentativas: 3,
+      retryOn5xx: true,
+      logErros: false,
+      contextoExtra: {
+        origem: "emailBd",
+      },
+    });
+
+    if (!resultado.ok) {
+      clientLogger.warn("EMAIL_VERIFICACAO_ERRO_HTTP", {
+        status: resultado.status,
+      });
+      return {
+        status: "falha_rede",
+        mensagem: "Não foi possível verificar o e-mail agora. Verifique sua conexão e tente novamente.",
+      };
     }
+
+    const opcoes = Array.isArray(resultado.data) ? resultado.data : [];
+    const jaCadastrado = opcoes.some((item) => item && item.email);
+
+    return jaCadastrado
+      ? { status: "duplicado", mensagem: "E-mail já cadastrado!" }
+      : { status: "ok" };
   } catch (error) {
-    console.error("Erro:", error);
-  }
+    clientLogger.warn("EMAIL_VERIFICACAO_FALHA_REDE", {
+      mensagem: error?.message,
+      nomeErro: error?.name,
+    });
 
-  if (email.length > 0) {
-    return false;
+    return {
+      status: "falha_rede",
+      mensagem: "Não foi possível verificar o e-mail agora. Verifique sua conexão e tente novamente.",
+    };
   }
-
-  return true;
 };
 
 const isCep = (cep) => {

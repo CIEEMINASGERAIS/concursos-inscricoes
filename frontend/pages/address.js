@@ -371,52 +371,93 @@ async function initAddress() {
     if (email) {
 
       let validateInput, validateFocus
+      let emailTimer = null;
+      let emailInFlight = false;
 
       email.addEventListener('input', e => {
 
         validateInput = isEmail(e.target.value)
 
         if (validateInput) {
-          // Enviar para o HTML a mensagem de erro
-          document.getElementById('msg-email').innerHTML = ""
+          // Formato OK. Limpa erro de formato e agenda checagem no backend.
+          document.getElementById('msg-email').innerHTML = "";
+          if (emailTimer) clearTimeout(emailTimer);
+          emailTimer = setTimeout(async () => {
+            if (emailInFlight) return;
+            emailInFlight = true;
+            try {
+              const resultado = await emailBd(email.value);
+              if (resultado.status === "ok") {
+                // Só marca como válido se o formato ainda estiver OK
+                // (usuário pode ter apagado caracteres durante o debounce).
+                if (isEmail(email.value)) {
+                  formDataAddress.email = email.value;
+                  document.getElementById('msg-email').innerHTML = "";
+                }
+              } else if (resultado.status === "duplicado") {
+                formDataAddress.email = false;
+                document.getElementById('msg-email').innerHTML =
+                  `<span><p>${resultado.mensagem || "E-mail já cadastrado!"}</p></span>`;
+              } else if (resultado.status === "falha_rede") {
+                formDataAddress.email = false;
+                document.getElementById('msg-email').innerHTML =
+                  `<span><p>${resultado.mensagem}</p></span>`;
+              }
+            } finally {
+              emailInFlight = false;
+            }
+          }, 400);
         } else {
           e.preventDefault()
           // Enviar para o HTML a mensagem de erro
           document.getElementById('msg-email').innerHTML =
             "<span><p>E-mail inválido!</p></span>"
           formDataAddress.email = false
+          if (emailTimer) clearTimeout(emailTimer);
         }
       })
 
       email.onblur = async () => {
+        // Se o debounce do `input` ainda vai disparar, deixa ele cuidar.
+        // Caso contrário (campo vazio, formato inválido ou debounce já
+        // rodou sem erro), roda uma checagem direta para garantir que
+        // o estado interno reflete a duplicidade antes do submit.
         const submits = document.querySelector('.div-buttons-address');
 
+        if (!isEmail(email.value)) {
+          // Nada a verificar no backend para formatos inválidos/vazios.
+          return;
+        }
+
+        if (emailInFlight) {
+          // Debounce do input já está em curso; deixa ele terminar.
+          return;
+        }
+
         submits.style.display = 'none';
-
-        document.getElementById('msg-email').innerHTML = "<span>Carregando...</span>"
-
+        document.getElementById('msg-email').innerHTML = "<span>Carregando...</span>";
         formDataAddress.email = false;
 
-        validateFocus = await emailBd(email.value);
+        const resultado = await emailBd(email.value);
 
         setTimeout(() => {
           submits.style.display = 'flex';
           submits.style.alignItems = 'center';
-          if (validateFocus) {
-            document.getElementById('msg-email').innerHTML = ""
-          } else {
-            if (email.value.length !== 0) {
-              document.getElementById('msg-email').innerHTML =
-                "<span><p>E-mail já cadastrado!</p></span>"
-            } else {
+
+          if (resultado.status === "ok") {
+            if (isEmail(email.value)) {
+              formDataAddress.email = email.value;
               document.getElementById('msg-email').innerHTML = "";
             }
+          } else if (resultado.status === "duplicado") {
+            document.getElementById('msg-email').innerHTML =
+              `<span><p>${resultado.mensagem || "E-mail já cadastrado!"}</p></span>`;
+          } else if (resultado.status === "falha_rede") {
+            // Mantém o email bloqueado e mostra a mensagem retornada.
+            document.getElementById('msg-email').innerHTML =
+              `<span><p>${resultado.mensagem}</p></span>`;
           }
-
-          if (validateFocus === true && validateInput === true) {
-            formDataAddress.email = email.value
-          }
-        }, 1000)
+        }, 300);
       }
     }
 

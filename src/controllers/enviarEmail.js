@@ -141,23 +141,43 @@ async function emailASerEnviadoComum(
         },
     ];
     if (laudoPath) {
-        // laudoPath chega como `/uploads/laudos/xxx.pdf` (caminho web).
-        // Converte para caminho absoluto no FS para o nodemailer anexar.
+        // laudoPath chega como `/uploads/laudos/1737000000000-laudo.pdf`
+        // (caminho web gerado em postCadastrar.js com timestamp + nome
+        // original sanitizado). Converte para caminho absoluto no FS
+        // para o nodemailer anexar.
         const fs = require("fs");
         const path = require("path");
+        // IMPORTANTE: o segmento `assets` precisa aparecer aqui.
+        // O laudoUploadDir em postCadastrar.js resolve para
+        // `public/assets/uploads/laudos` (e o express.static em
+        // app.js serve a partir de `public/assets`), entao o
+        // caminho absoluto no FS eh `<repo>/public/assets/uploads/laudos/...`.
+        // Sem o `assets`, fs.existsSync sempre retorna false e o
+        // anexo do e-mail eh silenciosamente descartado (o cadastro
+        // segue como concluido, mas o destinatario recebe o e-mail
+        // sem o PDF/JPG anexado).
         const caminhoAbsoluto = path.join(
             __dirname,
             "..",
             "..",
             "public",
+            "assets",
             laudoPath.replace(/^\//, "")
         );
         if (fs.existsSync(caminhoAbsoluto)) {
+            // O arquivo salvo ja vem com `<timestamp>-<nomeOriginal>`
+            // (ver postCadastrar.js `safeName`). Usar o basename do
+            // caminho absoluto preserva esse nome no anexo do e-mail,
+            // em vez de expor o timestamp bruto ou um nome generico.
             attachments.push({
                 filename: path.basename(caminhoAbsoluto),
                 path: caminhoAbsoluto,
             });
         }
+        // Se o laudoPath estiver salvo mas o arquivo nao existir mais
+        // no FS (caso patologico, fora do fluxo normal), simplesmente
+        // seguimos sem o anexo — sem warning. O cadastro ja foi
+        // concluido, o e-mail segue sem o arquivo.
     }
 
     const cursoTexto = dadosCadastro.curso_nome

@@ -111,7 +111,7 @@
         <option value="" selected disabled>Selecione</option>
         <option value="S" name="solteiro">Solteiro(a)</option>
         <option value="C" name="casado">Casado(a)</option>
-        <option value="A" name="amaziado">Amaziado(a)</option>
+        <option value="A" name="amasiado">Amasiado(a)</option>
         <option value="D" name="divorciado">Divorciado(a)</option>
         <option value="V" name="viuvo">Viúvo(a)</option>
         <option value="P" name="separado">Separado(a)</option>
@@ -227,6 +227,8 @@
       <input type="file" name="laudo_deficiencia" class="laudo-deficiencia form-control" id="laudo-deficiencia"
         placeholder="Anexe o laudo médico" maxlength="255" />
       <p class="obrigatorio">Não obrigatório</p>
+      <p class="laudo-limite-arquivo">Formatos aceitos: imagens ou PDF. Tamanho máximo: 5 MB.</p>
+      <span id="msg-laudo-limite" class="msg-laudo-limite"></span>
     </div>
     <span id="msg-descricao"></span>
   </div>

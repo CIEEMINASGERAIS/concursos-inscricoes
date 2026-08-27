@@ -661,14 +661,71 @@ const initDataBasic = async () => {
     };
 
     if (laudoDeficiencia) {
+      // Limite alinhado com `client_max_body_size 10m` do nginx e com
+      // `express.json/urlencoded({ limit: "5mb" })` do app.js.
+      // Limite mais restritivo no cliente (5 MB) para nao saturar
+      // o body parser do servidor com uploads que serao rejeitados.
+      // Se o usuário selecionar arquivo maior, rejeitamos no cliente
+      // antes de gastar banda com upload que vai falhar no servidor.
+      const LIMITE_LAUDO_BYTES = 5 * 1024 * 1024;
+      const msgLaudoLimite = document.getElementById("msg-laudo-limite");
+      const botaoAvanco = document.querySelector(".big-address");
+      // Tipos MIME aceitos para o laudo: imagens (qualquer subtipo
+      // image/*) e PDF. Validamos o tipo ANTES do tamanho para que a
+      // mensagem de erro seja especifica (formato vs tamanho).
+      const formatoAceito = (tipo) =>
+        (typeof tipo === "string" && (tipo === "application/pdf" || tipo.startsWith("image/")));
+
       laudoDeficiencia.addEventListener("change", (e) => {
         const arquivo = e.target.files && e.target.files.length > 0 ? e.target.files[0] : null;
         if (!arquivo) {
           formDataBasic.laudo_deficiencia_nome = "";
           formDataBasic.laudo_deficiencia_base64 = "";
           formDataBasic.laudo_deficiencia_tipo = "";
+          if (msgLaudoLimite) {
+            msgLaudoLimite.textContent = "";
+            msgLaudoLimite.classList.remove("msg-laudo-limite-erro");
+          }
+          if (botaoAvanco) botaoAvanco.disabled = false;
           return;
         }
+
+        if (!formatoAceito(arquivo.type)) {
+          // Formato nao suportado. Limpa input/estado, avisa o usuario
+          // listando os formatos aceitos e o limite de tamanho, e
+          // bloqueia o botao de avancar.
+          laudoDeficiencia.value = "";
+          formDataBasic.laudo_deficiencia_nome = "";
+          formDataBasic.laudo_deficiencia_base64 = "";
+          formDataBasic.laudo_deficiencia_tipo = "";
+          if (msgLaudoLimite) {
+            msgLaudoLimite.classList.add("msg-laudo-limite-erro");
+            msgLaudoLimite.textContent =
+              `"${arquivo.name}" não é um formato valido ou acima de 5 MB, upload cancelado.`;
+          }
+          if (botaoAvanco) botaoAvanco.disabled = true;
+          return;
+        }
+
+        if (arquivo.size > LIMITE_LAUDO_BYTES) {
+          // Limpa o input, o estado do form e avisa o usuário
+          laudoDeficiencia.value = "";
+          formDataBasic.laudo_deficiencia_nome = "";
+          formDataBasic.laudo_deficiencia_base64 = "";
+          formDataBasic.laudo_deficiencia_tipo = "";
+          if (msgLaudoLimite) {
+            msgLaudoLimite.classList.add("msg-laudo-limite-erro");
+            msgLaudoLimite.textContent = `"${arquivo.name}" não é um formato valido ou acima de 5 MB, upload cancelado.`;
+          }
+          if (botaoAvanco) botaoAvanco.disabled = true;
+          return;
+        }
+
+        if (msgLaudoLimite) {
+          msgLaudoLimite.textContent = "";
+          msgLaudoLimite.classList.remove("msg-laudo-limite-erro");
+        }
+        if (botaoAvanco) botaoAvanco.disabled = false;
 
         formDataBasic.laudo_deficiencia_nome = arquivo.name;
         formDataBasic.laudo_deficiencia_tipo = arquivo.type;

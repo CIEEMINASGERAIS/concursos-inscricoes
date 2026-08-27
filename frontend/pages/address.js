@@ -368,11 +368,17 @@ async function initAddress() {
 
     const email = document.getElementById('email')
 
+    // Variáveis de controle do debounce/validação. São usadas tanto pelo
+    // listener `input` quanto pelo handler de submit (que precisa saber
+    // se ainda há uma checagem em curso ou pendente).
+    let emailTimer = null;
+    let emailInFlight = false;
+    let emailLastChecked = null;
+    let emailLastCheckedValue = null;
+
     if (email) {
 
       let validateInput, validateFocus
-      let emailTimer = null;
-      let emailInFlight = false;
 
       email.addEventListener('input', e => {
 
@@ -385,14 +391,18 @@ async function initAddress() {
           emailTimer = setTimeout(async () => {
             if (emailInFlight) return;
             emailInFlight = true;
+            const valorChecado = email.value;
             try {
-              const resultado = await emailBd(email.value);
+              const resultado = await emailBd(valorChecado);
+              // Só aplica o resultado se o usuário não tiver mexido no
+              // campo enquanto esperávamos o backend responder.
+              if (email.value !== valorChecado) return;
               if (resultado.status === "ok") {
-                // Só marca como válido se o formato ainda estiver OK
-                // (usuário pode ter apagado caracteres durante o debounce).
                 if (isEmail(email.value)) {
                   formDataAddress.email = email.value;
                   document.getElementById('msg-email').innerHTML = "";
+                  emailLastChecked = Date.now();
+                  emailLastCheckedValue = email.value;
                 }
               } else if (resultado.status === "duplicado") {
                 formDataAddress.email = false;
@@ -417,48 +427,6 @@ async function initAddress() {
         }
       })
 
-      email.onblur = async () => {
-        // Se o debounce do `input` ainda vai disparar, deixa ele cuidar.
-        // Caso contrário (campo vazio, formato inválido ou debounce já
-        // rodou sem erro), roda uma checagem direta para garantir que
-        // o estado interno reflete a duplicidade antes do submit.
-        const submits = document.querySelector('.div-buttons-address');
-
-        if (!isEmail(email.value)) {
-          // Nada a verificar no backend para formatos inválidos/vazios.
-          return;
-        }
-
-        if (emailInFlight) {
-          // Debounce do input já está em curso; deixa ele terminar.
-          return;
-        }
-
-        submits.style.display = 'none';
-        document.getElementById('msg-email').innerHTML = "<span>Carregando...</span>";
-        formDataAddress.email = false;
-
-        const resultado = await emailBd(email.value);
-
-        setTimeout(() => {
-          submits.style.display = 'flex';
-          submits.style.alignItems = 'center';
-
-          if (resultado.status === "ok") {
-            if (isEmail(email.value)) {
-              formDataAddress.email = email.value;
-              document.getElementById('msg-email').innerHTML = "";
-            }
-          } else if (resultado.status === "duplicado") {
-            document.getElementById('msg-email').innerHTML =
-              `<span><p>${resultado.mensagem || "E-mail já cadastrado!"}</p></span>`;
-          } else if (resultado.status === "falha_rede") {
-            // Mantém o email bloqueado e mostra a mensagem retornada.
-            document.getElementById('msg-email').innerHTML =
-              `<span><p>${resultado.mensagem}</p></span>`;
-          }
-        }, 300);
-      }
     }
 
     const linkedin = document.getElementById('linkedin')
@@ -490,6 +458,44 @@ async function initAddress() {
 
         if (instagramInput) {
           formDataAddress.instagram = instagramInput.value.trim()
+        }
+
+        // Garante que o email foi validado contra o backend antes de
+        // submeter. Sem o `onblur` (removido), o único caminho é o
+        // listener `input` — então precisamos cobrir o caso do usuário
+        // clicar em "Avançar" antes do debounce de 400ms disparar.
+        if (email && isEmail(email.value)) {
+          const valorAtual = email.value;
+          const checagemEmCurso =
+            emailTimer !== null || emailInFlight;
+          const precisaChecar =
+            checagemEmCurso ||
+            emailLastCheckedValue !== valorAtual;
+
+          if (precisaChecar) {
+            // Cancela o debounce pendente para não rodar duas vezes.
+            if (emailTimer) {
+              clearTimeout(emailTimer);
+              emailTimer = null;
+            }
+            document.getElementById('msg-email').innerHTML =
+              "<span>Verificando e-mail...</span>";
+            formDataAddress.email = false;
+
+            const resultado = await emailBd(valorAtual);
+            if (resultado.status === "ok" && email.value === valorAtual) {
+              formDataAddress.email = email.value;
+              document.getElementById('msg-email').innerHTML = "";
+              emailLastChecked = Date.now();
+              emailLastCheckedValue = email.value;
+            } else if (resultado.status === "duplicado") {
+              document.getElementById('msg-email').innerHTML =
+                `<span><p>${resultado.mensagem || "E-mail já cadastrado!"}</p></span>`;
+            } else if (resultado.status === "falha_rede") {
+              document.getElementById('msg-email').innerHTML =
+                `<span><p>${resultado.mensagem}</p></span>`;
+            }
+          }
         }
 
         if (

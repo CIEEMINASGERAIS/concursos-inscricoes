@@ -807,7 +807,7 @@ const initDataBasic = async () => {
           formDataBasic.deficiencia = false;
           formDataBasic.deficiencia_descricao = false;
           document.getElementById("msg-descricao").innerHTML =
-            "<p>Favor descrever a deficiência.</p>";
+            "<p>Favor descrever a necessidade.</p>";
         }
       }
     });

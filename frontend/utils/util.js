@@ -1038,7 +1038,7 @@ const erroInput = (object) => {
       } else if (chave === "deficiencia_descricao") {
         document.getElementById(
           `msg-fracasso`
-        ).innerHTML = `<p>Campo descreva a deficiência inválido!</p>`;
+        ).innerHTML = `<p>Campo descreva a necessidade especial inválido!</p>`;
         break
       } else if (chave === "nome_social") {
         document.getElementById(
@@ -1114,7 +1114,7 @@ const erroSelect = (select) => {
       } else {
         document.getElementById(
           `msg-fracasso`
-        ).innerHTML = `<p>Selecione uma opção em "Possui alguma deficiência?"!</p>`;
+        ).innerHTML = `<p>Selecione uma opção em "Possui alguma necessidade especial?"!</p>`;
         break
       }
     }

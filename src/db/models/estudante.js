@@ -181,7 +181,7 @@ module.exports = (sequelize, DataTypes) => {
             Estudante.findOne({ where: { email: value } })
               .then((estudante) => {
                 if (estudante) {
-                  return next("Email já cadastrado");
+                  return next("E-mail já cadastrado");
                 }
                 return next();
               })

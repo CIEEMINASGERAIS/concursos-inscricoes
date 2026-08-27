@@ -383,7 +383,7 @@ async function initAddress() {
           e.preventDefault()
           // Enviar para o HTML a mensagem de erro
           document.getElementById('msg-email').innerHTML =
-            "<span><p>Email inválido!</p></span>"
+            "<span><p>E-mail inválido!</p></span>"
           formDataAddress.email = false
         }
       })
@@ -407,7 +407,7 @@ async function initAddress() {
           } else {
             if (email.value.length !== 0) {
               document.getElementById('msg-email').innerHTML =
-                "<span><p>Email já cadastrado!</p></span>"
+                "<span><p>E-mail já cadastrado!</p></span>"
             } else {
               document.getElementById('msg-email').innerHTML = "";
             }

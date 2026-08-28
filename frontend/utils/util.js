@@ -1055,6 +1055,25 @@ const erroInput = (object) => {
           `msg-fracasso`
         ).innerHTML = `<p>Campo CPF pai inválido!</p>`;
         break
+      } else if (chave === "deficiencia") {
+        // O select no formDataBasic.ejs tem o label
+        // "Possui alguma necessidade especial?" e o name/id
+        // `deficiencias` (contrato com backend e CSS).
+        // Para a mensagem ao usuario usamos o termo amigavel
+        // "necessidade especial".
+        document.getElementById(
+          `msg-fracasso`
+        ).innerHTML = `<p>Campo necessidade especial inválido!</p>`;
+        break
+      } else if (chave === "genero") {
+        // O radio no formDataBasic.ejs tem o titulo
+        // "Qual a sua identidade de genero?" e o name `genero`
+        // (contrato com backend). Para a mensagem ao usuario usamos
+        // o termo amigavel "identidade de genero".
+        document.getElementById(
+          `msg-fracasso`
+        ).innerHTML = `<p>Campo identidade de gênero inválido!</p>`;
+        break
       } else {
         document.getElementById(
           `msg-fracasso`
@@ -1135,10 +1154,24 @@ const erroInputAddress = (object) => {
         ).innerHTML = `<p>Campo telefone 2 inválido!</p>`;
         break
       } else {
+        // Mapa de chaves do formulario de Endereco -> rotulo amigavel.
+        // Mantemos o fallback generico para chaves novas/nao mapeadas.
+        const rotulosEndereco = {
+          cep: "CEP",
+          logradouro: "logradouro",
+          numero: "número",
+          complemento: "complemento",
+          bairro: "bairro",
+          cidade: "cidade",
+          uf: "UF",
+          email: "e-mail",
+          linkedin: "LinkedIn",
+          instagram: "Instagram",
+        };
+        const rotulo = rotulosEndereco[chave] || chave;
         document.getElementById(
           `msg-fracasso-address`
-        ).innerHTML = `<p>Campo ${chave} inválido!</p>`;
-        console.log(object[chave]);
+        ).innerHTML = `<p>Campo ${rotulo} inválido!</p>`;
         break
       }
     }
@@ -1161,9 +1194,22 @@ const erroInputSocioEconomic = (object) => {
         removerMensagem(`msg-fracasso-socio-economy`)
         break
       } else {
+        // Mapa de chaves do formulario Socioeconomico -> rotulo amigavel.
+        // Mantemos o fallback generico para chaves novas/nao mapeadas.
+        const rotulosSocio = {
+          aprendiz: "Você já foi aprendiz?",
+          responsavel: "responsável",
+          imovel: "reside em imóvel",
+          pessoas: "pessoas do grupo familiar",
+          filhos: "filhos",
+          genero: "identidade de gênero",
+          etnia: "Como você se declara",
+          situacao_judicial: "situação judicial",
+        };
+        const rotulo = rotulosSocio[chave] || chave;
         document.getElementById(
           `msg-fracasso-socio-economy`
-        ).innerHTML = `<p>Campo ${chave} inválido!</p>`;
+        ).innerHTML = `<p>Campo ${rotulo} inválido!</p>`;
         removerMensagem(`msg-fracasso-socio-economy`)
         break
       }

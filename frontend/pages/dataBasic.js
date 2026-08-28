@@ -837,15 +837,28 @@ const initDataBasic = async () => {
 
     checkRg.addEventListener("change", function (e) {
       const element = e.target;
+      const inputRg = divRg.querySelector('input[name="rg"]');
 
       if (element.checked) {
         showTag(divRg)
-        divRg.querySelector('input[name="rg"]').required = true;
+        inputRg.required = true;
+        // Espelha o padrao do `nome_social`: ao tornar o campo visivel,
+        // forca o estado "ainda nao preenchido" para que o submit
+        // bloqueie ate o usuario digitar algo valido. Sem isso, o
+        // listener de `input` do RG so roda quando ha digitacao, e
+        // `formDataBasic.rg` permanece `undefined` -> passa no
+        // `!== false` do submit.
+        formDataBasic.rg = false;
       }
 
       if (!element.checked) {
         hideTag(divRg)
-        divRg.querySelector('input[name="rg"]').required = false;
+        inputRg.required = false;
+        // Ao desmarcar, o RG nao se aplica. Removemos a chave para que
+        // o submit nao considere `false` antigo deixado por uma
+        // edicao anterior (e o backend nao grave string vazia).
+        delete formDataBasic.rg;
+        if (inputRg) inputRg.value = "";
       }
     })
 

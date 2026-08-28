@@ -58,6 +58,23 @@ async function termsAndConditions() {
         e.preventDefault();
         buttonBasicData.disabled = true;
         localStorage.setItem("buttonBasicDataBlocked", "true");
+        // Marca o corpo da pagina com um flag global de rejeicao dos
+        // termos. app.js consulta esse flag antes de qualquer
+        // navegacao para .screen-basic-data1/.screen-address/...,
+        // impedindo que o usuario continue o cadastro por qualquer
+        // outro caminho (sidenav, botao Voltar, atalho, etc.).
+        // Manter o comportamento antigo (localStorage + disable do
+        // botao) para nao quebrar sessoas que ja tinham rejeitado.
+        document.body.dataset.termosRejeitados = "1";
+        // Desmarca o checkbox "Li e concordo" caso o usuario tenha
+        // checado antes de mudar de ideia e clicar em Rejeitar.
+        // Garante coerencia visual entre o botao pressionado e o
+        // estado do consentimento.
+        if (checkbox) {
+          checkbox.checked = false;
+          schoolData.termos_condicoes = 0;
+          buttonAccept.disabled = true;
+        }
       }
 
 
@@ -74,6 +91,14 @@ async function termsAndConditions() {
 
       if (element.classList.contains("button-accept")) {
         if (schoolData.termos_condicoes === 1) {
+          // Se o usuario tinha rejeitado antes e agora esta
+          // re-aceitando, limpa o flag global de bloqueio para que
+          // a navegacao volte a funcionar.
+          if (document.body.dataset.termosRejeitados === "1") {
+            delete document.body.dataset.termosRejeitados;
+            buttonBasicData.disabled = false;
+            localStorage.setItem("buttonBasicDataBlocked", "false");
+          }
           schoolData.dt_cadastro = dateRegister();
           schoolData.dt_atualizacao = dateRegister();
           changeMains(".screen-basic-data1");
@@ -107,3 +132,10 @@ async function termsAndConditions() {
 }
 
 module.exports = termsAndConditions;
+
+// Helper exportado para outros modulos (principalmente app.js)
+// checarem se os termos foram rejeitados e, portanto, toda
+// navegacao para fora de .screen-terms-conditions deve ser
+// bloqueada ate um novo aceite.
+module.exports.termosRejeitados = () =>
+  document.body.dataset.termosRejeitados === "1";

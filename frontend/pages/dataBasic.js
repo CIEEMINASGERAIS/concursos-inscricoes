@@ -665,16 +665,73 @@ const initDataBasic = async () => {
       // `express.json/urlencoded({ limit: "5mb" })` do app.js.
       // Limite mais restritivo no cliente (5 MB) para nao saturar
       // o body parser do servidor com uploads que serao rejeitados.
-      // Se o usuário selecionar arquivo maior, rejeitamos no cliente
-      // antes de gastar banda com upload que vai falhar no servidor.
-      const LIMITE_LAUDO_BYTES = 5 * 1024 * 1024;
+      // O valor pode ser sobrescrito via `data-max-size` no proprio
+      // <input type="file"> (em bytes) para manter HTML e JS em
+      // sincronia. Padrao: 5 MB.
+      const LIMITE_LAUDO_BYTES = Number(laudoDeficiencia.dataset.maxSize) || 5 * 1024 * 1024;
+      const LIMITE_LAUDO_MB = (LIMITE_LAUDO_BYTES / (1024 * 1024)).toFixed(0);
       const msgLaudoLimite = document.getElementById("msg-laudo-limite");
       const botaoAvanco = document.querySelector(".big-address");
+
+      // Popup (mesmo padrao visual do alerta de CEP nao encontrado).
+      // Mantido invisivel no HTML via atributo `hidden`; aqui so
+      // configuramos os handlers de fechamento (botao "Fechar",
+      // tecla ESC e clique no backdrop).
+      const laudoModal = document.getElementById("laudo-modal");
+      const laudoModalMensagem = document.getElementById("laudo-modal-mensagem");
+      const laudoModalFechar = document.getElementById("laudo-modal-fechar");
+
+      const fecharPopupLaudo = () => {
+        if (!laudoModal) return;
+        laudoModal.setAttribute("hidden", "");
+      };
+      const abrirPopupLaudo = (mensagem) => {
+        if (!laudoModal) return;
+        if (laudoModalMensagem) laudoModalMensagem.textContent = mensagem;
+        laudoModal.removeAttribute("hidden");
+        // Da foco no botao "Fechar" para que o usuario so precise
+        // apertar Enter/Esc (UX mais acessivel).
+        if (laudoModalFechar) laudoModalFechar.focus();
+      };
+
+      if (laudoModalFechar) {
+        laudoModalFechar.addEventListener("click", fecharPopupLaudo);
+      }
+      // ESC fecha o popup.
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && laudoModal && !laudoModal.hasAttribute("hidden")) {
+          fecharPopupLaudo();
+        }
+      });
+      // Clique no backdrop (fora da caixa branca) tambem fecha.
+      if (laudoModal) {
+        laudoModal.addEventListener("click", (e) => {
+          if (e.target === laudoModal) fecharPopupLaudo();
+        });
+      }
+
       // Tipos MIME aceitos para o laudo: imagens (qualquer subtipo
       // image/*) e PDF. Validamos o tipo ANTES do tamanho para que a
       // mensagem de erro seja especifica (formato vs tamanho).
       const formatoAceito = (tipo) =>
         (typeof tipo === "string" && (tipo === "application/pdf" || tipo.startsWith("image/")));
+
+      // Limpa input + estado do form + avisos. Usado sempre que o
+      // arquivo e rejeitado (formato invalido ou tamanho excessivo)
+      // para garantir que o `formDataBasic` nao carregue um laudo
+      // fantasma da selecao anterior.
+      const rejeitarLaudo = (mensagemPopup) => {
+        laudoDeficiencia.value = "";
+        formDataBasic.laudo_deficiencia_nome = "";
+        formDataBasic.laudo_deficiencia_base64 = "";
+        formDataBasic.laudo_deficiencia_tipo = "";
+        if (msgLaudoLimite) {
+          msgLaudoLimite.textContent = "";
+          msgLaudoLimite.classList.remove("msg-laudo-limite-erro");
+        }
+        if (botaoAvanco) botaoAvanco.disabled = true;
+        abrirPopupLaudo(mensagemPopup);
+      };
 
       laudoDeficiencia.addEventListener("change", (e) => {
         const arquivo = e.target.files && e.target.files.length > 0 ? e.target.files[0] : null;
@@ -687,37 +744,23 @@ const initDataBasic = async () => {
             msgLaudoLimite.classList.remove("msg-laudo-limite-erro");
           }
           if (botaoAvanco) botaoAvanco.disabled = false;
+          fecharPopupLaudo();
           return;
         }
 
         if (!formatoAceito(arquivo.type)) {
-          // Formato nao suportado. Limpa input/estado, avisa o usuario
-          // listando os formatos aceitos e o limite de tamanho, e
-          // bloqueia o botao de avancar.
-          laudoDeficiencia.value = "";
-          formDataBasic.laudo_deficiencia_nome = "";
-          formDataBasic.laudo_deficiencia_base64 = "";
-          formDataBasic.laudo_deficiencia_tipo = "";
-          if (msgLaudoLimite) {
-            msgLaudoLimite.classList.add("msg-laudo-limite-erro");
-            msgLaudoLimite.textContent =
-              `"${arquivo.name}" não é um formato valido ou acima de 5 MB, upload cancelado.`;
-          }
-          if (botaoAvanco) botaoAvanco.disabled = true;
+          rejeitarLaudo(
+            `O arquivo "${arquivo.name}" não é válido. ` +
+              `Apenas imagens (JPG, PNG, etc.) ou PDF são aceitos, com tamanho máximo de ${LIMITE_LAUDO_MB} MB.`
+          );
           return;
         }
 
         if (arquivo.size > LIMITE_LAUDO_BYTES) {
-          // Limpa o input, o estado do form e avisa o usuário
-          laudoDeficiencia.value = "";
-          formDataBasic.laudo_deficiencia_nome = "";
-          formDataBasic.laudo_deficiencia_base64 = "";
-          formDataBasic.laudo_deficiencia_tipo = "";
-          if (msgLaudoLimite) {
-            msgLaudoLimite.classList.add("msg-laudo-limite-erro");
-            msgLaudoLimite.textContent = `"${arquivo.name}" não é um formato valido ou acima de 5 MB, upload cancelado.`;
-          }
-          if (botaoAvanco) botaoAvanco.disabled = true;
+          rejeitarLaudo(
+            `O arquivo "${arquivo.name}" (${(arquivo.size / (1024 * 1024)).toFixed(2)} MB) ` +
+              `excede o limite de ${LIMITE_LAUDO_MB} MB. Envie um arquivo menor.`
+          );
           return;
         }
 
@@ -726,6 +769,7 @@ const initDataBasic = async () => {
           msgLaudoLimite.classList.remove("msg-laudo-limite-erro");
         }
         if (botaoAvanco) botaoAvanco.disabled = false;
+        fecharPopupLaudo();
 
         formDataBasic.laudo_deficiencia_nome = arquivo.name;
         formDataBasic.laudo_deficiencia_tipo = arquivo.type;

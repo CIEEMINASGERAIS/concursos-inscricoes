@@ -644,3 +644,86 @@ margin:1rem 0rem 1rem 0rem;
       padding: 0;
     }
   }
+/* Popup de aviso quando o upload do laudo é rejeitado (formato
+   invalido ou acima de 5 MB). Visual segue o mesmo padrao do
+   popup de CEP nao encontrado (address.css → .cep-found /
+   .alert-cep): overlay fullscreen com backdrop-blur e caixa
+   branca centralizada. Use o atributo [hidden] no HTML para
+   iniciar invisivel; o JS remove o atributo para abrir. */
+.laudo-found {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 5;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  backdrop-filter: blur(10px);
+  background-color: rgba(0, 0, 0, 0.25);
+  overflow: auto;
+}
+
+.laudo-found[hidden] {
+  display: none;
+}
+
+.alert-laudo {
+  margin: 5rem 1rem 1rem 1rem;
+  background-color: #ffffff;
+  outline: 2px solid gray;
+  width: 90%;
+  max-width: 640px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  border-radius: 0.8rem;
+  box-shadow: 0.5rem 0.5rem 0.6rem rgba(0, 0, 0, 0.336);
+}
+
+.alert-laudo h1 {
+  font-size: 1.3em;
+  font-weight: 700;
+  margin: 0.5rem auto 0.5rem auto;
+  text-align: center;
+  color: #b00020;
+}
+
+.alert-laudo p {
+  margin: 0.5rem auto;
+  font-size: 1em;
+  line-height: 1.5rem;
+  text-align: center;
+  color: #222;
+}
+
+.alert-laudo .button-confirm {
+  margin-top: 0.5rem;
+}
+
+.button-confirm-laudo {
+  background-color: #007bff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  box-shadow: 0.413rem 0.413rem 0.6rem rgba(0, 0, 0, 0.336);
+  border: solid #0075f3;
+  font-size: 1rem;
+  padding: 0.5rem 4rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  width: 10rem;
+}
+
+.button-confirm-laudo:hover {
+  background-color: #0056b3;
+  border: solid #0056b3;
+}
+
+.button-confirm-laudo:focus {
+  outline: none;
+}

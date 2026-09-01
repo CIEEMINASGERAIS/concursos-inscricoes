@@ -387,7 +387,7 @@ async function enviarCadastro(dataFormSchool) {
   const mensagemErroPadrao =
     `Entre em contato com nossa central de concursos para análise do seu cadastro.<br><br>` +
     `Telefone/WhatsApp: (31) 3429-8100 – Opção 6<br>` +
-    `E-mail: concursotjmmg@cieemg.org.br<br>` +
+    `E-mail: suportetjmmg@cieemg.org.br<br>` +
     `Horário de funcionamento: 08.30 até 17.30 de segunda a sexta-feira`;
 
   const parseErroBackend = (status, body) => {

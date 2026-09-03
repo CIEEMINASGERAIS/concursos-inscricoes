@@ -43,13 +43,7 @@ function escapeHtml(str) {
         .replace(/'/g, "&#39;");
 }
 
-/**
- * Renderiza a tabela HTML. Estilo inline (clientes de e-mail não
- * suportam <style> em CSS scoping).
- *
- * @param {{curso: string, quantidade: number}[]} linhas
- * @param {number} total
- */
+
 function renderTabela(linhas, total) {
     const dataHoje = new Date().toLocaleDateString("pt-BR");
 
@@ -148,7 +142,7 @@ function renderHtmlCompleto({ linhas, total }) {
             ${tabela}
 
             <p style="color: black;">
-                <strong>Atenção:</strong> a coluna <em>Curso</em> mostra, nesta ordem de prioridade, (1) o nome similar informado pelo candidato no momento do cadastro e (2) a descrição oficial do curso. Cadastros sem qualquer referência a curso aparecem como <em>Não informado</em>.
+                <strong>Atenção:</strong> E-mail enviado semanalmente sempre as Quartas-Feiras às 09 horas.
             </p>
 
             <p style="color: black;">Atenciosamente,</p>
@@ -198,13 +192,6 @@ function renderTextoPlano({ linhas, total }) {
     );
 }
 
-/**
- * Lê lista de e-mails de uma variável do `.env` (separada por vírgula)
- * e devolve array de strings trimmed, sem vazios.
- *
- * Usado para resolver `RELATORIO_SEMANAL_TO` e `RELATORIO_SEMANAL_BCC`.
- * Lança se a env for obrigatória e não existir.
- */
 function lerEnvEmails(nomeVariavel, { obrigatorio = false } = {}) {
     const raw = process.env[nomeVariavel];
     if (raw == null || raw === "") {
@@ -222,28 +209,27 @@ function lerEnvEmails(nomeVariavel, { obrigatorio = false } = {}) {
         .filter(Boolean);
 }
 
-/**
- * Envia o relatório. Retorna o `messageId` do SMTP.
- *
- * Resolução dos destinatários (ordem de precedência):
- *   1. `opts.to` / `opts.bcc`  (chamada explícita — testes).
- *   2. `RELATORIO_SEMANAL_TO` / `RELATORIO_SEMANAL_BCC` no `.env`.
- *
- *   - RELATORIO_SEMANAL_TO   (obrigatório) → TO primário.
- *   - RELATORIO_SEMANAL_BCC  (opcional)    → cópias ocultas, CSV.
- *
- * O e-mail é o do **relatório semanal** (CRON em `agendarRelatorioCursos.js`).
- *
- * @param {object} [opts]
- * @param {string} [opts.to]          Destinatário primário (TO).
- * @param {string[]} [opts.bcc]       Lista de cópia oculta.
- * @param {object} [opts.transporter] Override do transporter (testes).
- * @param {object} [opts.context]     Contexto extra para o log.
- */
+function normalizarDestinatarios(valor) {
+    if (valor == null) return [];
+    if (Array.isArray(valor)) {
+        return valor
+            .flatMap(v => (typeof v === "string" ? v.split(",") : []))
+            .map(s => s.trim())
+            .filter(Boolean);
+    }
+    if (typeof valor === "string") {
+        return valor
+            .split(",")
+            .map(s => s.trim())
+            .filter(Boolean);
+    }
+    return [];
+}
+
 async function enviarRelatorioCursos(opts = {}) {
     const inicio = Date.now();
-    const to = opts.to || lerEnvEmails("RELATORIO_SEMANAL_TO", { obrigatorio: true })[0];
-    const bcc = opts.bcc || lerEnvEmails("RELATORIO_SEMANAL_BCC");
+    const to = normalizarDestinatarios(opts.to || lerEnvEmails("RELATORIO_SEMANAL_TO", { obrigatorio: true }));
+    const bcc = normalizarDestinatarios(opts.bcc ?? lerEnvEmails("RELATORIO_SEMANAL_BCC"));
     const tx = opts.transporter || transporter;
     const context = opts.context || {};
 
@@ -266,8 +252,8 @@ async function enviarRelatorioCursos(opts = {}) {
 
     const info = await tx.sendMail({
         from: "validacao.cadastro@cieeminas.com.br",
-        to,
-        bcc,
+        to: to.join(", "),
+        ...(bcc.length > 0 ? { bcc } : {}),
         subject: `CIEE/MG - Relatório de Cadastros Realizados para o Concurso TJMMG - ${dataHoje}`,
         html,
         text,
@@ -285,7 +271,8 @@ async function enviarRelatorioCursos(opts = {}) {
         messageId: info.messageId,
         linhas: linhas.length,
         total,
-        destinatario: to,
+        destinatarios_to: to,
+        destinatarios_bcc: bcc,
         duracao_ms: Date.now() - inicio,
     });
 

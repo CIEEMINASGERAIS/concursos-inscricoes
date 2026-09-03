@@ -122,7 +122,16 @@ function renderHtmlCompleto({ linhas, total }) {
             margin-bottom: 3rem;
             font-family: Arial, sans-serif;
             color: black;">
-            <img alt="Logo do CIEEMG" style="height: 3rem;" src="cid:logociee" />
+            <table role="presentation" style="border-collapse: collapse; width: 100%;">
+                <tr>
+                    <td style="vertical-align: middle;">
+                        <img alt="Logo do CIEEMG" style="height: 3rem;" src="cid:logociee" />
+                    </td>
+                    <td style="vertical-align: middle; padding-left: 1rem; color: red; font-size: 0.9rem;">
+                        <strong>Esta é uma mensagem automática, por favor não responda.</strong>
+                    </td>
+                </tr>
+            </table>
             <div style="height: 1px;
                 background-color: rgb(216,216,216);
                 margin: 1rem 0rem 1rem 0rem;"></div>

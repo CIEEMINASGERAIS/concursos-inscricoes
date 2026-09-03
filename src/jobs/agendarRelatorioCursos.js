@@ -23,14 +23,14 @@ const { enviarRelatorioCursos } = require("./enviarRelatorioCursos");
 //   12 = 12h
 //   * * = qualquer mês, qualquer dia do mês
 //   *   = qualquer dia da semana
-const CRON_EXPR = "22 12 * * *";
+// const CRON_EXPR = "22 12 * * *";
 
 // Configuração ORIGINAL (referência — restaurar descomentando):
 //   0  = minuto zero (em ponto)
 //   9  = 9h
 //   * * = qualquer mês, qualquer dia do mês
 //   3  = quarta-feira (0=domingo … 3=quarta … 6=sábado)
-// const CRON_EXPR_ORIGINAL = "0 9 * * 3";
+const CRON_EXPR = "0 9 * * 3";
 const TIMEZONE = "America/Sao_Paulo";
 
 async function executarRelatorioCursos() {

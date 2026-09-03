@@ -87,6 +87,7 @@ async function emailASerEnviadoProcessos(to, user, pass, context = {}) {
     logger.info("EMAIL_ENVIADO", {
         ...context,
         messageId: info.messageId,
+        envelope: info.envelope,
         destinatario: "processos",
     });
 }
@@ -297,6 +298,7 @@ Horário de funcionamento: 08:30 até 17:30 de segunda a sexta-feira`
     logger.info("EMAIL_ENVIADO", {
         ...context,
         messageId: info.messageId,
+        envelope: info.envelope,
         destinatario: "estudante",
     });
 }
@@ -386,6 +388,7 @@ Legenda: A = Situação judicial: acolhimento institucional (abrigo) / MP = Medi
 logger.info("EMAIL_ENVIADO", {
     ...context,
     messageId: info.messageId,
+    envelope: info.envelope,
     destinatario: "presp",
 });
 }

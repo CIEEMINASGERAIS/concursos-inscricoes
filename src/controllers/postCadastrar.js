@@ -8,6 +8,7 @@ const enviandoEmail = require("./enviarEmail");
 const { buildCadastroContext, logCadastroStep } = require("../utils/cadastroLogger");
 const { handleControllerError } = require("../utils/controllerError");
 const { logger } = require("../utils/logger");
+const { rotularCurso, CURSOS_LABEL } = require("../jobs/cursosLabel");
 
 // Acessar o models estudante
 const Estudante = require("../db/models/estudante")(sequelize, DataTypes);
@@ -65,29 +66,8 @@ function deveEnviarEmail(payload) {
 
 // (mapa de curso -> label reintroduzido quando voltamos a usar o
 // template Comum — ver `CURSOS_LABEL` abaixo.)
-
-// Mapa de indice -> label do curso. Mantem o backend independente
-// do frontend (que tem o mesmo mapa embutido em schoolData.js):
-// quando o frontend mandar `curso` (indice "0".."15"), podemos
-// renderizar o nome legivel no e-mail sem precisar de JOIN.
-const CURSOS_LABEL = {
-    "0": "Pós-Graduação em Direito",
-    "1": "Administração",
-    "2": "Biblioteconomia",
-    "3": "Comunicação Social",
-    "4": "Comunicação Social com Habilitação em Publicidade",
-    "5": "Direito",
-    "6": "Engenharia Civil",
-    "7": "Engenharia Elétrica",
-    "8": "Jornalismo",
-    "9": "Marketing",
-    "10": "Publicidade e Propaganda",
-    "11": "Ciência da Computação",
-    "12": "Sistemas de Informação",
-    "13": "Ou Graduação similar em \u201ctecnologia\u201d conforme edital",
-    "14": "Técnico em Informática",
-    "15": "Ou similar conforme edital",
-};
+// CURSOS_LABEL e rotularCurso vivem em `src/jobs/cursosLabel.js`,
+// fonte única da verdade (também usada pelo relatório semanal).
 
 async function enviarEmailsPosCadastro(req, estudante, contextoBase, laudoUrl = null) {
     try {
@@ -107,14 +87,12 @@ async function enviarEmailsPosCadastro(req, estudante, contextoBase, laudoUrl = 
         // =====================================================================
         const cursoIndice = (req.body.curso || "").toString().trim();
         const cursoSimilar = (req.body.curso_similar || "").toString().trim();
-        // Para os indices 13/15 ("Ou Graduação similar em 'tecnologia'
+        // Para os índices 13/15 ("Ou Graduação similar em 'tecnologia'
         // conforme edital" / "Ou similar conforme edital") usamos o
         // texto livre preenchido pelo candidato; para os demais usamos
-        // o label canonico do indice.
-        const cursoNome =
-            (cursoIndice === "13" || cursoIndice === "15") && cursoSimilar
-                ? cursoSimilar
-                : CURSOS_LABEL[cursoIndice] || "";
+        // o label canônico do índice. Lógica compartilhada com o
+        // relatório semanal — ver `cursosLabel.js`.
+        const cursoNome = rotularCurso({ cursoIndice, cursoSimilar });
 
         // =====================================================================
         // NOME USADO NO E-MAIL

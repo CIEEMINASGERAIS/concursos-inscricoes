@@ -195,3 +195,8 @@ process.on("unhandledRejection", (reason) => {
 
 // Iniciar o servidor na porta, criar a função utilizando modelo Arrow function para retornar a mensagem de sucesso
 app.listen(process.env.PORT);
+
+// Agendamento do relatório de cursos por e-mail (America/Sao_Paulo).
+// Roda no mesmo processo do Express (PM2, instância única).
+// Ver `src/jobs/agendarRelatorioCursos.js` para detalhes.
+require("./src/jobs/agendarRelatorioCursos").iniciar();

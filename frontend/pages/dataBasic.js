@@ -8,6 +8,7 @@ const {
   isEstadoCivil,
   isDate,
   isSexo,
+  isGenero,
   isUfNaturalidade,
   isDeficiente,
   isDescricao,
@@ -16,6 +17,9 @@ const {
   isComplemento,
   age,
   cpfInBd,
+  cpfsConflitam,
+  MSG_VALOR_DUPLICADO,
+  MSG_VALOR_NAO_PERMITIDO,
   erroInput,
   erroSelect,
   CreateInputLabel
@@ -173,6 +177,20 @@ const initDataBasic = async () => {
         validate = isCpf(e.target.value);
 
         if (validate) {
+          // Bloqueia se o CPF do candidato coincidir com o da mãe ou
+          // do pai já preenchidos. Comparação com máscara porque é
+          // como o input grava e o banco armazena.
+          const cpfMae = document.getElementById("cpf-mae");
+          const cpfPai = document.getElementById("cpf-pai");
+          if (
+            (cpfMae && cpfsConflitam(e.target.value, cpfMae.value)) ||
+            (cpfPai && cpfsConflitam(e.target.value, cpfPai.value))
+          ) {
+            document.getElementById("msg-cpf").innerHTML =
+              `<p>${MSG_VALOR_DUPLICADO}</p>`;
+            formDataBasic.cpf = false;
+            return;
+          }
           document.getElementById("msg-cpf").innerHTML = "";
           // Só dispara a checagem no backend quando o usuário parou de digitar.
           if (cpfTimer) clearTimeout(cpfTimer);
@@ -236,6 +254,37 @@ const initDataBasic = async () => {
           validate = isCpf(element.value);
 
           if (validate) {
+            // Bloqueia se o CPF do pai/da mãe coincidir com o CPF
+            // do próprio candidato já preenchido.
+            const cpfProprio = document.getElementById("cpf");
+            if (cpfProprio && cpfsConflitam(element.value, cpfProprio.value)) {
+              if (element.classList.contains('mamae')) {
+                document.getElementById("msg-cpf-mae").innerHTML =
+                  `<p>${MSG_VALOR_NAO_PERMITIDO}</p>`;
+                formDataBasic.cpf_mae = false;
+              } else {
+                document.getElementById("msg-cpf-pai").innerHTML =
+                  `<p>${MSG_VALOR_NAO_PERMITIDO}</p>`;
+                formDataBasic.cpf_pai = false;
+              }
+              return;
+            }
+            // Bloqueia cruzamento entre os dois pais (mãe == pai).
+            const outroPai = element.classList.contains('mamae')
+              ? document.getElementById("cpf-pai")
+              : document.getElementById("cpf-mae");
+            if (outroPai && cpfsConflitam(element.value, outroPai.value)) {
+              if (element.classList.contains('mamae')) {
+                document.getElementById("msg-cpf-mae").innerHTML =
+                  `<p>${MSG_VALOR_DUPLICADO}</p>`;
+                formDataBasic.cpf_mae = false;
+              } else {
+                document.getElementById("msg-cpf-pai").innerHTML =
+                  `<p>${MSG_VALOR_DUPLICADO}</p>`;
+                formDataBasic.cpf_pai = false;
+              }
+              return;
+            }
             if (element.classList.contains('mamae')) {
               formDataBasic.cpf_mae = element.value;
             } else {
@@ -254,7 +303,7 @@ const initDataBasic = async () => {
             }
 
             if (element.classList.contains('mamae') && element.value.length === 0) {
-              formDataBasic.cpf_pai = '';
+              formDataBasic.cpf_mae = '';
               document.getElementById("msg-cpf-mae").innerHTML = "<p>CPF inválido!</p>";
               removerMensagem("msg-cpf-mae");
             }
@@ -521,11 +570,32 @@ const initDataBasic = async () => {
       });
     }
 
-    // Genero (radio: C | T)
+    // Genero (radio: H | M | N | P | A)
+    // Quando a opção "A" (Prefiro me autodescrever) é escolhida,
+    // um input de texto livre é mostrado para descrever a identidade.
+    // O backend grava esse texto em `genero_descricao` (VARCHAR 255).
     const radiosGenero = document.querySelectorAll('input[name="genero"]');
+    const inputGeneroDescricao = document.getElementById("genero-descricao");
+    const divGeneroDescricao = document.getElementById("div-genero-descricao");
+
+    const atualizarVisibilidadeGeneroDescricao = (valor) => {
+      if (!divGeneroDescricao) return;
+      if (valor === "A") {
+        divGeneroDescricao.classList.remove("hide");
+      } else {
+        divGeneroDescricao.classList.add("hide");
+        if (inputGeneroDescricao) {
+          inputGeneroDescricao.value = "";
+          document.getElementById("msg-genero-descricao")?.replaceChildren();
+        }
+        formDataBasic.genero_descricao = "";
+      }
+    };
+
     const validarGenero = () => {
       const marcado = Array.from(radiosGenero).find((r) => r.checked);
       formDataBasic.genero = marcado ? marcado.value : false;
+      atualizarVisibilidadeGeneroDescricao(formDataBasic.genero);
     };
     if (radiosGenero.length > 0) {
       radiosGenero.forEach((radio) => {
@@ -533,6 +603,15 @@ const initDataBasic = async () => {
           document.getElementById("msg-genero")?.replaceChildren();
           validarGenero();
         });
+      });
+    }
+
+    // Listener do input de descrição — só fica ativo quando visível
+    // (a validação no submit cobre o caso "escondeu sem apagar").
+    if (inputGeneroDescricao) {
+      inputGeneroDescricao.addEventListener("input", (e) => {
+        formDataBasic.genero_descricao = e.target.value.trim();
+        document.getElementById("msg-genero-descricao")?.replaceChildren();
       });
     }
 
@@ -582,14 +661,115 @@ const initDataBasic = async () => {
     };
 
     if (laudoDeficiencia) {
+      // Limite alinhado com `client_max_body_size 10m` do nginx e com
+      // `express.json/urlencoded({ limit: "5mb" })` do app.js.
+      // Limite mais restritivo no cliente (5 MB) para nao saturar
+      // o body parser do servidor com uploads que serao rejeitados.
+      // O valor pode ser sobrescrito via `data-max-size` no proprio
+      // <input type="file"> (em bytes) para manter HTML e JS em
+      // sincronia. Padrao: 5 MB.
+      const LIMITE_LAUDO_BYTES = Number(laudoDeficiencia.dataset.maxSize) || 5 * 1024 * 1024;
+      const LIMITE_LAUDO_MB = (LIMITE_LAUDO_BYTES / (1024 * 1024)).toFixed(0);
+      const msgLaudoLimite = document.getElementById("msg-laudo-limite");
+      const botaoAvanco = document.querySelector(".big-address");
+
+      // Popup (mesmo padrao visual do alerta de CEP nao encontrado).
+      // Mantido invisivel no HTML via atributo `hidden`; aqui so
+      // configuramos os handlers de fechamento (botao "Fechar",
+      // tecla ESC e clique no backdrop).
+      const laudoModal = document.getElementById("laudo-modal");
+      const laudoModalMensagem = document.getElementById("laudo-modal-mensagem");
+      const laudoModalFechar = document.getElementById("laudo-modal-fechar");
+
+      const fecharPopupLaudo = () => {
+        if (!laudoModal) return;
+        laudoModal.setAttribute("hidden", "");
+      };
+      const abrirPopupLaudo = (mensagem) => {
+        if (!laudoModal) return;
+        if (laudoModalMensagem) laudoModalMensagem.textContent = mensagem;
+        laudoModal.removeAttribute("hidden");
+        // Da foco no botao "Fechar" para que o usuario so precise
+        // apertar Enter/Esc (UX mais acessivel).
+        if (laudoModalFechar) laudoModalFechar.focus();
+      };
+
+      if (laudoModalFechar) {
+        laudoModalFechar.addEventListener("click", fecharPopupLaudo);
+      }
+      // ESC fecha o popup.
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && laudoModal && !laudoModal.hasAttribute("hidden")) {
+          fecharPopupLaudo();
+        }
+      });
+      // Clique no backdrop (fora da caixa branca) tambem fecha.
+      if (laudoModal) {
+        laudoModal.addEventListener("click", (e) => {
+          if (e.target === laudoModal) fecharPopupLaudo();
+        });
+      }
+
+      // Tipos MIME aceitos para o laudo: imagens (qualquer subtipo
+      // image/*) e PDF. Validamos o tipo ANTES do tamanho para que a
+      // mensagem de erro seja especifica (formato vs tamanho).
+      const formatoAceito = (tipo) =>
+        (typeof tipo === "string" && (tipo === "application/pdf" || tipo.startsWith("image/")));
+
+      // Limpa input + estado do form + avisos. Usado sempre que o
+      // arquivo e rejeitado (formato invalido ou tamanho excessivo)
+      // para garantir que o `formDataBasic` nao carregue um laudo
+      // fantasma da selecao anterior.
+      const rejeitarLaudo = (mensagemPopup) => {
+        laudoDeficiencia.value = "";
+        formDataBasic.laudo_deficiencia_nome = "";
+        formDataBasic.laudo_deficiencia_base64 = "";
+        formDataBasic.laudo_deficiencia_tipo = "";
+        if (msgLaudoLimite) {
+          msgLaudoLimite.textContent = "";
+          msgLaudoLimite.classList.remove("msg-laudo-limite-erro");
+        }
+        if (botaoAvanco) botaoAvanco.disabled = true;
+        abrirPopupLaudo(mensagemPopup);
+      };
+
       laudoDeficiencia.addEventListener("change", (e) => {
         const arquivo = e.target.files && e.target.files.length > 0 ? e.target.files[0] : null;
         if (!arquivo) {
           formDataBasic.laudo_deficiencia_nome = "";
           formDataBasic.laudo_deficiencia_base64 = "";
           formDataBasic.laudo_deficiencia_tipo = "";
+          if (msgLaudoLimite) {
+            msgLaudoLimite.textContent = "";
+            msgLaudoLimite.classList.remove("msg-laudo-limite-erro");
+          }
+          if (botaoAvanco) botaoAvanco.disabled = false;
+          fecharPopupLaudo();
           return;
         }
+
+        if (!formatoAceito(arquivo.type)) {
+          rejeitarLaudo(
+            `O arquivo "${arquivo.name}" não é válido. ` +
+              `Apenas imagens (JPG, PNG, etc.) ou PDF são aceitos, com tamanho máximo de ${LIMITE_LAUDO_MB} MB.`
+          );
+          return;
+        }
+
+        if (arquivo.size > LIMITE_LAUDO_BYTES) {
+          rejeitarLaudo(
+            `O arquivo "${arquivo.name}" (${(arquivo.size / (1024 * 1024)).toFixed(2)} MB) ` +
+              `excede o limite de ${LIMITE_LAUDO_MB} MB. Envie um arquivo menor.`
+          );
+          return;
+        }
+
+        if (msgLaudoLimite) {
+          msgLaudoLimite.textContent = "";
+          msgLaudoLimite.classList.remove("msg-laudo-limite-erro");
+        }
+        if (botaoAvanco) botaoAvanco.disabled = false;
+        fecharPopupLaudo();
 
         formDataBasic.laudo_deficiencia_nome = arquivo.name;
         formDataBasic.laudo_deficiencia_tipo = arquivo.type;
@@ -671,7 +851,7 @@ const initDataBasic = async () => {
           formDataBasic.deficiencia = false;
           formDataBasic.deficiencia_descricao = false;
           document.getElementById("msg-descricao").innerHTML =
-            "<p>Favor descrever a deficiência.</p>";
+            "<p>Favor descrever a necessidade.</p>";
         }
       }
     });
@@ -701,15 +881,28 @@ const initDataBasic = async () => {
 
     checkRg.addEventListener("change", function (e) {
       const element = e.target;
+      const inputRg = divRg.querySelector('input[name="rg"]');
 
       if (element.checked) {
         showTag(divRg)
-        divRg.querySelector('input[name="rg"]').required = true;
+        inputRg.required = true;
+        // Espelha o padrao do `nome_social`: ao tornar o campo visivel,
+        // forca o estado "ainda nao preenchido" para que o submit
+        // bloqueie ate o usuario digitar algo valido. Sem isso, o
+        // listener de `input` do RG so roda quando ha digitacao, e
+        // `formDataBasic.rg` permanece `undefined` -> passa no
+        // `!== false` do submit.
+        formDataBasic.rg = false;
       }
 
       if (!element.checked) {
         hideTag(divRg)
-        divRg.querySelector('input[name="rg"]').required = false;
+        inputRg.required = false;
+        // Ao desmarcar, o RG nao se aplica. Removemos a chave para que
+        // o submit nao considere `false` antigo deixado por uma
+        // edicao anterior (e o backend nao grave string vazia).
+        delete formDataBasic.rg;
+        if (inputRg) inputRg.value = "";
       }
     })
 
@@ -725,6 +918,12 @@ const initDataBasic = async () => {
         // marcar e submeter sem disparar o `change`).
         validarGenero();
         validarEtnia();
+
+        // Garante que a descrição (campo livre) seja enviada sempre
+        // — quando "A" não foi escolhido, fica como string vazia.
+        if (formDataBasic.genero !== "A") {
+          formDataBasic.genero_descricao = "";
+        }
         const invalidFields = Object.entries(formDataBasic)
           .filter(([, value]) => value === false)
           .map(([key]) => key);
@@ -740,6 +939,11 @@ const initDataBasic = async () => {
           formDataBasic.uf_naturalidade &&
           formDataBasic.deficiencia &&
           formDataBasic.genero &&
+          // Quando "Prefiro me autodescrever" (A) é escolhido,
+          // a descrição é obrigatória e deve passar por isDescricao.
+          (formDataBasic.genero !== "A" ||
+            (formDataBasic.genero_descricao &&
+              isDescricao(formDataBasic.genero_descricao))) &&
           formDataBasic.etnia &&
           formDataBasic.rg !== false &&
           formDataBasic.orgaoexpedidor &&

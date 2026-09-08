@@ -2,3 +2,10 @@ node_modules
 .env
 dados.txt
 .vscode
+public/assets/uploads/laudos/
+
+# Windows Alternate Data Streams (Zone.Identifier é adicionado pelo Windows
+# quando arquivos são baixados da internet e tem ":" no nome, o que quebra
+# em sistemas Linux/Mac e em git checkout no Windows moderno)
+**:Zone.Identifier
+*:Zone.Identifier

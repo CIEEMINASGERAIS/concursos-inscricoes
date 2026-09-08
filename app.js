@@ -45,16 +45,16 @@ const address = require("./src/controllers/renderAddress");
 
 const socialEconomic = require("./src/controllers/renderSocialEconomy");
 
-// const programaEmCurso = require("./src/controllers/renderProgramasEmCurso");
+const programaEmCurso = require("./src/controllers/renderProgramasEmCurso");
 
-app.use(express.urlencoded({ extended: true, limit: "25mb" }));
+app.use(express.urlencoded({ extended: true, limit: "5mb" }));
 
 app.set("views", path.resolve(__dirname, "src", "views"));
 // Configurar o EJS como a engine de visualização
 app.set("view engine", "ejs");
 
 // Criar o middleware para receber os dados no corpo da requisição
-app.use(express.json({ limit: "25mb" }));
+app.use(express.json({ limit: "5mb" }));
 
 app.use(requestLogger);
 // Idempotency precisa rodar ANTES do controller mas DEPOIS do requestLogger
@@ -63,11 +63,13 @@ app.use(idempotencyMiddleware);
 
 app.use(express.static(path.resolve(__dirname, "public", "assets")));
 
-const whiteList = [
-
-  "https://concursotjmmg.cieemg.org.br",
-  "http://localhost:8080",
-];
+// Hosts permitidos (normalizados: sem "www." e sem porta).
+// Mantemos a lista explícita para evitar abrir brecha — só este domínio
+// (e localhost em dev) pode consumir a API.
+const allowedHosts = new Set([
+  "concursotjmmg.cieemg.org.br",
+  "localhost",
+]);
 
 // Origens null acontecem em webviews, Samsung Browser modo privado,
 // e navegação por file://. Permitimos explicitamente para não bloquear
@@ -75,11 +77,24 @@ const whiteList = [
 // origens realmente desconhecidas e abre brecha de segurança).
 const corsOptions = {
   origin: function (origin, callback) {
-    if (!origin || origin === "null" || whiteList.indexOf(origin) !== -1) {
-      callback(null, true);
-    } else {
-      callback(new Error("Not allowed by CORS"));
+    // Sem Origin (mesma origem, curl, Postman, mobile app): libera.
+    // "null" (string): webview/Samsung Browser private/file://: libera.
+    if (!origin || origin === "null") {
+      return callback(null, true);
     }
+
+    // Tenta extrair o host normalizado. Se não for URL válida, bloqueia.
+    try {
+      const url = new URL(origin);
+      const host = url.hostname.replace(/^www\./, "");
+      if (allowedHosts.has(host)) {
+        return callback(null, true);
+      }
+    } catch (e) {
+      // Origin malformado cai no bloqueio abaixo.
+    }
+
+    return callback(new Error("Not allowed by CORS"));
   },
   methods: ["GET", "POST", "OPTIONS"],
   allowedHeaders: ["Content-Type", "X-Requested-With"],
@@ -94,7 +109,11 @@ app.use(
     // Cross-Origin-Resource-Policy: same-site evita bloqueio em browsers
     // Chromium-based (Samsung Browser) para recursos same-origin.
     crossOriginResourcePolicy: { policy: "same-site" },
-    crossOriginOpenerPolicy: { policy: "same-origin" },
+    // COOP "same-origin" é agressivo demais e quebra navegação entre
+    // origens filhas em alguns browsers (Samsung Internet, Safari iOS).
+    // "unsafe-none" mantém compatibilidade sem abrir brecha prática aqui
+    // (a API exige CORS para consumir, então cross-origin real está fechado).
+    crossOriginOpenerPolicy: { policy: "unsafe-none" },
     contentSecurityPolicy: {
       directives: {
         defaultSrc: ["'self'"],
@@ -142,7 +161,7 @@ app.get("/address", address.renderAddress);
 app.get("/socio-economic", socialEconomic.renderSocioEconomic);
 
 // Função responsável por renderizar a sexta página
-// app.get("/programa-curso", programaEmCurso.renderProgramaCurso);
+app.get("/programa-curso", programaEmCurso.renderProgramaCurso);
 
 // Função responsável por enviar as informações para o banco de dados
 app.post("/cadastrar", postCadastro.postRegister);
@@ -176,3 +195,8 @@ process.on("unhandledRejection", (reason) => {
 
 // Iniciar o servidor na porta, criar a função utilizando modelo Arrow function para retornar a mensagem de sucesso
 app.listen(process.env.PORT);
+
+// Agendamento do relatório de cursos por e-mail (America/Sao_Paulo).
+// Roda no mesmo processo do Express (PM2, instância única).
+// Ver `src/jobs/agendarRelatorioCursos.js` para detalhes.
+require("./src/jobs/agendarRelatorioCursos").iniciar();

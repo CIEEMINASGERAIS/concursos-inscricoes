@@ -3,6 +3,14 @@ const termsAndConditions = require("./terms-and-conditions.js");
 const initAddress = require("./address.js");
 const initDataBasic = require("./dataBasic.js");
 const createFormSchoolData = require("./schoolData.js");
+
+// Helper para checar se os termos foram rejeitados. Enquanto o
+// flag `data-termos-rejeitados="1"` estiver no <body>, qualquer
+// tentativa de sair da tela de Termos e Condicoes (seja via
+// sidenav, botao "Voltar" do form, atalho, etc.) e bloqueada.
+// O flag e setado em terms-and-conditions.js ao clicar em
+// "Rejeitar" e limpo ao re-aceitar.
+const termosBloqueados = () => termsAndConditions.termosRejeitados();
 const {
   conferirFormAddress,
   conferirFormBasic,
@@ -40,11 +48,41 @@ async function takeData() {
   _formData = formData;
   let validateFormBasic;
   document.addEventListener("click", function (event) {
-    const element = event.target;
+    // Usamos closest() para detectar cliques tanto no proprio
+    // botao da sidenav quanto em qualquer filho (ex.: <img>,
+    // <span>, texto). Sem isso, clicar num filho fazia o
+    // handler nao disparar e o usuario ficava "preso" na tela
+    // atual.
+    const element = event.target.closest(
+      ".big-terms-conditions, .button-terms-conditions, " +
+      ".big-address, .button-address, " +
+      ".big-basic-data, .button-basic-data, " +
+      ".big-school-data, .button-school-data, .main"
+    ) || event.target;
 
     validateFormBasic = false;
 
     validateFormBasic = conferirFormBasic(formData);
+
+    // Bloqueio de termos: se o usuario clicou em "Rejeitar" na
+    // tela de Termos e Condicoes, qualquer tentativa de sair
+    // daquela tela e ignorada ate que ele volte la e aceite.
+    // Permitimos apenas o proprio botao "Termos" da sidenav,
+    // para que ele consiga revisar/rejeitar de novo.
+    const clicouEmTermos =
+      element.classList.contains("big-terms-conditions") ||
+      element.classList.contains("button-terms-conditions");
+    if (termosBloqueados() && !clicouEmTermos) {
+      event.preventDefault();
+      // Se o usuario estiver em outra tela, redireciona de volta
+      // para a tela de Termos para que o fluxo fique coerente.
+      const screenTerms = document.querySelector(".screen-terms-conditions");
+      if (screenTerms && screenTerms.style.display === "none") {
+        changeMains(".screen-terms-conditions");
+        changeSubMainTitle("Termos e Condições");
+      }
+      return;
+    }
 
     if (validateFormBasic) {
       if (
@@ -53,11 +91,56 @@ async function takeData() {
       ) {
         changeMains(".screen-address");
         changeSubMainTitle("Formulário de Endereço");
+      } else if (
+        // Botao "Dados Basicos" da sidenav: volta para a tela de
+        // Dados Basicos. Liberado sempre que o usuario ja preencheu
+        // o formulario (validateFormBasic true). Nao precisa
+        // revalidar o conteudo - o objetivo e apenas navegar.
+        element.classList.contains("big-basic-data") ||
+        element.classList.contains("button-basic-data")
+      ) {
+        changeMains(".screen-basic-data1");
+        changeSubMainTitle("Formulário de Dados Básicos");
       }
     } else {
-      if (element.classList.contains("main")) {
+      // Dados Basicos ainda nao preenchido: permite voltar para a
+      // tela de Dados Basicos (reabrir para editar) e tambem
+      // para a tela de Termos (rever/aceitar), mas NAO deixa
+      // pular para Endereco nem para os acionados depois dele.
+      // Antes este else fazia `preventDefault()` para qualquer
+      // `.main`, o que engolia o clique no botao "Termos" da
+      // sidenav e impedia a navegacao de volta.
+      if (
+        element.classList.contains("big-basic-data") ||
+        element.classList.contains("button-basic-data")
+      ) {
+        changeMains(".screen-basic-data1");
+        changeSubMainTitle("Formulário de Dados Básicos");
+      } else if (
+        // Botao da sidenav de uma etapa POSTERIOR a Dados Basicos
+        // (Endereco, Cursos): bloqueia. Os botoes de etapas
+        // anteriores (Termos) sao tratados pelo bloco dedicado
+        // mais abaixo.
+        element.classList.contains("big-address") ||
+        element.classList.contains("button-address") ||
+        element.classList.contains("big-school-data") ||
+        element.classList.contains("button-school-data")
+      ) {
         event.preventDefault();
       }
+    }
+
+    // Botao "Termos e Condicoes" da sidenav: intencionalmente sem
+    // acao. Pedido explicito do usuario: clicar no icone de Termos
+    // na sidenav nao deve navegar para lugar nenhum. Mantemos
+    // apenas o gate superior (`termosBloqueados`) que, quando
+    // ativo, tambem impede a saida da propria tela de Termos -
+    // ao clicar aqui nesse estado, nada acontece.
+    if (
+      element.classList.contains("big-terms-conditions") ||
+      element.classList.contains("button-terms-conditions")
+    ) {
+      // no-op intencional
     }
   });
 
@@ -65,11 +148,67 @@ async function takeData() {
   _formAddress = formAddress;
   let validateFormAddress;
   document.addEventListener("click", function (event) {
-    const element = event.target;
+    // Mesmo truque do listener anterior: closest() para que o
+    // clique em qualquer filho do botao da sidenav seja
+    // contabilizado. Inclui tambem os botoes das etapas
+    // anteriores (Termos, Dados Basicos, Endereco) para que o
+    // usuario possa navegar para tras a partir de School.
+    const element = event.target.closest(
+      ".big-terms-conditions, .button-terms-conditions, " +
+      ".big-basic-data, .button-basic-data, " +
+      ".big-address, .button-address, " +
+      ".big-school-data, .button-school-data, .main"
+    ) || event.target;
 
     validateFormAddress = false;
 
     validateFormAddress = conferirFormAddress(formAddress);
+
+    // Mesmo gate do listener anterior: termos rejeitados => sem
+    // saida para .screen-school-data. O usuario precisa voltar
+    // para a tela de Termos e aceitar para liberar o fluxo.
+    const clicouEmTermos =
+      element.classList.contains("big-terms-conditions") ||
+      element.classList.contains("button-terms-conditions");
+    if (termosBloqueados() && !clicouEmTermos) {
+      event.preventDefault();
+      const screenTerms = document.querySelector(".screen-terms-conditions");
+      if (screenTerms && screenTerms.style.display === "none") {
+        changeMains(".screen-terms-conditions");
+        changeSubMainTitle("Termos e Condições");
+      }
+      return;
+    }
+
+    // Botao "Termos e Condicoes" da sidenav: intencionalmente sem
+    // acao. Pedido explicito do usuario: clicar no icone de Termos
+    // na sidenav nao deve navegar. Se os termos estiverem
+    // rejeitados, o gate superior ja bloqueia a saida da tela de
+    // Termos; quando esta em outra tela, o clique aqui e
+    // ignorado para manter coerencia.
+    if (clicouEmTermos) {
+      // no-op intencional
+      return;
+    }
+
+    // Botoes das etapas anteriores (Dados Basicos, Endereco):
+    // sempre liberados, para permitir voltar e editar.
+    if (
+      element.classList.contains("big-basic-data") ||
+      element.classList.contains("button-basic-data")
+    ) {
+      changeMains(".screen-basic-data1");
+      changeSubMainTitle("Formulário de Dados Básicos");
+      return;
+    }
+    if (
+      element.classList.contains("big-address") ||
+      element.classList.contains("button-address")
+    ) {
+      changeMains(".screen-address");
+      changeSubMainTitle("Formulário de Endereço");
+      return;
+    }
 
     if (validateFormAddress && validateFormBasic) {
       if (
@@ -80,7 +219,12 @@ async function takeData() {
         changeSubMainTitle("Formulário de Dados Acadêmicos");
       }
     } else {
-      if (element.classList.contains("main")) {
+      // Se a tela de Endereco ainda nao foi preenchida, nao
+      // permite pular para School.
+      if (
+        element.classList.contains("big-school-data") ||
+        element.classList.contains("button-school-data")
+      ) {
         event.preventDefault();
       }
     }
@@ -243,7 +387,7 @@ async function enviarCadastro(dataFormSchool) {
   const mensagemErroPadrao =
     `Entre em contato com nossa central de concursos para análise do seu cadastro.<br><br>` +
     `Telefone/WhatsApp: (31) 3429-8100 – Opção 6<br>` +
-    `E-mail: concursotjmmg@cieemg.org.br<br>` +
+    `E-mail: suportetjmmg@cieemg.org.br<br>` +
     `Horário de funcionamento: 08.30 até 17.30 de segunda a sexta-feira`;
 
   const parseErroBackend = (status, body) => {
@@ -269,7 +413,7 @@ async function enviarCadastro(dataFormSchool) {
       return {
         tipo: "duplicado",
         titulo: "Cadastro já realizado!",
-        mensagem: `Olá ${data.nome}, identificamos que este CPF ou e-mail já possui cadastro. Verifique sua caixa de entrada (incluindo spam) pelo e-mail de confirmação. Em caso de dúvidas, ligue (31) 3429-8100.`,
+        mensagem: `Identificamos que este CPF ou e-mail já possui cadastro. Verifique sua caixa de entrada (incluindo spam) pelo e-mail de confirmação. Em caso de dúvidas, ligue (31) 3429-8100.`,
       };
     }
 
@@ -320,6 +464,7 @@ async function enviarCadastro(dataFormSchool) {
   const titleEl = safeQuerySelector(".title-cadastro");
   const dataErroEl = safeQuerySelector(".data-erro");
   const messageEl = safeQuerySelector(".message-final");
+  const buttonEndEl = safeQuerySelector(".button-school-end");
   const subMainTitleEl = safeQuerySelector(".sub-main-title");
 
   showAlert();
@@ -330,15 +475,16 @@ async function enviarCadastro(dataFormSchool) {
   if (dataErroEl) dataErroEl.innerHTML = ``;
   if (messageEl) {
     messageEl.innerHTML =
-      `Olá ${data.nome}, estamos finalizando o seu cadastro, aguarde um momento.`;
+      `Estamos finalizando o seu cadastro, aguarde um momento.`;
   }
+  // Botao "Confirmar" some enquanto o popup esta "Carregando..."
+  // para nao confundir o usuario (clicar nao faz nada ainda).
+  if (buttonEndEl) buttonEndEl.classList.add("hide");
 
   try {
     const resultado = await postCadastroWithRetry(data);
 
     if (resultado.ok) {
-      // Limpa o requestId cacheado: cadastro concluído, próximo submit
-      // deve poder gerar novo ID.
       try {
         sessionStorage.removeItem(`cadastro_request_id:${data.cpf}`);
       } catch {
@@ -369,11 +515,46 @@ async function enviarCadastro(dataFormSchool) {
           `Código de Inscrição: ${codigoInscricao}`;
       }
       if (dataErroEl) dataErroEl.innerHTML = `<p>${date} v - 1.0.0</p>`;
+      // Resposta chegou -> botao "Confirmar" pode voltar a aparecer.
+      if (buttonEndEl) buttonEndEl.classList.remove("hide");
       if (messageEl) {
-        messageEl.innerHTML =
+        let mensagemSucesso =
           `Atenção: Todas as informações referentes a datas, local de prova e demais ` +
           `informações consulte o edital publicado em nosso portal ` +
           `<a href="https://www.cieemg.org.br" target="_blank" rel="noopener">www.cieemg.org.br</a>.`;
+
+        // ===================================================================
+        // AVISO SOBRE O E-MAIL DE CONFIRMAÇÃO
+        // O backend agora devolve `email.status` em todas as respostas:
+        //   - "enviado": SMTP OK, candidato recebeu a senha.
+        //   - "falhou": SMTP explodiu ou timeout (>5s). Não chegamos a
+        //               reenviar — o candidato precisa ser avisado pra
+        //               entrar em contato com a central.
+        //   - "suprimido": gate bloqueou (ex.: curso_similar vazio).
+        //                  Cadastro OK, e-mail não vai sair — comportamento
+        //                  intencional da regra de negócio.
+        // ===================================================================
+        let parsedBody = null;
+        try {
+          parsedBody = JSON.parse(resultado.body || "{}");
+        } catch {
+          parsedBody = null;
+        }
+        const emailStatus = parsedBody?.email?.status || null;
+        const emailMotivo = parsedBody?.email?.motivo || null;
+
+        if (emailStatus === "falhou") {
+          mensagemSucesso +=
+            `<br><br><strong style="color:#b30000;">⚠️ Não conseguimos enviar seu e-mail de confirmação agora.</strong> ` +
+            `Anote seu código de inscrição (${codigoInscricao}) e entre em contato com a central ` +
+            `<a href="tel:+553134298100">(31) 3429-8100</a> – Opção 6 para receber sua senha de acesso.`;
+        } else if (emailStatus === "suprimido") {
+          mensagemSucesso +=
+            `<br><br><em>Observação: o e-mail automático não foi enviado porque alguns dados de curso não foram preenchidos. ` +
+            `Nossa equipe entrará em contato em até 24h pelo canal informado no cadastro.</em>`;
+        }
+
+        messageEl.innerHTML = mensagemSucesso;
       }
     } else {
       const erroCadastro = parseErroBackend(resultado.status, resultado.body);
@@ -391,6 +572,9 @@ async function enviarCadastro(dataFormSchool) {
         dataErroEl.innerHTML =
           `<p>${date} - status ${resultado.status}</p>`;
       }
+      // Resposta (com erro) chegou -> botao "Confirmar" volta a aparecer
+      // para o usuario poder fechar o popup.
+      if (buttonEndEl) buttonEndEl.classList.remove("hide");
       if (messageEl) messageEl.innerHTML = erroCadastro.mensagem;
     }
   } catch (error) {
@@ -422,6 +606,19 @@ async function enviarCadastro(dataFormSchool) {
     }
     if (dataErroEl) dataErroEl.innerHTML = `<p>${date} v - 1.0.0</p>`;
 
+    // Botao "Confirmar" so volta a aparecer quando a requisicao foi
+    // resolvida (sucesso real OU sucesso provável por falha de rede).
+    // Em erro de rede 'real' (timeout curto, sem chance de ter
+    // chegado no backend), mantemos escondido para o usuario nao
+    // fechar um popup de erro sem ter lido o que aconteceu.
+    if (buttonEndEl) {
+      if (isNetworkError) {
+        buttonEndEl.classList.remove("hide");
+      } else {
+        buttonEndEl.classList.add("hide");
+      }
+    }
+
     // Se a falha foi de rede com provável sucesso (timeout longo
     // mas request pode ter chegado), tratamos como cadastro OK e
     // travamos os forms para evitar reenvio.
@@ -431,7 +628,7 @@ async function enviarCadastro(dataFormSchool) {
 
     if (messageEl) {
       messageEl.innerHTML = isNetworkError
-        ? `Olá ${data.nome}, parabéns por finalizar a primeira etapa do seu cadastro, fique atento ao seu e-mail,
+        ? `Parabéns por finalizar a primeira etapa do seu cadastro, fique atento ao seu e-mail,
       enviaremos em
       até 24 horas os dados para realizar seu primeiro login no nosso portal, para conclusão do seu cadastro.`
         : mensagemErroPadrao;

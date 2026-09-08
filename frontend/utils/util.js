@@ -9,6 +9,24 @@ const changeSubMainTitle = (text) => {
   }
 };
 
+// Compara dois CPFs tratando-os como strings com máscara
+// (`123.456.789-00`). Como o input nunca permite digitar sem
+// máscara e o backend grava com máscara, comparamos como string
+// completa. Retorna true se ambos forem não vazios e idênticos.
+const cpfsConflitam = (a, b) => {
+  if (!a || !b) return false;
+  const sa = String(a).trim();
+  const sb = String(b).trim();
+  if (!sa || !sb) return false;
+  return sa === sb;
+};
+
+// Mensagens genéricas usadas em qualquer campo que tenha conflito
+// de valor com outro campo. Mantém o texto neutro para reaproveitar
+// em CPFs cruzados, e-mails iguais, telefones repetidos, etc.
+const MSG_VALOR_DUPLICADO = "Este valor já foi informado em outro campo.";
+const MSG_VALOR_NAO_PERMITIDO = "Este valor não é permitido neste campo.";
+
 // Helper tolerante a elementos ausentes: retorna o node OU null sem
 // lançar. Usado por fluxos onde o markup de "alerta" foi removido do
 // template, mas o JS legado ainda tenta manipulá-lo.
@@ -491,7 +509,10 @@ const cpfInBd = async (cpf) => {
 };
 
 const isEstadoCivil = (estadoCivil) => {
-  const regex = new RegExp(/^[SCADV]$/);
+  // Aceita os códigos: S (Solteiro), C (Casado), A (Amasiado),
+  // D (Divorciado), V (Viúvo), P (Separado). Mantém a checagem
+  // original de não-numérico logo abaixo como salvaguarda.
+  const regex = new RegExp(/^[SCADVP]$/);
 
   if (!regex.test(estadoCivil)) {
     return false;
@@ -696,7 +717,8 @@ const isHorario = (data) => {
 };
 
 const isSexo = (sexo) => {
-  const regex1 = new RegExp(/^[FM]$/);
+  // M=Masculino, F=Feminino, I=Intersexo, P=Prefiro não responder
+  const regex1 = new RegExp(/^[MFIP]$/);
 
   if (!regex1.test(sexo)) {
     return false;
@@ -708,6 +730,12 @@ const isSexo = (sexo) => {
   }
 
   return true;
+};
+
+const isGenero = (genero) => {
+  // H=Homem, M=Mulher, N=Não binário,
+  // P=Prefiro não responder, A=Prefiro me autodescrever
+  return /^[HMNPA]$/.test(genero);
 };
 
 const isUfNaturalidade = (ufNaturalidade) => {
@@ -876,25 +904,45 @@ const isEmail = (email) => {
 };
 
 const emailBd = async (emailBd) => {
-  let email;
-
   try {
-    const response = await fetch(`/verificarEmail?termo=${emailBd}`);
-    if (response.ok) {
-      const opcoes = await response.json();
-      email = opcoes.map((email) => email.email);
-    } else {
-      console.log("Erro na solicitação:", response.statusText);
+    const resultado = await fetchJson(`/verificarEmail?termo=${encodeURIComponent(emailBd)}`, {
+      method: "GET",
+      timeoutMs: 8000,
+      maxTentativas: 3,
+      retryOn5xx: true,
+      logErros: false,
+      contextoExtra: {
+        origem: "emailBd",
+      },
+    });
+
+    if (!resultado.ok) {
+      clientLogger.warn("EMAIL_VERIFICACAO_ERRO_HTTP", {
+        status: resultado.status,
+      });
+      return {
+        status: "falha_rede",
+        mensagem: "Não foi possível verificar o e-mail agora. Verifique sua conexão e tente novamente.",
+      };
     }
+
+    const opcoes = Array.isArray(resultado.data) ? resultado.data : [];
+    const jaCadastrado = opcoes.some((item) => item && item.email);
+
+    return jaCadastrado
+      ? { status: "duplicado", mensagem: "E-mail já cadastrado!" }
+      : { status: "ok" };
   } catch (error) {
-    console.error("Erro:", error);
-  }
+    clientLogger.warn("EMAIL_VERIFICACAO_FALHA_REDE", {
+      mensagem: error?.message,
+      nomeErro: error?.name,
+    });
 
-  if (email.length > 0) {
-    return false;
+    return {
+      status: "falha_rede",
+      mensagem: "Não foi possível verificar o e-mail agora. Verifique sua conexão e tente novamente.",
+    };
   }
-
-  return true;
 };
 
 const isCep = (cep) => {
@@ -990,7 +1038,7 @@ const erroInput = (object) => {
       } else if (chave === "deficiencia_descricao") {
         document.getElementById(
           `msg-fracasso`
-        ).innerHTML = `<p>Campo descreva a deficiência inválido!</p>`;
+        ).innerHTML = `<p>Campo descreva a necessidade especial inválido!</p>`;
         break
       } else if (chave === "nome_social") {
         document.getElementById(
@@ -1006,6 +1054,25 @@ const erroInput = (object) => {
         document.getElementById(
           `msg-fracasso`
         ).innerHTML = `<p>Campo CPF pai inválido!</p>`;
+        break
+      } else if (chave === "deficiencia") {
+        // O select no formDataBasic.ejs tem o label
+        // "Possui alguma necessidade especial?" e o name/id
+        // `deficiencias` (contrato com backend e CSS).
+        // Para a mensagem ao usuario usamos o termo amigavel
+        // "necessidade especial".
+        document.getElementById(
+          `msg-fracasso`
+        ).innerHTML = `<p>Campo necessidade especial inválido!</p>`;
+        break
+      } else if (chave === "genero") {
+        // O radio no formDataBasic.ejs tem o titulo
+        // "Qual a sua identidade de genero?" e o name `genero`
+        // (contrato com backend). Para a mensagem ao usuario usamos
+        // o termo amigavel "identidade de genero".
+        document.getElementById(
+          `msg-fracasso`
+        ).innerHTML = `<p>Campo identidade de gênero inválido!</p>`;
         break
       } else {
         document.getElementById(
@@ -1066,7 +1133,7 @@ const erroSelect = (select) => {
       } else {
         document.getElementById(
           `msg-fracasso`
-        ).innerHTML = `<p>Selecione uma opção em "Possui alguma deficiência?"!</p>`;
+        ).innerHTML = `<p>Selecione uma opção em "Possui alguma necessidade especial?"!</p>`;
         break
       }
     }
@@ -1087,10 +1154,24 @@ const erroInputAddress = (object) => {
         ).innerHTML = `<p>Campo telefone 2 inválido!</p>`;
         break
       } else {
+        // Mapa de chaves do formulario de Endereco -> rotulo amigavel.
+        // Mantemos o fallback generico para chaves novas/nao mapeadas.
+        const rotulosEndereco = {
+          cep: "CEP",
+          logradouro: "logradouro",
+          numero: "número",
+          complemento: "complemento",
+          bairro: "bairro",
+          cidade: "cidade",
+          uf: "UF",
+          email: "e-mail",
+          linkedin: "LinkedIn",
+          instagram: "Instagram",
+        };
+        const rotulo = rotulosEndereco[chave] || chave;
         document.getElementById(
           `msg-fracasso-address`
-        ).innerHTML = `<p>Campo ${chave} inválido!</p>`;
-        console.log(object[chave]);
+        ).innerHTML = `<p>Campo ${rotulo} inválido!</p>`;
         break
       }
     }
@@ -1113,9 +1194,22 @@ const erroInputSocioEconomic = (object) => {
         removerMensagem(`msg-fracasso-socio-economy`)
         break
       } else {
+        // Mapa de chaves do formulario Socioeconomico -> rotulo amigavel.
+        // Mantemos o fallback generico para chaves novas/nao mapeadas.
+        const rotulosSocio = {
+          aprendiz: "Você já foi aprendiz?",
+          responsavel: "responsável",
+          imovel: "reside em imóvel",
+          pessoas: "pessoas do grupo familiar",
+          filhos: "filhos",
+          genero: "identidade de gênero",
+          etnia: "Como você se declara",
+          situacao_judicial: "situação judicial",
+        };
+        const rotulo = rotulosSocio[chave] || chave;
         document.getElementById(
           `msg-fracasso-socio-economy`
-        ).innerHTML = `<p>Campo ${chave} inválido!</p>`;
+        ).innerHTML = `<p>Campo ${rotulo} inválido!</p>`;
         removerMensagem(`msg-fracasso-socio-economy`)
         break
       }
@@ -1271,6 +1365,9 @@ module.exports = {
   erroInputAddress,
   erroSelectSchool,
   isCpf,
+  cpfsConflitam,
+  MSG_VALOR_DUPLICADO,
+  MSG_VALOR_NAO_PERMITIDO,
   isNome,
   changeMains,
   changeSubMainTitle,
@@ -1284,6 +1381,7 @@ module.exports = {
   isEstadoCivil,
   isDate,
   isSexo,
+  isGenero,
   isUfNaturalidade,
   isDeficiente,
   isDescricao,

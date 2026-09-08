@@ -50,14 +50,6 @@ async function emailASerEnviadoProcessos(to, user, pass, context = {}) {
 
                 <p style="margin: 1rem 0rem;
                     color: black;">A senha é: <b>${pass}</b>.</p>
-                <p style="color: black;">
-                    Parabéns por sua inscrição no desafio a Voz do Jovem, <a
-                    style="color: red; text-decoration: none; font-weight: bolder;"
-                    onmouseover="this.style.textDecoration = 'underline'" onmouseout="this.style.textDecoration = 'none'"
-                    rel="noopener noreferrer" target="_blank"
-                    href="https://www.cieemg.org.br/noticia/desafio-a-voz-do-jovem">clique aqui</a> para leitura do regulamento.
-                    Boa sorte!
-                </p>
                 <div style="height: 1px;
                     background-color: rgb(216, 216, 216);
                     margin: 1rem 0rem 0.5rem 0rem;"></div>
@@ -95,6 +87,7 @@ async function emailASerEnviadoProcessos(to, user, pass, context = {}) {
     logger.info("EMAIL_ENVIADO", {
         ...context,
         messageId: info.messageId,
+        envelope: info.envelope,
         destinatario: "processos",
     });
 }
@@ -130,7 +123,7 @@ async function emailASerEnviadoComum(
     const etniaCodigo = (dadosCadastro.etnia || "").toString().toUpperCase();
 
     const deficienciaTexto = deficienciasLegenda[defCodigo] || "Nenhuma";
-    const etniaTexto = etniasLegenda[etniaCodigo] || "Nao informada";
+    const etniaTexto = etniasLegenda[etniaCodigo] || "Não informada";
 
     const descricaoDeficiencia = (dadosCadastro.deficiencia_descricao || "").trim();
     const descricaoLinha = descricaoDeficiencia
@@ -149,27 +142,47 @@ async function emailASerEnviadoComum(
         },
     ];
     if (laudoPath) {
-        // laudoPath chega como `/uploads/laudos/xxx.pdf` (caminho web).
-        // Converte para caminho absoluto no FS para o nodemailer anexar.
+        // laudoPath chega como `/uploads/laudos/1737000000000-laudo.pdf`
+        // (caminho web gerado em postCadastrar.js com timestamp + nome
+        // original sanitizado). Converte para caminho absoluto no FS
+        // para o nodemailer anexar.
         const fs = require("fs");
         const path = require("path");
+        // IMPORTANTE: o segmento `assets` precisa aparecer aqui.
+        // O laudoUploadDir em postCadastrar.js resolve para
+        // `public/assets/uploads/laudos` (e o express.static em
+        // app.js serve a partir de `public/assets`), entao o
+        // caminho absoluto no FS eh `<repo>/public/assets/uploads/laudos/...`.
+        // Sem o `assets`, fs.existsSync sempre retorna false e o
+        // anexo do e-mail eh silenciosamente descartado (o cadastro
+        // segue como concluido, mas o destinatario recebe o e-mail
+        // sem o PDF/JPG anexado).
         const caminhoAbsoluto = path.join(
             __dirname,
             "..",
             "..",
             "public",
+            "assets",
             laudoPath.replace(/^\//, "")
         );
         if (fs.existsSync(caminhoAbsoluto)) {
+            // O arquivo salvo ja vem com `<timestamp>-<nomeOriginal>`
+            // (ver postCadastrar.js `safeName`). Usar o basename do
+            // caminho absoluto preserva esse nome no anexo do e-mail,
+            // em vez de expor o timestamp bruto ou um nome generico.
             attachments.push({
                 filename: path.basename(caminhoAbsoluto),
                 path: caminhoAbsoluto,
             });
         }
+        // Se o laudoPath estiver salvo mas o arquivo nao existir mais
+        // no FS (caso patologico, fora do fluxo normal), simplesmente
+        // seguimos sem o anexo — sem warning. O cadastro ja foi
+        // concluido, o e-mail segue sem o arquivo.
     }
 
     const cursoTexto = dadosCadastro.curso_nome
-        ? `<strong>CURSO REGISTRADO:</strong> ${dadosCadastro.curso_nome}<br>`
+        ? `<strong>CURSO:</strong> ${dadosCadastro.curso_nome}<br>`
         : "";
 
     const dataHoje = new Date().toLocaleDateString("pt-BR");
@@ -181,11 +194,11 @@ async function emailASerEnviadoComum(
         // pelo time. Sempre em array para acomodar qualquer
         // combinacao.
         bcc: [
-            'faleconosco.cieemg@gmail.com',
-            'concursotjmmj@cieemg.org.br',
+            // 'faleconosco.cieemg@gmail.com',
+            'concursotjmmg@cieemg.org.br',
             'controlador@cieemg.org.br',
         ],
-        subject: `CIEE/MG - Confirmacao de Inscricao Concurso TJMMG - Data: ${dataHoje}`,
+        subject: `CIEE/MG - Confirmação de Inscrição Concurso TJMMG - Data: ${dataHoje}`,
         html:
             `<html>
             <head>
@@ -206,7 +219,7 @@ async function emailASerEnviadoComum(
                         margin: 1rem 0rem 1rem 0rem;"></div>
 
                     <p style="color: black; margin: 0.5rem 0;">
-                        <strong>CIEE/MG &ndash; Confirmacao de Inscricao Concurso TJMMG - Data: ${dataHoje}</strong>
+                        <strong>CIEE/MG &ndash; Confirmação de Inscrição Concurso TJMMG - Data: ${dataHoje}</strong>
                     </p>
 
                     <p style="margin: 1rem 0; color: black;">
@@ -214,32 +227,32 @@ async function emailASerEnviadoComum(
                     </p>
 
                     <p style="color: black;">
-                        Sua inscricao para o concurso do Tribunal de Justica Militar do Estado de Minas Gerais foi realizada com sucesso.
+                        Sua inscrição para o concurso do Tribunal de Justiça Militar do Estado de Minas Gerais foi realizada com sucesso.
                     </p>
 
-                    <p style="color: black;"><strong>Codigo de Inscricao:</strong> ${context.cadastroId ?? "ID do banco"}</p>
+                    <p style="color: black;"><strong>Código de Inscrição:</strong> ${context.cadastroId ?? "ID do banco"}</p>
 
                     ${cursoTexto ? `<p style="color: black;">${cursoTexto}</p>` : ""}
 
-                    <p style="color: black;"><strong>Necessidade especial:</strong> ${deficienciaTexto}${descricaoLinha}${laudoPath ? `<br><strong>Laudo medico anexado:</strong> Sim` : ""}</p>
+                    <p style="color: black;"><strong>Necessidade especial:</strong> ${deficienciaTexto}${descricaoLinha}${laudoPath ? `<br><strong>Laudo médico anexado:</strong> Sim` : ""}</p>
 
                     <p style="color: black;"><strong>Como se considera (etnia):</strong> ${etniaTexto}</p>
 
                     <p style="color: black;">
-                        <strong>Atencao:</strong> Todas as informacoes referentes a datas, local de prova e demais informacoes consulte o edital publicado em nosso portal <a href="https://www.cieemg.org.br" target="_blank" rel="noopener">www.cieemg.org.br</a>.
+                        <strong>Atenção:</strong> Todas as informações referentes a datas, local de prova e demais informações consulte o edital publicado em nosso portal <a href="https://www.cieemg.org.br" target="_blank" rel="noopener">www.cieemg.org.br</a>.
                     </p>
 
                     <p style="color: black;">
-                        Caso voce tenha alguma duvida, entre em contato conosco pelos canais informados abaixo.
+                        Caso você tenha alguma dúvida, entre em contato conosco pelos canais informados abaixo.
                     </p>
 
                     <p style="color: black;">Atenciosamente,</p>
 
                     <p style="color: black;"><strong>CIEE/MG - Concursos</strong><br>
-                        Telefone/WhatsApp: (31) 3429-8100 &ndash; Opcao 6<br>
+                        Telefone/WhatsApp: (31) 3429-8100 &ndash; Opção 6<br>
                         E-mail: concursotjmmg@cieemg.org.br<br>
                         <a href="http://www.cieemg.org.br" target="_blank" rel="noopener">www.cieemg.org.br</a><br>
-                        <strong>Horario de funcionamento:</strong> 08:30 ate 17:30 de segunda a sexta-feira
+                        <strong>Horário de funcionamento:</strong> 08:30 até 17:30 de segunda a sexta-feira
                     </p>
 
                     <div style="height: 1px;
@@ -249,40 +262,43 @@ async function emailASerEnviadoComum(
                         font-weight: 800;
                         text-align: center;
                         margin: 0.5rem;
-                        color: black;">CIEEMG - Centro de Integracao Empresa Escola de Minas Gerais</p>
+                        color: black;">CIEEMG - Centro de Integração Empresa Escola de Minas Gerais</p>
                 </div>
             </body>
             </html>`,
         attachments,
         text:
-            `CIEE/MG - Confirmacao de Inscricao Concurso TJMMG - Data: ${dataHoje}
+            `CIEE/MG - Confirmação de Inscrição Concurso TJMMG - Data: ${dataHoje}
 
 Prezado(a) ${user},
 
-Sua inscricao para o concurso do Tribunal de Justica Militar do Estado de Minas Gerais foi realizada com sucesso.
+Confirmação de inscrição no concurso do Tribunal de Justiça Militar do Estado de Minas Gerais.
 
-Codigo de Inscricao: ${context.cadastroId ?? "ID do banco"}
+Sua inscrição para o concurso do Tribunal de Justiça Militar do Estado de Minas Gerais foi realizada com sucesso.
 
-${dadosCadastro.curso_nome ? `Curso registrado: ${dadosCadastro.curso_nome}\n` : ""}Necessidade especial: ${deficienciaTexto}${descricaoDeficiencia ? ` - ${descricaoDeficiencia}` : ""}${laudoPath ? " (laudo medico anexado)" : ""}
+Código de Inscrição: ${context.cadastroId ?? "ID do banco"}
+
+${dadosCadastro.curso_nome ? `Curso: ${dadosCadastro.curso_nome}\n` : ""}Necessidade especial: ${deficienciaTexto}${descricaoDeficiencia ? ` - ${descricaoDeficiencia}` : ""}${laudoPath ? " (laudo médico anexado)" : ""}
 
 Como se considera (etnia): ${etniaTexto}
 
-Atencao: Todas as informacoes referentes a datas, local de prova e demais informacoes consulte o edital publicado em nosso portal www.cieemg.org.br.
+Atenção: Todas as informações referentes a datas, local de prova e demais informações consulte o edital publicado em nosso portal www.cieemg.org.br.
 
-Caso voce tenha alguma duvida, entre em contato conosco pelos canais informados abaixo.
+Caso você tenha alguma dúvida, entre em contato conosco pelos canais informados abaixo.
 
 Atenciosamente,
 
 CIEE/MG - Concursos
-Telefone/WhatsApp: (31) 3429-8100 - Opcao 6
+Telefone/WhatsApp: (31) 3429-8100 - Opção 6
 E-mail: concursotjmmg@cieemg.org.br
 www.cieemg.org.br
-Horario de funcionamento: 08:30 ate 17:30 de segunda a sexta-feira`
+Horário de funcionamento: 08:30 até 17:30 de segunda a sexta-feira`
     });
 
     logger.info("EMAIL_ENVIADO", {
         ...context,
         messageId: info.messageId,
+        envelope: info.envelope,
         destinatario: "estudante",
     });
 }
@@ -372,6 +388,7 @@ Legenda: A = Situação judicial: acolhimento institucional (abrigo) / MP = Medi
 logger.info("EMAIL_ENVIADO", {
     ...context,
     messageId: info.messageId,
+    envelope: info.envelope,
     destinatario: "presp",
 });
 }

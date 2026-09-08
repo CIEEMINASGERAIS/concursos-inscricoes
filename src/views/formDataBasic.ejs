@@ -1,4 +1,4 @@
-<form class="form-data">
+<form class="form-data" novalidate>
   <div class="div-number-1">
     <div class="div-name">
       <label for="name">Nome</label>
@@ -30,7 +30,7 @@
     </div>
 
     <div class="div-rg hide">
-      <label for="rg">RG</label>
+      <label for="rg">RG (Somente números)</label>
       <input type="text" name="rg" class="rg" placeholder="RG" id="rg" maxlength="15" />
       <p class="obrigatorio">Obrigatório</p>
       <span id="msg-rg"></span>
@@ -111,9 +111,10 @@
         <option value="" selected disabled>Selecione</option>
         <option value="S" name="solteiro">Solteiro(a)</option>
         <option value="C" name="casado">Casado(a)</option>
-        <option value="A" name="amaziado">Amaziado(a)</option>
+        <option value="A" name="amasiado">Amasiado(a)</option>
         <option value="D" name="divorciado">Divorciado(a)</option>
         <option value="V" name="viuvo">Viúvo(a)</option>
+        <option value="P" name="separado">Separado(a)</option>
       </select>
       <p class="obrigatorio">Obrigatório</p>
       <span id="msg-estado-civil"></span>
@@ -133,16 +134,31 @@
             <h4 class="label-title">7. Qual a sua identidade de gênero? <span
                     class="span-obrigatorio">Obrigatório</span></h4>
             <div class="form-check">
-                <input type="radio" class="form-check-input" id="cisgenero" name="genero" value="C" required>
-                <label for="cisgenero" class="form-check-label">Cisgênero: pessoa que se identifica com as
-                    características do
-                    sexo designado a ela no nascimento </label>
+                <input type="radio" class="form-check-input genero-radio" id="genero-homem" name="genero" value="H" required>
+                <label for="genero-homem" class="form-check-label">Homem</label>
             </div>
             <div class="form-check">
-                <input type="radio" class="form-check-input" id="transgenero" name="genero" value="T" required>
-                <label for="transgenero" class="form-check-label">Transgênero: pessoa que não se identifica com
-                    ascaracterísticas
-                    do sexo designado a elano nascimento</label>
+                <input type="radio" class="form-check-input genero-radio" id="genero-mulher" name="genero" value="M" required>
+                <label for="genero-mulher" class="form-check-label">Mulher</label>
+            </div>
+            <div class="form-check">
+                <input type="radio" class="form-check-input genero-radio" id="genero-nao-binario" name="genero" value="N" required>
+                <label for="genero-nao-binario" class="form-check-label">Não binário</label>
+            </div>
+            <div class="form-check">
+                <input type="radio" class="form-check-input genero-radio" id="genero-prefiro-nao-responder" name="genero" value="P" required>
+                <label for="genero-prefiro-nao-responder" class="form-check-label">Prefiro não responder</label>
+            </div>
+            <div class="form-check">
+                <input type="radio" class="form-check-input genero-radio" id="genero-autodescrever" name="genero" value="A" required>
+                <label for="genero-autodescrever" class="form-check-label">Prefiro me autodescrever</label>
+            </div>
+            <div class="div-genero-descricao hide" id="div-genero-descricao">
+                <label for="genero-descricao" class="genero-descricao-label">Descreva sua identidade de gênero</label>
+                <input type="text" name="genero_descricao" class="genero-descricao-input" id="genero-descricao"
+                    placeholder="Como você se identifica?" maxlength="255" />
+                <p class="obrigatorio">Obrigatório</p>
+                <span id="msg-genero-descricao"></span>
             </div>
         </div>
 
@@ -179,6 +195,8 @@
         <option value="" disabled selected>Selecione</option>
         <option value="M" name="masculino">Masculino</option>
         <option value="F" name="feminino">Feminino</option>
+        <option value="I" name="intersexo">Intersexo</option>
+        <option value="P" name="prefiro-nao-responder">Prefiro não responder</option>
       </select>
       <p class="obrigatorio">Obrigatório</p>
       <span id="msg-sexo"></span>
@@ -207,8 +225,11 @@
     <div id="div-laudo-deficiencia" class="hide">
       <label for="laudo-deficiencia">Anexe o Laudo Médico (Não obrigatório):</label>
       <input type="file" name="laudo_deficiencia" class="laudo-deficiencia form-control" id="laudo-deficiencia"
-        placeholder="Anexe o laudo médico" maxlength="255" />
+        placeholder="Anexe o laudo médico" maxlength="255"
+        accept="image/*,application/pdf" data-max-size="5242880" />
       <p class="obrigatorio">Não obrigatório</p>
+      <p class="laudo-limite-arquivo">Formatos aceitos: imagens ou PDF. Tamanho máximo: 5 MB.</p>
+      <span id="msg-laudo-limite" class="msg-laudo-limite"></span>
     </div>
     <span id="msg-descricao"></span>
   </div>
@@ -219,3 +240,12 @@
     <button class="button-advanced-data-basic" type="submit">Avançar</button>
   </div>
 </form>
+<div class="laudo-found" id="laudo-modal" role="dialog" aria-modal="true" aria-labelledby="laudo-modal-titulo" hidden>
+  <div class="alert-laudo">
+    <h1 id="laudo-modal-titulo">Upload do laudo não permitido</h1>
+    <p id="laudo-modal-mensagem">O arquivo selecionado não é válido. Verifique os formatos e o tamanho permitidos.</p>
+    <div class="button-confirm">
+      <button type="button" class="button-confirm-laudo" id="laudo-modal-fechar">Fechar</button>
+    </div>
+  </div>
+</div>

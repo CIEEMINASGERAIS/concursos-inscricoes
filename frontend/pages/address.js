@@ -368,6 +368,14 @@ async function initAddress() {
 
     const email = document.getElementById('email')
 
+    // Variáveis de controle do debounce/validação. São usadas tanto pelo
+    // listener `input` quanto pelo handler de submit (que precisa saber
+    // se ainda há uma checagem em curso ou pendente).
+    let emailTimer = null;
+    let emailInFlight = false;
+    let emailLastChecked = null;
+    let emailLastCheckedValue = null;
+
     if (email) {
 
       let validateInput, validateFocus
@@ -377,47 +385,48 @@ async function initAddress() {
         validateInput = isEmail(e.target.value)
 
         if (validateInput) {
-          // Enviar para o HTML a mensagem de erro
-          document.getElementById('msg-email').innerHTML = ""
+          // Formato OK. Limpa erro de formato e agenda checagem no backend.
+          document.getElementById('msg-email').innerHTML = "";
+          if (emailTimer) clearTimeout(emailTimer);
+          emailTimer = setTimeout(async () => {
+            if (emailInFlight) return;
+            emailInFlight = true;
+            const valorChecado = email.value;
+            try {
+              const resultado = await emailBd(valorChecado);
+              // Só aplica o resultado se o usuário não tiver mexido no
+              // campo enquanto esperávamos o backend responder.
+              if (email.value !== valorChecado) return;
+              if (resultado.status === "ok") {
+                if (isEmail(email.value)) {
+                  formDataAddress.email = email.value;
+                  document.getElementById('msg-email').innerHTML = "";
+                  emailLastChecked = Date.now();
+                  emailLastCheckedValue = email.value;
+                }
+              } else if (resultado.status === "duplicado") {
+                formDataAddress.email = false;
+                document.getElementById('msg-email').innerHTML =
+                  `<span><p>${resultado.mensagem || "E-mail já cadastrado!"}</p></span>`;
+              } else if (resultado.status === "falha_rede") {
+                formDataAddress.email = false;
+                document.getElementById('msg-email').innerHTML =
+                  `<span><p>${resultado.mensagem}</p></span>`;
+              }
+            } finally {
+              emailInFlight = false;
+            }
+          }, 400);
         } else {
           e.preventDefault()
           // Enviar para o HTML a mensagem de erro
           document.getElementById('msg-email').innerHTML =
-            "<span><p>Email inválido!</p></span>"
+            "<span><p>E-mail inválido!</p></span>"
           formDataAddress.email = false
+          if (emailTimer) clearTimeout(emailTimer);
         }
       })
 
-      email.onblur = async () => {
-        const submits = document.querySelector('.div-buttons-address');
-
-        submits.style.display = 'none';
-
-        document.getElementById('msg-email').innerHTML = "<span>Carregando...</span>"
-
-        formDataAddress.email = false;
-
-        validateFocus = await emailBd(email.value);
-
-        setTimeout(() => {
-          submits.style.display = 'flex';
-          submits.style.alignItems = 'center';
-          if (validateFocus) {
-            document.getElementById('msg-email').innerHTML = ""
-          } else {
-            if (email.value.length !== 0) {
-              document.getElementById('msg-email').innerHTML =
-                "<span><p>Email já cadastrado!</p></span>"
-            } else {
-              document.getElementById('msg-email').innerHTML = "";
-            }
-          }
-
-          if (validateFocus === true && validateInput === true) {
-            formDataAddress.email = email.value
-          }
-        }, 1000)
-      }
     }
 
     const linkedin = document.getElementById('linkedin')
@@ -451,14 +460,52 @@ async function initAddress() {
           formDataAddress.instagram = instagramInput.value.trim()
         }
 
+        // Garante que o email foi validado contra o backend antes de
+        // submeter. Sem o `onblur` (removido), o único caminho é o
+        // listener `input` — então precisamos cobrir o caso do usuário
+        // clicar em "Avançar" antes do debounce de 400ms disparar.
+        if (email && isEmail(email.value)) {
+          const valorAtual = email.value;
+          const checagemEmCurso =
+            emailTimer !== null || emailInFlight;
+          const precisaChecar =
+            checagemEmCurso ||
+            emailLastCheckedValue !== valorAtual;
+
+          if (precisaChecar) {
+            // Cancela o debounce pendente para não rodar duas vezes.
+            if (emailTimer) {
+              clearTimeout(emailTimer);
+              emailTimer = null;
+            }
+            document.getElementById('msg-email').innerHTML =
+              "<span>Verificando e-mail...</span>";
+            formDataAddress.email = false;
+
+            const resultado = await emailBd(valorAtual);
+            if (resultado.status === "ok" && email.value === valorAtual) {
+              formDataAddress.email = email.value;
+              document.getElementById('msg-email').innerHTML = "";
+              emailLastChecked = Date.now();
+              emailLastCheckedValue = email.value;
+            } else if (resultado.status === "duplicado") {
+              document.getElementById('msg-email').innerHTML =
+                `<span><p>${resultado.mensagem || "E-mail já cadastrado!"}</p></span>`;
+            } else if (resultado.status === "falha_rede") {
+              document.getElementById('msg-email').innerHTML =
+                `<span><p>${resultado.mensagem}</p></span>`;
+            }
+          }
+        }
+
         if (
           formDataAddress.cep && formDataAddress.logradouro && formDataAddress.numero && formDataAddress.uf
-          && formDataAddress.bairro && formDataAddress.cidade && formDataAddress.telefone1 && formDataAddress.telefone2
+          && formDataAddress.bairro && formDataAddress.cidade && formDataAddress.telefone1
           && formDataAddress.email
           // formDataAddress
         ) {
           changeMains('.screen-school-data')
-          changeSubMainTitle('Formulário de Dados Acadêmicos')
+          changeSubMainTitle('Formulário de Dados de Cursos')
           resolve(formDataAddress)
         } else {
           erroInputAddress(formDataAddress)

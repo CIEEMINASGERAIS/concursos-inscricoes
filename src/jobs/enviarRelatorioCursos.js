@@ -141,7 +141,7 @@ function renderHtmlCompleto({ linhas, total }) {
             </p>
 
             <p style="color: black; margin: 0.5rem 0;">
-                Período de Inscrições: das 8h do dia 02/09/2026 até as 23h59 do dia 21/09/2026 (horário de Brasília).
+                Período de Inscrições: das 8h do dia 02/09/2026 até as 23h59 do dia 05/10/2026 (horário de Brasília).
             </p>
 
             <p style="color: black;">
@@ -181,7 +181,8 @@ function renderTextoPlano({ linhas, total }) {
     const header =
         "CIEE/MG - Relatório de Cadastros Realizados para o Concurso TJMMG\n" +
         `Data: ${new Date().toLocaleDateString("pt-BR")}\n` +
-        "Período de Inscrições: das 8h do dia 02/09/2026 até as 23h59 do dia 21/09/2026 (horário de Brasília).\n\n";
+        "Período de Inscrições: das 8h do dia 02/09/2026 até as 23h59 do dia 05/10/2026 (horário de Brasília).\n";
+        "Data de Aplicação da Prova: 18/10/2026, às 09h30, com duração de 2 horas.\n\n";
 
     const corpo =
         linhas.length === 0

@@ -185,6 +185,31 @@ async function emailASerEnviadoComum(
         ? `<strong>CURSO:</strong> ${dadosCadastro.curso_nome}<br>`
         : "";
 
+    // =====================================================================
+    // AVISO DE CURSO SIMILAR (ÁREA DE TECNOLOGIA)
+    // Quando o usuário selecionou um curso "similar" (valores 13 ou 15
+    // na cascata de #tipo — ver frontend/pages/schoolData.js) e
+    // confirmou no modal de ciência, gravamos
+    // `ciente_curso_tecnologia = 1`. Aqui transformamos isso numa
+    // nota destacada no e-mail, tanto na versão HTML quanto na
+    // versão texto puro. Se o valor for null/undefined (curso
+    // normal) ou qualquer coisa diferente de 1, o bloco simplesmente
+    // não aparece — mantendo o e-mail padrão para os demais casos.
+    // =====================================================================
+    const cienteCursoTecnologia =
+        dadosCadastro.ciente_curso_tecnologia === 1;
+
+    const cursoTecnologiaTextoHTML = cienteCursoTecnologia
+        ? `<p style="color: black; margin: 0.75rem 0; padding: 0.6rem 0.8rem;
+                border-left: 4px solid #f0ad4e; background-color: #fcf8e3;">
+            <strong>Atenção:</strong> O curso informado na inscrição foi declarado como similar à área de Tecnologia, nos termos do edital. Entretanto, esclarece-se que o enquadramento de cursos similares é restrito aos cursos vinculados à área de Tecnologia, não abrangendo cursos pertencentes a outras áreas de conhecimento.
+          </p>`
+        : "";
+
+    const cursoTecnologiaTexto = cienteCursoTecnologia
+        ? `\nAtenção: O curso informado na inscrição foi declarado como similar à área de Tecnologia, nos termos do edital. Entretanto, esclarece-se que o enquadramento de cursos similares é restrito aos cursos vinculados à área de Tecnologia, não abrangendo cursos pertencentes a outras áreas de conhecimento.\n`
+        : "";
+
     const dataHoje = new Date().toLocaleDateString("pt-BR");
 
     const info = await tranposter.sendMail({
@@ -234,6 +259,8 @@ async function emailASerEnviadoComum(
 
                     ${cursoTexto ? `<p style="color: black;">${cursoTexto}</p>` : ""}
 
+                    ${cursoTecnologiaTextoHTML}
+
                     <p style="color: black;"><strong>Necessidade especial:</strong> ${deficienciaTexto}${descricaoLinha}${laudoPath ? `<br><strong>Laudo médico anexado:</strong> Sim` : ""}</p>
 
                     <p style="color: black;"><strong>Como se considera (etnia):</strong> ${etniaTexto}</p>
@@ -278,7 +305,7 @@ Sua inscrição para o concurso do Tribunal de Justiça Militar do Estado de Min
 
 Código de Inscrição: ${context.cadastroId ?? "ID do banco"}
 
-${dadosCadastro.curso_nome ? `Curso: ${dadosCadastro.curso_nome}\n` : ""}Necessidade especial: ${deficienciaTexto}${descricaoDeficiencia ? ` - ${descricaoDeficiencia}` : ""}${laudoPath ? " (laudo médico anexado)" : ""}
+${dadosCadastro.curso_nome ? `Curso: ${dadosCadastro.curso_nome}\n` : ""}${cursoTecnologiaTexto}Necessidade especial: ${deficienciaTexto}${descricaoDeficiencia ? ` - ${descricaoDeficiencia}` : ""}${laudoPath ? " (laudo médico anexado)" : ""}
 
 Como se considera (etnia): ${etniaTexto}
 

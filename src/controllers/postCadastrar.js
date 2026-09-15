@@ -119,6 +119,21 @@ async function enviarEmailsPosCadastro(req, estudante, contextoBase, laudoUrl = 
                 deficiencia_descricao: req.body.deficiencia_descricao || "",
                 etnia: req.body.etnia || "",
                 laudo_deficiencia: laudoUrl || req.body.laudo_deficiencia || null,
+                // 1 = usuário confirmou no modal de ciência (curso
+                // similar 13 ou 15). null = não se aplica (curso
+                // normal).
+                // ATENCAO: a funcao `enviarEmailsPosCadastro` eh
+                // definida FORA do `try` de `postRegister`, portanto
+                // nao enxerga a variavel local `payload`. Leio de
+                // `req.body` (mesma origem) e normalizo aqui — mesmo
+                // criterio usado no controller principal. Se o valor
+                // vier true/false/"1"/"0"/etc., cai pra 1 ou null.
+                ciente_curso_tecnologia: (() => {
+                    const v = req.body.ciente_curso_tecnologia;
+                    if (v === true || v === 1 || v === "1") return 1;
+                    if (v === false || v === 0 || v === "0") return null;
+                    return null; // null/undefined/""/outros
+                })(),
             }
         );
 
@@ -212,6 +227,42 @@ async function postRegister(req, res) {
             ...req.body,
             laudo_deficiencia: laudoUrl,
         };
+
+        // =====================================================================
+        // CIENTE_CURSO_TECNOLOGIA
+        // O frontend (schoolData.js) envia esse campo como:
+        //   1   — usuário confirmou no modal "Tenho certeza" (curso 13/15)
+        //   null — curso não é "similar", campo oculto (regra de negócio:
+        //          não se aplica)
+        // Por segurança, normalizamos aqui:
+        //   true  -> 1   (caso alguém envie JS boolean)
+        //   false -> null (caso chegue, tratamos como "não se aplica")
+        //   undefined/null -> null (não quebrar o INSERT)
+        //   numero 1 ou 0 -> preservado
+        // O INSERT é seguro: a coluna é TINYINT(1) nullable, então 1/null
+        // cabem sem validação extra no model (allowNull: true).
+        // =====================================================================
+        if ("ciente_curso_tecnologia" in payload) {
+            const v = payload.ciente_curso_tecnologia;
+            if (v === true || v === 1 || v === "1") {
+                payload.ciente_curso_tecnologia = 1;
+            } else if (v === false || v === 0 || v === "0") {
+                payload.ciente_curso_tecnologia = null;
+            } else if (v === null || v === undefined || v === "") {
+                payload.ciente_curso_tecnologia = null;
+            } else {
+                // Valor inesperado: logamos e zeramos para null a fim de
+                // não quebrar o INSERT com tipo estranho.
+                logger.warn("CIENTE_CURSO_TECNOLOGIA_VALOR_INESPERADO", {
+                    ...contextoBase,
+                    valorRecebido: v,
+                });
+                payload.ciente_curso_tecnologia = null;
+            }
+        } else {
+            // Chave ausente no payload: tratamos como "não se aplica".
+            payload.ciente_curso_tecnologia = null;
+        }
 
         // O frontend antigo definia `enviar_email` na tela de avaliação
         // social (removida do fluxo). Como o campo é `allowNull: false`

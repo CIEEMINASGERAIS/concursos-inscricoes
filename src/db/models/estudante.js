@@ -620,6 +620,21 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING(1),
         allowNull: true,
       },
+      // Ciente de que o curso "similar" (valores 13/15 do select #tipo
+      // em schoolData.ejs) exige área de tecnologia conforme edital.
+      //   1 = usuário confirmou no modal "Tenho certeza"
+      //   null = não se aplica (curso não é similar) OU cadastro
+      //          pré-existente à criação da coluna
+      // Não usamos 0: quando o usuário cancela o modal, o front
+      // bloqueia o submit (early return), então o backend nunca vê
+      // esse caso. Manter só 1/null simplifica a auditoria
+      // (ciente = 1; não se aplica = null).
+      // Coluna criada direto no banco via DBeaver; aqui só declaramos
+      // para o Sequelize incluir o campo no INSERT.
+      ciente_curso_tecnologia: {
+        type: DataTypes.TINYINT(1),
+        allowNull: true,
+      },
     },
     {
       timestamps: false,

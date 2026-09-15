@@ -463,6 +463,86 @@ async function createFormSchoolData() {
           // Mesmo motivo: nao bloqueamos o submit.
         }
 
+        // Confirmação obrigatória quando o usuário selecionou um curso
+        // "similar" (value 13 ou 15) e o input #curso-similar está
+        // visível. Só prosseguimos com o envio depois que ele clicar
+        // em "Tenho certeza". O gate `confirmou_curso_tecnologia`
+        // será enviado no payload para o backend persistir/auditar.
+        const cursoSimilarVisivel =
+          divCursoSimilar &&
+          !divCursoSimilar.classList.contains("div-curso-similar-hidden");
+
+        if (cursoSimilarVisivel) {
+          const confirmou = await new Promise((resolveConfirm) => {
+            const modal = document.querySelector(".confirm-curso-tecnologia");
+            const btnConfirmar = modal && modal.querySelector(".button-confirmar-curso");
+            const btnCancelar = modal && modal.querySelector(".button-cancelar-curso");
+
+            if (!modal || !btnConfirmar || !btnCancelar) {
+              // Sem modal no DOM, falhamos em segurança: exige
+              // confirmação manual antes de prosseguir.
+              clientLogger.error("MODAL_CONFIRMACAO_CURSO_AUSENTE");
+              return resolveConfirm(false);
+            }
+
+            const limparListeners = () => {
+              btnConfirmar.removeEventListener("click", onConfirmar);
+              btnCancelar.removeEventListener("click", onCancelar);
+              modal.removeEventListener("click", onBackdrop);
+            };
+
+            const fechar = () => {
+              modal.style.display = "none";
+              document.body.classList.remove("modal-confirm-curso-aberto");
+            };
+
+            function onConfirmar() {
+              limparListeners();
+              fechar();
+              resolveConfirm(true);
+            }
+            function onCancelar() {
+              limparListeners();
+              fechar();
+              resolveConfirm(false);
+            }
+            function onBackdrop(ev) {
+              if (ev.target === modal) {
+                limparListeners();
+                fechar();
+                resolveConfirm(false);
+              }
+            }
+
+            modal.style.display = "flex";
+            document.body.classList.add("modal-confirm-curso-aberto");
+
+            btnConfirmar.addEventListener("click", onConfirmar);
+            btnCancelar.addEventListener("click", onCancelar);
+            modal.addEventListener("click", onBackdrop);
+          });
+
+          // Persistimos a ciência do usuário no payload como `1` (confirmou)
+// ou `null` (não se aplica — campo oculto porque curso não é
+// similar). O backend já normaliza, mas enviar no formato
+// correto evita ruído no log e mantém a convenção da coluna
+// (TINYINT(1) nullable: 1 = sim, null = não se aplica).
+dataFormSchool.ciente_curso_tecnologia = confirmou ? 1 : null;
+
+          if (!confirmou) {
+            clientLogger.info("CADASTRO_CONFIRMACAO_CURSO_CANCELADA", {
+              curso: dataFormSchool.curso,
+              curso_similar: dataFormSchool.curso_similar,
+            });
+            return; // Não envia para a API.
+          }
+        } else {
+          // Campo #curso-similar não está visível: curso não é
+          // similar, então não se aplica. Enviamos null para manter
+          // o banco consistente com cadastros pré-existentes.
+          dataFormSchool.ciente_curso_tecnologia = null;
+        }
+
         try {
           await enviarCadastro(dataFormSchool);
           resolve(dataFormSchool);

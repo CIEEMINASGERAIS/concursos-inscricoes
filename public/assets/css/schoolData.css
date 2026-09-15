@@ -304,6 +304,108 @@
   backdrop-filter: blur(10px);
 }
 
+/*
+ * Overlay do modal de confirmação do curso "similar".
+ * Mesmo padrão visual do `.school-found` (position fixed, blur de
+ * fundo, z-index acima do form). Começa oculto via `display: none`
+ * aqui no CSS; o JS mostra/oculta alterando `style.display`. Não
+ * usamos o atributo HTML5 `hidden` porque o JS precisa alternar
+ * visibilidade várias vezes na mesma sessão sem reparsear o DOM.
+ */
+.confirm-curso-tecnologia {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 5;
+  height: 100%;
+  width: 100%;
+  display: none;
+  backdrop-filter: blur(10px);
+  background-color: rgba(0, 0, 0, 0.25);
+  align-items: center;
+  justify-content: center;
+}
+
+.confirm-curso-tecnologia .alert-confirm-curso {
+  margin: 0 auto;
+  margin-top: 6rem;
+  background-color: white;
+  outline: 2px solid gray;
+  width: 90%;
+  max-width: 32rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1.25rem 1rem 1.5rem 1rem;
+  border-radius: 0.8rem;
+  box-shadow: 0 0.6rem 1.2rem rgba(0, 0, 0, 0.35);
+}
+
+.alert-confirm-curso h1 {
+  font-size: 1.3em;
+  font-weight: 700;
+  margin: 0.5rem auto 0.75rem auto;
+  color: #024089;
+}
+
+.alert-confirm-curso p {
+  margin: 0.5rem auto;
+  font-size: 1em;
+  text-align: center;
+  color: #1f1f1f;
+}
+
+.button-confirm-curso {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1.25rem;
+  flex-wrap: wrap;
+}
+
+.button-cancelar-curso,
+.button-confirmar-curso {
+  background-color: #007bff;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  box-shadow: 0.413rem 0.413rem 0.6rem rgba(0, 0, 0, 0.336);
+  border: solid #0075f3;
+  font-size: 1rem;
+  padding: 0.5rem 2rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  width: auto;
+  min-width: 8rem;
+  text-decoration: none;
+}
+
+.button-cancelar-curso {
+  background-color: #6c757d;
+  border-color: #6c757d;
+}
+
+.button-cancelar-curso:hover {
+  background-color: #5a6268;
+  border-color: #545b62;
+  color: #ffffff;
+}
+
+.button-confirmar-curso:hover {
+  background-color: #005fc4;
+  border-color: #0063cc;
+  color: #ffffff;
+}
+
+.button-cancelar-curso:focus,
+.button-confirmar-curso:focus {
+  outline: none;
+}
+
 .alert-school h1 {
   font-size: 1.2em;
   font-weight: 700;

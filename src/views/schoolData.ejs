@@ -35,18 +35,15 @@
     </div>
   </div>
 
-  <!-- INPUT CONDICIONAL: aparece quando Curso = "Graduação Similar"
-       ou "Nível Médio Similar". Usa classe dedicada
-       `.div-curso-similar-hidden` (com `!important` em schoolData.css)
-       em vez de inline style porque o bootstrap-select força
-       `display: block` no container quando inicializa.
-       `name="curso_similar"` casa com a coluna criada no DBeaver. -->
   <div id="div-curso-similar" class="curso-similar-search matricula-search div-curso-similar-hidden">
     <label for="curso-similar" class="label-curso-similar">Especifique o curso</label>
     <input type="text" name="curso_similar" id="curso-similar" placeholder="Digite o nome do curso"
       class="form-control" maxlength="100"/>
     <p class="obrigatorio">Obrigatório</p>
     <span id="msg-curso-similar"></span>
+    <div class="aviso-pos-finalizar">
+      <p><strong>Atenção:</strong> O curso informado na inscrição foi declarado como similar à área de Tecnologia, nos termos do edital. Entretanto, esclarece-se que o enquadramento de cursos similares é restrito aos cursos vinculados à área de Tecnologia, não abrangendo cursos pertencentes a outras áreas de conhecimento.</p>
+    </div>
   </div>
 
   <span id="msg-fracasso-school"></span>
@@ -180,6 +177,19 @@
     <p>Favor enviar um e-mail para escola@cieemg.org.br informando a sua escola.</p>
     <div class="button-school">
       <button class="button-confirm-school">Confirmar</button>
+    </div>
+  </div>
+</div>
+
+<div class="confirm-curso-tecnologia">
+  <div class="alert-confirm-curso">
+    <h1>Confirmação do curso</h1>
+    <p>Você selecionou um curso da opção <strong>"similar"</strong>.</p>
+    <p>A opção escolhida é apenas para cursos da área de tecnologia conforme edital.</p>
+    <p>Tem certeza de que o curso que você informou é da área de tecnologia?</p>
+    <div class="button-confirm-curso">
+      <button type="button" class="button-cancelar-curso">Voltar</button>
+      <button type="button" class="button-confirmar-curso" data-action="confirmar-curso">Tenho certeza</button>
     </div>
   </div>
 </div>

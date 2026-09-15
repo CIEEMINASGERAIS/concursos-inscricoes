@@ -2,6 +2,7 @@ node_modules
 .env
 dados.txt
 .vscode
+public/assets/js/
 public/assets/uploads/laudos/
 
 # Windows Alternate Data Streams (Zone.Identifier é adicionado pelo Windows

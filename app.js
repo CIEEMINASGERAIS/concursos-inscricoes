@@ -199,4 +199,4 @@ app.listen(process.env.PORT);
 // Agendamento do relatório de cursos por e-mail (America/Sao_Paulo).
 // Roda no mesmo processo do Express (PM2, instância única).
 // Ver `src/jobs/agendarRelatorioCursos.js` para detalhes.
-require("./src/jobs/agendarRelatorioCursos").iniciar();
+// require("./src/jobs/agendarRelatorioCursos").iniciar();  // DESATIVADO em 2026-10-09 — envio automático desligado a pedido do usuário.

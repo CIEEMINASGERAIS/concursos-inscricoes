@@ -26,3 +26,64 @@
     font-size: 0.6rem;
   }
 }
+
+/* Página de "Inscrições encerradas": header (logo) e footer
+   permanecem; apenas uma mensagem centralizada ocupa o conteúdo.
+   O margin-left empurra o conteúdo pra depois da nav-bar lateral
+   (12rem em desktop, 4rem em mobile) preservada no .index.ejs. */
+.screen-main.screen-closed {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(100vh - 120px);
+  margin: 0 0 9.5rem 13rem;
+  padding: 2rem 1rem;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+@media screen and (max-width: 920px) {
+  .screen-main.screen-closed {
+    margin-left: 4.5rem;
+  }
+}
+
+.closed-message {
+  max-width: 640px;
+  margin: 0 auto;
+  color: #024089;
+  font-family: 'Inter', sans-serif;
+}
+
+.closed-title {
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 0 0 1rem;
+  color: #024089;
+}
+
+.closed-text {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #333;
+  margin: 0;
+}
+
+.closed-text a {
+  color: #024089;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.closed-text a:hover {
+  text-decoration: underline;
+}
+
+@media screen and (max-width: 500px) {
+  .closed-title {
+    font-size: 1.5rem;
+  }
+  .closed-text {
+    font-size: 0.9rem;
+  }
+}
